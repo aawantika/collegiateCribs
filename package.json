@@ -1,0 +1,18 @@
+{
+    "name": "collegiateCribs",
+    "version": "0.0.1",
+    "description": "Off-campus housing website for GT and GSU students.",
+    "author": {
+        "name": "Melissa Li, Aawantika Sahu, Andrew Tsai, Vania Xu"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/aawantika/collegiateCribs.git"
+    },
+    "private": true,
+    "dependencies": {
+        "mongoose": "*",
+        "express": "*",
+        "node-uuid": "*"
+    }
+}
