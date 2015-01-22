@@ -13,6 +13,11 @@
     "dependencies": {
         "mongoose": "*",
         "express": "*",
-        "node-uuid": "*"
+        "node-uuid": "*",
+        "passport":"*",
+        "passport-local": "*",
+        "cookie-parser":"*",
+        "body-parser":"*",
+        "express-session":"*"
     }
 }
