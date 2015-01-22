@@ -1,12 +1,13 @@
 //http://code.tutsplus.com/tutorials/authenticating-nodejs-applications-with-passport--cms-21619
+// http://mherman.org/blog/2013/11/11/user-authentication-with-passport-dot-js/
+
 'use strict';
 
 /**
  * Dependencies
  */
 var localStrategy = require('passport-local').Strategy;
-var studentModel = require('../../models/studentModel.js');
-var landlordModel = require('../../models/landlordModel.js');
+var userModel = require('../../models/userModel.js');
 var bCrypt = require('bcrypt-nodejs');
 
 module.exports = function(passport) {
