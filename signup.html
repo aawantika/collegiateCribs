@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sample sign up page </title>
+		<link rel="stylesheet" type="text/css" href="structure.css">
+		<script language="javascript" type="text/javascript">
+			//normally this should be in a separate file, but eh.
+			function toStudent(){
+				var oldStudLord = document.getElementById("studLord");
+				var newLabel= "<label>Campus</label>\n";
+				var newInput= "<input type=\"text\" name=\"campus\">";
+				oldStudLord.innerHTML = newLabel.concat(newInput);
+			}
+			
+			function toLandlord(){
+				var oldStudLord = document.getElementById("studLord");
+				var newLabel="<label>Property</label>\n"
+				var numBed="Number of Bedrooms <input type=\"text\" name=\"numBed\">\n"
+				var numBath="Number of Bathrooms <input type=\"text\" name=\"numBath\">\n"
+				var houseType="Housing type <input type=\"text\" name=\"houseType\">\n"
+				var addr="Address <input type=\"text\" name=\"address\">\n"
+				var avail="Availability <input type=\"text\" name=\"avail\">\n"
+				var price="Pricing <input type=\"text\" name=\"price\">\n"
+				var pets="Pet Policy <input type=\"text\" name=\"pets\">\n"
+				var newForm = newLabel.concat(numBed,numBath,houseType,addr,avail,price,pets);
+				oldStudLord.innerHTML=newForm;
+			}
+		</script>
+	</head>
+	<body>
+		<form id="signup" action="afterSignupTest.php" method="post" class="box">
+			<fieldset>
+				<label>Profile type</label><br>
+				<input type="radio" name="Student" oninput="toStudent()" checked><br>
+				<input type="radio" name="Landlord" oninput="toLandlord()"><br><br>
+				
+				First name
+				<input type="text" name="fname">
+				Last name
+				<input type="text" name="lname"><br>
+				
+				<label>Username</label>
+				<input type="text" name="user"><br>
+				<label>Password</label>
+				<input type="text" name="pass">
+				<label>Password confirm</label>
+				<input type="text" name="passConfirm"><br>
+				
+				E-mail
+				<input type="text" name="email"><br>
+				Phone number
+				<input type="text" name="phone number"><br>
+				<!-- image input here somehow-->
+				
+				<fieldset id="studLord">
+					<label>Campus</label>
+					<input type="text" name="campus">
+				</fieldset>
+			</fieldset>
+			<footer>
+				<input type="button" value="Sign up" onClick="signup.html">
+				<input type="submit" value="Login">
+			</footer>
+		</form>
+		<h1>Login page test</h1>
+	
+		<p> test paragraph</p>
+	</body>
+</html>

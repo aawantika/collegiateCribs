@@ -1,0 +1,18 @@
+/*
+
+login stylesheet test
+
+*/
+
+.box{
+	border:1px dashed;
+	/*webkit is for chrome, moz is for mozilla*/
+	/*border radius specifies rounded borders*/
+	webkit-border-radius:8px;
+	moz-border-radius:8px;
+	border-radius:8px;
+	font-size:20px;
+	font-style:normal;
+	font-family:monospace;
+	text-align:center;
+}
