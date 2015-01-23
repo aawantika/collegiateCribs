@@ -4,7 +4,6 @@
  * Dependencies
  */
 var userModel = require('../../models/userModel.js');
-var accountModel = require('../../models/accountModel.js');
 var generateUuid = require('../../error_checking/generateUuid.js');
 
 function user() {}
@@ -17,14 +16,13 @@ user.prototype.createUser = function(req, res, next) {
     // general
     var body = req.body;
     var profileTypeInput = body.profileType;
-    var firstNameInput = body.firstName;
-    var lastNameInput = body.lastName;
     var usernameInput = body.username;
     var passwordInput = body.password;
-    var phoneInput = body.phone;
+    var firstNameInput = body.firstName;
+    var lastNameInput = body.lastName;
     var emailInput = body.email;
+    var phoneInput = body.phone;
 
-    // student specific
     var campusInput = body.campus;
 
     userModel.findOne({
@@ -34,43 +32,32 @@ user.prototype.createUser = function(req, res, next) {
             res.status(400).send('duplicate username');
             next();
         } else {
-            accountModel.findOne({
+            userModel.findOne({
                 email: emailInput
-            }, function(err, account) {
-                if (account) {
+            }, function(err, email) {
+                if (email) {
                     res.status(400).send('duplicate email');
                     next();
                 } else {
-
-                    // user creation
                     var newUser = new userModel();
-                    newUser.username = usernameInput;
-                    newUser.password = passwordInput;
                     newUser.uuid = uuidInput;
                     newUser.profileType = profileTypeInput;
+                    newUser.username = usernameInput;
+                    newUser.password = passwordInput;
+                    newUser.firstName = firstNameInput;
+                    newUser.lastName = lastNameInput;
+                    newUser.email = emailInput;
+                    newUser.phone = phoneInput;
+
+                    if (profileTypeInput === "student") {
+                        newUser.campus = campusInput;
+                    }
 
                     newUser.save(function(err) {
                         if (err) {
-                            res.status(500).send('error saving');
+                            res.status(500);
                         } else {
-                            res.status(201).send('saved successfully');
-                        }
-                    });
-
-                    var newAccount = new accountModel();
-                    newAccount.uuid = uuidInput;
-                    newAccount.profileType = profileTypeInput;
-                    newAccount.firstName = firstNameInput;
-                    newAccount.lastName = lastNameInput;
-                    newAccount.email = emailInput;
-                    newAccount.phone = phoneInput;
-                    newAccount.campus = campusInput;
-
-                    newAccount.save(function(err) {
-                        if (err) {
-                            res.status(500).send('error saving');
-                        } else {
-                            res.status(201).send('saved successfully');
+                            res.status(201);
                         }
                     });
                     next();
@@ -90,21 +77,8 @@ user.prototype.retrieveUser = function(req, res, next) {
         username: usernameInput
     }, function(err, user) {
         if (user) {
-            accountModel.findOne({
-                uuid: user.uuid
-            }, function(err, account) {
-                if (account) {
-                    var array = new Array();
-                    array.push(user);
-                    array.push(account);
-
-                    res.status(200).send(array);
-                    next();
-                } else {
-                    res.status(400).send('error');
-                    next();
-                }
-            });
+            res.status(200).send(user);
+            next();
         } else {
             res.status(400).send('error');
             next();
@@ -134,40 +108,24 @@ user.prototype.updateUser = function(req, res, next) {
             res.status(404).send("can't find student");
             next();
         } else {
-            accountModel.findOne({
-                uuid: user.uuid
-            }, function(err, account) {
-                if (account) {
+            // save user
+            user.password = passwordInput;
+            user.firstName = firstNameInput;
+            user.lastName = lastNameInput;
+            user.email = emailInput;
 
-                    // save user
-                    user.password = passwordInput;
-                    user.save(function(err) {
-                        if (err) {
-                            res.status(500).send('error saving');
-                        } else {
-                            res.status(201).send('saved successfully');
-                        }
-                    });
+            if (profileTypeInput === "student") {
+                user.campus = campusInput;
+            }
 
-                    // save account
-                    account.firstName = firstNameInput;
-                    account.lastName = lastNameInput;
-                    account.email = emailInput;
-                    account.campus = campusInput;
-
-                    account.save(function(err) {
-                        if (err) {
-                            res.status(500).send('error saving');
-                        } else {
-                            res.status(201).send('saved successfully');
-                        }
-                    });
-                    next();
+            user.save(function(err) {
+                if (err) {
+                    res.status(500).send('error saving');
                 } else {
-                    res.status(400).send('error');
-                    next();
+                    res.status(201).send('saved successfully');
                 }
             });
+            next();
         }
     });
 }
@@ -189,20 +147,9 @@ user.prototype.deleteUser = function(req, res, next) {
             res.status(400).send("invalid password");
             next();
         } else if (user.password === passwordInput) {
-            accountModel.findOne({
-                uuid: user.uuid
-            }, function(err, account) {
-                if (account) {
-                    account.remove();
-                    user.remove();
-
-                    res.status(200);
-                    next();
-                } else {
-                    res.status(400).send('error');
-                    next();
-                }
-            });
+            user.remove();
+            res.status(200);
+            next()
         }
     });
 }
