@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Test Login for Collegiate Cribs</title>
+		<link rel="stylesheet" type="text/css" href="structure.css">
+		<script language="JavaScript" type="text/JavaScript">
+			//normally this should be in a separate file, but eh.
+			function canSubmit(){
+				var user=document.getElementById("user").value;
+				var pass=document.getElementById("pass").value;
+				if(user==""||pass==""){
+					document.getElementById("alert").innerHTML="Please fill in all required fields";
+					return false;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<h1> Login </h1>
+		<form id="login" action="LoginTest.js" method="post">
+			<fieldset>
+				<label>Username</label>
+				<input type="text" name="username" placeholder="username" id="user">
+				<br/>
+				<label>Password</label>
+				<input type="password" name="password" placeholder="password" id="pass">
+			</fieldset>
+			<label id="alert"></label>
+			<footer>
+				<input type="button" value="Sign up" onClick="parent.location = 'signup.html'">
+				<input type="submit" value="Login" onclick="return canSubmit()">
+			</footer>
+		</form>
+	</body>
+</html>
