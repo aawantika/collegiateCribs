@@ -3,9 +3,10 @@
 	<head>
 		<title>Sample sign up page </title>
 		<link rel="stylesheet" type="text/css" href="structure.css">
-		<script language="javascript" type="text/javascript">
+		<script language="JavaScript" type="text/JavaScript">
 			//normally this should be in a separate file, but eh.
 			function toStudent(){
+				console.log("change to Student");
 				var oldStudLord = document.getElementById("studLord");
 				var newLabel= "<label>Campus</label>\n";
 				var newInput= "<input type=\"text\" name=\"campus\">";
@@ -13,57 +14,91 @@
 			}
 			
 			function toLandlord(){
+				//make a drop down for 1-10 properties
+				console.log("change to Landlord");
 				var oldStudLord = document.getElementById("studLord");
-				var newLabel="<label>Property</label>\n"
-				var numBed="Number of Bedrooms <input type=\"text\" name=\"numBed\">\n"
-				var numBath="Number of Bathrooms <input type=\"text\" name=\"numBath\">\n"
-				var houseType="Housing type <input type=\"text\" name=\"houseType\">\n"
-				var addr="Address <input type=\"text\" name=\"address\">\n"
-				var avail="Availability <input type=\"text\" name=\"avail\">\n"
-				var price="Pricing <input type=\"text\" name=\"price\">\n"
-				var pets="Pet Policy <input type=\"text\" name=\"pets\">\n"
+				var newLabel=	"<label>Property</label><br>\n"
+				var numBed=		"Number of Bedrooms <input type=\"text\" name=\"numBed\"><br>\n"
+				var numBath=	"Number of Bathrooms <input type=\"text\" name=\"numBath\"><br>\n"
+				var houseType=	"Housing type <input type=\"text\" name=\"houseType\"><br>\n"
+				var addr=		"Address <input type=\"text\" name=\"address\"><br>\n"
+				var avail=		"Availability <input type=\"text\" name=\"avail\"><br>\n"
+				var price=		"Pricing <input type=\"text\" name=\"price\"><br>\n"
+				var pets=		"Pet Policy <input type=\"text\" name=\"pets\"><br>\n"
 				var newForm = newLabel.concat(numBed,numBath,houseType,addr,avail,price,pets);
 				oldStudLord.innerHTML=newForm;
+			}
+			
+			function canSubmit(){
+				var fname=document.getElementById("fname").value;
+				var lname=document.getElementById("lname").value;
+				var user =document.getElementById("user").value;
+				var pass =document.getElementById("pass").value;
+				var passC=document.getElementById("passConfirm").value;
+				var email=document.getElementById("email").value;
+				if(fname==""||lname==""||user==""||pass==""||passC==""||email==""){
+					var oldLabel = document.getElementById("req");
+					oldLabel.innerHTML="* = required<br>\nPlease fill in all required fields";
+					return false;
+				} else if(pass != passC){
+					var oldLabel = document.getElementById("req");
+					oldLabel.innerHTML="* = required<br>\nPassword confirm does not match Password";
+					return false;
+					
+				}
+			}
+			
+			function passMatch(){
+				var pass =document.getElementById("pass").value;
+				var passC=document.getElementById("passConfirm").value;
+				if(pass !== passC){
+					var oldLabel = document.getElementById("passConLabel");
+					oldLabel.innerHTML="Password* (Password confirm doesn't match Password)";
+				}else if(pass==passC){
+					var oldLabel = document.getElementById("passConLabel");
+					oldLabel.innerHTML="Password confirm*";
+				}
 			}
 		</script>
 	</head>
 	<body>
-		<form id="signup" action="afterSignupTest.php" method="post" class="box">
+		<h1> Create your account </h1>
+		<form id="signup" action="afterSignupTest.php" method="post">
 			<fieldset>
-				<label>Profile type</label><br>
-				<input type="radio" name="Student" oninput="toStudent()" checked><br>
-				<input type="radio" name="Landlord" oninput="toLandlord()"><br><br>
+				<label>Profile type*</label><br>
+				Student
+				<input type="radio" name="profile" value= "Student" onclick="toStudent()" checked><br>
+				Landlord
+				<input type="radio" name="profile" value = "Landlord" onclick="toLandlord()"><br><br>
 				
-				First name
-				<input type="text" name="fname">
-				Last name
-				<input type="text" name="lname"><br>
+				First name*
+				<input type="text" name="fname" id="fname">
+				Last name*
+				<input type="text" name="lname" id="lname"><br>
 				
-				<label>Username</label>
-				<input type="text" name="user"><br>
-				<label>Password</label>
-				<input type="text" name="pass">
-				<label>Password confirm</label>
-				<input type="text" name="passConfirm"><br>
+				<label>Username*</label>
+				<input type="text" name="username" id="user"><br>
+				<label>Password*</label>
+				<input type="password" name="password" id="pass">
+				<label id="passConLabel">Password confirm*</label>
+				<input type="password" name="passwordConfirm" id="passConfirm" onkeyup="passMatch()"><br>
 				
-				E-mail
-				<input type="text" name="email"><br>
+				E-mail*
+				<input type="text" name="email" id="email"><br>
 				Phone number
 				<input type="text" name="phone number"><br>
-				<!-- image input here somehow-->
 				
 				<fieldset id="studLord">
+					<!-- make campus a dropdown, "GSU" or "GT"-->
 					<label>Campus</label>
 					<input type="text" name="campus">
 				</fieldset>
+				<br>
+				<label id="req">* = required</label>
 			</fieldset>
 			<footer>
-				<input type="button" value="Sign up" onClick="signup.html">
-				<input type="submit" value="Login">
+				<input type="submit" value="submit" onclick="return canSubmit()">
 			</footer>
 		</form>
-		<h1>Login page test</h1>
-	
-		<p> test paragraph</p>
 	</body>
 </html>

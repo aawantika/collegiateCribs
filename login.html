@@ -3,29 +3,33 @@
 	<head>
 		<title>Test Login for Collegiate Cribs</title>
 		<link rel="stylesheet" type="text/css" href="structure.css">
-		<!--script language="javascript" type="text/javascript">
+		<script language="JavaScript" type="text/JavaScript">
 			//normally this should be in a separate file, but eh.
-			function submitform("){
-				
+			function canSubmit(){
+				var user=document.getElementById("user").value;
+				var pass=document.getElementById("pass").value;
+				if(user==""||pass==""){
+					document.getElementById("alert").innerHTML="Please fill in all required fields";
+					return false;
+				}
 			}
-		</script-->
+		</script>
 	</head>
 	<body>
-		<form id="login" action="afterLoginTest.php" method="post" class="box">
+		<h1> Login </h1>
+		<form id="login" action="LoginTest.js" method="post">
 			<fieldset>
 				<label>Username</label>
-				<input type="text" name="user" placeholder="username">
+				<input type="text" name="username" placeholder="username" id="user">
 				<br/>
 				<label>Password</label>
-				<input type="text" name="pass" placeholder="password">
+				<input type="password" name="password" placeholder="password" id="pass">
 			</fieldset>
+			<label id="alert"></label>
 			<footer>
-				<input type="button" value="Sign up" onClick="signup.html">
-				<input type="submit" value="Login">
+				<input type="button" value="Sign up" onClick="parent.location = 'signup.html'">
+				<input type="submit" value="Login" onclick="return canSubmit()">
 			</footer>
 		</form>
-		<h1>Login page test</h1>
-	
-		<p> test paragraph</p>
 	</body>
 </html>
