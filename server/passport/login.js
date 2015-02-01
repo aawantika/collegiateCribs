@@ -11,14 +11,16 @@ var userModel = require('../models/userModel.js');
 var bcrypt = require('bcrypt-nodejs');
 
 module.exports = function(passport) {
-    console.log("here");
-    console.log(passport);
-    
     passport.use('login', new localStrategy({
             passReqToCallback: true
         },
         function(req, username, password, done) {
             // check in mongo if a user with username exists or not
+
+            console.log("here");
+            console.log(username);
+            console.log(password);
+
             userModel.findOne({
                     'username': username
                 },
@@ -38,6 +40,7 @@ module.exports = function(passport) {
                     }
                     // User and password both match, return user from done method
                     // which will be treated like success
+                    console.log("done!!!");
                     return done(null, user);
                 }
             );

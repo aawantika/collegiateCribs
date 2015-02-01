@@ -59,7 +59,7 @@ user.prototype.createUser = function(req, res) {
                             console.log(" error");
                             res.status(500).send('error saving');
                         } else {
-                            return res.send(200);
+                            return res.sendStatus(200);
                         }
                     });
                 }

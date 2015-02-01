@@ -18,19 +18,6 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
     extended: true
 }));
 
-/**
- * Passport stuff.
- */
-app.use(expressSession({
-    secret: 'mySecretKey'
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Initialize Passport
-var initPassport = require('../passport/init');
-initPassport(passport);
-
 
 /**
  * Connect to database
