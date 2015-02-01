@@ -1,39 +1,22 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Test Login for Collegiate Cribs</title>
-		<link rel="stylesheet" type="text/css" href="sky_theme.css">
-		<link rel="stylesheet" type="text/css" href="structure.css">
-		<script language="JavaScript" type="text/JavaScript">
-			//normally this should be in a separate file, but eh.
-			function canSubmit(){
-				var user=document.getElementById("user").value;
-				var pass=document.getElementById("pass").value;
-				if(user==""||pass==""){
-					document.getElementById("alert").innerHTML="Please fill in all required fields";
-					return false;
-				}
-			}
-		</script>
-	</head>
+<div>
 	<body>
 		<h1 style="text-align: center"> Login </h1>
-		<form id="login" action="LoginTest.js" method="post" class="box login">
+		<form id="login" ng-submit="canSubmit()" method="post" class="box login">
 			<fieldset class="content">
 				<div>
 					<label>Username</label>
-					<input type="text" name="username" placeholder="username" id="user">
+					<input type="text" placeholder="username" ng-model="username">
 				</div>
 				<div>
 					<label>Password</label>
-					<input type="password" name="password" placeholder="password" id="pass">
+					<input type="password" placeholder="password" ng-model="password">
 				</div>
 			</fieldset>
-			<label id="alert" class="alert"></label>
+			<label class="alert">{{alert}}</label>
 			<footer>
-				<input type="button" value="Sign up" onClick="parent.location = 'signup.html'">
-				<input type="submit" value="Login" onclick="return canSubmit()">
+				<input type="button" value="Sign up" onClick="parent.location = '#/signup'">
+				<input type="submit" value="Login">
 			</footer>
 		</form>
 	</body>
-</html>
+</div>

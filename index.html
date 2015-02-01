@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<base href='./'></base>
+		
+		<!--Angular-->
+		<!--script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script-->
+		<script src="../bower_components/angular/angular.min.js"></script>
+		<script src="../bower_components/angular-route/angular-route.min.js"></script>
+		
+		<script src="client/app.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="client/html_pages/sky_theme.css">
+		<link rel="stylesheet" type="text/css" href="client/html_pages/structure.css">
+	</head>
+	<body>
+		Menu bar will go here: <input type="text" ng-model="etc"/>{{etc}}<br>
+		<div ng-view></div>
+	</body>
+</html>
