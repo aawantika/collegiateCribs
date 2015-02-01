@@ -1,0 +1,39 @@
+.box{
+	margin: 0px auto 30px;
+	vertical-align: center;
+}
+.box h3{
+	text-align:center;
+}
+
+.box div{
+	margin-bottom:5px;
+}
+
+.box.login{
+	width: 300px;
+}
+
+.box .login fieldset label{
+	margin: 0px auto 0px;
+	vertical-align:left;
+	
+}
+
+.box.login fieldset input{
+	margin: 0px auto 0px;
+	float: right;
+	vertical-align:right;
+}
+
+.box.signup{
+	width: 600px;
+}
+
+.box.signup fieldset input[type=text]{
+	float:right;
+}
+
+.alert{
+	color:rgb(200,50,50);
+}
