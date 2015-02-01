@@ -26,15 +26,10 @@ app.use(expressSession({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-passport.serializeUser(function(user, done) {
-    done(null, user._id);
-});
 
-passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user) {
-        done(err, user);
-    });
-});
+// Initialize Passport
+var initPassport = require('../passport/init');
+initPassport(passport);
 
 
 /**
@@ -54,22 +49,22 @@ exports.db = db;
 /**
  * Controllers
  */
-var user = require('./controllers/user.js');
+var user = require('./user.js');
 
-app.post('/user/create', function(req, res, next) {
-    user.createUser(req, res, next);
+app.post('/user/create', function(req, res) {
+    user.createUser(req, res);
 });
 
-app.post('/user/retrieve', function(req, res, next) {
-    user.retrieveUser(req, res, next);
+app.post('/user/retrieve', function(req, res) {
+    user.retrieveUser(req, res);
 });
 
-app.post('/user/update', function(req, res, next) {
-    user.updateUser(req, res, next);
+app.post('/user/update', function(req, res) {
+    user.updateUser(req, res);
 });
 
-app.post('/user/delete', function(req, res, next) {
-    user.deleteUser(req, res, next);
+app.post('/user/delete', function(req, res) {
+    user.deleteUser(req, res);
 });
 
 app.listen(3000);
