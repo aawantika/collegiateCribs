@@ -2,6 +2,11 @@
 	margin: 0px auto 30px;
 	vertical-align: center;
 }
+
+.alert{
+	color:rgb(200,50,50);
+}
+
 .box h3{
 	text-align:center;
 }
@@ -34,6 +39,3 @@
 	float:right;
 }
 
-.alert{
-	color:rgb(200,50,50);
-}
