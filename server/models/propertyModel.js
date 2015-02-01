@@ -5,21 +5,21 @@ var mongoose = require('mongoose'),
 
 var userSchema = new Schema({
     uuid: String,
-    ownerId, String,
-    isASublease, boolean,
-    bedrooms, Number,
-    bathrooms, Number,
-    type, String,
-    address, String,
-    availability, boolean,
-    verified, boolean,
-    price, Number,
-    length, Number,
-    catsOk, boolean,
-    dogsOk, boolean,
-    houseTours, boolean,
-    pictures, String,
-    description, String
+    ownerId: String,
+    isASublease: boolean,
+    bedrooms: Number,
+    bathrooms: Number,
+    type: String,
+    address: String,
+    availability: boolean,
+    verified: boolean,
+    price: Number,
+    length: Number,
+    catsOk: boolean,
+    dogsOk: boolean,
+    houseTours: boolean,
+    images: String,
+    description: String
 
 
 }, {
