@@ -38,17 +38,17 @@ module.exports = function(passport) {
 
     /* Handle Login POST */
     /* Handle Login POST */
-    router.post('/login', passport.authenticate('login', {
-        successRedirect: '/home',
-        failureRedirect: '/',
-        failureFlash: true
-    }));
+    // router.post('/login', passport.authenticate('login', {
+    //     successRedirect: '/home',
+    //     failureRedirect: '/',
+    //     failureFlash: true
+    // }));
 
-    passport.authenticate('local', function(err, account) {
-        req.logIn(account, function() {
-            res.status(err ? 500 : 200).send(err ? err : account);
-        });
-    })(this.req, this.res, this.next);
+    // passport.authenticate('local', function(err, account) {
+    //     req.logIn(account, function() {
+    //         res.status(err ? 500 : 200).send(err ? err : account);
+    //     });
+    // })(this.req, this.res, this.next);
 
     // // 	/* GET login page. */
     // // 	router.get('/', function(req, res) {

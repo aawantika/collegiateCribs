@@ -3,7 +3,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-var userSchema = new Schema({
+var propertySchema = new Schema({
     uuid: String,
     ownerId: String,
     isASublease: boolean,
@@ -17,7 +17,7 @@ var userSchema = new Schema({
     length: Number,
     catsOk: boolean,
     dogsOk: boolean,
-    houseTours: boolean,
+    propertyTours: boolean,
     images: String,
     description: String
 
@@ -26,7 +26,7 @@ var userSchema = new Schema({
     collection: 'property'
 });
 
-module.exports = mongoose.model('propertyModel', userSchema);
+module.exports = mongoose.model('propertyModel', propertySchema);
 
 // type: housing type (townhome, condo, apartment, etc.)
 // length: length of lease in months
