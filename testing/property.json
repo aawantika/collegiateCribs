@@ -1,0 +1,16 @@
+CREATE: POST http://localhost:8080/property/create
+
+RETRIEVE: POST http://localhost:8080/property/retrieve
+{
+	// TODO
+}
+
+UPDATE: POST http://localhost:8080/property/update
+{
+	// TODO
+}
+
+DELETE: POST http://localhost:8080/property/delete
+{
+	// TODO
+}

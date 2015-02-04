@@ -1,0 +1,74 @@
+CREATE: POST http://localhost:8080/user/create
+{
+	"username": "student123",
+    "profileType": "student",
+    "password":"password123",
+    "firstName":"First",
+    "lastName":"Last",
+    "email":"student123@gmail.com",
+    "campus":"gt"
+}
+{
+	"username": "student1234",
+    "profileType": "student",
+    "password":"password1234",
+    "firstName":"First",
+    "lastName":"Last",
+    "email":"student1234@gmail.com",
+    "campus":"gsu"
+}
+{
+	"username": "landlord123",
+    "profileType": "landlord",
+    "password":"landword123",
+    "firstName":"First",
+    "lastName":"Last",
+    "email":"landlord123@gmail.com",
+}
+{
+	"username": "landlord1234",
+    "profileType": "landlord",
+    "password":"landword1234",
+    "firstName":"First",
+    "lastName":"Last",
+    "email":"landlord1234@gmail.com",
+}
+
+RETRIEVE: POST http://localhost:8080/user/retrieve
+{
+	"username": "student123"
+}
+{
+	"username": "student1234"
+}
+{
+	"username": "landlord123"
+}
+{
+	"username": "landlord1234"
+}
+
+UPDATE: POST http://localhost:8080/user/create
+{
+	"username": "student123",
+    "profileType": "student",
+    "password":"password123",
+    "firstName":"First",
+    "lastName":"Last",
+    "email":"student123@gmail.com",
+    "campus":"gt"
+}
+
+DELETE: POST http://localhost:8080/user/delete
+{
+	"username": "student123"
+}
+{
+	"username": "student1234"
+}
+{
+	"username": "landlord123"
+}
+{
+	"username": "landlord1234"
+}
