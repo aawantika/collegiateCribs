@@ -5,12 +5,12 @@
  */
 var propertyModel = require('../models/propertyModel.js');
 var generateUuid = require('../error_checking/generateUuid.js');
-var bcrypt = require('bcrypt-nodejs');
+// var bcrypt = require('bcrypt-nodejs');
 
 function property() {}
 
 property.prototype.createProperty = function(req, res) {
-    // http://localhost:3000/user/create POST
+    // http://localhost:8080/property/create POST
 
     var uuidInput = generateUuid.saveUuid();
 
@@ -30,6 +30,7 @@ property.prototype.createProperty = function(req, res) {
     var dogsOKInput = body.dogsOK;
     var propertyToursInput = body.propertyTours;
     var descriptionInput = body.description;
+    var lastRenovationDateInput = body.lastRenovationDate;
 
     propertyModel.findOne({
         address: addressInput
@@ -54,6 +55,7 @@ property.prototype.createProperty = function(req, res) {
             newProperty.dogsOK = dogsOKInput;
             newProperty.propertyTours = propertyToursInput;
             newProperty.decription = descriptionInput;
+            newProperty.lastRenovationDate = lastRenovationDateInput;
 
             newProperty.save(function(err) {
                 if (err) {
@@ -68,55 +70,58 @@ property.prototype.createProperty = function(req, res) {
     });
 }
 
-user.prototype.retrieveProperty = function(req, res) {
-    // http://localhost:3000/user/retrieve POST
+property.prototype.retrieveProperty = function(req, res) {
+    // http://localhost:8080/property/retrieve POST
 
     var body = req.body;
-    var usernameInput = body.username;
+    var addressInput = body.address;
 
-    userModel.findOne({
-        username: usernameInput
-    }, function(err, user) {
-        if (user) {
-            res.status(200).send(user);
+    propertyModel.findOne({
+        address: addressInput
+    }, function(err, property) {
+        if (property) {
+            res.status(200).send(property);
         } else {
             res.status(400).send('error');
         }
     });
 }
 
-user.prototype.updateUser = function(req, res) {
-    // http://localhost:3000/student/update POST
+property.prototype.updateProperty = function(req, res) {
+    // http://localhost:8080/property/update POST
     var body = req.body;
 
-    var usernameInput = body.username;
-    var profileTypeInput = body.profileType;
-    var firstNameInput = body.firstName;
-    var lastNameInput = body.lastName;
-    var passwordInput = body.password;
-    var phoneInput = body.phone;
-    var emailInput = body.email;
+    var addressInput = body.address;
+    var bedroomsInput = body.bedrooms;
+    var bathroomsInput = body.bathrooms;
+    var availabilityInput = body.availability;
+    var priceInput = body.price; 
+    var lengthInput = body.length; 
+    var catsOKInput = body.catsOK;
+    var dogsOKInput = body.dogsOK; 
+    var propertyToursInput = body.propertyTours; 
+    var descriptionInput = body.description;
+    var lastRenovationDateInput = body.lastRenovationDate; 
 
-    // student specific
-    var campusInput = body.campus;
-
-    userModel.findOne({
-        username: usernameInput
-    }, function(err, user) {
-        if (!user) {
-            res.status(404).send("can't find student");
+    propertyModel.findOne({
+        address: addressInput
+    }, function(err, property) {
+        if (!property) {
+            res.status(404).send("can't find property");
         } else {
-            // save user
-            user.password = passwordInput;
-            user.firstName = firstNameInput;
-            user.lastName = lastNameInput;
-            user.email = emailInput;
+            // save property
+            property.bedrooms = bedroomsInput;
+            property.bathrooms = bathroomsInput;
+            property.availability = availabilityInput;
+            property.price = priceInput;
+            property.length = lengthInput;
+            property.catsOK = catsOKInput;
+            property.dogsOK = dogsOKInput;
+            property.propertyTours = propertyToursInput;
+            property.description = descriptionInput;
+            property.lastRenovationDate = lastRenovationDateInput;
 
-            if (profileTypeInput === "student") {
-                user.campus = campusInput;
-            }
-
-            user.save(function(err) {
+            property.save(function(err) {
                 if (err) {
                     res.status(500).send('error saving');
                 } else {
@@ -127,30 +132,30 @@ user.prototype.updateUser = function(req, res) {
     });
 }
 
-user.prototype.deleteUser = function(req, res) {
+property.prototype.deleteProperty = function(req, res) {
     // http://localhost:3000/student/update POST
     var body = req.body;
 
-    var usernameInput = body.username;
-    var passwordInput = body.password;
+    var ownerIdInput = body.ownerId;
+    var addressInput = body.address;
 
-    userModel.findOne({
-        username: usernameInput
-    }, function(err, user) {
-        if (!user) {
-            res.status(404).send("can't find student");
-        } else if (user.password != passwordInput) {
-            res.status(400).send("invalid password");
-        } else if (user.password === passwordInput) {
-            user.remove();
-            res.status(200);
+    propertyModel.findOne({
+        address: addressInput
+    }, function(err, property) {
+        if (!property) {
+            res.status(404).send("can't find property");
+        } else if (property.ownerID != ownerIdInput) {
+            res.status(400).send("can't find owner")
+        } else {
+            property.remove(); 
+            res.status(200).send("removed successfully"); 
         }
     });
 }
 
 // Generates hash using bCrypt
-var createHash = function(password) {
+/*var createHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
-}
+}*/
 
-module.exports = new user();
+module.exports = new property();

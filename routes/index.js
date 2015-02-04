@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var user = require('../server/login/user.js');
+var property = require('../server/property/property.js');
 
 
 var isAuthenticated = function(req, res, next) {
@@ -35,7 +36,22 @@ module.exports = function(passport) {
     router.post('/user/delete', function(req, res) {
         user.deleteUser(req, res);
     });
+    router.post('/property/create', function(req, res) {
+        console.log(req.body);
+        property.createProperty(req, res);
+    });
 
+    router.post('/property/retrieve', function(req, res) {
+        property.retrieveProperty(req, res);
+    });
+
+    router.post('/property/update', function(req, res) {
+        property.updateProperty(req, res);
+    });
+
+    router.post('/property/delete', function(req, res) {
+        property.deleteProperty(req, res);
+    });
     /* Handle Login POST */
     /* Handle Login POST */
     // router.post('/login', passport.authenticate('login', {
@@ -50,30 +66,30 @@ module.exports = function(passport) {
     //     });
     // })(this.req, this.res, this.next);
 
-    // // 	/* GET login page. */
-    // // 	router.get('/', function(req, res) {
-    // //     	// Display the Login page with any flash message, if any
-    // // 		res.render('index', { message: req.flash('message') });
-    // // 	});
+    // //   /* GET login page. */
+    // //   router.get('/', function(req, res) {
+    // //       // Display the Login page with any flash message, if any
+    // //       res.render('index', { message: req.flash('message') });
+    // //   });
 
-    // // 	/* Handle Login POST */
-    // // 	router.post('/login', passport.authenticate('login', {
-    // // 		successRedirect: '/home',
-    // // 		failureRedirect: '/',
-    // // 		failureFlash : true  
-    // // 	}));
+    // //   /* Handle Login POST */
+    // //   router.post('/login', passport.authenticate('login', {
+    // //       successRedirect: '/home',
+    // //       failureRedirect: '/',
+    // //       failureFlash : true  
+    // //   }));
 
-    // // 	/* GET Registration Page */
-    // // 	router.get('/signup', function(req, res){
-    // // 		res.render('register',{message: req.flash('message')});
-    // // 	});
+    // //   /* GET Registration Page */
+    // //   router.get('/signup', function(req, res){
+    // //       res.render('register',{message: req.flash('message')});
+    // //   });
 
-    // // 	/* Handle Registration POST */
-    // // 	router.post('/signup', passport.authenticate('signup', {
-    // // 		successRedirect: '/home',
-    // // 		failureRedirect: '/signup',
-    // // 		failureFlash : true  
-    // // 	}));
+    // //   /* Handle Registration POST */
+    // //   router.post('/signup', passport.authenticate('signup', {
+    // //       successRedirect: '/home',
+    // //       failureRedirect: '/signup',
+    // //       failureFlash : true  
+    // //   }));
 
     /* GET Home Page */
     router.get('/home', isAuthenticated, function(req, res) {
@@ -82,11 +98,11 @@ module.exports = function(passport) {
         });
     });
 
-    // // 	/* Handle Logout */
-    // // 	router.get('/signout', function(req, res) {
-    // // 		req.logout();
-    // // 		res.redirect('/');
-    // // 	});
+    // //   /* Handle Logout */
+    // //   router.get('/signout', function(req, res) {
+    // //       req.logout();
+    // //       res.redirect('/');
+    // //   });
 
     return router;
 }
