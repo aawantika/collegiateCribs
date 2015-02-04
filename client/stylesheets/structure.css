@@ -1,41 +1,40 @@
-.box{
-	margin: 0px auto 30px;
-	vertical-align: center;
+.box {
+	background: #fefefe;
+	border: 1px solid rgb(10, 10, 50);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: rgba(0, 0, 0, 0.15) 0 0 1px;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.15) 0 0 1px;
+	box-shadow: rgba(0, 0, 0, 0.15) 0 0 1px;
+	margin: 5% auto 30px;
+	overflow: hidden;
+}
+
+paper-input-decorator{
+	width:90%;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .alert{
 	color:rgb(200,50,50);
 }
 
-.box h3{
+.box h1, h2, h3{
 	text-align:center;
 }
 
-.box div{
-	margin-bottom:5px;
-}
-
 .box.login{
-	width: 300px;
-}
-
-.box .login fieldset label{
-	margin: 0px auto 0px;
-	vertical-align:left;
-	
-}
-
-.box.login fieldset input{
-	margin: 0px auto 0px;
-	float: right;
-	vertical-align:right;
+	width: 380px;
 }
 
 .box.signup{
 	width: 600px;
 }
 
-.box.signup fieldset input[type=text]{
-	float:right;
+table {
+	width: 100%;
+	table-layout:fixed;
 }
 

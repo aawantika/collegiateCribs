@@ -24,8 +24,8 @@ controllers.EditAccountController = function ($scope){
 	$scope.toStudent = function(){
 		console.log("change to Student");
 		var oldStudLord = document.getElementById("studLord");
-		var newLabel= "<label>Campus</label>\n";
-		var newInput= "<input type=\"text\" ng-model=\"campus\">";
+		var newLabel= "<paper-input-decorator label='Campus' floatingLabel>";
+		var newInput= "<input type=\"text\" ng-model=\"campus\"></paper-input-decorator>";
 		oldStudLord.innerHTML = newLabel.concat(newInput);
 	};
 			
@@ -34,13 +34,13 @@ controllers.EditAccountController = function ($scope){
 		console.log("change to Landlord");
 		var oldStudLord = document.getElementById("studLord");
 		var newLabel=	"<h3>Property</h3>\n"
-		var numBed=		"<div>Number of Bedrooms <input type=\"text\" ng-model=\"numBed\"></div>\n"
-		var numBath=	"<div>Number of Bathrooms <input type=\"text\" ng-model=\"numBath\"></div>\n"
-		var houseType=	"<div>Housing type <input type=\"text\" ng-model=\"houseType\"></div>\n"
-		var addr=		"<div>Address <input type=\"text\" ng-model=\"address\"></div>\n"
-		var avail=		"<div>Availability <input type=\"text\" ng-model=\"avail\"></div>\n"
-		var price=		"<div>Pricing <input type=\"text\" ng-model=\"price\"></div>\n"
-		var pets=		"<div>Pet Policy <input type=\"text\" ng-model=\"pets\"></div>\n"
+		var numBed=		"<paper-input-decorator label='Number of Bedrooms' floatingLabel> <input type=\"text\" ng-model=\"numBed\"></paper-input-decorator>\n"
+		var numBath=	"<paper-input-decorator label='Number of Bathrooms' floatingLabel><input type=\"text\" ng-model=\"numBath\"></paper-input-decorator>\n"
+		var houseType=	"<paper-input-decorator label='Housing Type' floatingLabel><input type=\"text\" ng-model=\"houseType\"></paper-input-decorator>\n"
+		var addr=		"<paper-input-decorator label='Address' floatingLabel><input type=\"text\" ng-model=\"address\"></paper-input-decorator>\n"
+		var avail=		"<paper-input-decorator label='Availability' floatingLabel><input type=\"text\" ng-model=\"avail\"></paper-input-decorator>\n"
+		var price=		"<paper-input-decorator label='Pricing' floatingLabel><input type=\"text\" ng-model=\"price\"></paper-input-decorator>\n"
+		var pets=		"<paper-input-decorator label='Pet Policy' floatingLabel><input type=\"text\" ng-model=\"pets\"></paper-input-decorator>\n"
 		var newForm = newLabel.concat(numBed,numBath,houseType,addr,avail,price,pets);
 		oldStudLord.innerHTML=newForm;
 	};
