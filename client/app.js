@@ -1,10 +1,12 @@
 var app = angular.module("app", [
-	'ngRoute'
+	'ngRoute',
+	'login'
 ]);
 //^ a JSON of the dependencies for app
 
 var controllers= {};
-controllers.LoginController = function ($scope){
+
+app.controller('LoginController', ['$fake', function ($scope){
 	$scope.alert = "";
 	$scope.canSubmit = function(){
 		if(!$scope.username||!$scope.password){
@@ -15,9 +17,9 @@ controllers.LoginController = function ($scope){
 			$scope.alert="all filled";
 		}
 	};
-};
+}]);
 
-controllers.EditAccountController = function ($scope){
+app.controller('EditAccountController', ['$scope', '$createUser', function ($scope,$createUser){
 	$scope.alert="";
 	$scope.passConAlert="";
 	
@@ -46,20 +48,28 @@ controllers.EditAccountController = function ($scope){
 	};
 	
 	$scope.canSubmit = function(){
-		var fname=$scope.fname;
-		var lname=$scope.lname;
-		var user =$scope.username;
-		var pass =$scope.password;
-		var passC=$scope.passConfirm;
-		var email=$scope.email;
-		if(!fname||!lname||!user||!pass||!passC||!email){
+		var newUser = {
+			"firstName":$scope.fname,
+		 "lastName":$scope.lname,
+		 "username":$scope.username,
+		 "password":$scope.password,
+		 "confirmPassword":$scope.passConfirm,
+		 "email":$scope.email
+		}
+		 
+		if(!newUser.firstName||!newUser.lastName||!newUser.username||!newUser.password||!newUser.confirmPassword||!newUser.email){
 			$scope.alert="Please fill in all required fields";
 			return false;
-		} else if(pass != passC){
+		} else if(newUser.password != newUser.confirmPassword){
 			$scope.alert="Password confirm does not match Password";
 			return false;
 		}else{
 			$scope.alert="submittable";
+			$createUser.createUser(newUser, function(err, status, json) {
+				console.log("ayylmao");
+				console.log(status);
+				console.log(json);
+			});
 		}
 	};
 	
@@ -73,9 +83,8 @@ controllers.EditAccountController = function ($scope){
 		}
 	};
 	
-};
+}]);
 app.controller(controllers);
-
 app.config(function ($routeProvider){
 	$routeProvider.when('/',
 	{
