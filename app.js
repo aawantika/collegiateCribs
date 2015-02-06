@@ -38,7 +38,7 @@ var initPassport = require('./server/passport/init');
 initPassport(passport);
 
 // var routes = require('./routes/index')(passport);
-var routes = require('./index')(passport);
+var routes = require('./routing')(passport);
 app.use('/', routes);
 
 module.exports = app;

@@ -5,11 +5,6 @@ var user = require('./server/login/user.js');
 var property = require('./server/property/property.js');
 
 
-  router.get(/^(.+)$/, function(req, res){ 
-     console.log('static file request : ' + req.params);
-     res.sendfile( __dirname + req.params[0]); 
- });
-
 
 var isAuthenticated = function(req, res, next) {
     // if user is authenticated in the session, call the next() to call the next request handler 
@@ -26,9 +21,14 @@ var isAuthenticated = function(req, res, next) {
 
 module.exports = function(passport) {
 
-   
 
- 
+    router.get(/^(.+)$/, function(req, res) {
+        console.log(req.params);
+        console.log(__dirname + req.params[0])
+        res.sendFile(__dirname + req.params[0]);
+    });
+
+
     router.post('/user/create', function(req, res) {
         console.log(req.body);
         user.createUser(req, res);

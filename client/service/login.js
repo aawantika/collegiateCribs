@@ -7,6 +7,8 @@ login.service('$createUser', ['$http', function($http) {
             url: "http://localhost:8080/user/create",
             data: json
         }
+        console.log("works");
+        console.log(req);
         $http(req).success(function(data, status) {
             callback(null, status, data);
         }).
