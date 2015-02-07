@@ -10,19 +10,16 @@ app.controller('LoginController', ['$scope', '$loginService', function($scope, $
     $scope.alert = "";
 
     $scope.canSubmit = function() {
-        console.log($scope.username);
-        console.log($scope.password);
-
+        var login = {
+            "username": $scope.username,
+            "password": $scope.password,
+        }
         if (!$scope.username || !$scope.password) {
             $scope.alert = "Please fill in all required fields";
             return false;
         } else {
             $scope.alert = "all filled";
-            $loginService.loginUser(newUser, function(err, status, data) {
-                console.log($scope.username);
-                console.log($scope.password);
-
-                // $scope.alert = data + " " + status ;
+            $loginService.loginUser(login, function(err, status, data) {
             });
         }
     };
@@ -103,9 +100,9 @@ app.config(function($routeProvider) {
                 controller: 'EditAccountController',
                 templateUrl: '/client/html_pages/signup.html'
             })
-
-
-
+            .when('/home', {
+                templateUrl: '/client/html_pages/home.html'
+            })
         .otherwise({
             redirectTo: '/'
         });

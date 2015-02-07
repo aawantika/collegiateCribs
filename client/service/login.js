@@ -15,14 +15,9 @@ login.service('$loginService', ['$http', function($http) {
         }).
         error(function(data, status) {
             callback(status, data);
-            console.log('AYYYYYYYYY');
-            console.log(status);
-            console.log(data);
         });
     };
-}]);
 
-login.service('$loginService', ['$http', function($http) {
     this.loginUser = function(json, callback) {
         var req = {
             method: "POST",
@@ -30,10 +25,16 @@ login.service('$loginService', ['$http', function($http) {
             data: json
         }
         $http(req).success(function(data, status) {
-            callback(null, data);
+            console.log("success");
+            console.log(data);
+            console.log(status);
+            callback(null, status, data);
         }).
         error(function(data, status) {
-            callback(data);
+            console.log("failure");
+           console.log(data);
+            console.log(status);
+            callback(status, data);
         });
     };
 }]);

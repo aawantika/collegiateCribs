@@ -17,8 +17,8 @@ var isAuthenticated = function(req, res, next) {
         return next();
     }
     // if the user is not authenticated then redirect him to the login page
-    console.log("loggedout");
-    res.redirect('/');
+    // console.log("loggedout");
+    // res.redirect('/');
 }
 
 module.exports = function(passport) {
@@ -29,10 +29,26 @@ module.exports = function(passport) {
     });
 
     //LOGIN/LOGOUT
-    router.post('/login', passport.authenticate('login', {
-        successRedirect: '/home',
-        failureRedirect: '/'
-    }));
+    router.post('/login', function(req, res, next) {
+        passport.authenticate('login', function(err, user, info) {
+            if (err) {
+                console.log("err");
+                return next(err);
+            }
+            if (!user) {
+                console.log("account");
+                return res.status(400).send("no account");
+            }
+            req.logIn(user, function(err) {
+                if (err) {
+                    console.log("err2");
+                    return next(err);
+                }
+                console.log("found");
+                return res.status(200).send("found");
+            });
+        })(req, res, next);
+    });
 
     // USER
     router.post('/user/create', function(req, res) {
@@ -106,7 +122,7 @@ module.exports = function(passport) {
     // //       failureRedirect: '/signup',
     // //       failureFlash : true  
     // //   }));
-    
+
 
     // //   /* Handle Logout */
     // //   router.get('/signout', function(req, res) {
