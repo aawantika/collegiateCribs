@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 var debug = require('debug')('passport-mongo');
-var app = require('../app.js');
+var app = require('../server.js');
 
-app.set('port', process.env.PORT || 80);
+app.set('port', process.env.PORT || 8080);
 
 var server = app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + server.address().port);

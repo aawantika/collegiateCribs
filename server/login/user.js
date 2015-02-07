@@ -149,8 +149,8 @@ user.prototype.deleteUser = function(req, res) {
 }
 
 // Generates hash using bCrypt
-    var createHash = function(password){
-        return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
-    }
+var createHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
+}
 
 module.exports = new user();

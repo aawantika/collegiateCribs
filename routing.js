@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express();
+
 router.use(express.static(__dirname + '/client'));
+
 var user = require('./server/login/user.js');
 var property = require('./server/property/property.js');
 
@@ -21,16 +23,19 @@ var isAuthenticated = function(req, res, next) {
 
 module.exports = function(passport) {
 
-
+    // loads to index.html
     router.get(/^(.+)$/, function(req, res) {
-        console.log(req.params);
-        console.log(__dirname + req.params[0])
         res.sendFile(__dirname + req.params[0]);
     });
 
+    //LOGIN/LOGOUT
+    router.post('/login', passport.authenticate('login', {
+        successRedirect: '/home',
+        failureRedirect: '/'
+    }));
 
+    // USER
     router.post('/user/create', function(req, res) {
-        console.log(req.body);
         user.createUser(req, res);
     });
 
@@ -45,6 +50,8 @@ module.exports = function(passport) {
     router.post('/user/delete', function(req, res) {
         user.deleteUser(req, res);
     });
+
+    // PROPERTY
     router.post('/property/create', function(req, res) {
         console.log(req.body);
         property.createProperty(req, res);
@@ -99,13 +106,7 @@ module.exports = function(passport) {
     // //       failureRedirect: '/signup',
     // //       failureFlash : true  
     // //   }));
-
-    /* GET Home Page */
-    router.get('/home', isAuthenticated, function(req, res) {
-        res.render('home', {
-            user: req.user
-        });
-    });
+    
 
     // //   /* Handle Logout */
     // //   router.get('/signout', function(req, res) {

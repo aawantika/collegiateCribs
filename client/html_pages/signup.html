@@ -1,84 +1,87 @@
 <div>
 
-	<body>
-		<h1 style="text-align: center"> Create your account </h1>
-		<form id="signup" ng-submit="canSubmit()" method="post" class="box signup content">
-			<fieldset class="wrapper">
-				<paper-radio-group name="profile" selected="student">
-					<paper-radio-button name="student" label="Student" ng-click="toStudent()"></paper-radio-button>
-					<paper-radio-button name="landlord" label="Landlord" ng-click="toLandlord()"></paper-radio-button>
-				</paper-radio-group>
-				<!--label>Profile type*</label><br>
+    <body>
+        <h1 style="text-align: center"> Create your account </h1>
+        <form id="signup" ng-submit="canSubmit()" method="post" class="box signup content">
+            <fieldset class="wrapper">
+                <paper-radio-group name="profile" selected="student">
+                    <paper-radio-button name="student" label="Student" ng-click="toStudent()"></paper-radio-button>
+                    <paper-radio-button name="landlord" label="Landlord" ng-click="toLandlord()"></paper-radio-button>
+                </paper-radio-group>
+                <!--label>Profile type*</label><br>
 				<label>Student</label>
 				<input type="radio" name="profile" value= "Student" ng-click="toStudent()" checked><br>
 				<label>Landlord</label>
 				<input type="radio" name="profile" value = "Landlord" ng-click="toLandlord()"><br><br-->
-			</fieldset>
-			<fieldset>
-				<table>
-					<tr>
-						<td>
-							<paper-input-decorator label="First Name*" floatingLabel>
-								<input type="text" ng-model="fname"></input>
-							</paper-input-decorator>
-						</td>
-						<td>
-							<paper-input-decorator label="Last Name*" floatingLabel>
-								<input type="text" ng-model="lname"></input>
-							</paper-input-decorator>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<paper-input-decorator label="Username*" floatingLabel>
-								<input type="text" ng-model="username"></input>
-							</paper-input-decorator>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<paper-input-decorator label="Password*" floatingLabel>
-								<input type="text" ng-model="password" ng-keyup="passMatch()"></input>
-							</paper-input-decorator>
-						</td>
-						<td>
-							<paper-input-decorator label="Password confirm*" floatinglabel>
-								<input type="password" ng-model="passConfirm" ng-keyup="passMatch()"><br>
-							</paper-input-decorator>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<paper-input-decorator label="Email*" floatingLabel>
-								<input type="text" ng-model="email"></input>
-							</paper-input-decorator>
-						</td>
-						<td>
-							<label ng-model="passConAlert" class="alert">{{passConAlert}}</label>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<paper-input-decorator label="Phone Number" floatingLabel>
-								<input type="text" ng-model="phoneNumber"></input>
-							</paper-input-decorator>
-						</td>
-					</tr>
-				</table>
-				<fieldset id="studLord">
-				
-					<!-- make campus a dropdown, "GSU" or "GT"-->
-					<paper-input-decorator label="Campus" floatingLabel>
-						<input type="text" ng-model="campus"/>
-					</paper-input-decorator>
-				</fieldset><br/>
-				
-				<label>* = required</label><br/>
-				<label class="alert">{{alert}}</label>
-			</fieldset>
-			<footer>
-				<input type="submit" value="submit">
-			</footer>
-		</form>
-	</body>
+            </fieldset>
+            <fieldset>
+                <table>
+                    <tr>
+                        <td>
+                            <paper-input-decorator label="First Name*" floatingLabel>
+                                <input type="text" ng-model="fname"></input>
+                            </paper-input-decorator>
+                        </td>
+                        <td>
+                            <paper-input-decorator label="Last Name*" floatingLabel>
+                                <input type="text" ng-model="lname"></input>
+                            </paper-input-decorator>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <paper-input-decorator label="Username*" floatingLabel>
+                                <input type="text" ng-model="username"></input>
+                            </paper-input-decorator>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <paper-input-decorator label="Password*" floatingLabel>
+                                <input type="text" ng-model="password" ng-keyup="passMatch()"></input>
+                            </paper-input-decorator>
+                        </td>
+                        <td>
+                            <paper-input-decorator label="Password confirm*" floatinglabel>
+                                <input type="password" ng-model="passConfirm" ng-keyup="passMatch()">
+                                <br>
+                            </paper-input-decorator>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <paper-input-decorator label="Email*" floatingLabel>
+                                <input type="text" ng-model="email"></input>
+                            </paper-input-decorator>
+                        </td>
+                        <td>
+                            <label ng-model="passConAlert" class="alert">{{passConAlert}}</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <paper-input-decorator label="Phone Number" floatingLabel>
+                                <input type="text" ng-model="phoneNumber"></input>
+                            </paper-input-decorator>
+                        </td>
+                    </tr>
+                </table>
+                <fieldset id="studLord">
+
+                    <!-- make campus a dropdown, "GSU" or "GT"-->
+                    <paper-input-decorator label="Campus" floatingLabel>
+                        <input type="text" ng-model="campus" />
+                    </paper-input-decorator>
+                </fieldset>
+                <br/>
+
+                <label>* = required</label>
+                <br/>
+                <label class="alert">{{alert}}</label>
+            </fieldset>
+            <footer>
+                <input type="submit" value="submit">
+            </footer>
+        </form>
+    </body>
 </div>

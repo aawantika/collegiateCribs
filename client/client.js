@@ -6,23 +6,29 @@ var app = angular.module("app", [
 
 var controllers = {};
 
-console.log("ay");
-
-app.controller('LoginController', ['$fake', function($scope) {
-console.log("ay1");
+app.controller('LoginController', ['$scope', '$loginService', function($scope, $loginService) {
     $scope.alert = "";
+
     $scope.canSubmit = function() {
+        console.log($scope.username);
+        console.log($scope.password);
+
         if (!$scope.username || !$scope.password) {
             $scope.alert = "Please fill in all required fields";
             return false;
         } else {
             $scope.alert = "all filled";
+            $loginService.loginUser(newUser, function(err, status, data) {
+                console.log($scope.username);
+                console.log($scope.password);
+
+                // $scope.alert = data + " " + status ;
+            });
         }
     };
 }]);
 
-app.controller('EditAccountController', ['$scope', '$createUser', function($scope, $createUser) {
-console.log("ay2");
+app.controller('EditAccountController', ['$scope', '$loginService', function($scope, $loginService) {
     $scope.alert = "";
     $scope.passConAlert = "";
 
@@ -51,7 +57,6 @@ console.log("ay2");
     };
 
     $scope.canSubmit = function() {
-        console.log('HERE');
         var newUser = {
             "firstName": $scope.fname,
             "lastName": $scope.lname,
@@ -69,10 +74,9 @@ console.log("ay2");
             return false;
         } else {
             $scope.alert = "submittable";
-            $createUser.createUser(newUser, function(err, status, json) {
-                console.log("ayylmao");
-                console.log(status);
-                console.log(json);
+            console.log($loginService);
+            $loginService.createUser(newUser, function(err, status, data) {
+                $scope.alert = data + " " + status;
             });
         }
     };
@@ -99,9 +103,12 @@ app.config(function($routeProvider) {
                 controller: 'EditAccountController',
                 templateUrl: '/client/html_pages/signup.html'
             })
-            .otherwise({
-                redirectTo: '/'
-            });
+
+
+
+        .otherwise({
+            redirectTo: '/'
+        });
     })
     .directive('head', ['$rootScope', '$compile',
         function($rootScope, $compile) {
