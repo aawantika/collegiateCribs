@@ -1,12 +1,13 @@
 var app = angular.module("app", [
     'ngRoute',
-    'login'
+    'login',
+    'ngCookies'
 ]);
 //^ a JSON of the dependencies for app
 
 var controllers = {};
 
-app.controller('LoginController', ['$scope', '$loginService', function($scope, $loginService) {
+app.controller('LoginController', ['$scope', '$loginService', '$location', '$cookies', function($scope, $loginService, $location, $cookies) {
     $scope.alert = "";
 
     $scope.canSubmit = function() {
@@ -20,6 +21,11 @@ app.controller('LoginController', ['$scope', '$loginService', function($scope, $
         } else {
             $scope.alert = "all filled";
             $loginService.loginUser(login, function(err, status, data) {
+                if (!err) {
+                    $cookies.username = data.username;
+                    $cookies.sessionKey = data.sessionKey;
+                    $location.path("/home");
+                }
             });
         }
     };
@@ -89,6 +95,26 @@ app.controller('EditAccountController', ['$scope', '$loginService', function($sc
     };
 }]);
 
+app.controller('HomeController', ['$scope', '$loginService', '$location', '$cookies', function($scope, $loginService, $location, $cookies) {
+
+    $scope.showPage = false;
+    var cookie = {
+        "username": $cookies.username,
+        "sessionKey": $cookies.sessionKey
+    }
+
+    $loginService.isLoggedIn(cookie, function(err, status, data) {
+        console.log(status);
+        console.log(data);
+        if (!err) {
+            $scope.showPage = true;
+        } else {
+            $location.path("/");
+        }
+    });
+
+}]);
+
 app.controller(controllers);
 
 app.config(function($routeProvider) {
@@ -101,11 +127,12 @@ app.config(function($routeProvider) {
                 templateUrl: '/client/html_pages/signup.html'
             })
             .when('/home', {
+                controller: 'HomeController',
                 templateUrl: '/client/html_pages/home.html'
             })
-        .otherwise({
-            redirectTo: '/'
-        });
+            .otherwise({
+                redirectTo: '/'
+            });
     })
     .directive('head', ['$rootScope', '$compile',
         function($rootScope, $compile) {

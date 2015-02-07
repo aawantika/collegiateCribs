@@ -17,6 +17,7 @@ module.exports = function(passport) {
         function(req, username, password, done) {
             // check in mongo if a user with username exists or not
 
+            console.log('HERE');
             userModel.findOne({
                     'username': username
                 },

@@ -24,16 +24,33 @@ login.service('$loginService', ['$http', function($http) {
             url: "http://localhost:8080/login",
             data: json
         }
+
+        console.log(json);
+
         $http(req).success(function(data, status) {
-            console.log("success");
-            console.log(data);
-            console.log(status);
+            console.log("login success");
             callback(null, status, data);
         }).
         error(function(data, status) {
+            console.log("login failure");
+            callback(status, data);
+        });
+    };
+
+    this.isLoggedIn = function(json, callback) {
+        var req = {
+            method: "POST",
+            url: "http://localhost:8080/isLoggedIn",
+            data: json
+        }
+        console.log("ayoo");
+        console.log(json);
+
+        $http(req).success(function(data, status) {
+            console.log("success");
+            callback(null, status, data);
+        }).error(function(data, status) {
             console.log("failure");
-           console.log(data);
-            console.log(status);
             callback(status, data);
         });
     };
