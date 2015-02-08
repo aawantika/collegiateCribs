@@ -11,10 +11,9 @@
 	overflow: hidden;
 }
 
-paper-input-decorator{
-	width:90%;
-	margin-left: auto;
-	margin-right: auto;
+paper-input-decorator, paper-dropdown-menu{
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
 .alert{

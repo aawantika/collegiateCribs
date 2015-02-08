@@ -1,31 +1,25 @@
 <div>
-
-    <head>
-        <link rel="import" href="../../bower_components/paper-input/paper-input-decorator.html"></link>
-    </head>
-
-    <body>
-        <h1 style="text-align: center"> Login </h1>
-        <form id="login" ng-submit="canSubmit()" method="post" class="box login content">
-            <fieldset>
-                <paper-input-decorator label="Username" floatingLabel>
-                    <input type="text" ng-model="username"></input>
-                </paper-input-decorator>
-                <paper-input-decorator label="Password" floatingLabel>
-                    <input type="text" ng-model="password"></input>
-                </paper-input-decorator>
-            </fieldset>
-            <label class="alert">{{alert}}</label>
-            <footer style="horizontal-align:center">
-                <paper-button raised role="button" onClick="parent.location = '#/signup'">
-                    Sign up
-                </paper-button>
-                <paper-button raised role="submit">
-                    Login
-                </paper-button>
-                <input type="submit" value="Login">
-            </footer>
-        </form>
-    </body>
-    
+	<head>
+		<link rel="import" href="../../bower_components/paper-input/paper-input-decorator.html"></link>
+	</head>
+	<body>
+		<h1 style="text-align: center"> Login </h1>
+		<form id="login" ng-submit="canSubmit()" method="post" class="box login content">
+			<fieldset>
+				<paper-input-decorator label="Username" floatingLabel>
+					<input type="text" ng-model="username"></input>
+				</paper-input-decorator>
+				<paper-input-decorator label="Password" floatingLabel>
+					<input type="text" ng-model="password"></input>
+				</paper-input-decorator>
+			</fieldset>
+			<label class="alert">{{alert}}</label>
+			<footer style="horizontal-align:center">
+				<paper-button raised noink role="button" onClick="parent.location = '#/signup'">
+					Sign up
+				</paper-button>
+				<button type="submit" is="paper-submit">Login</button>
+			</footer>
+		</form>
+	</body>
 </div>
