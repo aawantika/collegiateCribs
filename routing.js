@@ -8,7 +8,7 @@ var session = require('./server/login/login.js');
 var property = require('./server/property/property.js');
 
 
-module.exports = function(passport) {
+module.exports = function() {
 
     // loads to index.html
     router.get(/^(.+)$/, function(req, res) {

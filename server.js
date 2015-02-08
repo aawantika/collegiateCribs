@@ -19,26 +19,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-// app.use(express.static(path.join(__dirname, 'public')));
-
-// Configuring Passport
-var passport = require('passport');
-var expressSession = require('express-session');
-// TODO - Why Do we need this key ?
-app.use(expressSession({
-        secret: 'mySecretKey',
-        resave: false,
-        saveUninitialized: false
-    }));
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Initialize Passport
-var initPassport = require('./server/passport/init');
-initPassport(passport);
-
-// var routes = require('./routes/index')(passport);
-var routes = require('./routing')(passport);
+var routes = require('./routing')();
 app.use('/', routes);
 
 
