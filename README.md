@@ -1,7 +1,12 @@
-# collegiateCribs
-Team 61 for Junior Design
+collegiateCribs: Team 61 for Junior Design
+=========================
 
-To run locally:
-go to /collegiateCribs in command line, and run "node server.js"
 
-type in localhost:8080/login.html in your preferred browser to start the program.
+To run, make sure you have:
+* nodejs and npm installed
+* mongodb running on port 27017 
+
+
+To run: npm install then npm start
+
+localhost:8080
