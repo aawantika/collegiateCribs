@@ -1,7 +1,16 @@
-<div ng-show = "showPage">
-    <body>
-        <h1>ayooooooooooooo</h1>
-        <p>My first paragraph.</p>
-    </body>
+<div ng-show="showPage">
+    <h1>ayooooooooooooo</h1>
+    <p>My first paragraph.
+    </p>
+
+
+    <form id="logout" ng-submit="logoutButton()" method="post">
+        <label class="alert">{{alert}}</label>
+        <footer>
+            <button type="submit" is="paper-submit">Logout</button>
+        </footer>
+    </form>
+
+
 
 </div>

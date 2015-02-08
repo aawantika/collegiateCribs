@@ -82,13 +82,9 @@ session.prototype.logout = function(req, res) {
 
 session.prototype.isLoggedIn = function(req, res) {
 
-    console.log('HERE');
-    console.log(body);
-    console.log('HERE');
     var body = req.body;
     var usernameInput = body.username;
     var sessionKeyInput = body.sessionKey;
-
 
     sessionModel.findOne({
         sessionKey: sessionKeyInput,

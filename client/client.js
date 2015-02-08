@@ -1,7 +1,7 @@
 var app = angular.module("app", [
     'ngRoute',
-    'login',
-    'ngCookies'
+    'ngCookies',
+    'login'
 ]);
 //^ a JSON of the dependencies for app
 
@@ -35,45 +35,45 @@ app.controller('EditAccountController', ['$scope', '$loginService', function($sc
     $scope.alert = "";
     $scope.passConAlert = "";
 
-    $scope.toStudent = function(){
+    $scope.toStudent = function() {
         console.log("change to Student");
         var oldStudLord = document.getElementById("studLord");
-        var newLabel= "<paper-dropdown-menu label='Campus'>" +
-                        "<paper-dropdown class='dropdown core-transition core-closed'>" +
-                            '<core-menu class="menu" ng-model="campus" valueattr="label">' +
-                                '<paper-item class="core-selected" active label="GT">GT</paper-item>' +
-                                '<paper-item class="core-selected" active label="GSU">GSU</paper-item>' +
-                            '</core-menu>'+
-                        '</paper-dropdown>'+
-                    '</paper-dropdown-menu>';
+        var newLabel = "<paper-dropdown-menu label='Campus'>" +
+            "<paper-dropdown class='dropdown core-transition core-closed'>" +
+            '<core-menu class="menu" ng-model="campus" valueattr="label">' +
+            '<paper-item class="core-selected" active label="GT">GT</paper-item>' +
+            '<paper-item class="core-selected" active label="GSU">GSU</paper-item>' +
+            '</core-menu>' +
+            '</paper-dropdown>' +
+            '</paper-dropdown-menu>';
         oldStudLord.innerHTML = newLabel;
     };
 
-    $scope.toLandlord = function(){
+    $scope.toLandlord = function() {
         //make a drop down for 1-10 properties
         console.log("change to Landlord");
         var oldStudLord = document.getElementById("studLord");
-        var newLabel=   "<h3>Property</h3>\n"
-        var numBed=     "<paper-input-decorator label='Number of Bedrooms' floatingLabel> <input type=\"text\" ng-model=\"numBed\"></paper-input-decorator>\n"
-        var numBath=    "<paper-input-decorator label='Number of Bathrooms' floatingLabel><input type=\"text\" ng-model=\"numBath\"></paper-input-decorator>\n"
-        var houseType=  "<paper-input-decorator label='Housing Type' floatingLabel><input type=\"text\" ng-model=\"houseType\"></paper-input-decorator>\n"
-        var addr=       "<paper-input-decorator label='Address' floatingLabel><input type=\"text\" ng-model=\"address\"></paper-input-decorator>\n"
-        var avail=      "<paper-input-decorator label='Availability' floatingLabel><input type=\"text\" ng-model=\"avail\"></paper-input-decorator>\n"
-        var price=      "<paper-input-decorator label='Pricing' floatingLabel><input type=\"text\" ng-model=\"price\"></paper-input-decorator>\n"
-        var pets=       "<h4>Pet Policy</h4><br>\n" +
-                        '<core-toolbar style="background:transparent;'+
-                            '-webkit-box-shadow:none; -moz-box-shadow:none; box-shadow: none;">'+
-                        '<core-label horizontal layout center>'+
-                            '<paper-checkbox for ng-model="catsOk"></paper-checkbox>' +
-                            '<div>Cats</div>'+
-                        '</core-label>'+
-                        '<core-label horizontal layout center>'+
-                            '<paper-checkbox for ng-model="dogsOk"></paper-checkbox>' +
-                            '<div>Dogs</div>'+
-                        '</core-label>' +
-                        '</core-toolbar>';
-        var newForm = newLabel.concat(numBed,numBath,houseType,addr,avail,price,pets);
-        oldStudLord.innerHTML=newForm;
+        var newLabel = "<h3>Property</h3>\n"
+        var numBed = "<paper-input-decorator label='Number of Bedrooms' floatingLabel> <input type=\"text\" ng-model=\"numBed\"></paper-input-decorator>\n"
+        var numBath = "<paper-input-decorator label='Number of Bathrooms' floatingLabel><input type=\"text\" ng-model=\"numBath\"></paper-input-decorator>\n"
+        var houseType = "<paper-input-decorator label='Housing Type' floatingLabel><input type=\"text\" ng-model=\"houseType\"></paper-input-decorator>\n"
+        var addr = "<paper-input-decorator label='Address' floatingLabel><input type=\"text\" ng-model=\"address\"></paper-input-decorator>\n"
+        var avail = "<paper-input-decorator label='Availability' floatingLabel><input type=\"text\" ng-model=\"avail\"></paper-input-decorator>\n"
+        var price = "<paper-input-decorator label='Pricing' floatingLabel><input type=\"text\" ng-model=\"price\"></paper-input-decorator>\n"
+        var pets = "<h4>Pet Policy</h4><br>\n" +
+            '<core-toolbar style="background:transparent;' +
+            '-webkit-box-shadow:none; -moz-box-shadow:none; box-shadow: none;">' +
+            '<core-label horizontal layout center>' +
+            '<paper-checkbox for ng-model="catsOk"></paper-checkbox>' +
+            '<div>Cats</div>' +
+            '</core-label>' +
+            '<core-label horizontal layout center>' +
+            '<paper-checkbox for ng-model="dogsOk"></paper-checkbox>' +
+            '<div>Dogs</div>' +
+            '</core-label>' +
+            '</core-toolbar>';
+        var newForm = newLabel.concat(numBed, numBath, houseType, addr, avail, price, pets);
+        oldStudLord.innerHTML = newForm;
     };
 
     $scope.canSubmit = function() {
@@ -94,7 +94,6 @@ app.controller('EditAccountController', ['$scope', '$loginService', function($sc
             return false;
         } else {
             $scope.alert = "submittable";
-            console.log($loginService);
             $loginService.createUser(newUser, function(err, status, data) {
                 $scope.alert = data + " " + status;
             });
@@ -113,7 +112,7 @@ app.controller('EditAccountController', ['$scope', '$loginService', function($sc
 }]);
 
 app.controller('HomeController', ['$scope', '$loginService', '$location', '$cookies', function($scope, $loginService, $location, $cookies) {
-
+    $scope.alert = "";
     $scope.showPage = false;
     var cookie = {
         "username": $cookies.username,
@@ -125,10 +124,20 @@ app.controller('HomeController', ['$scope', '$loginService', '$location', '$cook
         console.log(data);
         if (!err) {
             $scope.showPage = true;
+            console.log(cookie);
         } else {
             $location.path("/");
         }
     });
+
+    $scope.logoutButton = function() {
+        $loginService.logout(cookie, function(err, status, data) {
+            if (!err) {
+                $scope.showPage = false;
+                $location.path("/");
+            }
+        });
+    };
 
 }]);
 

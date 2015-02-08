@@ -1,8 +1,13 @@
+/**
+ * Dependencies
+ */
 var express = require('express');
 var router = express();
-
 router.use(express.static(__dirname + '/client'));
 
+/**
+ * User Models
+ */
 var user = require('./server/login/user.js');
 var session = require('./server/login/login.js');
 var property = require('./server/property/property.js');
@@ -10,29 +15,31 @@ var property = require('./server/property/property.js');
 
 module.exports = function() {
 
-    // loads to index.html
+    /**
+     * Loads to index.html
+     */
     router.get(/^(.+)$/, function(req, res) {
         res.sendFile(__dirname + req.params[0]);
     });
 
-    //LOGIN/LOGOUT
+    /**
+     * login, logout, isLoggedIn
+     */
     router.post('/login', function(req, res, next) {
-       session.login(req, res);
+        session.login(req, res);
     });
 
-    /* Handle Logout */
     router.post('/logout', function(req, res) {
         session.logout(req, res);
     });
 
     router.post('/isLoggedIn', function(req, res) {
-        console.log("isloggedIn");
-        console.log(req.body);
-        console.log(req.params);
         session.isLoggedIn(req, res);
     });
 
-    // USER
+    /**
+     * user routing
+     */
     router.post('/user/create', function(req, res) {
         user.createUser(req, res);
     });
@@ -49,7 +56,9 @@ module.exports = function() {
         user.deleteUser(req, res);
     });
 
-    // PROPERTY
+    /**
+     * property routing
+     */
     router.post('/property/create', function(req, res) {
         console.log(req.body);
         property.createProperty(req, res);
@@ -66,6 +75,10 @@ module.exports = function() {
     router.post('/property/delete', function(req, res) {
         property.deleteProperty(req, res);
     });
+
+    /**
+     * rating/review routing
+     */
 
     return router;
 }
