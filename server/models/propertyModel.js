@@ -18,7 +18,7 @@ var propertySchema = new Schema({
     catsOk: Boolean, //can
     dogsOk: Boolean, //can
     propertyTours: Boolean, //can
-    images: String, //can
+    images: [Image], //can
     description: String, //can
     lastRenovationDate: Date //can
 }, {
