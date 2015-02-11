@@ -10,8 +10,8 @@ var bcrypt = require('bcrypt-nodejs');
 /**
  * Error Checking
  */
-var generalCheck = require('../error_checking/generalCheck.js');
-var userCheck = require('../error_checking/userCheck.js');
+// var generalCheck = require('../error_checking/generalCheck.js');
+// var userCheck = require('../error_checking/userCheck.js');
 
 function user() {}
 
@@ -22,7 +22,7 @@ user.prototype.createUser = function(req, res) {
 
     // general
     var body = req.body;
-    generalCheck.checkBody(body);
+    // generalCheck.checkBody(body);   
     var profileTypeInput = body.profileType;
     var usernameInput = body.username;
     var passwordInput = body.password;

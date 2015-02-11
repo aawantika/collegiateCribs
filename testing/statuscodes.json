@@ -1,0 +1,8 @@
+SUCCESS:
+200:
+201: 
+
+ERRORS:
+406: invalid input
+404: not found
+400: general error (avoid using this)

@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
 var propertySchema = new Schema({
     uuid: String, //can't be modified
     ownerId: String, //can't be modified
+    
     isASublease: Boolean, //can't be modified
     bedrooms: Number, //can be modified
     bathrooms: Number, //can be modified
@@ -18,7 +19,7 @@ var propertySchema = new Schema({
     catsOk: Boolean, //can
     dogsOk: Boolean, //can
     propertyTours: Boolean, //can
-    images: [Image], //can
+    images: [Object], //can
     description: String, //can
     lastRenovationDate: Date //can
 }, {
