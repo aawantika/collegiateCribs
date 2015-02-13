@@ -22,7 +22,7 @@ user.prototype.createUser = function(req, res) {
     // http://localhost:3000/user/create POST
 
     var body = req.body;
-    if (!generalCheck.checkBody(body)) {
+    if (!generalCheck.checkBody(body,res)) {
 
     }
 
