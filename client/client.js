@@ -38,7 +38,7 @@ app.controller('EditAccountController', ['$scope', '$loginService', function($sc
     $scope.toStudent = function() {
         console.log("change to Student");
         var oldStudLord = document.getElementById("studLord");
-        var newLabel = "<paper-dropdown-menu label='Campus'>" +
+        var newLabel = "<paper-dropdown-menu label='Campus*'>" +
             "<paper-dropdown class='dropdown core-transition core-closed'>" +
             '<core-menu class="menu" ng-model="campus" valueattr="label">' +
             '<paper-item class="core-selected" active label="GT">GT</paper-item>' +
@@ -78,8 +78,8 @@ app.controller('EditAccountController', ['$scope', '$loginService', function($sc
 
     $scope.canSubmit = function() {
         var newUser = {
-            "firstName": $scope.fname,
-            "lastName": $scope.lname,
+            "firstName": $scope.firstName,
+            "lastName": $scope.lastName,
             "username": $scope.username,
             "password": $scope.password,
             "confirmPassword": $scope.passConfirm,

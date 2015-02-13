@@ -4,7 +4,7 @@
         <h1 style="text-align: center"> Create your account </h1>
         <form id="signup" ng-submit="canSubmit()" method="post" class="box signup content">
             <fieldset class="wrapper">
-                <paper-radio-group name="profile" selected="student">
+                <paper-radio-group name="profile" selected="student" ng-model="profileType">
                     <paper-radio-button name="student" label="Student" ng-click="toStudent()"></paper-radio-button>
                     <paper-radio-button name="landlord" label="Landlord" ng-click="toLandlord()"></paper-radio-button>
                 </paper-radio-group>
@@ -14,12 +14,12 @@
 					<tr>
 						<td>
 							<paper-input-decorator label="First Name*" floatingLabel>
-								<input type="text" ng-model="fname"></input>
+								<input type="text" ng-model="firstName"></input>
 							</paper-input-decorator>
 						</td>
 						<td>
 							<paper-input-decorator label="Last Name*" floatingLabel>
-								<input type="text" ng-model="lname"></input>
+								<input type="text" ng-model="lastName"></input>
 							</paper-input-decorator>
 						</td>
 					</tr>
@@ -33,7 +33,7 @@
 					<tr>
 						<td>
 							<paper-input-decorator label="Password*" floatingLabel>
-								<input type="text" ng-model="password" ng-keyup="passMatch()"></input>
+								<input type="password" ng-model="password" ng-keyup="passMatch()"></input>
 							</paper-input-decorator>
 						</td>
 						<td>
@@ -55,14 +55,14 @@
 					<tr>
 						<td>
 							<paper-input-decorator label="Phone Number" floatingLabel>
-								<input type="text" ng-model="phoneNumber"></input>
+								<input type="text" ng-model="phone"></input>
 							</paper-input-decorator>
 						</td>
 					</tr>
 				</table>
 				<fieldset id="studLord">
 					<!-- make campus a dropdown, "GSU" or "GT"-->
-					<paper-dropdown-menu label="Campus">
+					<paper-dropdown-menu label="Campus*">
 						<paper-dropdown class="dropdown core-transition core-closed">
 							<core-menu class="menu" ng-model="campus" valueattr="label">
 								<paper-item class="core-selected" active label="GT">GT</paper-item>
