@@ -1,27 +1,28 @@
 {
-    "name": "collegiateCribs",
-    "version": "0.0.1",
-    "description": "Off-campus housing website for GT and GSU students.",
-    "author": {
-        "name": "Melissa Li, Aawantika Sahu, Andrew Tsai, Vania Xu"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/aawantika/collegiateCribs.git"
-    },
-    "private": true,
-    "scripts": {
-        "start": "node ./bin/www"
-    },
-    "dependencies": {
-        "bower": "*",
-        "mongoose": "*",
-        "express": "*",
-        "node-uuid": "*",
-        "cookie-parser": "*",
-        "body-parser": "*",
-        "express-session": "*",
-        "bcrypt": "*",
-        "bcrypt-nodejs": "*"
-    }
+  "name": "collegiateCribs",
+  "version": "0.0.1",
+  "description": "Off-campus housing website for GT and GSU students.",
+  "author": {
+    "name": "Melissa Li, Aawantika Sahu, Andrew Tsai, Vania Xu"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aawantika/collegiateCribs.git"
+  },
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bower": "*",
+    "mongoose": "*",
+    "express": "*",
+    "node-uuid": "*",
+    "cookie-parser": "*",
+    "body-parser": "*",
+    "express-session": "*",
+    "bcrypt": "*",
+    "bcrypt-nodejs": "*",
+    "promise": "~6.1.0"
+  }
 }

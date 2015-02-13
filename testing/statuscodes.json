@@ -1,8 +1,11 @@
+// http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+
 SUCCESS:
-200:
-201: 
+200: ok
+201: created
 
 ERRORS:
-406: invalid input
+406: not acceptable - invalid input
 404: not found
+409: conflict - duplicate object already in database
 400: general error (avoid using this)

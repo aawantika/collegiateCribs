@@ -25,7 +25,7 @@ module.exports = function() {
     /**
      * login, logout, isLoggedIn
      */
-    router.post('/login', function(req, res, next) {
+    router.post('/login', function(req, res) {
         session.login(req, res);
     });
 
