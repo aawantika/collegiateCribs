@@ -1,5 +1,7 @@
 'use strict';
 
+var q = require('q');
+
 function userCheck() {}
 
 /**
@@ -75,9 +77,9 @@ userCheck.prototype.checkPhoneNumber = function(phoneNumber) {
     }
 }
 
-userCheck.prototype.checkCampus = function(campus, res) {
+userCheck.prototype.checkCampus = function(campus) {
     var campusTypes = ["gsu", "gt"];
-    if (!campus || campusTypes.indexOf(campusTypes) === -1) {
+    if (!campus || campusTypes.indexOf(campus) === -1) {
         throw {
             code: 406,
             status: "campus"
@@ -88,23 +90,37 @@ userCheck.prototype.checkCampus = function(campus, res) {
 /**
  * Duplicate Error Checking
  */
-userCheck.prototype.duplicateUsername = function(usernameFound, res) {
+
+userCheck.prototype.duplicateUsername = function(usernameFound, callback) {
     if (usernameFound) {
-        console.log("createUser: username aready in database");
-        throw {
-            code: 409,
-            status: "username"
-        };
+        console.log("callbackerr");
+        callback(usernameFound);
+    } else {
+        console.log("callbacknoerr");
+        callback();
     }
+
+    // var deferred = q.defer();
+    // if (usernameFound) {
+    //     console.log("found");
+    //     deferred.reject("error");
+    // } else {
+    //     console.log("notfound");
+    //     deferred.resolve("no error");
+    // }
+
+    // console.log(deferred);
+    // console.log(deferred.promise.nodeify(callback));
+    // return deferred.promise.nodeify(callback);
+    // return deferred.promise;
 }
 
-userCheck.prototype.duplicateEmail = function(emailFound, res) {
+userCheck.prototype.duplicateEmail = function(emailFound, callback) {
     if (emailFound) {
-        console.log("createUser: email aready in database");
-        throw {
-            code: 409,
-            status: "email"
-        };
+        console.log("HELLO3");
+        callback(emailFound);
+    } else {
+        callback();
     }
 }
 

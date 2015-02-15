@@ -23,6 +23,7 @@
     "express-session": "*",
     "bcrypt": "*",
     "bcrypt-nodejs": "*",
-    "promise": "~6.1.0"
+    "promise": "~6.1.0",
+    "q": "~1.1.2"
   }
 }
