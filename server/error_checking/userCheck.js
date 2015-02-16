@@ -1,6 +1,7 @@
 'use strict';
 
 var q = require('q');
+var promise = require('promise');
 
 function userCheck() {}
 
@@ -91,7 +92,17 @@ userCheck.prototype.checkCampus = function(campus) {
  * Duplicate Error Checking
  */
 
-userCheck.prototype.duplicateUsername = function(usernameFound, callback) {
+function getStuffAsync(param) {
+    return new Promise(function(resolve, reject) {
+        getStuff(param, function(err, data) {
+            if (err !== null) return reject(err);
+            resolve(data);
+        });
+    });
+}
+
+// userCheck.prototype.duplicateUsernameAsync = function(usernameFound, callback) {
+userCheck.prototype.duplicateUsernameAsync = function(usernameFound) {
     if (usernameFound) {
         console.log("callbackerr");
         callback(usernameFound);
@@ -100,19 +111,14 @@ userCheck.prototype.duplicateUsername = function(usernameFound, callback) {
         callback();
     }
 
-    // var deferred = q.defer();
-    // if (usernameFound) {
-    //     console.log("found");
-    //     deferred.reject("error");
-    // } else {
-    //     console.log("notfound");
-    //     deferred.resolve("no error");
-    // }
-
-    // console.log(deferred);
-    // console.log(deferred.promise.nodeify(callback));
-    // return deferred.promise.nodeify(callback);
-    // return deferred.promise;
+    return new promise(function(resolve, reject) {
+        duplicateUsername(usernameFound, function(err, usernameReturn) {
+            if (err !== null) {
+                return reject(err);
+            }
+            resolve(usernameFound);
+        });
+    });
 }
 
 userCheck.prototype.duplicateEmail = function(emailFound, callback) {
