@@ -10,6 +10,12 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.5.3"
+    "polymer": "Polymer/polymer#~0.5.3",
+    "polymer-core-elements": "Polymer/core-elements#~0.5.3",
+    "polymer-paper-elements": "Polymer/paper-elements#~0.5.3",
+    "angular":"",
+    "angular-ui-router":"",
+    "ng-polymer-elements":""
+
   }
 }
