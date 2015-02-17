@@ -1,11 +1,13 @@
+'use strict'
+
 var app = angular.module("app", [
     'ngRoute',
     'ngCookies',
-    'login'
+    'login',
+    'ui.router',
+    'ng-polymer-elements'
 ]);
 //^ a JSON of the dependencies for app
-
-var controllers = {};
 
 app.controller('LoginController', ['$scope', '$loginService', '$location', '$cookies', function($scope, $loginService, $location, $cookies) {
     $scope.alert = "";
@@ -141,25 +143,25 @@ app.controller('HomeController', ['$scope', '$loginService', '$location', '$cook
 
 }]);
 
-app.controller(controllers);
+app.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.otherwise('/login');
 
-app.config(function($routeProvider) {
-        $routeProvider.when('/', {
+        $stateProvider.state('login', {
+                url:'/login',
                 controller: 'LoginController',
                 templateUrl: '/client/html_pages/login.html'
             })
-            .when('/signup', {
+            .state('signup', {
+                url:'/signup',
                 controller: 'EditAccountController',
                 templateUrl: '/client/html_pages/signup.html'
             })
-            .when('/home', {
+            .state('home', {
+                url:'/home',
                 controller: 'HomeController',
                 templateUrl: '/client/html_pages/home.html'
-            })
-            .otherwise({
-                redirectTo: '/'
             });
-    })
+    }])
     .directive('head', ['$rootScope', '$compile',
         function($rootScope, $compile) {
             return {

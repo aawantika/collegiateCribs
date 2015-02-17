@@ -4,7 +4,7 @@
         <h1 style="text-align: center"> Create your account </h1>
         <form id="signup" ng-submit="canSubmit()" method="post" class="box signup content">
             <fieldset class="wrapper">
-                <paper-radio-group name="profile" selected="student" ng-model="profileType">
+                <paper-radio-group name="profile" selected="student" ng-model="profileType" valueattr="name">
                     <paper-radio-button name="student" label="Student" ng-click="toStudent()"></paper-radio-button>
                     <paper-radio-button name="landlord" label="Landlord" ng-click="toLandlord()"></paper-radio-button>
                 </paper-radio-group>
@@ -71,7 +71,6 @@
 						</paper-dropdown>
 					</paper-dropdown-menu>
 				</fieldset><br/>
-				
 				<label>* = required</label><br/>
 				<label class="alert">{{alert}}</label>
 			</fieldset>
