@@ -43,8 +43,8 @@ app.controller('EditAccountController', ['$scope', '$loginService', function($sc
         var newLabel = "<paper-dropdown-menu label='Campus*'>" +
             "<paper-dropdown class='dropdown core-transition core-closed'>" +
             '<core-menu class="menu" ng-model="campus" valueattr="label">' +
-            '<paper-item class="core-selected" active label="GT">GT</paper-item>' +
-            '<paper-item class="core-selected" active label="GSU">GSU</paper-item>' +
+            '<paper-item class="core-selected" active label="gt">GT</paper-item>' +
+            '<paper-item class="core-selected" active label="gsu">GSU</paper-item>' +
             '</core-menu>' +
             '</paper-dropdown>' +
             '</paper-dropdown-menu>';
@@ -80,12 +80,14 @@ app.controller('EditAccountController', ['$scope', '$loginService', function($sc
 
     $scope.canSubmit = function() {
         var newUser = {
+            "profileType": $scope.profileType,
             "firstName": $scope.firstName,
             "lastName": $scope.lastName,
             "username": $scope.username,
             "password": $scope.password,
             "confirmPassword": $scope.passConfirm,
-            "email": $scope.email
+            "email": $scope.email,
+            "campus": $scope.campus
         }
 
         if (!newUser.firstName || !newUser.lastName || !newUser.username || !newUser.password || !newUser.confirmPassword || !newUser.email) {
