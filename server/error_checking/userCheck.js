@@ -92,17 +92,17 @@ userCheck.prototype.checkCampus = function(campus) {
  * Duplicate Error Checking
  */
 
-function getStuffAsync(param) {
-    return new Promise(function(resolve, reject) {
-        getStuff(param, function(err, data) {
-            if (err !== null) return reject(err);
-            resolve(data);
-        });
-    });
-}
+// function getStuffAsync(param) {
+//     return new Promise(function(resolve, reject) {
+//         getStuff(param, function(err, data) {
+//             if (err !== null) return reject(err);
+//             resolve(data);
+//         });
+//     });
+// }
 
-// userCheck.prototype.duplicateUsernameAsync = function(usernameFound, callback) {
-userCheck.prototype.duplicateUsernameAsync = function(usernameFound) {
+ userCheck.prototype.duplicateUsername = function(usernameFound, callback) {
+// userCheck.prototype.duplicateUsernameAsync = function(usernameFound) {
     if (usernameFound) {
         console.log("callbackerr");
         callback(usernameFound);
@@ -111,14 +111,14 @@ userCheck.prototype.duplicateUsernameAsync = function(usernameFound) {
         callback();
     }
 
-    return new promise(function(resolve, reject) {
-        duplicateUsername(usernameFound, function(err, usernameReturn) {
-            if (err !== null) {
-                return reject(err);
-            }
-            resolve(usernameFound);
-        });
-    });
+    // return new promise(function(resolve, reject) {
+    //     duplicateUsername(usernameFound, function(err, usernameReturn) {
+    //         if (err !== null) {
+    //             return reject(err);
+    //         }
+    //         resolve(usernameFound);
+    //     });
+    // });
 }
 
 userCheck.prototype.duplicateEmail = function(emailFound, callback) {
