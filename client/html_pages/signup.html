@@ -4,7 +4,7 @@
         <h1 style="text-align: center"> Create your account </h1>
         <form id="signup" ng-submit="canSubmit()" method="post" class="box signup content">
             <fieldset class="wrapper">
-                <paper-radio-group name="profile" selected="student" ng-model="profileType" valueattr="name">
+                <paper-radio-group selected="student" name="profile" ng-model="user.profileType" valueattr="name">
                     <paper-radio-button name="student" label="Student" ng-click="toStudent()"></paper-radio-button>
                     <paper-radio-button name="landlord" label="Landlord" ng-click="toLandlord()"></paper-radio-button>
                 </paper-radio-group>
@@ -14,38 +14,38 @@
 					<tr>
 						<td>
 							<paper-input-decorator label="First Name*" floatingLabel>
-								<input type="text" ng-model="firstName"></input>
+								<input type="text" ng-model="user.firstName"></input>
 							</paper-input-decorator>
 						</td>
 						<td>
 							<paper-input-decorator label="Last Name*" floatingLabel>
-								<input type="text" ng-model="lastName"></input>
+								<input type="text" ng-model="user.lastName"></input>
 							</paper-input-decorator>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<paper-input-decorator label="Username*" floatingLabel>
-								<input type="text" ng-model="username"></input>
+								<input type="text" ng-model="user.username"></input>
 							</paper-input-decorator>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<paper-input-decorator label="Password*" floatingLabel>
-								<input type="password" ng-model="password" ng-keyup="passMatch()"></input>
+								<input type="password" ng-model="user.password" ng-keyup="passMatch()"></input>
 							</paper-input-decorator>
 						</td>
 						<td>
 							<paper-input-decorator label="Password confirm*" floatinglabel>
-								<input type="password" ng-model="passConfirm" ng-keyup="passMatch()"><br>
+								<input type="password" ng-model="user.passConfirm" ng-keyup="passMatch()"><br>
 							</paper-input-decorator>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<paper-input-decorator label="Email*" floatingLabel>
-								<input type="text" ng-model="email"></input>
+								<input type="text" ng-model="user.email"></input>
 							</paper-input-decorator>
 						</td>
 						<td>
@@ -55,22 +55,12 @@
 					<tr>
 						<td>
 							<paper-input-decorator label="Phone Number" floatingLabel>
-								<input type="text" ng-model="phone"></input>
+								<input type="text" ng-model="user.phone"></input>
 							</paper-input-decorator>
 						</td>
 					</tr>
 				</table>
-				<fieldset id="studLord">
-					<!-- make campus a dropdown, "GSU" or "GT"-->
-					<paper-dropdown-menu label="Campus*">
-						<paper-dropdown class="dropdown core-transition core-closed">
-							<core-menu class="menu" ng-model="campus" valueattr="label">
-								<paper-item class="core-selected" active label="gt">GT</paper-item>
-								<paper-item class="core-selected" active label="gsu">GSU</paper-item>
-							</core-menu>
-						</paper-dropdown>
-					</paper-dropdown-menu>
-				</fieldset><br/>
+				<div ui-view></div><br/>
 				<label>* = required</label><br/>
 				<label class="alert">{{alert}}</label>
 			</fieldset>

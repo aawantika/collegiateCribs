@@ -1,0 +1,38 @@
+<div>
+	<fieldset>
+		<h3>Property</h3>
+        <paper-input-decorator label='Number of Bedrooms' floatingLabel>
+        	<input type=\"text" ng-model="numBed">
+        </paper-input-decorator>
+        <paper-input-decorator label='Number of Bathrooms'floatingLabel>
+        	<input type="text" ng-model="numBath">
+        </paper-input-decorator>
+        <paper-input-decorator label='Housing Type' floatingLabel>
+        	<input type="text" ng-model="houseType">
+        </paper-input-decorator>
+        <paper-input-decorator label='Address' floatingLabel>
+        	<input type="text" ng-model="address">
+        </paper-input-decorator>
+        <paper-input-decorator label='Availability' floatingLabel>
+        	<input type="text" ng-model="avail">
+        </paper-input-decorator>
+        <paper-input-decorator label='Pricing' floatingLabel>
+        	<input type="text" ng-model="price">
+        </paper-input-decorator>
+        <h4>Pet Policy</h4><br>
+        <core-toolbar style=
+        	"background:transparent;
+        	-webkit-box-shadow:none;
+        	-moz-box-shadow:none;
+        	box-shadow:none;">
+            <core-label horizontal layout center>
+            	<paper-checkbox for ng-model="catsOk"></paper-checkbox>
+            	<div>Cats</div>
+            </core-label>
+            <core-label horizontal layout center>
+            	<paper-checkbox for ng-model="dogsOk"></paper-checkbox>
+            	<div>Dogs</div>
+            </core-label>
+        </core-toolbar>
+    </fieldset>
+</div>

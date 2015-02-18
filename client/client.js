@@ -33,61 +33,41 @@ app.controller('LoginController', ['$scope', '$loginService', '$location', '$coo
     };
 }]);
 
-app.controller('EditAccountController', ['$scope', '$loginService', function($scope, $loginService) {
-    $scope.alert = "";
-    $scope.passConAlert = "";
+app.controller('EditAccountController', ['$scope', '$loginService', '$state', '$stateParams', function($scope, $loginService, $state, $stateParams) {
+    $scope.alert = $scope.alert||"";
+    $scope.passConAlert = $scope.passConAlert||"";
+    $scope.user=$scope.user||{
+        firstName:"",
+        lastName:"",
+        username:"",
+        password:"",
+        passConfirm:"",
+        email:"",
+        phone:"",
+        campus:""
+    };
 
     $scope.toStudent = function() {
         console.log("change to Student");
-        var oldStudLord = document.getElementById("studLord");
-        var newLabel = "<paper-dropdown-menu label='Campus*'>" +
-            "<paper-dropdown class='dropdown core-transition core-closed'>" +
-            '<core-menu class="menu" ng-model="campus" valueattr="label">' +
-            '<paper-item class="core-selected" active label="gt">GT</paper-item>' +
-            '<paper-item class="core-selected" active label="gsu">GSU</paper-item>' +
-            '</core-menu>' +
-            '</paper-dropdown>' +
-            '</paper-dropdown-menu>';
-        oldStudLord.innerHTML = newLabel;
+        $state.go('signup.student');
     };
 
     $scope.toLandlord = function() {
         //make a drop down for 1-10 properties
         console.log("change to Landlord");
-        var oldStudLord = document.getElementById("studLord");
-        var newLabel = "<h3>Property</h3>\n"
-        var numBed = "<paper-input-decorator label='Number of Bedrooms' floatingLabel> <input type=\"text\" ng-model=\"numBed\"></paper-input-decorator>\n"
-        var numBath = "<paper-input-decorator label='Number of Bathrooms' floatingLabel><input type=\"text\" ng-model=\"numBath\"></paper-input-decorator>\n"
-        var houseType = "<paper-input-decorator label='Housing Type' floatingLabel><input type=\"text\" ng-model=\"houseType\"></paper-input-decorator>\n"
-        var addr = "<paper-input-decorator label='Address' floatingLabel><input type=\"text\" ng-model=\"address\"></paper-input-decorator>\n"
-        var avail = "<paper-input-decorator label='Availability' floatingLabel><input type=\"text\" ng-model=\"avail\"></paper-input-decorator>\n"
-        var price = "<paper-input-decorator label='Pricing' floatingLabel><input type=\"text\" ng-model=\"price\"></paper-input-decorator>\n"
-        var pets = "<h4>Pet Policy</h4><br>\n" +
-            '<core-toolbar style="background:transparent;' +
-            '-webkit-box-shadow:none; -moz-box-shadow:none; box-shadow: none;">' +
-            '<core-label horizontal layout center>' +
-            '<paper-checkbox for ng-model="catsOk"></paper-checkbox>' +
-            '<div>Cats</div>' +
-            '</core-label>' +
-            '<core-label horizontal layout center>' +
-            '<paper-checkbox for ng-model="dogsOk"></paper-checkbox>' +
-            '<div>Dogs</div>' +
-            '</core-label>' +
-            '</core-toolbar>';
-        var newForm = newLabel.concat(numBed, numBath, houseType, addr, avail, price, pets);
-        oldStudLord.innerHTML = newForm;
+        $state.go('signup.landlord');
     };
 
     $scope.canSubmit = function() {
         var newUser = {
-            "profileType": $scope.profileType,
-            "firstName": $scope.firstName,
-            "lastName": $scope.lastName,
-            "username": $scope.username,
-            "password": $scope.password,
-            "confirmPassword": $scope.passConfirm,
-            "email": $scope.email,
-            "campus": $scope.campus
+            "profileType": $scope.user.profileType,
+            "firstName": $scope.user.firstName,
+            "lastName": $scope.user.lastName,
+            "username": $scope.user.username,
+            "password": $scope.user.password,
+            "confirmPassword": $scope.user.passConfirm,
+            "email": $scope.user.email,
+            "campus": $scope.user.campus
         }
 
         if (!newUser.firstName || !newUser.lastName || !newUser.username || !newUser.password || !newUser.confirmPassword || !newUser.email) {
@@ -105,8 +85,8 @@ app.controller('EditAccountController', ['$scope', '$loginService', function($sc
     };
 
     $scope.passMatch = function() {
-        var pass = $scope.password;
-        var passC = $scope.passConfirm;
+        var pass = $scope.user.password;
+        var passC = $scope.user.passConfirm;
         if ((pass || passC) && pass != passC) {
             $scope.passConAlert = "Password confirm doesn't match Password";
         } else {
@@ -158,6 +138,16 @@ app.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $url
                 controller: 'EditAccountController',
                 templateUrl: '/client/html_pages/signup.html'
             })
+            .state('signup.landlord',{
+                templateUrl: '/client/html_pages/landlordSignup.html',
+                controller: 'EditAccountController',
+                parent:'signup'
+            })
+            .state('signup.student',{
+                templateUrl: '/client/html_pages/studentSignup.html',
+                controller: 'EditAccountController',
+                parent:'signup'
+            })
             .state('home', {
                 url:'/home',
                 controller: 'HomeController',
@@ -193,4 +183,12 @@ app.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $url
                 }
             };
         }
+    ]);
+
+app.run(
+    ['$rootScope', '$state', '$stateParams',
+      function ($rootScope, $state, $stateParams) {
+          $rootScope.$state = $state;
+          $rootScope.$stateParams = $stateParams;
+      }
     ]);
