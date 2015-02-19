@@ -3,109 +3,141 @@
 /**
  * Dependencies
  */
-var sessionModel = require('../models/sessionModel.js');
 var userModel = require('../models/userModel.js');
+var generalCheck = require('../error_checking/generalCheck.js');
+var userCheck = require('../error_checking/userCheck.js');
+var sessionModel = require('../models/sessionModel.js');
+var bcrypt = require('../error_checking/bcryptHash.js');
 var uuid = require('node-uuid');
-var bcrypt = require('bcrypt-nodejs');
 
 function session() {}
 
 session.prototype.login = function(req, res) {
-    // http://localhost:3000/user/create POST
+    // http://localhost:8080/login POST
 
-    var uuidInput = "session" + uuid.v4();
+    var body = req.body,
+        newSession;
 
-    // general
-    var body = req.body;
-    var usernameInput = body.username;
-    var passwordInput = body.password;
+    generalCheck.checkBody(body)
+        .then(function(result) {
+            return userCheck.checkUsername(body.username);
+        })
+        .then(function(result) {
+            return userCheck.checkPassword(body.password);
+        })
+        .then(function(result) {
+            return userModel.findOne({
+                username: body.username
+            }).exec();
+        })
+        .then(function(user) {
+            return userCheck.userExists(user, body.password);
+        })
+        .then(function(result) {
+            return sessionModel.findOne({
+                username: body.username
+            }).exec();
+        })
+        .then(function(session) {
+            return userCheck.sessionExistsLogin(session);
+        })
+        .then(function(result) {
+            newSession = new sessionModel();
+            newSession.sessionKey = "session" + uuid.v4();
+            newSession.username = body.username;
+            return newSession.save();
+        })
+        .then(function(result) {
+            newSession = newSession.toObject();
+            delete newSession._id;
+            res.status(200).send(newSession);
+        })
+        .catch(function(error) {
+            console.log(error);
 
-    userModel.findOne({
-        username: usernameInput
-
-    }, function(err, user) {
-        if (!user) {
-            console.log("user error");
-            res.status(400).send('Bad Request');
-        } else {
-            bcrypt.compareSync(passwordInput, user.password, function(err) {
-                if (err) {
-                    res.status(404).send("no");
-                }
-            });
-            sessionModel.findOne({
-                username: usernameInput
-            }, function(err, session) {
-                if (session) {
-                    res.status(401).send('already in session');
-                } else {
-                    var newSession = new sessionModel();
-                    newSession.sessionKey = uuidInput;
-                    newSession.username = usernameInput;
-                    newSession.save(function(err) {
-                        if (err) {
-                            console.log(" error");
-                            res.status(500).send('error saving');
-                        } else {
-                            return res.status(200).send({
-                                username: usernameInput,
-                                sessionKey: uuidInput
-                            });
-                        }
-                    });
-                }
-            });
-
-        }
-    });
+            if (error.status == 404 || error.status == 400) {
+                res.status(error.status).send(error.send);
+            } else {
+                res.status(500).send("internal error");
+            }
+        });
 }
 
 session.prototype.logout = function(req, res) {
-    // http://localhost:3000/user/retrieve POST
+    // http://localhost:8080/logout POST
 
     var body = req.body;
-    var usernameInput = body.username;
-    var sessionInput = body.sessionKey;
 
-    sessionModel.findOne({
-        username: usernameInput,
-        sessionKey: sessionInput
-    }, function(err, session) {
-        if (session) {
-            session.remove();
-            res.status(200).send("done");
-        } else {
-            res.status(400).send('error with session logout');
-        }
-    });
+    generalCheck.checkBody(body)
+        .then(function(result) {
+            return userCheck.checkUsername(body.username);
+        })
+        .then(function(result) {
+            return userCheck.checkSessionKey(body.sessionKey);
+        })
+        .then(function(result) {
+            return sessionModel.findOne({
+                username: body.username,
+                sessionKey: body.sessionKey
+            }).exec();
+        })
+        .then(function(session) {
+            return userCheck.sessionExists(session);
+        })
+        .then(function(result) {
+            return result.send.remove();
+        })
+        .then(function(result) {
+            return res.status(200).send("logout successful");
+        })
+        .catch(function(error) {
+            console.log(error);
+
+            if (error.status == 404 || error.status == 406) {
+                res.status(error.status).send(error.send);
+            } else {
+                res.status(500).send("internal error");
+            }
+        });
 }
 
 session.prototype.isLoggedIn = function(req, res) {
+    // http://localhost:8080/isLoggedIn POST
 
     var body = req.body;
-    var usernameInput = body.username;
-    var sessionKeyInput = body.sessionKey;
+    generalCheck.checkBody(body)
+        .then(function(result) {
+            return userCheck.checkUsername(body.username);
+        })
+        .then(function(result) {
+            return userCheck.checkSessionKey(body.sessionKey);
+        })
+        .then(function(result) {
+            return sessionModel.findOne({
+                username: body.username,
+                sessionKey: body.sessionKey
+            }).exec();
+        })
+        .then(function(session) {
+            return userCheck.sessionExists(session);
+        })
+        .then(function(result) {
+            result.send = result.send.toObject();
+            delete result.send._id;
+            delete result.send.__v;
 
-    sessionModel.findOne({
-        sessionKey: sessionKeyInput,
-        username: usernameInput
-    }, function(err, session) {
-        if (!session) {
-            res.status(400).send('error with session isloggedin');
-        } else {
-            res.status(200).send('user isloggedin');
-        }
-    });
+            return res.status(result.status).send(result.send);
+        })
+        .catch(function(error) {
+            console.log(error);
+
+            if (error.status == 404 || error.status == 406) {
+                res.status(error.status).send(error.send);
+            } else {
+                res.status(500).send("internal error");
+            }
+        });
 }
 
-// Generates hash using bCrypt
-var createHash = function(passwordNew, passwordOld) {
-    bcrypt.compare(passwordNew, passwordOld, function(err, res) {
-        if (err) {
-            return false;
-        }
-        return true
-    });
-}
 
 module.exports = new session();

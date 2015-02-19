@@ -8,13 +8,6 @@ CREATE: POST http: //localhost:8080/user/create
         "email": "student123@gmail.com",
         "campus": "gt"
     }, {
-        "profileType": "landlord",
-        "username": "bob1",
-        "password": "password1",
-        "firstName": "first",
-        "lastName": "last",
-        "email": "bob1@gmail.com"
-    }, {
         "username": "student1234",
         "profileType": "student",
         "password": "password1234",

@@ -1,6 +1,10 @@
 'use strict';
 
+/**
+ * Dependencies
+ */
 var Promise = require('bluebird');
+var bcrypt = require('../error_checking/bcryptHash.js');
 
 function userCheck() {}
 
@@ -119,6 +123,20 @@ userCheck.prototype.checkCampus = function(campus, profileType) {
     });
 }
 
+userCheck.prototype.checkSessionKey = function(sessionKey) {
+    return new Promise(function(resolve, reject) {
+        var sessionKeyRegex = /^session[A-Za-z0-9]{8}[-][A-Za-z0-9]{4}[-][A-Za-z0-9]{4}[-][A-Za-z0-9]{4}[-][A-Za-z0-9]{12}$/i;
+        if (!sessionKey || !sessionKeyRegex.test(sessionKey)) {
+            reject({
+                status: 406,
+                send: "sessionKey"
+            });
+        } else {
+            resolve();
+        }
+    });
+}
+
 /**
  * Duplicate Error Checking
  */
@@ -149,11 +167,11 @@ userCheck.prototype.duplicateEmail = function(email) {
 }
 
 /**
- * Duplicate Error Checking
+ * Check if user/session exists
  */
-userCheck.prototype.userExists = function(user) {
+userCheck.prototype.userExists = function(user, passwordInput) {
     return new Promise(function(resolve, reject) {
-        if (user) {
+        if (user && bcrypt.comparePasswords(passwordInput, user.password)) {
             resolve({
                 status: 200,
                 send: user
@@ -161,10 +179,41 @@ userCheck.prototype.userExists = function(user) {
         } else {
             reject({
                 status: 404,
-                send: "username not found"
+                send: "user not found"
             });
         }
     });
 }
+
+userCheck.prototype.sessionExistsLogin = function(session) {
+    return new Promise(function(resolve, reject) {
+        if (session) {
+            reject({
+                status: 400,
+                send: "session exists"
+            });
+        } else {
+            resolve();
+        }
+    });
+}
+
+
+userCheck.prototype.sessionExists = function(session) {
+    return new Promise(function(resolve, reject) {
+        if (session) {
+            resolve({
+                status: 200,
+                send: session
+            });
+        } else {
+            reject({
+                status: 404,
+                send: "session not found"
+            });
+        }
+    });
+}
+
 
 module.exports = new userCheck();
