@@ -93,7 +93,6 @@ user.prototype.createUser = function(req, res) {
             res.sendStatus(200);
         })
         .catch(function(error) {
-            console.log(error);
             if (error.status == 406 || error.status == 409) {
                 res.status(error.status).send(error.send);
             } else {
@@ -119,11 +118,9 @@ user.prototype.retrieveUser = function(req, res) {
             return userCheck.userExists(user);
         })
         .then(function(result) {
-            console.log(result.send);
             res.status(result.status).send(result.send);
         })
         .catch(function(error) {
-            console.log(error);
             if (error.status == 406 || error.status == 404) {
                 res.status(error.status).send(error.send);
             } else {
