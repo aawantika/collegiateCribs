@@ -7,6 +7,9 @@ To run, make sure you have:
 * mongodb running on port 27017 
 
 
-To run: npm install then npm start
+To run: 
+* npm install
+* bower install
+* npm start
 
 localhost:8080
