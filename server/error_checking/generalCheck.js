@@ -1,17 +1,23 @@
 'use strict';
 
+var Promise = require('bluebird');
+
 function generalCheck() {}
 
 /**
- * check for empty body
+ * Check for empty body
  */
 generalCheck.prototype.checkBody = function(body) {
-    if (!body || (JSON.stringify(body) == "{}" && body == "{}")) {
-        throw {
-            code: 406,
-            status: "body"
-        };
-    }
+    return new Promise(function(resolve, reject) {
+        if (!body || (JSON.stringify(body) == "{}" && body == "{}")) {
+            reject({
+                status: 406,
+                send: "body"
+            });
+        } else {
+            resolve();
+        }
+    });
 }
 
 module.exports = new generalCheck();

@@ -8,8 +8,7 @@
 var userModel = require('../models/userModel.js');
 var generateUuid = require('../error_checking/generateUuid.js');
 var bcrypt = require('bcrypt-nodejs');
-var promise = require('promise');
-var q = require('q');
+// var Promise = require('bluebird');
 
 /**
  * Error Checking
@@ -23,398 +22,114 @@ user.prototype.createUser = function(req, res) {
     // http://localhost:3000/user/create POST
 
     var body = req.body;
-    try {
-        generalCheck.checkBody(body);
-        userCheck.checkProfile(body.profileType);
-        userCheck.checkUsername(body.username);
-        userCheck.checkPassword(body.password);
-        userCheck.checkFirstName(body.firstName);
-        userCheck.checkLastName(body.lastName);
-        userCheck.checkEmail(body.email);
-
-        // optional fields
-        var phoneInput = body.phoneNumber;
-        if (!phoneInput) {
-            phoneInput = "-1000000000";
-        }
-        userCheck.checkPhoneNumber(phoneInput);
-
-        // student specific field
-        var campusInput = body.campus;
-        if (body.profileType === "student") {
-            userCheck.checkCampus(campusInput);
-        }
-
-        userModel.findOne({
-            username: body.username
-        }, function(err, usernameFound) {
-            console.log("here");
-            if (err) {
-                console.log(err);
-            } else {
-                console.log("here1");
-                userCheck.duplicateUsername(usernameFound, function(err, noerr) {
-                    if (err) {
-                        console.log("error");
-                        res.status(409).send("username");
-                    } else {
-                        console.log("here2");
-                        userModel.findOne({
-                            email: body.email
-                        }, function(err, emailFound) {
-                            if (err) {
-                                console.log("error2");
-                            } else {
-                                console.log("here3");
-                                console.log(emailFound);
-                                userCheck.duplicateEmail(emailFound, function(err, noerr) {
-                                    if (err) {
-                                        console.log("error3");
-                                        res.status(409).send("email");
-                                    } else {
-                                        console.log("here4");
-                                        var newUser = new userModel();
-                                        newUser.uuid = generateUuid.saveUuid();
-                                        newUser.profileType = body.profileType;
-                                        newUser.username = body.username;
-                                        newUser.password = createHash(body.password);
-                                        newUser.firstName = body.firsName;
-                                        newUser.lastName = body.lastName;
-                                        newUser.email = body.email;
-                                        newUser.phoneNumber = phoneInput;
-
-                                        if (newUser.profileType === "student") {
-                                            newUser.campus = campusInput;
-                                        }
-
-                                        newUser.save();
-                                        res.sendStatus(200);
-                                        // try {
-                                        //     newUser.save(function(err) {
-                                        //         if (err) {
-                                        //             throw {
-                                        //                 code: 500,
-                                        //                 status: "error saving"
-                                        //             };
-                                        //         } else {
-                                        //             console.log(newUser);
-                                        //             return res.sendStatus(200);
-                                        //         }
-                                        //     });
-                                        // } catch (err) {
-                                        //     console.log(err);
-                                        // }
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
-            }
-        });
-    } catch (err) {
-        console.log(err);
-        res.status(err.code).send(err.status);
+    var phoneInput = body.phoneNumber;
+    if (!phoneInput) {
+        phoneInput = "-1000000000";
     }
 
+    generalCheck.checkBody(body)
+        .then(function(result) {
+            return userCheck.checkProfile(body.profileType);
+        })
+        .then(function(result) {
+            return userCheck.checkUsername(body.username);
+        })
+        .then(function(result) {
+            return userCheck.checkPassword(body.password);
+        })
+        .then(function(result) {
+            return userCheck.checkFirstName(body.firstName);
+        })
+        .then(function(result) {
+            return userCheck.checkLastName(body.lastName);
+        })
+        .then(function(result) {
+            return userCheck.checkEmail(body.email);
+        })
+        .then(function(result) {
+            return userCheck.checkPhoneNumber(phoneInput);
+        })
+        .then(function(result) {
+            return userCheck.checkCampus(body.campus, body.profileType);
+        })
+        .then(function(result) {
+            return userModel.findOne({
+                username: body.username
+            }).exec();
+        })
+        .then(function(usernameReturn) {
+            return userCheck.duplicateUsername(usernameReturn);
+        })
+        .then(function(result) {
+            return userModel.findOne({
+                email: body.email
+            }).exec();
+        })
+        .then(function(emailReturn) {
+            return userCheck.duplicateEmail(emailReturn);
+        })
+        .then(function(result) {
+            var newUser = new userModel();
+            newUser.uuid = generateUuid.saveUuid();
+            newUser.profileType = body.profileType;
+            newUser.username = body.username;
+            newUser.password = createHash(body.password);
+            newUser.firstName = body.firstName;
+            newUser.lastName = body.lastName;
+            newUser.email = body.email;
 
+            if (phoneInput !== "-1000000000") {
+                newUser.phoneNumber = phoneInput;
+            }
+            if (newUser.profileType === "student") {
+                newUser.campus = body.campus;
+            } else if (newUser.profileType === "landlord" && body.campus) {
+                newUser.campus = undefined;
+            }
 
-    // validateGame(db, game, function(err, result) {
-    //     if (err) {
-    //         return handleError(err);
-    //     }
-    //     return actualCreate(db, game)
-    // });
-
-    // validateGame(rc, game)
-    //     .then(function(result) {
-    //         return actualCreate(rc, game);
-    //     }, function(error) {
-    //         return handleError(err);
-    //     });
-
-    // userModel.findOne({
-    //     username: body.username
-    // }, function(err, usernameFound) {
-    //     userCheck.duplicateUsername(usernameFound, function(err, noerr) {
-    //         console.log(err);
-    //         console.log(noerr);
-    //         if (err) {
-    //             console.log(err);
-    //             console.log("error");
-    //             return;
-    //         } else if (noerr) {
-    //             console.log("NOERR:" + noerr + ":NOERR");
-    //             console.log("noerror");
-    //             return;
-    //         }
-    //     })
-    // });
-
-    // var usernameFound = null;
-    // userCheck.duplicateUsername(usernameFound, function(err, noerr) {
-    //     console.log("err: " + err);
-    //     console.log("noerr: " + noerr);
-    // });
-
-
-    // var promise = userModel.findOne({
-    //     username: body.username
-    // }).exec();
-
-    // promise.then(function(usernameFound) {
-    //     console.log("usernameFound");
-    //     console.log(usernameFound);
-    //     return userCheck.duplicateUsername(usernameFound);
-    // }).then(function(err) {
-    //         console.log(err);
-    //         console.log("error");
-    //         res.sendStatus(409);
-    //         return;
-    //     }, function() {
-    //         console.log("NOERR:" + noerr + ":NOERR");
-    //         console.log("noerror");
-    //         res.sendStatus(200);
-    //         return;
-    //     });
-
-    // res.sendStatus(200);
-
-
-    // .then(function(err) {
-    //     console.log("error");
-    //     res.status(409).send("username");
-    // }).then(function(err) {
-    //     console.log(err);
-    //     console.log("error retrieving from db2");
-    // }).then(function(emailFound) {
-    //     console.log("error2");
-    //     res.status(409).send("email");
-    // });
-
-    // res.sendStatus(200);
-    // promise.then(function(usernameFound) {
-    //         return userCheck.duplicateUsername(usernameFound);
-    //     }).then(function(usernameReturn) {
-    //         console.log("Here");
-    //         console.log(usernameReturn);
-    //         return res.sendStatus(200);
-    //         // return userModel.findOne({
-    //         //     email: body.email
-    //         // }).exec();
-    //     }).
-    //     // .then(function(emailFound) {
-    //     //     userCheck.duplicateEmail(emailFound, res);
-
-    // //     var newUser = new userModel();
-    // //     newUser.uuid = generateUuid.saveUuid();
-    // //     newUser.profileType = body.profileType;
-    // //     newUser.username = body.username;
-    // //     newUser.password = createHash(body.password);
-    // //     newUser.firstName = body.firsName;
-    // //     newUser.lastName = body.lastName;
-    // //     newUser.email = body.email;
-    // //     newUser.phoneNumber = phoneInput;
-
-    // //     if (newUser.profileType === "student") {
-    // //         newUser.campus = campusInput;
-    // //     }
-
-    // //     console.log(newUser);
-    // //     return newUser.save();
-
-    // //     // newUser.save(function(err) {
-    // //     //     if (err) {
-    // //     //         throw {
-    // //     //             code: 500,
-    // //     //             status: "error saving"
-    // //     //         };
-    // //     //     } else {
-    // //     //         console.log(newUser);
-    // //     //         return res.sendStatus(200);
-    // //     //     }
-    // //     // });
-    // // }).
-    // then(console.log, console.error);
-
-    // var promise1 = userModel.findOne({
-    //         username: body.username
-    //     }).exec();
-    // var promise2 = userModel.findOne({
-    //         email: body.email
-    //     }).exec();
-
-    // promise1
-    //     .then(function(userFound) {
-    //         console.log(usernameFound);
-    //         userCheck.duplicateUsername(usernameFound, res);
-    //     })
-    //     .then(function(emailFound) {
-    //         console.log(emailFound);
-    //         userCheck.duplicateEmail(emailFound, res);
-    //         return;
-    //     })
-    //     .then(null, console.err);
-
-
-    // userModel.findOne({
-    //     username: body.username
-    // }, function(err, usernameFound) {
-    //     if (err) handleError(err);
-    //     else {
-    //         console.log(usernameFound);
-    //         userCheck.duplicateUsername(usernameFound, res);
-
-    //         userModel.findOne({
-    //             email: body.emailFound
-    //         }, function(err, emailFound) {
-    //             if (err) handleError(err);
-    //             else {
-    //                 console.log(emailFound);
-    //                 userCheck.duplicateEmail(emailFound, res);
-
-    //                 var newUser = new userModel();
-    //                 newUser.uuid = generateUuid.saveUuid();
-    //                 newUser.profileType = body.profileType;
-    //                 newUser.username = body.username;
-    //                 newUser.password = createHash(body.password);
-    //                 newUser.firstName = body.firsName;
-    //                 newUser.lastName = body.lastName;
-    //                 newUser.email = body.email;
-    //                 newUser.phoneNumber = phoneInput;
-
-    //                 if (newUser.profileType === "student") {
-    //                     newUser.campus = campusInput;
-    //                 }
-
-    //                 try {
-    //                     newUser.save(function(err) {
-    //                         if (err) {
-    //                             throw {
-    //                                 code: 500,
-    //                                 status: "error saving"
-    //                             };
-    //                         } else {
-    //                             console.log(newUser);
-    //                             return res.sendStatus(200);
-    //                         }
-    //                     });
-    //                 } catch (err) {
-    //                     console.log(err);
-    //                 }
-    //             }
-    //         });
-    //     }
-    // });
-
-    // getUserProfile(friends[0], function(err, json) {
-    //                         if (err) handleError(err);
-    //                         else {
-    //                             try {
-    //                                 var bestFriend = JSON.parse(json);
-    //                                 refreshUi(bestFriend);
-    //                             } catch (Exception e) {
-    //                                 handleError(e.message);
-    //                             }
-    //                         }
-    //                     });
-
-    //     userModel.findOne({
-    //         username: body.username
-    //     }, function(err, data) {});
-
-
-    // promise.then(function(usernameFound) {
-    //     userCheck.duplicateUsername(usernameFound, res);
-    // })
-    // .then(
-    // .then(function(emailFound) {
-    //     console.log(emailFound);
-    // })
-    // .then(null, console.error);
-
-
-    // userCheck.duplicateUsername(usernameFound, res);
-
-    // userModel.findOne({
-    //         username: body.username
-    //     }, function(err, data) {
-    //         console.log(body.username);
-    //         if (err) return console.error(err)
-    //         console.log(data)
-    //     })
-    // If our readFile
-    // function returned a promise we would write the same logic as:
-
-
-    // var promise = .exec();
-    // promise.then(function(err, data) {
-    //     console.log(err);
-    //     console.log(data);
-    // });
-    // .then(userCheck.duplicateUsername(usernameFound, res));
-
-    // res.sendStatus(200);
-    // userModel.findOne({
-    //     username: body.username
-    // }, function(err, usernameFound) {
-
-    //     try {
-    //         userCheck.duplicateUsername(usernameFound, res);
-
-    //         userModel.findOne({
-    //             email: body.email
-    //         }, function(err, emailFound) {
-    //             userCheck.duplicateEmail(emailFound);
-
-    //             var newUser = new userModel();
-    //             newUser.uuid = generateUuid.saveUuid();
-    //             newUser.profileType = body.profileType;
-    //             newUser.username = body.username;
-    //             newUser.password = createHash(body.password);
-    //             newUser.firstName = body.firsName;
-    //             newUser.lastName = body.lastName;
-    //             newUser.email = body.email;
-    //             newUser.phoneNumber = phoneInput;
-
-    //             if (newUser.profileType === "student") {
-    //                 newUser.campus = campusInput;
-    //             }
-
-    //             newUser.save(function(err) {
-    //                 if (err) {
-    //                     throw {
-    //                         code: 500,
-    //                         status: "error saving"
-    //                     };
-    //                 } else {
-    //                     console.log(newUser);
-    //                     return res.sendStatus(200);
-    //                 }
-    //             });
-    //         });
-    //     } catch (err) {
-    //         console.log(err);
-    //         res.status(err.code).send(err.status);
-    //     }
-    // });
+            return newUser.save();
+        })
+        .then(function(result) {
+            res.sendStatus(200);
+        })
+        .catch(function(error) {
+            console.log(error);
+            if (error.status == 406 || error.status == 409) {
+                res.status(error.status).send(error.send);
+            } else {
+                res.status(500).send("internal error");
+            }
+        });
 }
 
 user.prototype.retrieveUser = function(req, res) {
     // http://localhost:3000/user/retrieve POST
 
     var body = req.body;
-    var usernameInput = body.username;
-
-    userModel.findOne({
-        username: usernameInput
-    }, function(err, user) {
-        if (user) {
-            res.status(200).send(user);
-        } else {
-            res.status(400).send('error');
-        }
-    });
+    generalCheck.checkBody(body)
+        .then(function(result) {
+            return userCheck.checkUsername(body.username);
+        })
+        .then(function(result) {
+            return userModel.findOne({
+                username: body.username
+            }).exec();
+        })
+        .then(function(user) {
+            return userCheck.userExists(user);
+        })
+        .then(function(result) {
+            console.log(result.send);
+            res.status(result.status).send(result.send);
+        })
+        .catch(function(error) {
+            console.log(error);
+            if (error.status == 406 || error.status == 404) {
+                res.status(error.status).send(error.send);
+            } else {
+                res.status(500).send("internal error");
+            }
+        });
 }
 
 user.prototype.updateUser = function(req, res) {
@@ -462,22 +177,40 @@ user.prototype.updateUser = function(req, res) {
 user.prototype.deleteUser = function(req, res) {
     // http://localhost:3000/student/update POST
     var body = req.body;
-
-    var usernameInput = body.username;
-    var passwordInput = body.password;
-
-    userModel.findOne({
-        username: usernameInput
-    }, function(err, user) {
-        if (!user) {
-            res.status(404).send("can't find student");
-        } else if (user.password != passwordInput) {
-            res.status(400).send("invalid password");
-        } else if (user.password === passwordInput) {
-            user.remove();
-            res.status(200);
-        }
-    });
+    generalCheck.checkBody(body)
+        .then(function(result) {
+            return userCheck.checkUsername(body.username);
+        })
+        .then(function(result) {
+            return userCheck.checkPassword(body.password);
+        })
+        .then(function(result) {
+            return userModel.findOne({
+                username: body.username
+            }).exec();
+        })
+        .then(function(user) {
+            return userCheck.userExists(user);
+        })
+        .then(function(result) {
+            if (compareHash(body.password, result.password)) {
+                console.log(result.send);
+                user.remove();
+                console.log("removed!");
+                res.status(result.status).send(result.send);
+            } else {
+                throw new Error("password error");
+            }
+        })
+        .catch(function(error) {
+            if (error.message == "password error") {
+                res.status(403).send("password doesn't match");
+            } else if (error.status == 406 || error.status == 404 || error.status == 403) {
+                res.status(error.status).send(error.send);
+            } else {
+                res.status(500).send("internal error");
+            }
+        });
 }
 
 // Generates hash using bCrypt
@@ -485,5 +218,17 @@ var createHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 }
 
+var compareHash = function(passwordNew, passwordOld) {
+    bcrypt.compare(passwordNew, passwordOld, function(err, res) {
+        if (err) {
+            return false;
+        }
+        return true
+    });
+}
+
+var handleError = function(error) {
+    res.status(error.status).send(error.send);
+}
 
 module.exports = new user();
