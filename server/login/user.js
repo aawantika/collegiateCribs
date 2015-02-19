@@ -176,6 +176,7 @@ user.prototype.updateUser = function(req, res) {
 
 user.prototype.deleteUser = function(req, res) {
     // http://localhost:3000/student/update POST
+
     var body = req.body;
     generalCheck.checkBody(body)
         .then(function(result) {
@@ -193,10 +194,8 @@ user.prototype.deleteUser = function(req, res) {
             return userCheck.userExists(user);
         })
         .then(function(result) {
-            if (compareHash(body.password, result.password)) {
-                console.log(result.send);
-                user.remove();
-                console.log("removed!");
+            if (bcrypt.compareSync(body.password, result.send.password)) {
+                result.send.remove();
                 res.status(result.status).send(result.send);
             } else {
                 throw new Error("password error");
