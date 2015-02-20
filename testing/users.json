@@ -42,11 +42,11 @@ RETRIEVE: POST http: //localhost:8080/user/retrieve
         "username": "landlord1234"
     }
 
-UPDATE: POST http: //localhost:8080/user/create
+UPDATE: POST http: //localhost:8080/user/update
     {
         "username": "student123",
         "profileType": "student",
-        "password": "password123",
+        "password": "newpassword", // update
         "firstName": "First",
         "lastName": "Last",
         "email": "student123@gmail.com",

@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var propertySchema = new Schema({
-    uuid: String, //can't be modified
+    propertyId: String, //can't be modified
     ownerId: String, //can't be modified
     verified: Boolean, //can't 
 
@@ -35,5 +35,7 @@ var propertySchema = new Schema({
 
 module.exports = mongoose.model('propertyModel', propertySchema);
 
-// type: housing type (townhome, condo, apartment, etc.)
+// housingType: townhome, condo, apartment, house
+// utitlies: price range
 // length: length of lease in months
+// propertyTours: up to user to contact landlord if true
