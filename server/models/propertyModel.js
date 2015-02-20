@@ -6,19 +6,26 @@ var mongoose = require('mongoose'),
 var propertySchema = new Schema({
     uuid: String, //can't be modified
     ownerId: String, //can't be modified
+    verified: Boolean, //can't 
+
+    address: String, //can't be modified
+    city: String, //can't be modified
+    state: String, //can't be modified
+    zipcode: Number, //can't be modified
     
-    isASublease: Boolean, //can't be modified
+    leaseType: String, //can't be modified
     bedrooms: Number, //can be modified
     bathrooms: Number, //can be modified
-    type: String, //can't be modified
-    address: String, //can't be modified
-    availability: Boolean, //can be modified
-    verified: Boolean, //can't 
+    housingType: String, //can't be modified
     price: Number, //can
+    utilities: String, //can
+    
+    availability: Boolean, //can be modified
     length: Number, //can
     catsOk: Boolean, //can
     dogsOk: Boolean, //can
-    propertyTours: Boolean, //can
+
+    propertyTours: boolean, //can
     images: [Object], //can
     description: String, //can
     lastRenovationDate: Date //can
