@@ -1,7 +1,68 @@
 <div>
 	<body>
-		<!--minimizable filters on the left
-		search results in the center
-		map on the right side-->
+		<core-drawer-panel>
+			<core-header-panel drawer>
+				<!-- filters go here -->
+				<core-toolbar>
+      				<span>Filters</span>
+    			</core-toolbar>
+    			<core-menu>
+    				<table>
+    					<tr>
+    						Price Range:
+    					</tr>
+						<tr>
+							<td>
+								<paper-input-decorator label="Min" floatingLabel>
+									<input type="text" ng-model="minPrice"></input>
+								</paper-input-decorator>
+							</td>
+							<td>
+								<paper-input-decorator label="Max" floatingLabel>
+									<input type="text" ng-model="maxPrice"></input>
+								</paper-input-decorator>
+							</td>
+						</tr>
+					</table>
+					<paper-input-decorator label="Distance from Campus" floatingLabel>
+						<input type="text" ng-model="campusDist"></input>
+					</paper-input-decorator>
+
+					<paper-input-decorator label='Number of Bedrooms' floatingLabel>
+        				<input type=\"text" ng-model="numBed">
+        			</paper-input-decorator>
+        			<paper-input-decorator label='Number of Bathrooms'floatingLabel>
+        				<input type="text" ng-model="numBath">
+        			</paper-input-decorator>
+        			<paper-input-decorator label='Housing Type' floatingLabel>
+        				<input type="text" ng-model="houseType">
+        			</paper-input-decorator>
+
+        			<!--core-toolbar down here may be an issue-->
+        			<core-toolbar style=
+        				"background:transparent;
+        				-webkit-box-shadow:none;
+        				-moz-box-shadow:none;
+        				box-shadow:none;">
+            			<core-label horizontal layout center>
+            				<paper-checkbox for ng-model="catsOk"></paper-checkbox>
+            				<div>Cats</div>
+            			</core-label>
+            			<core-label horizontal layout center>
+            				<paper-checkbox for ng-model="dogsOk"></paper-checkbox>
+            				<div>Dogs</div>
+            			</core-label>
+        			</core-toolbar>
+				</core-menu>
+			</core-header-panel>
+			<core-header-panel main>
+				<!-- search results here -->
+				<ul ng-repeat-start="lease in leases">
+					<li>
+						{{activity.display()}}
+					</li>
+				</ul ng-repeat-end>
+			</core-header-panel>
+		</core-drawer-panel>
 	</body>
 </div>

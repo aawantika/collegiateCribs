@@ -18,6 +18,13 @@
 			</paper-input-decorator>
 			<!--location (city, address, zip code), price range, distance from campus-->
 		</form>
+		<fieldset class="box signup content">
+			<ul ng-repeat-start="activity in recentActivity">
+				<li>
+					{{activity.display()}}
+				</li>
+			</ul ng-repeat-end>
+		</fieldset>
 		<!--recent activity: pull data from server into scope with the controller.
 			Will probably need to do an ng-repeat to go through a list of stuff.-->
 	</body>
