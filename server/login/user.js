@@ -64,7 +64,6 @@ user.prototype.createUser = function(req, res) {
         })
         .then(function(result) {
             var newUser = new userModel();
-            newUser.uuid = generateUuid.saveUuid();
             newUser.profileType = body.profileType;
             newUser.username = body.username;
             newUser.password = bcrypt.createHash(body.password);

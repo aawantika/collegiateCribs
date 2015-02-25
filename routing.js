@@ -60,7 +60,6 @@ module.exports = function() {
      * property routing
      */
     router.post('/property/create', function(req, res) {
-        console.log(req.body);
         property.createProperty(req, res);
     });
 

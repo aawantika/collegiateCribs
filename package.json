@@ -23,6 +23,7 @@
         "express": "*",
         "express-session": "*",
         "mongoose": "*",
-        "node-uuid": "*"
+        "node-uuid": "*",
+        "node-geocoder":"*"
     }
 }

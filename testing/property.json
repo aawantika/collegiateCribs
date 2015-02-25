@@ -1,123 +1,142 @@
-CREATE: POST http://localhost:8080/property/create
-	{
-		"ownerId": "landlord1",
-		"verified": true,
+CREATE: POST http: //localhost:8080/property/create
 
-		"address": "123 10th Street",
-		"city": "Atlanta",
-		"state": "GA",
-		"zipcode": 30332,
+    { // ACTUAL VERSION
+        "username": "bob1",
+        "address": "326171 georgia tech station",
+        "city": "atlanta",
+        "state": "ga",
+        "zipcode": "30332",
+        "leaseType": "sublease",
+        "bedrooms": "3",
+        "bathrooms": "2",
+        "housingType": "condo",
+        "price": "987",
+        "utilities": "88-100",
+        "length": "12",
+        "catsOk": "false",
+        "dogsOk": "false",
+        "propertyTours": "false",
+        "description": "ayooooooooo",
+        "lastRenovationDate": "Aug 2, 2014"
+    },{
+        "ownerId": "landlord1",
+        "verified": true,
 
-		"leaseType": "lease",
-	    "bedrooms": 2,
-	    "bathrooms": 2,
-	    "housingType": "house",
-	    "price": 300,
-	    "utilities": "40-60",
+        "address": "123 10th Street",
+        "city": "Atlanta",
+        "state": "GA",
+        "zipcode": 30332,
 
-	    "availability": true,
-	    "length": 6,
-	    "catsOk": false,
-	    "dogsOk": false,
+        "leaseType": "lease",
+        "bedrooms": 2,
+        "bathrooms": 2,
+        "housingType": "house",
+        "price": 300,
+        "utilities": "40-60",
 
-	    "propertyTours": false,
-	    // images: [Object],
-	    "description": "fully furnished, 5 minute walk from campus",
-	    "lastRenovationDate": 07/30/2010
-	}, {
-		"ownerId": "landlord2",
-		"verified": true,
+        "availability": true,
+        "length": 6,
+        "catsOk": false,
+        "dogsOk": false,
 
-		"address": "123 W Peachtree",
-		"city": "Atlanta",
-		"state": "GA",
-		"zipcode": 30332,
+        "propertyTours": false,
+        // images: [Object],
+        "description": "fully furnished, 5 minute walk from campus",
+        "lastRenovationDate": 07 / 30 / 2010
+    }, {
+        "ownerId": "landlord2",
+        "verified": true,
 
-		"leaseType": "sublease",
-	    "bedrooms": 3,
-	    "bathrooms": 2,
-	    "housingType": "apartment",
-	    "price": 400,
-	    "utilities": "50-70",
+        "address": "123 W Peachtree",
+        "city": "Atlanta",
+        "state": "GA",
+        "zipcode": 30332,
 
-	    "availability": true,
-	    "length": 3,
-	    "catsOk": true,
-	    "dogsOk": false,
+        "leaseType": "sublease",
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "housingType": "apartment",
+        "price": 400,
+        "utilities": "50-70",
 
-	    "propertyTours": false,
-	    // images: [Object],
-	    "description": "great city view",
-	    "lastRenovationDate": 07/30/2012 
-	}, {
-		"ownerId": "landlord3",
-		"verified": true,
+        "availability": true,
+        "length": 3,
+        "catsOk": true,
+        "dogsOk": false,
 
-		"address": "123 Collier Road",
-		"city": "Atlanta",
-		"state": "GA",
-		"zipcode": 30332,
+        "propertyTours": false,
+        // images: [Object],
+        "description": "great city view",
+        "lastRenovationDate": 07 / 30 / 2012
+    }, {
+        "ownerId": "landlord3",
+        "verified": true,
 
-		"leaseType": "lease",
-	    "bedrooms": 4,
-	    "bathrooms": 2,
-	    "housingType": "house",
-	    "price": 700,
-	    "utilities": "80-90",
+        "address": "123 Collier Road",
+        "city": "Atlanta",
+        "state": "GA",
+        "zipcode": 30332,
 
-	    "availability": true,
-	    "length": 12,
-	    "catsOk": true,
-	    "dogsOk": true,
+        "leaseType": "lease",
+        "bedrooms": 4,
+        "bathrooms": 2,
+        "housingType": "house",
+        "price": 700,
+        "utilities": "80-90",
 
-	    "propertyTours": true,
-	    // images: [Object],
-	    "description": "safe neighborhood",
-	    "lastRenovationDate": 07/30/2009 
-	}
+        "availability": true,
+        "length": 12,
+        "catsOk": true,
+        "dogsOk": true,
 
-RETRIEVE: POST http://localhost:8080/property/retrieve
-	{
-		"ownerId": "landlord1"
-	} {
-		"ownerId": "landlord2"
-	} {
-		"ownerId": "landlord3"
-	}
+        "propertyTours": true,
+        // images: [Object],
+        "description": "safe neighborhood",
+        "lastRenovationDate": 07 / 30 / 2009
+    }
 
-UPDATE: POST http://localhost:8080/property/update
-	{
-		"ownerId": "landlord1",
-		"verified": true,
+RETRIEVE: POST http: //localhost:8080/property/retrieve
+    {
+        "ownerId": "landlord1"
+    } {
+        "ownerId": "landlord2"
+    } {
+        "ownerId": "landlord3"
+    }
 
-		"address": "123 10th Street",
-		"city": "Atlanta",
-		"state": "GA",
-		"zipcode": 30332,
+UPDATE: POST http: //localhost:8080/property/update
+    {
+        "ownerId": "landlord1",
+        "verified": true,
 
-		"leaseType": "lease",
-	    "bedrooms": 2,
-	    "bathrooms": 2,
-	    "housingType": "house",
-	    "price": 300,
-	    "utilities": "40-60",
+        "address": "123 10th Street",
+        "city": "Atlanta",
+        "state": "GA",
+        "zipcode": 30332,
 
-	    "availability": false, //update
-	    "length": 6,
-	    "catsOk": false,
-	    "dogsOk": false,
+        "leaseType": "lease",
+        "bedrooms": 2,
+        "bathrooms": 2,
+        "housingType": "house",
+        "price": 300,
+        "utilities": "40-60",
 
-	    "propertyTours": false,
-	    // images: [Object],
-	    "description": "fully furnished, 5 minute walk from campus",
-	    "lastRenovationDate": 07/30/2010
-	}
+        "availability": false, //update
+        "length": 6,
+        "catsOk": false,
+        "dogsOk": false,
 
-DELETE: POST http://localhost:8080/property/delete
-	{
-		"ownerId": "landlord1"
-	} {
-		"ownerId": "landlord2"
-	} {
-		"ownerId": "landlord3"
-	}
+        "propertyTours": false,
+        // images: [Object],
+        "description": "fully furnished, 5 minute walk from campus",
+        "lastRenovationDate": 07 / 30 / 2010
+    }
+
+DELETE: POST http: //localhost:8080/property/delete
+    {
+        "ownerId": "landlord1"
+    } {
+        "ownerId": "landlord2"
+    } {
+        "ownerId": "landlord3"
+    }
