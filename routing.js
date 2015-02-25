@@ -67,6 +67,11 @@ module.exports = function() {
         property.retrieveProperty(req, res);
     });
 
+    router.post('/property/retrieve/username', function(req, res) {
+        property.retrieveAllPropertyByUsername(req, res);
+    });
+
+
     router.post('/property/update', function(req, res) {
         property.updateProperty(req, res);
     });

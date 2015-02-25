@@ -95,6 +95,7 @@ property.prototype.createProperty = function(req, res) {
             newProperty.leaseType = body.leaseType;
             newProperty.bedrooms = body.bedrooms;
             newProperty.bathrooms = body.bathrooms;
+            newProperty.housingType = body.housingType;
             newProperty.price = body.price;
             newProperty.utilities = body.utilities;
 
@@ -127,88 +128,194 @@ property.prototype.retrieveProperty = function(req, res) {
     // http://localhost:8080/property/retrieve POST
 
     var body = req.body;
-    var addressInput = body.address;
+    generalCheck.checkBody(body)
+        .then(function(result) {
+            return propertyCheck.checkPropertyId(body.propertyId);
+        })
+        .then(function(result) {
+            return propertyModel.findOne({
+                propertyId: body.propertyId
+            }).exec();
+        })
+        .then(function(property) {
+            return propertyCheck.propertyExists(property);
+        })
+        .then(function(result) {
+            result.send = result.send.toObject();
+            delete result.send._id;
+            delete result.send.__v;
 
-    propertyModel.findOne({
-        address: addressInput
-    }, function(err, property) {
-        if (property) {
-            res.status(200).send(property);
-        } else {
-            res.status(400).send('error');
-        }
-    });
+            res.status(result.status).send(result.send);
+        })
+        .catch(function(error) {
+            console.log(error);
+            if (error.status == 406 || error.status == 404) {
+                res.status(error.status).send(error.send);
+            } else {
+                res.status(500).send("internal error");
+            }
+        });
+}
+
+property.prototype.retrieveAllPropertyByUsername = function(req, res) {
+    // http://localhost:8080/property/retrieve POST
+
+    var body = req.body;
+    generalCheck.checkBody(body)
+        .then(function(result) {
+            return userCheck.checkUsername(body.username);
+        })
+        .then(function(result) {
+            return propertyModel.find({
+                ownerId: body.username
+            }).exec();
+        })
+        .then(function(property) {
+            return propertyCheck.propertyExists(property);
+        })
+        .then(function(result) {
+            for (var i = 0; i < result.send.length; i++) {
+                result.send[i] = result.send[i].toObject();
+                delete result.send[i]._id;
+                delete result.send[i].__v;
+            }
+            res.status(result.status).send(result.send);
+        })
+        .catch(function(error) {
+            console.log(error);
+            if (error.status == 406 || error.status == 404) {
+                res.status(error.status).send(error.send);
+            } else {
+                res.status(500).send("internal error");
+            }
+        });
 }
 
 property.prototype.updateProperty = function(req, res) {
     // http://localhost:8080/property/update POST
+
     var body = req.body;
+    generalCheck.checkBody(body)
+        .then(function(result) {
+            return userCheck.checkUsername(body.username);
+        })
+        .then(function(result) {
+            return userModel.findOne({
+                username: body.username
+            }).exec();
+        })
+        .then(function(result) {
+            return propertyCheck.checkBedrooms(body.bedrooms);
+        })
+        .then(function(result) {
+            return propertyCheck.checkBathrooms(body.bathrooms);
+        })
+        .then(function(result) {
+            return propertyCheck.checkPrice(body.price);
+        })
+        .then(function(result) {
+            return propertyCheck.checkUtilities(body.utilities);
+        })
+        .then(function(result) {
+            return propertyCheck.checkAvailability(body.availability);
+        })
+        .then(function(result) {
+            return propertyCheck.checkLength(body.length);
+        })
+        .then(function(result) {
+            return propertyCheck.checkCats(body.catsOk);
+        })
+        .then(function(result) {
+            return propertyCheck.checkDogs(body.dogsOk);
+        })
+        .then(function(result) {
+            return propertyCheck.checkPropertyTours(body.propertyTours);
+        })
+        .then(function(result) {
+            return propertyCheck.checkDescription(body.description);
+        })
+        .then(function(result) {
+            return propertyCheck.checkLastRenovationDate(body.lastRenovationDate);
+        })
+        .then(function(result) {
+            return propertyModel.findOne({
+                propertyId: body.propertyId
+            }).exec();
+        })
+        .then(function(property) {
+            return propertyCheck.propertyExists(property);
+        })
+        .then(function(property) {
+            property = property.send;
 
-    var addressInput = body.address;
-    var bedroomsInput = body.bedrooms;
-    var bathroomsInput = body.bathrooms;
-    var availabilityInput = body.availability;
-    var priceInput = body.price;
-    var lengthInput = body.length;
-    var catsOKInput = body.catsOK;
-    var dogsOKInput = body.dogsOK;
-    var propertyToursInput = body.propertyTours;
-    var descriptionInput = body.description;
-    var lastRenovationDateInput = body.lastRenovationDate;
+            property.bedrooms = body.bedrooms;
+            property.bathrooms = body.bathrooms;
+            property.price = body.price;
+            property.utilities = body.utilities;
 
-    propertyModel.findOne({
-        address: addressInput
-    }, function(err, property) {
-        if (!property) {
-            res.status(404).send("can't find property");
-        } else {
-            // save property
-            property.bedrooms = bedroomsInput;
-            property.bathrooms = bathroomsInput;
-            property.availability = availabilityInput;
-            property.price = priceInput;
-            property.length = lengthInput;
-            property.catsOK = catsOKInput;
-            property.dogsOK = dogsOKInput;
-            property.propertyTours = propertyToursInput;
-            property.description = descriptionInput;
-            property.lastRenovationDate = lastRenovationDateInput;
+            property.availability = body.availability;
+            property.length = body.length;
+            property.catsOk = body.catsOk;
+            property.dogsOk = body.dogsOk;
 
-            property.save(function(err) {
-                if (err) {
-                    res.status(500).send('error saving');
-                } else {
-                    res.status(201).send('saved successfully');
-                }
-            });
-        }
-    });
+            property.propertyTours = body.propertyTours;
+            property.description = body.description;
+            property.lastRenovationDate = body.lastRenovationDate;
+            return property.save();
+        })
+        .then(function(result) {
+            res.sendStatus(200);
+        })
+        .catch(function(error) {
+            console.log(error);
+
+            if (error.status == 404 || error.status == 406) {
+                res.status(error.status).send(error.send);
+            } else {
+                res.status(500).send("internal error");
+            }
+        });
 }
 
 property.prototype.deleteProperty = function(req, res) {
     // http://localhost:3000/student/update POST
+
     var body = req.body;
-
-    var ownerIdInput = body.ownerId;
-    var addressInput = body.address;
-
-    propertyModel.findOne({
-        address: addressInput
-    }, function(err, property) {
-        if (!property) {
-            res.status(404).send("can't find property");
-        } else if (property.ownerID != ownerIdInput) {
-            res.status(400).send("can't find owner")
-        } else {
-            property.remove();
-            res.status(200).send("removed successfully");
-        }
-    });
+    generalCheck.checkBody(body)
+        .then(function(result) {
+            return userCheck.checkUsername(body.username);
+        })
+        .then(function(result) {
+            return userModel.findOne({
+                username: body.username
+            }).exec();
+        })
+        .then(function(result) {
+            return propertyCheck.checkPropertyId(body.propertyId);
+        })
+        .then(function(result) {
+            return propertyModel.findOne({
+                ownerId: body.username,
+                propertyId: body.propertyId
+            }).exec();
+        })
+        .then(function(property) {
+            return propertyCheck.propertyExists(property);
+        })
+        .then(function(result) {
+            return result.send.remove();
+        })
+        .then(function(result) {
+            res.status(200).send("removed property successfully");
+        })
+        .catch(function(error) {
+            console.log(error);
+            if (error.status == 406 || error.status == 404) {
+                res.status(error.status).send(error.send);
+            } else {
+                res.status(500).send("internal error");
+            }
+        });
 }
-
-// Generates hash using bCrypt
-/*var createHash = function(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
-}*/
 
 module.exports = new property();

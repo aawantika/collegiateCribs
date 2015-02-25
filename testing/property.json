@@ -1,4 +1,4 @@
-CREATE: POST http: //localhost:8080/property/create
+CREATE: POST http://localhost:8080/property/create
 
     { // ACTUAL VERSION
         "username": "bob1",
@@ -18,125 +18,42 @@ CREATE: POST http: //localhost:8080/property/create
         "propertyTours": "false",
         "description": "ayooooooooo",
         "lastRenovationDate": "Aug 2, 2014"
-    },{
-        "ownerId": "landlord1",
-        "verified": true,
-
-        "address": "123 10th Street",
-        "city": "Atlanta",
-        "state": "GA",
-        "zipcode": 30332,
-
-        "leaseType": "lease",
-        "bedrooms": 2,
-        "bathrooms": 2,
-        "housingType": "house",
-        "price": 300,
-        "utilities": "40-60",
-
-        "availability": true,
-        "length": 6,
-        "catsOk": false,
-        "dogsOk": false,
-
-        "propertyTours": false,
-        // images: [Object],
-        "description": "fully furnished, 5 minute walk from campus",
-        "lastRenovationDate": 07 / 30 / 2010
-    }, {
-        "ownerId": "landlord2",
-        "verified": true,
-
-        "address": "123 W Peachtree",
-        "city": "Atlanta",
-        "state": "GA",
-        "zipcode": 30332,
-
-        "leaseType": "sublease",
-        "bedrooms": 3,
-        "bathrooms": 2,
-        "housingType": "apartment",
-        "price": 400,
-        "utilities": "50-70",
-
-        "availability": true,
-        "length": 3,
-        "catsOk": true,
-        "dogsOk": false,
-
-        "propertyTours": false,
-        // images: [Object],
-        "description": "great city view",
-        "lastRenovationDate": 07 / 30 / 2012
-    }, {
-        "ownerId": "landlord3",
-        "verified": true,
-
-        "address": "123 Collier Road",
-        "city": "Atlanta",
-        "state": "GA",
-        "zipcode": 30332,
-
-        "leaseType": "lease",
-        "bedrooms": 4,
-        "bathrooms": 2,
-        "housingType": "house",
-        "price": 700,
-        "utilities": "80-90",
-
-        "availability": true,
-        "length": 12,
-        "catsOk": true,
-        "dogsOk": true,
-
-        "propertyTours": true,
-        // images: [Object],
-        "description": "safe neighborhood",
-        "lastRenovationDate": 07 / 30 / 2009
     }
 
 RETRIEVE: POST http: //localhost:8080/property/retrieve
     {
-        "ownerId": "landlord1"
-    } {
-        "ownerId": "landlord2"
-    } {
-        "ownerId": "landlord3"
+        "propertyId": "bc56db2d-ba6d-4584-9176-d2f939399139",
+        "username": "bob1"
     }
+
+
+RETRIEVEALLPROPERTYBYUSERNAME: POST http: //localhost:8080/property/retrieve/username
+    {
+        "username": "bob1"
+    }
+
 
 UPDATE: POST http: //localhost:8080/property/update
     {
-        "ownerId": "landlord1",
-        "verified": true,
+        "propertyId": "bc56db2d-ba6d-4584-9176-d2f939399139",
+        "username": "bob1",
+        "bedrooms": "6",
+        "bathrooms": "6",
+        "price": "347",
+        "utilities": "90-100",
 
-        "address": "123 10th Street",
-        "city": "Atlanta",
-        "state": "GA",
-        "zipcode": 30332,
+        "availability": "false",
+        "length": "8",
+        "catsOk": "true",
+        "dogsOk": "true",
 
-        "leaseType": "lease",
-        "bedrooms": 2,
-        "bathrooms": 2,
-        "housingType": "house",
-        "price": 300,
-        "utilities": "40-60",
-
-        "availability": false, //update
-        "length": 6,
-        "catsOk": false,
-        "dogsOk": false,
-
-        "propertyTours": false,
-        // images: [Object],
-        "description": "fully furnished, 5 minute walk from campus",
-        "lastRenovationDate": 07 / 30 / 2010
+        "propertyTours": "true",
+        "description": "check",
+        "lastRenovationDate": "Aug 8, 2014"
     }
 
 DELETE: POST http: //localhost:8080/property/delete
-    {
-        "ownerId": "landlord1"
-    } {
-        "ownerId": "landlord2"
-    } {
-        "ownerId": "landlord3"
+   {
+        "propertyId": "bc56db2d-ba6d-4584-9176-d2f939399139",
+        "username": "bob1"
     }

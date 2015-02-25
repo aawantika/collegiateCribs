@@ -12,6 +12,19 @@ function propertyCheck() {}
 /**
  * Invalid Input Error Checking
  */
+propertyCheck.prototype.checkPropertyId = function(propertyId) {
+    return new Promise(function(resolve, reject) {
+        if (!propertyId) {
+            reject({
+                status: 406,
+                send: "propertyId"
+            });
+        } else {
+            resolve();
+        }
+    });
+}
+
 propertyCheck.prototype.checkAddress = function(address) {
     return new Promise(function(resolve, reject) {
         if (!address) {
@@ -169,7 +182,8 @@ propertyCheck.prototype.checkUtilities = function(utilities) {
 
 propertyCheck.prototype.checkAvailability = function(availability) {
     return new Promise(function(resolve, reject) {
-        if (!availability || !(typeof availability == Boolean)) {
+        var availabilityTypes = ["true", "false"];
+        if (!availability || availabilityTypes.indexOf(availability) === -1) {
             reject({
                 status: 406,
                 send: "availability"
@@ -282,45 +296,15 @@ propertyCheck.prototype.duplicateProperty = function(property) {
  */
 propertyCheck.prototype.propertyExists = function(property) {
     return new Promise(function(resolve, reject) {
-        if (property) {
+        if (property && property.length > 0) {
             resolve({
                 status: 200,
-                send: user
+                send: property
             });
         } else {
             reject({
                 status: 404,
-                send: "user not found"
-            });
-        }
-    });
-}
-
-propertyCheck.prototype.sessionExistsLogin = function(session) {
-    return new Promise(function(resolve, reject) {
-        if (session) {
-            reject({
-                status: 400,
-                send: "session exists"
-            });
-        } else {
-            resolve();
-        }
-    });
-}
-
-
-propertyCheck.prototype.sessionExists = function(session) {
-    return new Promise(function(resolve, reject) {
-        if (session) {
-            resolve({
-                status: 200,
-                send: session
-            });
-        } else {
-            reject({
-                status: 404,
-                send: "session not found"
+                send: "property not found"
             });
         }
     });

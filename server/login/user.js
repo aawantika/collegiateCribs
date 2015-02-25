@@ -210,7 +210,7 @@ user.prototype.deleteUser = function(req, res) {
             return result.send.remove();
         })
         .then(function(result) {
-            res.status(200).send("removed successfully");
+            res.status(200).send("removed user successfully");
         })
         .catch(function(error) {
             console.log(error);
