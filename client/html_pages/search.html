@@ -29,7 +29,7 @@
 					</paper-input-decorator>
 
 					<paper-input-decorator label='Number of Bedrooms' floatingLabel>
-        				<input type=\"text" ng-model="numBed">
+        				<input type="text" ng-model="numBed">
         			</paper-input-decorator>
         			<paper-input-decorator label='Number of Bathrooms'floatingLabel>
         				<input type="text" ng-model="numBath">
@@ -59,7 +59,7 @@
 				<!-- search results here -->
 				<ul ng-repeat-start="lease in leases">
 					<li>
-						{{activity.display()}}
+						{{lease.name}}
 					</li>
 				</ul ng-repeat-end>
 			</core-header-panel>

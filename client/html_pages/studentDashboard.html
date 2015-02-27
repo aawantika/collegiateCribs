@@ -2,30 +2,45 @@
 	<body>
 		<form id="simpleSearch" ng-submit="simpleSearch()" method="post" class="box signup content">
 			<h3>Simple Search</h3><br>
-			<paper-dropdown-menu label="Choose an Option">
-				<paper-dropdown class="dropdown core-transition core-closed">
-					<core-menu class="menu" ng-model="distanceType" valueattr="label">
-						<paper-item class="core-selected" active label="mi">Miles from campus</paper-item>
-						<paper-item class="core-selected" active label="zip">Zip Code</paper-item>
-					</core-menu>
-				</paper-dropdown>
-			</paper-dropdown-menu>
-			<paper-input-decorator label={{distanceType}} floatingLabel>
-				<input type="text" ng-model={{distanceType}}></input>
-			</paper-input-decorator>
-			<paper-input-decorator label="Price Range" floatingLabel>
-				<input type="text" ng-model="priceRange"></input>
-			</paper-input-decorator>
+			<table>
+				<tr>
+					<td>
+					<paper-dropdown-menu label="Number of Bedrooms">
+						<paper-dropdown class="dropdown core-transition core-closed">
+							<core-menu class="menu" ng-model="numBed" valueattr="label">
+								<paper-item class="core-selected" active label="1">1</paper-item>
+								<paper-item class="core-selected" active label="2">2</paper-item>
+							</core-menu>
+						</paper-dropdown>
+					</paper-dropdown-menu>
+					</td>
+					<td>
+					<paper-dropdown-menu label="Number of Bathrooms">
+						<paper-dropdown class="dropdown core-transition core-closed">
+							<core-menu class="menu" ng-model="numBath" valueattr="label">
+								<paper-item class="core-selected" active label="1">1</paper-item>
+								<paper-item class="core-selected" active label="2">2</paper-item>
+							</core-menu>
+						</paper-dropdown>
+					</paper-dropdown-menu>
+					</td>
+					<td>
+					<paper-input-decorator label="Price Range" floatingLabel>
+						<input type="text" ng-model="priceRange"></input>
+					</paper-input-decorator>
+					</td>
 			<!--location (city, address, zip code), price range, distance from campus-->
+				</tr>
+			</div>
 		</form>
+		<!--recent activity: pull data from server into scope with the controller.
+			Will probably need to do an ng-repeat to go through a list of stuff.-->
 		<fieldset class="box signup content">
-			<ul ng-repeat-start="activity in recentActivity">
+			<ul ng-repeat-start="lease in favorites">
 				<li>
-					{{activity.display()}}
+					{{lease.name}}
 				</li>
 			</ul ng-repeat-end>
 		</fieldset>
-		<!--recent activity: pull data from server into scope with the controller.
-			Will probably need to do an ng-repeat to go through a list of stuff.-->
 	</body>
 </div>

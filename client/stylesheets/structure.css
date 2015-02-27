@@ -16,6 +16,10 @@ paper-input-decorator, paper-dropdown-menu{
 	margin-right: 10px;
 }
 
+paper-input-decorator{
+	margin-bottom:25px;
+}
+
 .alert{
 	color:rgb(200,50,50);
 }

@@ -152,6 +152,9 @@ app.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $url
                 url:'/home',
                 controller: 'HomeController',
                 templateUrl: '/client/html_pages/home.html'
+            }).state('test',{
+                url:'/test',
+                templateUrl: '/client/html_pages/studentDashboard.html'
             });
     }])
     .directive('head', ['$rootScope', '$compile',
