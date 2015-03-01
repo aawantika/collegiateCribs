@@ -3,7 +3,7 @@
         <paper-icon-button icon="menu" role="button" tabindex="0" aria-label="0">
         </paper-icon-button>
         <div>Search for housing</div>
-        <input type="text" placeholder='Search' flex></input>
+        <input type="text" placeholder='Search' ng-keypress="{if(event.keyCode==13)menuSearchEnter()}" flex></input>
         <paper-button name="login">Login</paper-button>
         <paper-button name="signup">Sign Up</paper-button>
     </core-toolbar>
