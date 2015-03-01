@@ -98,6 +98,9 @@ user.prototype.createUser = function(req, res) {
 user.prototype.retrieveUser = function(req, res) {
     // http://localhost:8080/user/retrieve POST
 
+    console.log(req.body);
+    console.log(req.body.username);
+
     var body = req.body;
     generalCheck.checkBody(body)
         .then(function(result) {
@@ -106,7 +109,8 @@ user.prototype.retrieveUser = function(req, res) {
             }).exec();
         })
         .then(function(user) {
-            return userCheck.userExists(user, body.password);
+            console.log(user);
+            return userCheck.userExists(user);
         })
         .then(function(result) {
             res.status(result.status).send(result.send);

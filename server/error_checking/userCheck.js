@@ -169,9 +169,10 @@ userCheck.prototype.duplicateEmail = function(email) {
 /**
  * Check if user/session exists
  */
-userCheck.prototype.userExists = function(user, passwordInput) {
+userCheck.prototype.userExists = function(user) {
     return new Promise(function(resolve, reject) {
-        if (user && bcrypt.comparePasswords(passwordInput, user.password)) {
+        if (user){
+            //&& bcrypt.comparePasswords(passwordInput, user.password)) {
             resolve({
                 status: 200,
                 send: user

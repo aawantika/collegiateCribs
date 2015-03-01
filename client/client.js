@@ -122,7 +122,7 @@ app.controller('HomeController', ['$scope', '$loginService', '$location', '$cook
         console.log(data);
         if (data.profileType == 'student') {
             console.log("Change to Student Dashboard");
-            $state.go('studentDashboard');
+            $state.go('home.studentDashboard');
         } else {
             console.log("Change to Landlord Dashboard");
         }
@@ -130,14 +130,14 @@ app.controller('HomeController', ['$scope', '$loginService', '$location', '$cook
 
     $scope.menuSearchEnter() = function() {
         console.log('change to search');
-        $state.go('search')
+        $state.go('home.search')
     }
     
     $scope.logoutButton = function() {
         $loginService.logout(cookie, function(err, status, data) {
             if (!err) {
                 $scope.showPage = false;
-                $location.path("/");
+                $state.go("start.login");
             }
         });
     };
@@ -193,16 +193,16 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 controller: 'EditAccountController',
             })
             .state('home', {
-                url: '/home',
                 controller: 'HomeController',
-                templateUrl: '/client/html_pages/home.html'
+                templateUrl: '/client/html_pages/home.html',
+                abstract: true,
             })
-            .state('studentDashboard', {
+            .state('home.studentDashboard', {
                 url: '/studentDashboard',
                 controller: 'StudentDashboardController',
                 templateUrl: '/client/html_pages/studentDashboard.html'
             })
-            .state('search', {
+            .state('home.search', {
                 url: '/search',
                 controller: 'searchController',
                 templateUrl: '/client/html_pages/search.html',

@@ -1,5 +1,5 @@
 <div ng-show="showPage">
-	<core-toolbar>
+    <core-toolbar>
         <paper-icon-button icon="menu" role="button" tabindex="0" aria-label="0">
         </paper-icon-button>
         <div>Search for housing</div>
@@ -8,19 +8,6 @@
         <paper-button name="user">{{user.username}}</paper-button>
         <paper-button name="signup" ng-click="logoutButton()">Logout</paper-button>
     </core-toolbar>
-    <h1>ayooooooooooooo</h1>
-    <p>My first paragraph.
-    </p>
-
-    <ui-view/>
-
-    <form id="logout" ng-submit="logoutButton()" method="post">
-        <label class="alert">{{alert}}</label>
-        <footer>
-            <button type="submit" is="paper-submit">Logout</button>
-        </footer>
-    </form>
-
-
-
+    <br></br>
+    <div ui-view></div>
 </div>
