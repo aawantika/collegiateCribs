@@ -9,7 +9,7 @@ var app = angular.module("app", [
 ]);
 //^ a JSON of the dependencies for app
 
-app.controller('LoginController', ['$scope', '$loginService', '$location', '$cookies', function($scope, $loginService, $location, $cookies) {
+app.controller('LoginController', ['$scope', '$loginService', '$location', '$cookies', '$state', function($scope, $loginService, $location, $cookies, $state) {
     $scope.alert = "";
 
     $scope.canSubmit = function() {
@@ -26,7 +26,7 @@ app.controller('LoginController', ['$scope', '$loginService', '$location', '$coo
                 if (!err) {
                     $cookies.username = data.username;
                     $cookies.sessionKey = data.sessionKey;
-                    $location.path("/home");
+                    $state.go("home");
                 }
             });
         }
@@ -195,9 +195,8 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             .state('home', {
                 url: '/home',
                 controller: 'HomeController',
-                templateUrl: '/client/html_pages/homfe.html'
+                templateUrl: '/client/html_pages/home.html'
             })
-
             .state('studentDashboard', {
                 url: '/studentDashboard',
                 controller: 'StudentDashboardController',
