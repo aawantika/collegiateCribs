@@ -3,7 +3,7 @@
 		<core-drawer-panel>
 			<core-header-panel drawer>
 				<!-- filters go here -->
-				<core-toolbar>
+				<core-toolbar main>
       				<span>Filters</span>
     			</core-toolbar>
     			<core-menu>
@@ -13,46 +13,68 @@
     					</tr>
 						<tr>
 							<td>
-								<paper-input-decorator label="Min" floatingLabel>
+								<paper-input-decorator label="Min Price" floatingLabel>
 									<input type="text" ng-model="minPrice"></input>
 								</paper-input-decorator>
 							</td>
 							<td>
-								<paper-input-decorator label="Max" floatingLabel>
+								<paper-input-decorator label="Max Price" floatingLabel>
 									<input type="text" ng-model="maxPrice"></input>
 								</paper-input-decorator>
 							</td>
 						</tr>
 					</table>
-					<paper-input-decorator label="Distance from Campus" floatingLabel>
-						<input type="text" ng-model="campusDist"></input>
-					</paper-input-decorator>
 
-					<paper-input-decorator label='Number of Bedrooms' floatingLabel>
-        				<input type="text" ng-model="numBed">
-        			</paper-input-decorator>
-        			<paper-input-decorator label='Number of Bathrooms'floatingLabel>
-        				<input type="text" ng-model="numBath">
-        			</paper-input-decorator>
-        			<paper-input-decorator label='Housing Type' floatingLabel>
-        				<input type="text" ng-model="houseType">
-        			</paper-input-decorator>
+					<paper-dropdown-menu label="Number of Bedrooms">
+						<paper-dropdown class="dropdown core-transition core-closed">
+							<core-menu class="menu" ng-model="bedrooms" valueattr="label">
+								<paper-item class="core-selected" active label="1">1</paper-item>
+								<paper-item class="core-selected" active label="2">2</paper-item>
+							</core-menu>
+						</paper-dropdown>
+					</paper-dropdown-menu>
+
+        			<paper-dropdown-menu label="Number of Bathrooms">
+						<paper-dropdown class="dropdown core-transition core-closed">
+							<core-menu class="menu" ng-model="bathrooms" valueattr="label">
+								<paper-item class="core-selected" active label="1">1</paper-item>
+								<paper-item class="core-selected" active label="2">2</paper-item>
+							</core-menu>
+						</paper-dropdown>
+					</paper-dropdown-menu>
+
+        			<paper-dropdown-menu label="Housing Type">
+						<paper-dropdown class="dropdown core-transition core-closed">
+							<core-menu class="menu" ng-model="housingType" valueattr="label">
+								<paper-item class="core-selected" active label="house">House</paper-item>
+								<paper-item class="core-selected" active label="condo">Condo</paper-item>
+								<paper-item class="core-selected" active label="townhome">Townhome</paper-item>
+								<paper-item class="core-selected" active label="apartment">Apartment</paper-item>
+							</core-menu>
+						</paper-dropdown>
+					</paper-dropdown-menu>
 
         			<!--core-toolbar down here may be an issue-->
-        			<core-toolbar style=
+        			<table style=
         				"background:transparent;
         				-webkit-box-shadow:none;
         				-moz-box-shadow:none;
         				box-shadow:none;">
-            			<core-label horizontal layout center>
-            				<paper-checkbox for ng-model="catsOk"></paper-checkbox>
-            				<div>Cats</div>
-            			</core-label>
-            			<core-label horizontal layout center>
-            				<paper-checkbox for ng-model="dogsOk"></paper-checkbox>
-            				<div>Dogs</div>
-            			</core-label>
-        			</core-toolbar>
+        				<tr>
+        					<td>
+            					<core-label horizontal layout center>
+            						<paper-checkbox for ng-model="catsOk"></paper-checkbox>
+            						<div>Cats</div>
+            					</core-label>
+            				</td>
+            				<td>
+            					<core-label horizontal layout center>
+            						<paper-checkbox for ng-model="dogsOk"></paper-checkbox>
+            						<div>Dogs</div>
+            					</core-label>
+            				</td>
+            			</tr>
+        			</table>
 				</core-menu>
 			</core-header-panel>
 			<core-header-panel main>
