@@ -188,10 +188,15 @@ userCheck.prototype.userExists = function(user, passwordInput) {
 userCheck.prototype.sessionExistsLogin = function(session) {
     return new Promise(function(resolve, reject) {
         if (session) {
-            reject({
-                status: 400,
+            resolve({
+                status: 200,
                 send: "session exists"
             });
+
+            // reject({
+            //     status: 400,
+            //     send: "session exists"
+            // });
         } else {
             resolve();
         }
