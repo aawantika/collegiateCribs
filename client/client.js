@@ -102,6 +102,9 @@ app.controller('HomeController', ['$scope', '$loginService', '$location', '$cook
         "username": $cookies.username,
         "sessionKey": $cookies.sessionKey
     }
+    var user = {
+        "username": $cookies.username
+    }
 
     $loginService.isLoggedIn(cookie, function(err, status, data) {
         console.log(status);
@@ -114,6 +117,17 @@ app.controller('HomeController', ['$scope', '$loginService', '$location', '$cook
         }
     });
 
+    $loginService.retrieveUser(user, function(err, status, data) {
+        console.log(status);
+        console.log(data);
+        if(data.profileType == 'student') {
+            console.log("Change to Student Dashboard");
+            $state.go('studentDashboard');
+        } else {
+            console.log("Change to Landlord Dashboard");
+        }
+    });
+    $scope.
     $scope.logoutButton = function() {
         $loginService.logout(cookie, function(err, status, data) {
             if (!err) {
@@ -125,6 +139,21 @@ app.controller('HomeController', ['$scope', '$loginService', '$location', '$cook
 
 }]);
 
+app.controller('StartController', ['$scope', '$loginService', '$location', '$cookies', function($scope, $loginService, $location, $cookies) {
+    $scope.alert = "";
+    $scope.toLogin = function() {
+        console.log("change to Login");
+        $state.go('login');
+    };
+
+    $scope.toSignUp = function() {
+        //make a drop down for 1-10 properties
+        console.log("change to sign up");
+        $state.go('signup');
+    };
+
+}]);
+
 app.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/login');
 
@@ -132,11 +161,13 @@ app.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $url
                 url:'/login',
                 controller: 'LoginController',
                 templateUrl: '/client/html_pages/login.html'
+                parent: 'start'
             })
             .state('signup', {
                 url:'/signup',
                 controller: 'EditAccountController',
                 templateUrl: '/client/html_pages/signup.html'
+                parent: 'start'
             })
             .state('signup.landlord',{
                 templateUrl: '/client/html_pages/landlordSignup.html',
@@ -151,8 +182,28 @@ app.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $url
             .state('home', {
                 url:'/home',
                 controller: 'HomeController',
-                templateUrl: '/client/html_pages/home.html'
-            }).state('test',{
+                templateUrl: '/client/html_pages/homfe.html'
+            })
+            .state('start', {
+                url:'/',
+                controller: 'StartController',
+                templateUrl: '/client/html_pages/start.html'
+            })
+            .state('studentDashboard', {
+                url:'/studentDashboard',
+                controller: 'studentDashboardController',
+                templateUrl: '/client/html_pages/studentDashboard.html'
+                parent:'home'
+
+            })
+            .state('search', {
+                url:'/search',
+                controller: 'searchController',
+                templateUrl: '/client/html_pages/search.html'
+                parent:'home'
+
+            })
+            .state('test',{
                 url:'/test',
                 templateUrl: '/client/html_pages/studentDashboard.html'
             });

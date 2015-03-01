@@ -31,7 +31,7 @@ login.service('$loginService', ['$http', function($http) {
         });
     };
 
-    this.isLoggedIn = function(json, callback) {
+    this.isLoggedIn = function(json, callback) { //what does this return?
         var req = {
             method: "POST",
             url: "http://localhost:8080/isLoggedIn",
@@ -49,6 +49,21 @@ login.service('$loginService', ['$http', function($http) {
         var req = {
             method: "POST",
             url: "http://localhost:8080/logout",
+            data: json
+        }
+
+        $http(req).success(function(data, status) {
+            callback(null, status, data);
+        }).error(function(data, status) {
+            callback(status, data);
+        });
+    };
+
+
+     this.retrieveUser = function(json, callback) {
+        var req = {
+            method: "POST",
+            url: "http://localhost:8080/user/retrieve",
             data: json
         }
 
