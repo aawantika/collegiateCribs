@@ -95,7 +95,7 @@ app.controller('EditAccountController', ['$scope', '$loginService', '$state', '$
     };
 }]);
 
-app.controller('HomeController', ['$scope', '$loginService', '$location', '$cookies', function($scope, $loginService, $location, $cookies) {
+app.controller('HomeController', ['$scope', '$loginService', '$location', '$cookies', '$state', function($scope, $loginService, $location, $cookies, $state) {
     $scope.alert = "";
     $scope.showPage = false;
     var cookie = {
@@ -144,17 +144,17 @@ app.controller('HomeController', ['$scope', '$loginService', '$location', '$cook
 
 }]);
 
-app.controller('StartController', ['$scope', '$location', function($scope, $location) {
+app.controller('StartController', ['$scope', '$location', '$state', function($scope, $location, $state) {
     $scope.alert = "";
     $scope.toLogin = function() {
         console.log("change to Login");
-        $state.go('login');
+        $state.go('start.login');
     };
 
     $scope.toSignUp = function() {
         //make a drop down for 1-10 properties
         console.log("change to sign up");
-        $state.go('signup');
+        $state.go('start.signup');
     };
 
 }]);
@@ -169,51 +169,44 @@ app.controller('SearchController', ['$scope', function($scope) {
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/login');
 
-        $stateProvider.state('login', {
-                url: '/login',
-                controller: 'LoginController',
-                templateUrl: '/client/html_pages/login.html'
-                parent: 'start'
+        $stateProvider.state('start', {
+                controller: 'StartController',
+                templateUrl: '/client/html_pages/start.html',
+                abstract: true
             })
-            .state('signup', {
+            .state('start.login', {
+                url: '/login', 
+                controller: 'LoginController',
+                templateUrl: '/client/html_pages/login.html',
+            })
+            .state('start.signup', {
                 url: '/signup',
                 controller: 'EditAccountController',
-                templateUrl: '/client/html_pages/signup.html'
-                parent: 'start'
+                templateUrl: '/client/html_pages/signup.html',
             })
-            .state('signup.landlord', {
+            .state('start.signup.landlord', {
                 templateUrl: '/client/html_pages/landlordSignup.html',
                 controller: 'EditAccountController',
-                parent: 'signup'
             })
-            .state('signup.student', {
+            .state('start.signup.student', {
                 templateUrl: '/client/html_pages/studentSignup.html',
                 controller: 'EditAccountController',
-                parent: 'signup'
             })
             .state('home', {
                 url: '/home',
                 controller: 'HomeController',
                 templateUrl: '/client/html_pages/homfe.html'
             })
-            .state('start', {
-                url: '/',
-                controller: 'StartController',
-                templateUrl: '/client/html_pages/start.html'
-            })
+
             .state('studentDashboard', {
                 url: '/studentDashboard',
                 controller: 'StudentDashboardController',
                 templateUrl: '/client/html_pages/studentDashboard.html'
-                parent: 'home'
-
             })
             .state('search', {
                 url: '/search',
                 controller: 'searchController',
-                templateUrl: '/client/html_pages/search.html'
-                parent: 'home'
-
+                templateUrl: '/client/html_pages/search.html',
             })
             .state('test', {
                 url: '/test',
