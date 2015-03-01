@@ -4,12 +4,27 @@
         <paper-input-decorator label='Number of Bedrooms' floatingLabel>
         	<input type=\"text" ng-model="bedrooms">
         </paper-input-decorator>
-        <paper-input-decorator label='Number of Bathrooms'floatingLabel>
-        	<input type="text" ng-model="bathrooms">
-        </paper-input-decorator>
-        <paper-input-decorator label='Housing Type' floatingLabel>
-        	<input type="text" ng-model="housingType">
-        </paper-input-decorator>
+        
+        <paper-dropdown-menu label="Number of Bedrooms">
+            <paper-dropdown class="dropdown core-transition core-closed">
+                <core-menu class="menu" ng-model="bedrooms" valueattr="label">
+                    <paper-item class="core-selected" active label="1">1</paper-item>
+                    <paper-item class="core-selected" active label="2">2</paper-item>
+                </core-menu>
+            </paper-dropdown>
+        </paper-dropdown-menu>
+
+        <paper-dropdown-menu label="Housing Type">
+            <paper-dropdown class="dropdown core-transition core-closed">
+                <core-menu class="menu" ng-model="housingType" valueattr="label">
+                    <paper-item class="core-selected" active label="house">House</paper-item>
+                    <paper-item class="core-selected" active label="condo">Condo</paper-item>
+                    <paper-item class="core-selected" active label="townhome">Townhome</paper-item>
+                    <paper-item class="core-selected" active label="apartment">Apartment</paper-item>
+                </core-menu>
+            </paper-dropdown>
+        </paper-dropdown-menu>
+
         <paper-input-decorator label='Address' floatingLabel>
         	<input type="text" ng-model="address">
         </paper-input-decorator>
