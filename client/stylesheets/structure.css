@@ -16,10 +16,6 @@ paper-input-decorator, paper-dropdown-menu{
 	margin-right: 10px;
 }
 
-paper-input-decorator{
-	margin-bottom:25px;
-}
-
 .alert{
 	color:rgb(200,50,50);
 }
@@ -34,6 +30,15 @@ paper-input-decorator{
 
 .box.signup{
 	width: 600px;
+}
+
+.box.simpleSearch{
+	width: 600 px;
+}
+
+.box.simpleSearch paper-input-decorator{
+	position: relative;
+	top:-12px;
 }
 
 table {
