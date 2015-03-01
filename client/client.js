@@ -49,13 +49,13 @@ app.controller('EditAccountController', ['$scope', '$loginService', '$state', '$
 
     $scope.toStudent = function() {
         console.log("change to Student");
-        $state.go('signup.student');
+        $state.go('start.signup.student');
     };
 
     $scope.toLandlord = function() {
         //make a drop down for 1-10 properties
         console.log("change to Landlord");
-        $state.go('signup.landlord');
+        $state.go('start.signup.landlord');
     };
 
     $scope.canSubmit = function() {
