@@ -60,18 +60,14 @@ login.service('$loginService', ['$http', function($http) {
     };
 
 
-     this.retrieveUser = function(json, callback) {
+    this.retrieveUser = function(json, callback) {
         var req = {
             method: "POST",
             url: "http://localhost:8080/user/retrieve",
             data: json
         }
-        console.log("ayoo");
-        console.log(json);
 
         $http(req).success(function(data, status) {
-            console.log("SUCCESS " );
-            console.log(data);
             callback(null, status, data);
         }).error(function(data, status) {
             callback(status, data);

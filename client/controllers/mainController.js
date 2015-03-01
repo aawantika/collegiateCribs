@@ -1,6 +1,4 @@
-// TODO
 var app = angular.module("mainController", []);
-
 
 app.controller('LoginController', ['$scope', '$loginService', '$location', '$cookies', '$state', function($scope, $loginService, $location, $cookies, $state) {
     $scope.alert = "";
