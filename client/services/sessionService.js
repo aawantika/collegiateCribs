@@ -1,7 +1,7 @@
-var login = angular.module("login", []);
+var login = angular.module("sessionService", []);
 
-login.service('$loginService', ['$http', function($http) {
-    this.loginUser = function(json, callback) {
+login.service('$sessionService', ['$http', function($http) {
+this.loginUser = function(json, callback) {
         var req = {
             method: "POST",
             url: "http://localhost:8080/login",
@@ -16,7 +16,7 @@ login.service('$loginService', ['$http', function($http) {
         });
     };
 
-    this.isLoggedIn = function(json, callback) {
+    this.isLoggedIn = function(json, callback) { //what does this return?
         var req = {
             method: "POST",
             url: "http://localhost:8080/isLoggedIn",
@@ -43,4 +43,5 @@ login.service('$loginService', ['$http', function($http) {
             callback(status, data);
         });
     };
+
 }]);

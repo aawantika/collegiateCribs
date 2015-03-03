@@ -1,6 +1,6 @@
-var app = angular.module("mainController", []);
+var app = angular.module("startController", []);
 
-app.controller('LoginController', ['$scope', '$loginService', '$location', '$cookies', '$state', function($scope, $loginService, $location, $cookies, $state) {
+app.controller('LoginController', ['$scope', '$sessionService', '$location', '$cookies', '$state', function($scope, $sessionService, $location, $cookies, $state) {
     $scope.alert = "";
 
     $scope.canSubmit = function() {
@@ -13,7 +13,7 @@ app.controller('LoginController', ['$scope', '$loginService', '$location', '$coo
             return false;
         } else {
             $scope.alert = "all filled";
-            $loginService.loginUser(login, function(err, status, data) {
+            $sessionService.loginUser(login, function(err, status, data) {
                 if (!err) {
                     $cookies.username = data.username;
                     $cookies.sessionKey = data.sessionKey;
@@ -24,7 +24,7 @@ app.controller('LoginController', ['$scope', '$loginService', '$location', '$coo
     };
 }]);
 
-app.controller('EditAccountController', ['$scope', '$loginService', '$state', '$stateParams', function($scope, $loginService, $state, $stateParams) {
+app.controller('EditAccountController', ['$scope', '$userService', '$state', '$stateParams', function($scope, $userService, $state, $stateParams) {
     $scope.alert = $scope.alert || "";
     $scope.passConAlert = $scope.passConAlert || "";
     $scope.user = $scope.user || {
@@ -69,7 +69,7 @@ app.controller('EditAccountController', ['$scope', '$loginService', '$state', '$
             return false;
         } else {
             $scope.alert = "submittable";
-            $loginService.createUser(newUser, function(err, status, data) {
+            $userService.createUser(newUser, function(err, status, data) {
                 $scope.alert = data + " " + status;
             });
         }

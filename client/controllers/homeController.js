@@ -1,6 +1,6 @@
 var app = angular.module("homeController", []);
 
-app.controller('HomeController', ['$scope', '$loginService', '$location', '$cookies', '$state', function($scope, $loginService, $location, $cookies, $state) {
+app.controller('HomeController', ['$scope', '$userService','$sessionService', '$location', '$cookies', '$state', function($scope, $userService, $sessionService, $location, $cookies, $state) {
     $scope.alert = "";
     $scope.showPage = false;
     var cookie = {
@@ -11,20 +11,15 @@ app.controller('HomeController', ['$scope', '$loginService', '$location', '$cook
         "username": $cookies.username
     }
 
-    $loginService.isLoggedIn(cookie, function(err, status, data) {
-        console.log(status);
-        console.log(data);
+    $sessionService.isLoggedIn(cookie, function(err, status, data) {
         if (!err) {
             $scope.showPage = true;
-            console.log(cookie);
         } else {
             $location.path("/");
         }
     });
 
-    $loginService.retrieveUser(user, function(err, status, data) {
-        console.log(status);
-        console.log(data);
+    $userService.retrieveUser(user, function(err, status, data) {
         if (data.profileType == 'student') {
             console.log("Change to Student Dashboard");
             $state.go('home.studentDashboard');
@@ -39,7 +34,7 @@ app.controller('HomeController', ['$scope', '$loginService', '$location', '$cook
     }
 
     $scope.logoutButton = function() {
-        $loginService.logout(cookie, function(err, status, data) {
+        $sessionService.logout(cookie, function(err, status, data) {
             if (!err) {
                 $scope.showPage = false;
                 $state.go("start.login");

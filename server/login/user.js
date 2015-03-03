@@ -106,7 +106,6 @@ user.prototype.retrieveUser = function(req, res) {
             }).exec();
         })
         .then(function(user) { //function returns a user
-            console.log(user); //log user in console
             return userCheck.userExists(user); //check if the user actually exists
         })
         .then(function(result) {

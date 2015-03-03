@@ -3,11 +3,12 @@
 var app = angular.module("app", [
     'ngRoute',
     'ngCookies',
-    'login',
     'ui.router',
     'ng-polymer-elements',
-    'mainController',
-    'homeController'
+    'startController',
+    'homeController',
+    'userService',
+    'sessionService'
 ]);
 //^ a JSON of the dependencies for app
 
