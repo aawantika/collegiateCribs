@@ -1,0 +1,15 @@
+<div class="content">
+	<core-drawer-panel>
+		<core-header-panel drawer>
+			<!--landlord statistics go here-->
+		</core-header-panel>
+		<core-scroll-header-panel main>
+				<ul ng-repeat-start="lease in leases">
+					<li>
+						{{lease.name}}
+					</li>
+				</ul ng-repeat-end>
+		</core-header-panel>
+	</core-drawer-panel>
+</div>
+	

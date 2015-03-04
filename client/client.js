@@ -76,7 +76,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             })
             .state('test', {
                 url: '/test',
-                templateUrl: '/client/html_pages/studentDashboard.html'
+                templateUrl: '/client/html_pages/lease.html'
             });
     }])
     .directive('head', ['$rootScope', '$compile',
