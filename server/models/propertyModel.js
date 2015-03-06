@@ -12,6 +12,7 @@ var propertySchema = new Schema({
     city: String, //can't be modified
     state: String, //can't be modified
     zipcode: Number, //can't be modified
+    distance: Number, //can't
     
     leaseType: String, //can't be modified
     bedrooms: Number, //can be modified
@@ -36,6 +37,7 @@ var propertySchema = new Schema({
 module.exports = mongoose.model('propertyModel', propertySchema);
 
 // housingType: townhome, condo, apartment, house
+// distance: distance from campus
 // utitlies: price range
 // length: length of lease in months
 // propertyTours: up to user to contact landlord if true

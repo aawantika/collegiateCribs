@@ -11,6 +11,7 @@ router.use(express.static(__dirname + '/client'));
 var user = require('./server/login/user.js');
 var session = require('./server/login/login.js');
 var property = require('./server/property/property.js');
+var search = require('./server/search/search.js');
 
 
 module.exports = function() {
@@ -83,6 +84,18 @@ module.exports = function() {
     /**
      * rating/review routing
      */
+
+     /**
+      * search routing
+      */
+
+      router.post('/search/landlord', function(req, res) {
+          search.searchLandlord(req, res);
+      });
+
+      router.post('/search/property', function(req, res) {
+          search.searchProperty(req, res);
+      });
 
     return router;
 }
