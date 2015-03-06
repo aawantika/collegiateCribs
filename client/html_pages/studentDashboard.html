@@ -40,12 +40,17 @@
 		</form>
 		<!--recent activity: pull data from server into scope with the controller.
 			Will probably need to do an ng-repeat to go through a list of stuff.-->
-		<fieldset class="box signup content">
-			<ul ng-repeat-start="lease in favorites">
-				<li>
-					{{lease}}
-				</li>
-			</ul ng-repeat-end>
-		</fieldset>
+		<core-scroll-header-panel class = "box content">
+			<h3>Favorite Leases</h3>
+			<div ng-repeat="lease in leases" class="box content" horizontal layout>
+				<div class="box">
+					{{lease.imgUrl}}
+				</div>
+				<paper-item class="box" flex>
+					Address: {{lease.address}} <br>
+					Price: {{lease.price}}
+				</paper-item>
+			</div>
+		</core-scroll-header-pane>
 	</body>
 </div>

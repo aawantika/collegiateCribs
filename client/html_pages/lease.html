@@ -1,26 +1,28 @@
 <core-header-panel vertical layout flex class="content">
 	<core-toolbar flex class="content">
-		<div vertical layout flex>
+		<div vertical layout>
 			<!--image of the lease-->
 			<paper-button raised>Lease img</paper-button>
-			<div horizontal layout flex>
+			<div horizontal layout>
 				<!--scrollable picture gallery-->
 				<paper-button raised>Img gallery</paper-button>
 			</div>
 		</div>
 		<!--description of the lease-->
-		<div flex>
-			<paper-button raised>Lease description</paper-button>
+		<div flex style="color:black;">
+			Lease Description
 		</div>
 	</core-toolbar>
 	<div horizontal layout style="vertical-align:bottom;">
 		<div vertical layout>
 			<!--ratings + option to favorite-->
-			Rating:
+			Rating: {{lease.rating}} <br>
+			Add a rating: {{rating}}
 			<paper-slider ng-model="rating" max="5"></paper-slider>
 			<paper-button raised>Add to Favorites</paper-button>
+			<paper-button raised>Add a review</paper-button>
 		</div>
 		<!--reviews-->
-		<input type="text" placeholder='Reviews' flex></input>
+		<div ui-view></div>
 	</div>
 </core-header-panel>
