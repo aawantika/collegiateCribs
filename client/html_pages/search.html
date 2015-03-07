@@ -6,6 +6,9 @@
       				<span>Filters</span>
     			</core-toolbar>
     			<core-menu>
+    				<paper-input-decorator label="Distance from campus" floatingLabel>
+						<input type="text" ng-model="distanceFromCampus"></input>
+					</paper-input-decorator>
     				<table>
     					<tr>
     						Price Range:
@@ -42,6 +45,16 @@
 						</paper-dropdown>
 					</paper-dropdown-menu>
 
+					<!--Make this a checkbox thing-->
+					<br></br>
+					<p> Housing type:</p>
+					<table style=
+        				"background:transparent;
+        				-webkit-box-shadow:none;
+        				-moz-box-shadow:none;
+        				box-shadow:none;">
+
+        			</table>
         			<paper-dropdown-menu label="Housing Type">
 						<paper-dropdown class="dropdown core-transition core-closed">
 							<core-menu class="menu" ng-model="housingType" valueattr="label">
@@ -53,7 +66,6 @@
 						</paper-dropdown>
 					</paper-dropdown-menu>
 
-        			<!--core-toolbar down here may be an issue-->
         			<table style=
         				"background:transparent;
         				-webkit-box-shadow:none;

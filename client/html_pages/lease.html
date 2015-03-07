@@ -1,18 +1,29 @@
 <core-header-panel vertical layout flex class="content">
-	<core-toolbar flex class="content">
-		<div vertical layout>
-			<!--image of the lease-->
-			<paper-button raised>Lease img</paper-button>
-			<div horizontal layout>
-				<!--scrollable picture gallery-->
-				<paper-button raised>Img gallery</paper-button>
+	<header>
+		<core-panel horizontal layout flex class="content">
+			<div vertical layout>
+				<!--image of the lease-->
+				<paper-button raised>Lease img</paper-button>
+				<div horizontal layout style="overflow:auto;" >
+					<!--scrollable picture gallery-->
+					<paper-button raised>Img gallery</paper-button>
+					{{img}}
+				</div>
 			</div>
-		</div>
-		<!--description of the lease-->
-		<div flex style="color:black;">
-			Lease Description
-		</div>
-	</core-toolbar>
+			<!--description of the lease-->
+			<div flex>
+				<h4>Lease Description</h4>
+				<br></br>
+				Address: {{property.address}}, {{property.city}},
+					{{property.state}}, {{property.zipcode}}  <br/>
+				Distance from Campus: {{property.distance}} <br/>
+				Price: {{property.price}} <br></br>
+				{{property.housingType}} with {{property.numBed}} bedrooms, {{property.numBath}} bathrooms. <br></br>
+				Description: {{property.description}}
+			</div>
+		</core-panel>
+	</header>
+
 	<div horizontal layout style="vertical-align:bottom;">
 		<div vertical layout>
 			<!--ratings + option to favorite-->
