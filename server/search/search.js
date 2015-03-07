@@ -62,8 +62,111 @@ search.prototype.searchLandlord = function(req, res) {
 
 
 search.prototype.searchProperty = function(req, res) {
-    // var query = req.body;
-    // console.log(req.body);
+    var distanceFromCampus = req.body.distanceFromCampus;
+    var bedrooms = req.body.bedrooms;
+    var bathrooms = req.body.bathrooms;
+    var housingType = req.body.housingType;
+    var price = req.body.price;
+    var length = req.body.lengthOfLease;
+    var catsOk = req.body.catsOk;
+    var dogsOk = req.body.dogsOk;
+
+    console.log(req.body.distanceFromCampus);
+    console.log(req.body.bedrooms);
+    console.log(req.body.bathrooms);
+    console.log(req.body.housingType);
+    console.log(req.body.price);
+    console.log(req.body.lengthOfLease);
+    console.log(req.body.catsOk);
+    console.log(req.body.dogsOk);
+
+    propertyModel.aggregate([
+        { $match: {
+            $or: [
+            { distanceFromCampus: distanceFromCampus },
+            // { distanceFromCampus: distanceFromCampus + 5 },
+            // { distanceFromCampus: distanceFromCampus + 10 },
+            // { distanceFromCampus: distanceFromCampus + 15 },
+            // { distanceFromCampus: distanceFromCampus + 20 },
+
+            { bedrooms: bedrooms },
+            { bedrooms: bedrooms + 1 },
+
+            { bathrooms: bathrooms },
+
+            { housingType: housingType } ,
+
+            { price: price },
+
+            { length: lengthOfLease },
+
+            { catsOk: catsOk },
+            { dogsOk: dogsOk }
+            ] 
+        }
+    },
+
+    // Calculate a score
+    { $project: {
+        distanceFromCampus: 1,
+        bedrooms: 1,
+        bathrooms: 1,
+        housingType: 1,
+        price: 1,
+        length: 1,
+        catsOk: 1,
+        dogsOk: 1,
+        score: {
+            $add: [
+            { $cond: [
+                { $eq: [ $distanceFromCampus, distanceFromCampus ] },
+                20,
+                3
+            ]},
+            { $cond: [
+                { $eq: [ $bedrooms, bedrooms ]},
+                10,
+                { $eq: [ $bedrooms, bedrooms + 1 ]},
+                5,
+                0
+            ]},
+            { $cond: [
+                { $eq: [ $bathrooms, bathrooms ] },
+                10,
+                2
+            ]},
+            { $cond: [
+                { $eq: [ $housingType, housingType ] },
+                10,
+                0
+            ]},
+            { $cond: [
+                { $eq: [ $price, price ] },
+                10,
+                1
+            ]},
+            { $cond: [
+                { $eq: [ $length, lengthOfLease ] },
+                10,
+                5
+            ]},
+            { $cond: [
+                $catsOk,
+                10,
+                0
+            ]},
+            { $cond: [
+                $dogsOk,
+                10,
+                0
+            ]},
+            ]
+        }
+    }},
+    { $sort: { score: -1 } },
+    ])
+
+
 
 
     // propertyModel.plugin(searchPlugin, {
