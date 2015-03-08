@@ -72,7 +72,6 @@ search.prototype.searchProperty = function(req, res) {
 
     // console.log(req.body.distanceFromCampus);
     console.log(req.body.bedrooms);
-    console.log(req.body.bedrooms + 1);
     console.log(req.body.bathrooms);
     console.log(req.body.housingType);
     console.log(req.body.price);
@@ -141,12 +140,12 @@ search.prototype.searchProperty = function(req, res) {
     var projectvarBed = {};
     if (req.body.bedrooms) {
         projectvarBed = {
-            "$cond": [{
-                    "$eq": ["$bedrooms", bedrooms]
+            $cond: [{
+                    $eq: [bedrooms, bedrooms]
                 },
                 10, {
-                    "$cond": [{
-                            "$eq": ["$bedrooms", bedrooms + 1]
+                    $cond: [{
+                            $eq: [bedrooms, bedrooms + 1]
                         },
                         5,
                         0
@@ -154,76 +153,90 @@ search.prototype.searchProperty = function(req, res) {
                 }
             ]
         };
+    } else {
+        projectvarBed = 0; // if the field is not searched
     }
 
     var projectvarBath = {};
     if (req.body.bathrooms) {
         projectvarBath = {
-            "$cond": [{
-                    "$eq": ["$bathrooms", bathrooms]
+            $cond: [{
+                    $eq: [bathrooms, bathrooms]
                 },
                 10,
-                2
+                0
             ]
         };
+    } else {
+        projectvarBath = 0;
     }
 
     var projectvarType = {};
     if (req.body.housingType) {
         projectvarType = {
-            "$cond": [{
-                    "$eq": ["$housingType", housingType]
+            $cond: [{
+                    $eq: [housingType, housingType]
                 },
                 10,
                 0
             ]
         };
+    } else {
+        projectvarType = 0;
     }
 
     var projectvarPrice = {};
     if (req.body.price) {
         projectvarPrice = {
-            "$cond": [{
-                    "$eq": ["$price", price]
+            $cond: [{
+                    $eq: [price, price]
                 },
                 10,
-                1
+                0
             ]
         };
+    } else {
+        projectvarPrice = 0;
     }
 
     var projectvarLength = {};
     if (req.body.length) {
         projectvarLength = {
-            "$cond": [{
-                    "$eq": ["$length", length]
+            $cond: [{
+                    $eq: [length, length]
                 },
                 10,
-                5
+                0
             ]
         };
+    } else {
+        projectvarLength = 0;
     }
 
     var projectvarCats = {};
     if (req.body.catsOk) {
         projectvarCats = {
-            "$cond": [
-                "$catsOk",
+            $cond: [
+                catsOk,
                 10,
                 0
             ]
         };
+    } else {
+        projectvarCats = 0;
     }
 
     var projectvarDogs = {};
     if (req.body.dogsOk) {
         projectvarDogs = {
-            "$cond": [
-                "$dogsOk",
+            $cond: [
+                dogsOk,
                 10,
                 0
             ]
         };
+    } else {
+        projectvarDogs = 0;
     }
 
 
@@ -246,13 +259,13 @@ search.prototype.searchProperty = function(req, res) {
             dogsOk: 1,
             score: {
                 $add: [
-                "$projectvarBed",
-                "$projectvarBath",
-                "$projectvarType",
-                "$projectvarPrice",
-                "$projectvarLength",
-                "$projectvarCats",
-                "$projectvarDogs"
+                projectvarBed,
+                projectvarBath,
+                projectvarType,
+                projectvarPrice,
+                projectvarLength,
+                projectvarCats,
+                projectvarDogs
                 ]
             }
         }
