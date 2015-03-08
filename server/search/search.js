@@ -1,8 +1,7 @@
-
 /**
  * Dependencies
  */
- var mongoose = require('mongoose');
+var mongoose = require('mongoose');
 // var textSearch = require('mongoose-text-search');
 // var searchPlugin = require('mongoose-search-plugin');
 var userModel = require('../models/userModel.js');
@@ -25,8 +24,8 @@ search.prototype.searchLandlord = function(req, res) {
         var last = words[1];
 
         userModel.find({
-                firstName: first,
-                lastName: last
+            firstName: first,
+            lastName: last
         }, function(err, result) {
             if (err) {
                 console.log(err);
@@ -35,7 +34,7 @@ search.prototype.searchLandlord = function(req, res) {
                 console.log(result);
                 res.status(200).send(result);
             }
-        }); 
+        });
     } else { // one name
         userModel.find({
             $or: [{
@@ -80,99 +79,114 @@ search.prototype.searchProperty = function(req, res) {
     console.log(req.body.catsOk);
     console.log(req.body.dogsOk);
 
-    propertyModel.aggregate([
-        { $match: {
-            $or: [
-            { distanceFromCampus: distanceFromCampus },
-            // { distanceFromCampus: distanceFromCampus + 5 },
-            // { distanceFromCampus: distanceFromCampus + 10 },
-            // { distanceFromCampus: distanceFromCampus + 15 },
-            // { distanceFromCampus: distanceFromCampus + 20 },
-
-            { bedrooms: bedrooms },
-            { bedrooms: bedrooms + 1 },
-
-            { bathrooms: bathrooms },
-
-            { housingType: housingType } ,
-
-            { price: price },
-
-            { length: length },
-
-            { catsOk: catsOk },
-            { dogsOk: dogsOk }
-            ] 
-        }
-    },
-
-    // Calculate a score
-    { $project: {
-        distanceFromCampus: 1,
-        bedrooms: 1,
-        bathrooms: 1,
-        housingType: 1,
-        price: 1,
-        length: 1,
-        catsOk: 1,
-        dogsOk: 1,
-        score: {
-            $add: [
-            { $cond: [
-                { $eq: [ "$distanceFromCampus", distanceFromCampus ] },
-                20,
-                3
-            ]},
-            { $cond: [
-                { $eq: [ "$bedrooms", bedrooms ]},
-                10,
-                { $eq: [ "$bedrooms", bedrooms + 1 ]},
-                5,
-                0
-            ]},
-            { $cond: [
-                { $eq: [ "$bathrooms", bathrooms ] },
-                10,
-                2
-            ]},
-            { $cond: [
-                { $eq: [ "$housingType", housingType ] },
-                10,
-                0
-            ]},
-            { $cond: [
-                { $eq: [ "$price", price ] },
-                10,
-                1
-            ]},
-            { $cond: [
-                { $eq: [ "$length", length ] },
-                10,
-                5
-            ]},
-            { $cond: [
-                "$catsOk",
-                10,
-                0
-            ]},
-            { $cond: [
-                "$dogsOk",
-                10,
-                0
-            ]},
-            ]
-        }
-    }},
-    { $sort: { score: -1 } }, function(err, result) {
-            if (err) {
-                console.log(err);
-                res.status(400).send(err);
-            } else {
-                console.log(result);
-                res.status(200).send(result);
+    propertyModel.aggregate([{
+            $match: {
+                $or: [{
+                        distanceFromCampus: distanceFromCampus
+                    }
+                    // { distanceFromCampus: distanceFromCampus + 5 },
+                    // { distanceFromCampus: distanceFromCampus + 10 },
+                    // { distanceFromCampus: distanceFromCampus + 15 },
+                    // { distanceFromCampus: distanceFromCampus + 20 },
+                ],
+                $or: [{
+                    bedrooms: bedrooms
+                }, {
+                    bedrooms: bedrooms + 1
+                }],
+                bathrooms: bathrooms,
+                housingType: housingType,
+                price: price,
+                length: length,
+                catsOk: catsOk,
+                dogsOk: dogsOk
+            }
+        },
+        {
+            "$project": {
+                distanceFromCampus: 1,
+                bedrooms: 1,
+                bathrooms: 1,
+                housingType: 1,
+                price: 1,
+                length: 1,
+                catsOk: 1,
+                dogsOk: 1,
+                score: {
+                    "$add": [{
+                        "$cond": [{
+                                "$eq": ["$distanceFromCampus", distanceFromCampus]
+                            },
+                            20,
+                            3
+                        ]
+                    }, {
+                        "$cond": [{
+                                "$eq": ["$bedrooms", bedrooms]
+                            },
+                            10, {
+                                "$eq": ["$bedrooms", bedrooms + 1]
+                            },
+                            5,
+                            0
+                        ]
+                    }, {
+                        "$cond": [{
+                                "$eq": ["$bathrooms", bathrooms]
+                            },
+                            10,
+                            2
+                        ]
+                    }, {
+                        "$cond": [{
+                                "$eq": ["$housingType", housingType]
+                            },
+                            10,
+                            0
+                        ]
+                    }, {
+                        "$cond": [{
+                                "$eq": ["$price", price]
+                            },
+                            10,
+                            1
+                        ]
+                    }, {
+                        "$cond": [{
+                                "$eq": ["$length", length]
+                            },
+                            10,
+                            5
+                        ]
+                    }, {
+                        "$cond": [
+                            "$catsOk",
+                            10,
+                            0
+                        ]
+                    }, {
+                        "$cond": [
+                            "$dogsOk",
+                            10,
+                            0
+                        ]
+                    }, ]
+                }
+            }
+        }, {
+            "$sort": {
+                score: -1
             }
         }
-    ]);
+    ], function(err, result) {
+        if (err) {
+            console.log(err);
+            res.status(400).send(err);
+        } else {
+            console.log(result);
+            res.status(200).send(result);
+        }
+    });
 
 
 
