@@ -2,8 +2,6 @@
  * Dependencies
  */
 var mongoose = require('mongoose');
-// var textSearch = require('mongoose-text-search');
-// var searchPlugin = require('mongoose-search-plugin');
 var userModel = require('../models/userModel.js');
 var propertyModel = require('../models/propertyModel.js');
 
@@ -52,25 +50,11 @@ search.prototype.searchLandlord = function(req, res) {
             }
         });
     }
-
-    // console.log(bob);
-    // res.sendStatus(200);
-    // res.status(200).send(bob);
-
 }
 
 
 search.prototype.searchProperty = function(req, res) {
-    //var distanceFromCampus = req.body.distanceFromCampus;
-    var bedrooms = req.body.bedrooms;
-    var bathrooms = req.body.bathrooms;
-    var housingType = req.body.housingType;
-    var price = req.body.price;
-    var length = req.body.length;
-    var catsOk = req.body.catsOk;
-    var dogsOk = req.body.dogsOk;
 
-    // console.log(req.body.distanceFromCampus);
     console.log(req.body.bedrooms);
     console.log(req.body.bathrooms);
     console.log(req.body.housingType);
@@ -80,43 +64,25 @@ search.prototype.searchProperty = function(req, res) {
     console.log(req.body.dogsOk);
 
 
-    /* THIS IS HOW YOU DO IT:
-        For every match field, you need to add it into the matchvar 
-        So if something exists (ie, not undefined), add it to matchvar.
-        A simple if (req.body.bedrooms) is good enough to check for undefined.
-    */
-
-    // 
-    // {
-    //                 bedrooms: {
-    //                     $in: [bedrooms, bedrooms + 1]
-    //                 },
-    //                 bathrooms: bathrooms,
-    //                 housingType: housingType,
-    //                 price: price,
-    //                 length: length,
-    //                 catsOk: catsOk,
-    //                 dogsOk: dogsOk
-
-    //             }
-
     var matchVar = {};
-    // if (req.body.distanceFromCampus) {
-    //     matchVar.distanceFromCampus = req.body.distanceFromCampus;
-    // }
+
     if (req.body.bedrooms) {
         matchVar.bedrooms = {
-            $in: [req.body.bedrooms, req.body.bedrooms + 1]
+            $in: [req.body.bedrooms, req.body.bedrooms + 1, req.body.bedrooms - 1]
         };
     }
     if (req.body.bathrooms) {
-        matchVar.bathrooms = req.body.bathrooms;
+        matchVar.bathrooms = {
+            $in: [req.body.bathrooms, req.body.bathrooms + 1, req.body.bathrooms - 1]
+        };
     }
     if (req.body.housingType) {
         matchVar.housingType = req.body.housingType;
     }
     if (req.body.price) {
-        matchVar.price = req.body.price;
+        matchVar.price = {
+            $in: [req.body.price, req.body.price + 100, req.body.price - 100]
+        };
     }
     if (req.body.length) {
         matchVar.length = req.body.length;
@@ -127,44 +93,54 @@ search.prototype.searchProperty = function(req, res) {
     if (req.body.dogsOk) {
         matchVar.dogsOk = req.body.dogsOk;
     }
-    
-    /* THEN FOR PROJECT
-        Take out each cond for each field and make it it's own variable
-        Keep it an empty object {} but actually define it if the input field exists.
-        Ie, req.body.bedrooms exists, so we need to add it to our match and have it in project
-    */
 
-
-    // var projectvarDistance = {};
 
     var projectvarBed = {};
     if (req.body.bedrooms) {
         projectvarBed = {
             $cond: [{
-                    $eq: [bedrooms, bedrooms]
+                    $eq: ["$bedrooms", req.body.bedrooms]
                 },
                 10, {
                     $cond: [{
-                            $eq: [bedrooms, bedrooms + 1]
+                            $eq: ["$bedrooms", req.body.bedrooms + 1]
                         },
-                        5,
-                        0
+                        5, {
+                            $cond: [{
+                                $eq: ["$bedrooms", req.body.bedrooms - 1]
+                            },
+                            3,
+                            0
+                            ]
+                        }  
                     ]
                 }
             ]
         };
     } else {
-        projectvarBed = 0; // if the field is not searched
+        projectvarBed = 0;
     }
 
     var projectvarBath = {};
     if (req.body.bathrooms) {
         projectvarBath = {
             $cond: [{
-                    $eq: [bathrooms, bathrooms]
+                    $eq: ["$bathrooms", req.body.bathrooms]
                 },
-                10,
-                0
+                10, {
+                    $cond: [{
+                            $eq: ["$bathrooms", req.body.bathrooms + 1]
+                        },
+                        5, {
+                            $cond: [{
+                                $eq: ["$bathrooms", req.body.bathrooms - 1]
+                            },
+                            3,
+                            0
+                            ]
+                        }  
+                    ]
+                }
             ]
         };
     } else {
@@ -175,7 +151,7 @@ search.prototype.searchProperty = function(req, res) {
     if (req.body.housingType) {
         projectvarType = {
             $cond: [{
-                    $eq: [housingType, housingType]
+                    $eq: ["$housingType", req.body.housingType]
                 },
                 10,
                 0
@@ -189,10 +165,22 @@ search.prototype.searchProperty = function(req, res) {
     if (req.body.price) {
         projectvarPrice = {
             $cond: [{
-                    $eq: [price, price]
+                    $eq: ["$price", req.body.price]
                 },
-                10,
-                0
+                10, {
+                    $cond: [{
+                            $eq: ["$price", req.body.price + 100]
+                        },
+                        6, {
+                            $cond: [{
+                                $eq: ["$price", req.body.price - 100]
+                            },
+                            8,
+                            0
+                            ]
+                        }  
+                    ]
+                }
             ]
         };
     } else {
@@ -203,7 +191,7 @@ search.prototype.searchProperty = function(req, res) {
     if (req.body.length) {
         projectvarLength = {
             $cond: [{
-                    $eq: [length, length]
+                    $eq: ["$length", req.body.length]
                 },
                 10,
                 0
@@ -240,7 +228,6 @@ search.prototype.searchProperty = function(req, res) {
     }
 
 
-
     propertyModel.aggregate([{
         $match: {
             $or: [
@@ -249,7 +236,6 @@ search.prototype.searchProperty = function(req, res) {
         }
     }, {
         $project: {
-            // distanceFromCampus: 1,
             bedrooms: 1,
             bathrooms: 1,
             housingType: 1,
@@ -284,5 +270,5 @@ search.prototype.searchProperty = function(req, res) {
     });
 }
 
-
 module.exports = new search();
+
