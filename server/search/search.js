@@ -4,7 +4,7 @@
  */
  var mongoose = require('mongoose');
 // var textSearch = require('mongoose-text-search');
-var searchPlugin = require('mongoose-search-plugin');
+// var searchPlugin = require('mongoose-search-plugin');
 var userModel = require('../models/userModel.js');
 var propertyModel = require('../models/propertyModel.js');
 
@@ -98,7 +98,7 @@ search.prototype.searchProperty = function(req, res) {
 
             { price: price },
 
-            { length: lengthOfLease },
+            { length: length },
 
             { catsOk: catsOk },
             { dogsOk: dogsOk }
@@ -119,52 +119,60 @@ search.prototype.searchProperty = function(req, res) {
         score: {
             $add: [
             { $cond: [
-                { $eq: [ $distanceFromCampus, distanceFromCampus ] },
+                { $eq: [ "$distanceFromCampus", distanceFromCampus ] },
                 20,
                 3
             ]},
             { $cond: [
-                { $eq: [ $bedrooms, bedrooms ]},
+                { $eq: [ "$bedrooms", bedrooms ]},
                 10,
-                { $eq: [ $bedrooms, bedrooms + 1 ]},
+                { $eq: [ "$bedrooms", bedrooms + 1 ]},
                 5,
                 0
             ]},
             { $cond: [
-                { $eq: [ $bathrooms, bathrooms ] },
+                { $eq: [ "$bathrooms", bathrooms ] },
                 10,
                 2
             ]},
             { $cond: [
-                { $eq: [ $housingType, housingType ] },
+                { $eq: [ "$housingType", housingType ] },
                 10,
                 0
             ]},
             { $cond: [
-                { $eq: [ $price, price ] },
+                { $eq: [ "$price", price ] },
                 10,
                 1
             ]},
             { $cond: [
-                { $eq: [ $length, lengthOfLease ] },
+                { $eq: [ "$length", length ] },
                 10,
                 5
             ]},
             { $cond: [
-                $catsOk,
+                "$catsOk",
                 10,
                 0
             ]},
             { $cond: [
-                $dogsOk,
+                "$dogsOk",
                 10,
                 0
             ]},
             ]
         }
     }},
-    { $sort: { score: -1 } },
-    ])
+    { $sort: { score: -1 } }, function(err, result) {
+            if (err) {
+                console.log(err);
+                res.status(400).send(err);
+            } else {
+                console.log(result);
+                res.status(200).send(result);
+            }
+        }
+    ]);
 
 
 
