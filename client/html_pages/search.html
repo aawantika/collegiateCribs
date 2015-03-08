@@ -53,24 +53,43 @@
         				-webkit-box-shadow:none;
         				-moz-box-shadow:none;
         				box-shadow:none;">
-
+        				<tr>
+        					<td>
+            					<core-label horizontal layout center>
+            						<paper-checkbox for ng-model="typeHouse" ng-click="updateHousingType()"></paper-checkbox>
+            						<div>House</div>
+            					</core-label>
+            				</td>
+            				<td>
+            					<core-label horizontal layout center>
+            						<paper-checkbox for ng-model="typeCondo" ng-click="updateHousingType()"></paper-checkbox>
+            						<div>Condo</div>
+            					</core-label>
+            				</td>
+            			</tr>
+            			<tr>
+        					<td>
+            					<core-label horizontal layout center>
+            						<paper-checkbox for ng-model="typeTownhome" ng-click="updateHousingType()"></paper-checkbox>
+            						<div>Townhome</div>
+            					</core-label>
+            				</td>
+            				<td>
+            					<core-label horizontal layout center>
+            						<paper-checkbox for ng-model="typeApartment" ng-click="updateHousingType()"></paper-checkbox>
+            						<div>Apartment</div>
+            					</core-label>
+            				</td>
+            			</tr>
         			</table>
-        			<paper-dropdown-menu label="Housing Type">
-						<paper-dropdown class="dropdown core-transition core-closed">
-							<core-menu class="menu" ng-model="housingType" valueattr="label">
-								<paper-item class="core-selected" active label="house">House</paper-item>
-								<paper-item class="core-selected" active label="condo">Condo</paper-item>
-								<paper-item class="core-selected" active label="townhome">Townhome</paper-item>
-								<paper-item class="core-selected" active label="apartment">Apartment</paper-item>
-							</core-menu>
-						</paper-dropdown>
-					</paper-dropdown-menu>
 
+					<br></br>
         			<table style=
         				"background:transparent;
         				-webkit-box-shadow:none;
         				-moz-box-shadow:none;
         				box-shadow:none;">
+        				<p>Pets:</p>
         				<tr>
         					<td>
             					<core-label horizontal layout center>
@@ -88,18 +107,19 @@
         			</table>
 				</core-menu>
 			</core-header-panel>
-			<core-scroll-header-panel main>
-      			<h3>Housing Search Results</h3>
-    			
-				<div ng-repeat="lease in leases" class="box content" horizontal layout>
-					<div class="box">
-						{{lease.imgUrl}}
+			<core-header-panel class = "content" main>
+				<header>
+					<h3>Housing Search Results</h3>
+				</header>
+				<div ng-repeat="property in properties" class="box allMargins5 content" horizontal layout>
+					<div class="rightMargin5 content">
+						Lease Image Here:{{property.imgUrl}}
 					</div>
-					<paper-item class="box" flex>
-						Address: {{lease.address}} <br>
-						Price: {{lease.price}}
+					<paper-item class="leftmargin5 content" flex>
+						Address: {{property.address}} <br>
+						Price: {{property.price}}
 					</paper-item>
 				</div>
-			</core-scroll-header-panel>
+			</core-header-panel>
 		</core-drawer-panel>
 </div>

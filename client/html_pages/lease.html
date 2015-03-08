@@ -1,7 +1,9 @@
-<core-header-panel vertical layout flex class="content">
+<core-header-panel vertical layout flex>
+	<div class="box content">
 	<header>
+		<h2>(Lease Address here) {{lease.address}} </h2>
 		<core-panel horizontal layout flex class="content">
-			<div vertical layout>
+			<div vertical layout class="allMargins5">
 				<!--image of the lease-->
 				<paper-button raised>Lease img</paper-button>
 				<div horizontal layout style="overflow:auto;" >
@@ -11,21 +13,21 @@
 				</div>
 			</div>
 			<!--description of the lease-->
-			<div flex>
-				<h4>Lease Description</h4>
+			<div flex class="allMargins5">
+				<h4>Description</h4>
 				<br></br>
 				Address: {{property.address}}, {{property.city}},
 					{{property.state}}, {{property.zipcode}}  <br/>
 				Distance from Campus: {{property.distance}} <br/>
 				Price: {{property.price}} <br></br>
 				{{property.housingType}} with {{property.numBed}} bedrooms, {{property.numBath}} bathrooms. <br></br>
-				Description: {{property.description}}
+				More info: {{property.description}}
 			</div>
 		</core-panel>
 	</header>
 
-	<div horizontal layout style="vertical-align:bottom;">
-		<div vertical layout>
+	<div horizontal layout class="content" style="vertical-align:bottom;">
+		<div vertical layout class="allMargins5">
 			<!--ratings + option to favorite-->
 			Rating: {{lease.rating}} <br>
 			Add a rating: {{rating}}
@@ -36,4 +38,5 @@
 		<!--reviews-->
 		<div ui-view></div>
 	</div>
+</div>
 </core-header-panel>
