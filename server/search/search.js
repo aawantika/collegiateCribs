@@ -70,22 +70,9 @@ search.prototype.searchProperty = function(req, res) {
     var catsOk = req.body.catsOk;
     var dogsOk = req.body.dogsOk;
 
-    // var array = [{
-
-    // }];
-
-    // console.log(array.length);
-    // console.log("here");
-    // if (bedrooms) {
-    //     array[1].push(bathrooms: bathrooms);
-    // }
-
-    // console.log("ayooo");
-    // console.log(array);
-
     // console.log(req.body.distanceFromCampus);
     console.log(req.body.bedrooms);
-    console.log(req.body.bedrooms+1);
+    console.log(req.body.bedrooms + 1);
     console.log(req.body.bathrooms);
     console.log(req.body.housingType);
     console.log(req.body.price);
@@ -93,57 +80,15 @@ search.prototype.searchProperty = function(req, res) {
     console.log(req.body.catsOk);
     console.log(req.body.dogsOk);
 
-    // var myJSON = {};
-    // if (input) {
-    //     myJSON.input = input
-    // }
-    // if (input2) {
-    //     myJSON.input2 = input2
-    // }
 
-    // db.thing({
-    //     $or: [myDynamicallyGeneratedJSONVariable]
-    // });
+    /* THIS IS HOW YOU DO IT:
+        For every match field, you need to add it into the matchvar 
+        So if something exists (ie, not undefined), add it to matchvar.
+        A simple if (req.body.bedrooms) is good enough to check for undefined.
+    */
 
-    var myJSON = {};
-    if (req.body.bedrooms) {
-        myJSON.bedrooms = {$in: [req.body.bedrooms, req.body.bedrooms + 1]};
-    }
-    // if (input2) {
-    //     myJSON.input2 = input2
-    // }
-
-
-    propertyModel.aggregate([{
-        $match: {
-            $or: [
-            myJSON
-            // {
-                // bedrooms: {$in: [req.body.bedrooms, req.body.bedrooms + 1] }
-            //     // ,
-                // bathrooms: bathrooms,
-                // housingType: housingType,
-                // price: price,
-                // length: length,
-                // catsOk: catsOk,
-                // dogsOk: dogsOk
-
-            // }
-            ]
-        }
-    }], function(err, result) {
-        if (err) {
-            console.log(err);
-            res.status(400).send(err);
-        } else {
-            console.log(result);
-            res.status(200).send(result);
-        }
-    });
-
-    // propertyModel.aggregate([{
-    //     $match: {
-    //         $or: [{
+    // 
+    // {
     //                 bedrooms: {
     //                     $in: [bedrooms, bedrooms + 1]
     //                 },
@@ -154,128 +99,148 @@ search.prototype.searchProperty = function(req, res) {
     //                 catsOk: catsOk,
     //                 dogsOk: dogsOk
 
-    //             }]
-    //             // $or: [{
-    //             //         distanceFromCampus: distanceFromCampus
-    //             //     }
-    //             //     // { distanceFromCampus: distanceFromCampus + 5 },
-    //             //     // { distanceFromCampus: distanceFromCampus + 10 },
-    //             //     // { distanceFromCampus: distanceFromCampus + 15 },
-    //             //     // { distanceFromCampus: distanceFromCampus + 20 },
-    //             // ],
-    //     }
-    // }, {
-    //     $project: {
-    //         // distanceFromCampus: 1,
-    //         bedrooms: 1,
-    //         bathrooms: 1,
-    //         housingType: 1,
-    //         price: 1,
-    //         length: 1,
-    //         catsOk: 1,
-    //         dogsOk: 1,
-    //         score: {
-    //             $add: [
-    //                 // {
-    //                 //     $cond: [{
-    //                 //             $eq: ["$distanceFromCampus", distanceFromCampus]
-    //                 //         },
-    //                 //         20,
-    //                 //         3
-    //                 //     ]
-    //                 // }, 
-    //                 {
-    //                     "$cond": [{
-    //                             "$eq": ["$bedrooms", bedrooms]
-    //                         },
-    //                         10, {
-    //                             "$cond": [{
-    //                                     "$eq": ["$bedrooms", bedrooms + 1]
-    //                                 },
-    //                                 5,
-    //                                 0
-    //                             ]
-    //                         }
+    //             }
 
-    //                     ]
-    //                 }, {
-    //                     "$cond": [{
-    //                             "$eq": ["$bathrooms", bathrooms]
-    //                         },
-    //                         10,
-    //                         2
-    //                     ]
-    //                 }, {
-    //                     "$cond": [{
-    //                             "$eq": ["$housingType", housingType]
-    //                         },
-    //                         10,
-    //                         0
-    //                     ]
-    //                 }, {
-    //                     "$cond": [{
-    //                             "$eq": ["$price", price]
-    //                         },
-    //                         10,
-    //                         1
-    //                     ]
-    //                 }, {
-    //                     "$cond": [{
-    //                             "$eq": ["$length", length]
-    //                         },
-    //                         10,
-    //                         5
-    //                     ]
-    //                 }, {
-    //                     "$cond": [
-    //                         "$catsOk",
-    //                         10,
-    //                         0
-    //                     ]
-    //                 }, {
-    //                     "$cond": [
-    //                         "$dogsOk",
-    //                         10,
-    //                         0
-    //                     ]
-    //                 },
-    //             ]
-    //         }
-    //     }
-    // }, {
-    //     $sort: {
-    //         score: -1
-    //     }
-    // }], function(err, result) {
-    //     if (err) {
-    //         console.log(err);
-    //         res.status(400).send(err);
-    //     } else {
-    //         console.log(result);
-    //         res.status(200).send(result);
-    //     }
-    // });
+    var matchVar = {};
+    if (req.body.bedrooms) {
+        matchVar.bedrooms = {
+            $in: [req.body.bedrooms, req.body.bedrooms + 1]
+        };
+    }
+    if (req.body.bathrooms) {
+        matchVar.bathrooms = req.body.bathrooms;
+    }
+    
+    /* THEN FOR PROJECT
+        Take out each cond for each field and make it it's own variable
+        Keep it an empty object {} but actually define it if the input field exists.
+        Ie, req.body.bedrooms exists, so we need to add it to our match and have it in project
+    */
 
+    var projectvarBed = {};
+    if (req.body.bedrooms) {
+        projectvarBed = {
+            "$cond": [{
+                    "$eq": ["$bedrooms", bedrooms]
+                },
+                10, {
+                    "$cond": [{
+                            "$eq": ["$bedrooms", bedrooms + 1]
+                        },
+                        5,
+                        0
+                    ]
+                }
+            ]
+        };
+    }
 
+    propertyModel.aggregate([{
+        $match: {
+            $or: [
+                    matchVar
+                ]
+                // $or: [{
+                //         distanceFromCampus: distanceFromCampus
+                //     }
+                //     // { distanceFromCampus: distanceFromCampus + 5 },
+                //     // { distanceFromCampus: distanceFromCampus + 10 },
+                //     // { distanceFromCampus: distanceFromCampus + 15 },
+                //     // { distanceFromCampus: distanceFromCampus + 20 },
+                // ],
+        }
+    }, {
+        $project: {
+            // distanceFromCampus: 1,
+            bedrooms: 1,
+            bathrooms: 1,
+            housingType: 1,
+            price: 1,
+            length: 1,
+            catsOk: 1,
+            dogsOk: 1,
+            score: {
+                $add: [
+                projectvarBed
+                    // {
+                    //     $cond: [{
+                    //             $eq: ["$distanceFromCampus", distanceFromCampus]
+                    //         },
+                    //         20,
+                    //         3
+                    //     ]
+                    // }, 
+                    // {
+                    //     "$cond": [{
+                    //             "$eq": ["$bedrooms", bedrooms]
+                    //         },
+                    //         10, {
+                    //             "$cond": [{
+                    //                     "$eq": ["$bedrooms", bedrooms + 1]
+                    //                 },
+                    //                 5,
+                    //                 0
+                    //             ]
+                    //         }
 
-
-    // propertyModel.plugin(searchPlugin, {
-    //   fields: ['city', 'bedrooms', 'bathrooms', 'housingType', 'price', 'length', 'catsOk', 'dogsOk']
-    // });
-
-    // propertyModel.search('some query', {title: 1}, {
-    //   conditions: {title: {$exists: true}},
-    //   sort: {title: 1},
-    //   limit: 10
-    // }, function(err, data) {
-    //   // array of finded results 
-    //   console.log(data.results);
-    //   // count of all matching objects 
-    //   console.log(data.totalCount);
-    // });
-
-
-
+                    //     ]
+                    // }, {
+                    //     "$cond": [{
+                    //             "$eq": ["$bathrooms", bathrooms]
+                    //         },
+                    //         10,
+                    //         2
+                    //     ]
+                    // }, {
+                    //     "$cond": [{
+                    //             "$eq": ["$housingType", housingType]
+                    //         },
+                    //         10,
+                    //         0
+                    //     ]
+                    // }, {
+                    //     "$cond": [{
+                    //             "$eq": ["$price", price]
+                    //         },
+                    //         10,
+                    //         1
+                    //     ]
+                    // }, {
+                    //     "$cond": [{
+                    //             "$eq": ["$length", length]
+                    //         },
+                    //         10,
+                    //         5
+                    //     ]
+                    // }, {
+                    //     "$cond": [
+                    //         "$catsOk",
+                    //         10,
+                    //         0
+                    //     ]
+                    // }, {
+                    //     "$cond": [
+                    //         "$dogsOk",
+                    //         10,
+                    //         0
+                    //     ]
+                    // }
+                ]
+            }
+        }
+    }, {
+        $sort: {
+            score: -1
+        }
+    }], function(err, result) {
+        if (err) {
+            console.log(err);
+            res.status(400).send(err);
+        } else {
+            console.log(result);
+            res.status(200).send(result);
+        }
+    });
 }
 
 
