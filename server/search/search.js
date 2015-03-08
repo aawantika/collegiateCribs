@@ -102,6 +102,9 @@ search.prototype.searchProperty = function(req, res) {
     //             }
 
     var matchVar = {};
+    // if (req.body.distanceFromCampus) {
+    //     matchVar.distanceFromCampus = req.body.distanceFromCampus;
+    // }
     if (req.body.bedrooms) {
         matchVar.bedrooms = {
             $in: [req.body.bedrooms, req.body.bedrooms + 1]
@@ -110,12 +113,30 @@ search.prototype.searchProperty = function(req, res) {
     if (req.body.bathrooms) {
         matchVar.bathrooms = req.body.bathrooms;
     }
+    if (req.body.housingType) {
+        matchVar.housingType = req.body.housingType;
+    }
+    if (req.body.price) {
+        matchVar.price = req.body.price;
+    }
+    if (req.body.length) {
+        matchVar.length = req.body.length;
+    }
+    if (req.body.catsOk) {
+        matchVar.catsOk = req.body.catsOk;
+    }
+    if (req.body.dogsOk) {
+        matchVar.dogsOk = req.body.dogsOk;
+    }
     
     /* THEN FOR PROJECT
         Take out each cond for each field and make it it's own variable
         Keep it an empty object {} but actually define it if the input field exists.
         Ie, req.body.bedrooms exists, so we need to add it to our match and have it in project
     */
+
+
+    // var projectvarDistance = {};
 
     var projectvarBed = {};
     if (req.body.bedrooms) {
@@ -135,19 +156,83 @@ search.prototype.searchProperty = function(req, res) {
         };
     }
 
+    var projectvarBath = {};
+    if (req.body.bathrooms) {
+        projectvarBath = {
+            "$cond": [{
+                    "$eq": ["$bathrooms", bathrooms]
+                },
+                10,
+                2
+            ]
+        };
+    }
+
+    var projectvarType = {};
+    if (req.body.housingType) {
+        projectvarType = {
+            "$cond": [{
+                    "$eq": ["$housingType", housingType]
+                },
+                10,
+                0
+            ]
+        };
+    }
+
+    var projectvarPrice = {};
+    if (req.body.price) {
+        projectvarPrice = {
+            "$cond": [{
+                    "$eq": ["$price", price]
+                },
+                10,
+                1
+            ]
+        };
+    }
+
+    var projectvarLength = {};
+    if (req.body.length) {
+        projectvarLength = {
+            "$cond": [{
+                    "$eq": ["$length", length]
+                },
+                10,
+                5
+            ]
+        };
+    }
+
+    var projectvarCats = {};
+    if (req.body.catsOk) {
+        projectvarCats = {
+            "$cond": [
+                "$catsOk",
+                10,
+                0
+            ]
+        };
+    }
+
+    var projectvarDogs = {};
+    if (req.body.dogsOk) {
+        projectvarDogs = {
+            "$cond": [
+                "$dogsOk",
+                10,
+                0
+            ]
+        };
+    }
+
+
+
     propertyModel.aggregate([{
         $match: {
             $or: [
                     matchVar
                 ]
-                // $or: [{
-                //         distanceFromCampus: distanceFromCampus
-                //     }
-                //     // { distanceFromCampus: distanceFromCampus + 5 },
-                //     // { distanceFromCampus: distanceFromCampus + 10 },
-                //     // { distanceFromCampus: distanceFromCampus + 15 },
-                //     // { distanceFromCampus: distanceFromCampus + 20 },
-                // ],
         }
     }, {
         $project: {
@@ -161,70 +246,13 @@ search.prototype.searchProperty = function(req, res) {
             dogsOk: 1,
             score: {
                 $add: [
-                projectvarBed
-                    // {
-                    //     $cond: [{
-                    //             $eq: ["$distanceFromCampus", distanceFromCampus]
-                    //         },
-                    //         20,
-                    //         3
-                    //     ]
-                    // }, 
-                    // {
-                    //     "$cond": [{
-                    //             "$eq": ["$bedrooms", bedrooms]
-                    //         },
-                    //         10, {
-                    //             "$cond": [{
-                    //                     "$eq": ["$bedrooms", bedrooms + 1]
-                    //                 },
-                    //                 5,
-                    //                 0
-                    //             ]
-                    //         }
-
-                    //     ]
-                    // }, {
-                    //     "$cond": [{
-                    //             "$eq": ["$bathrooms", bathrooms]
-                    //         },
-                    //         10,
-                    //         2
-                    //     ]
-                    // }, {
-                    //     "$cond": [{
-                    //             "$eq": ["$housingType", housingType]
-                    //         },
-                    //         10,
-                    //         0
-                    //     ]
-                    // }, {
-                    //     "$cond": [{
-                    //             "$eq": ["$price", price]
-                    //         },
-                    //         10,
-                    //         1
-                    //     ]
-                    // }, {
-                    //     "$cond": [{
-                    //             "$eq": ["$length", length]
-                    //         },
-                    //         10,
-                    //         5
-                    //     ]
-                    // }, {
-                    //     "$cond": [
-                    //         "$catsOk",
-                    //         10,
-                    //         0
-                    //     ]
-                    // }, {
-                    //     "$cond": [
-                    //         "$dogsOk",
-                    //         10,
-                    //         0
-                    //     ]
-                    // }
+                "$projectvarBed",
+                "$projectvarBath",
+                "$projectvarType",
+                "$projectvarPrice",
+                "$projectvarLength",
+                "$projectvarCats",
+                "$projectvarDogs"
                 ]
             }
         }
