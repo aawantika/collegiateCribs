@@ -40,17 +40,19 @@
 		</form>
 		<!--recent activity: pull data from server into scope with the controller.
 			Will probably need to do an ng-repeat to go through a list of stuff.-->
-		<core-scroll-header-panel class = "box content">
-			<h3>Favorite Leases</h3>
-			<div ng-repeat="lease in leases" class="box content" horizontal layout>
-				<div class="box">
-					{{lease.imgUrl}}
+		<core-menu class = "box content">
+			<header>
+				<h3>Favorite Leases</h3>
+			</header>
+			<div ng-repeat="property in properties" class="box allMargins5 content" horizontal layout>
+				<div class="rightMargin5 content">
+					Lease Image Here:{{property.imgUrl}}
 				</div>
-				<paper-item class="box" flex>
-					Address: {{lease.address}} <br>
-					Price: {{lease.price}}
+				<paper-item class="leftmargin5 content" flex>
+					Address: {{property.address}} <br>
+					Price: {{property.price}}
 				</paper-item>
 			</div>
-		</core-scroll-header-pane>
+		</core-menu>
 	</body>
 </div>

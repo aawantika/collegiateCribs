@@ -3,25 +3,29 @@
 		<core-header-panel drawer>
 			<!--landlord statistics go here-->
 			<core-toolbar main>
-      			<span>{{user.username}} info</span>
+      			<span>Username Here{{user.username}} info</span>
     		</core-toolbar>
-    		<div>{{user.image}}</div>
-			<paper-item>
-				Rating: {{rating}}
-			</paper-item>
+    		<core-menu>
+    			<div>Profile picture here{{user.image}}</div>
+				<paper-item>
+					Rating: {{rating}}
+				</paper-item>
+			</core-menu>
 		</core-header-panel>
-		<core-scroll-header-panel main>
-			<h3>Owned Leases</h3>
-			<div ng-repeat="lease in leases" class="box content" horizontal layout>
-				<div class="box">
-					{{lease.images.url}}
+		<core-header-panel class="content" main>
+			<header>
+				<h3>Owned Leases</h3>
+			</header>
+			<div ng-repeat="property in properties" class="box allMargins5 content" horizontal layout>
+				<div class="rightMargin5 content">
+					Lease Image Here:{{property.imgUrl}}
 				</div>
-				<paper-item class="box" flex>
-					Address: {{lease.address}} <br>
-					Price: {{lease.price}}
+				<paper-item class="leftmargin5 content" flex>
+					Address: {{property.address}} <br>
+					Price: {{property.price}}
 				</paper-item>
 			</div>
-		</core-scroll-header-panel>
+		</core-header-panel>
 	</core-drawer-panel>
 </div>
 	
