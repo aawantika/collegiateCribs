@@ -1,7 +1,7 @@
 var login = angular.module("sessionService", []);
 
 login.service('$sessionService', ['$http', function($http) {
-this.loginUser = function(json, callback) {
+    this.loginUser = function(json, callback) {
         var req = {
             method: "POST",
             url: "http://localhost:8080/login",
