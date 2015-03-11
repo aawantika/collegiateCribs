@@ -98,20 +98,20 @@ user.prototype.createUser = function(req, res) {
 user.prototype.retrieveUser = function(req, res) {
     // http://localhost:8080/user/retrieve POST
 
-    var body = req.body; //the request will come in with a JSON file full of all the user attributes in the userModel
+    var body = req.body;
     generalCheck.checkBody(body) 
-        .then(function(result) { //if there's no errors, then run this function that returns result
-            return userModel.findOne({ //findOne is a mongoose function
-                username: body.username //findOne user where the username is equal to the requester username
+        .then(function(result) {
+            return userModel.findOne({
+                username: body.username
             }).exec();
         })
-        .then(function(user) { //function returns a user
-            return userCheck.userExists(user); //check if the user actually exists
+        .then(function(user) {
+            return userCheck.userExists(user);
         })
         .then(function(result) {
-            res.status(result.status).send(result.send); //return result status
+            res.status(result.status).send(result.send);
         })
-        .catch(function(error) { //error stuff 
+        .catch(function(error) { 
             console.log(error);
             if (error.status == 406 || error.status == 404) {
                 res.status(error.status).send(error.send);
