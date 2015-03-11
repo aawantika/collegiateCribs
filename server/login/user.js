@@ -4,6 +4,7 @@
  * Dependencies
  */
 var userModel = require('../models/userModel.js');
+var propertyModel = require('../models/propertyModel.js');
 var generateUuid = require('../error_checking/generateUuid.js');
 var bcrypt = require('../error_checking/bcryptHash.js');
 var generalCheck = require('../error_checking/generalCheck.js');
@@ -221,6 +222,38 @@ user.prototype.deleteUser = function(req, res) {
                 res.status(500).send("internal error");
             }
         });
+}
+
+user.prototype.getFavoriteProperties = function(req, res) {
+    // http://localhost:8080/user/favorites POST
+
+    // if student, then get array of favoriteProperties and go through properties db, pull out each property and return back an array of properties with their address and price
+
+    var body = req.body;
+
+    generalCheck.checkBody(body)
+        .then(function(result) {
+            return userCheck.userExists(body.username);
+        })
+        .then(function(result) {
+            return userModel.findOne({
+                username: body.username
+            }).exec();
+        })
+        .then(function(user) {
+            if (user.profileType === "student") {
+                return user.favoriteProperties;
+                })
+            } else {
+                res.status(200).send("user is not a student");
+            }
+        })
+        .then(function(favorites)) {
+            
+        }
+
+
+
 }
 
 module.exports = new user();
