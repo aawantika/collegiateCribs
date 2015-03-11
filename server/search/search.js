@@ -77,7 +77,9 @@ search.prototype.searchProperty = function(req, res) {
         };
     }
     if (req.body.housingType) {
-        matchVar.housingType = req.body.housingType;
+        matchVar.housingType = {
+            $in:req.body.housingType
+        };
     }
     if (req.body.price) {
         matchVar.price = {
@@ -107,12 +109,12 @@ search.prototype.searchProperty = function(req, res) {
                         },
                         5, {
                             $cond: [{
-                                $eq: ["$bedrooms", req.body.bedrooms - 1]
-                            },
-                            3,
-                            0
+                                    $eq: ["$bedrooms", req.body.bedrooms - 1]
+                                },
+                                3,
+                                0
                             ]
-                        }  
+                        }
                     ]
                 }
             ]
@@ -133,12 +135,12 @@ search.prototype.searchProperty = function(req, res) {
                         },
                         5, {
                             $cond: [{
-                                $eq: ["$bathrooms", req.body.bathrooms - 1]
-                            },
-                            3,
-                            0
+                                    $eq: ["$bathrooms", req.body.bathrooms - 1]
+                                },
+                                3,
+                                0
                             ]
-                        }  
+                        }
                     ]
                 }
             ]
@@ -173,12 +175,12 @@ search.prototype.searchProperty = function(req, res) {
                         },
                         6, {
                             $cond: [{
-                                $eq: ["$price", req.body.price - 100]
-                            },
-                            8,
-                            0
+                                    $eq: ["$price", req.body.price - 100]
+                                },
+                                8,
+                                0
                             ]
-                        }  
+                        }
                     ]
                 }
             ]
@@ -231,8 +233,8 @@ search.prototype.searchProperty = function(req, res) {
     propertyModel.aggregate([{
         $match: {
             $or: [
-                    matchVar
-                ]
+                matchVar
+            ]
         }
     }, {
         $project: {
@@ -245,13 +247,13 @@ search.prototype.searchProperty = function(req, res) {
             dogsOk: 1,
             score: {
                 $add: [
-                projectvarBed,
-                projectvarBath,
-                projectvarType,
-                projectvarPrice,
-                projectvarLength,
-                projectvarCats,
-                projectvarDogs
+                    projectvarBed,
+                    projectvarBath,
+                    projectvarType,
+                    projectvarPrice,
+                    projectvarLength,
+                    projectvarCats,
+                    projectvarDogs
                 ]
             }
         }
@@ -271,4 +273,3 @@ search.prototype.searchProperty = function(req, res) {
 }
 
 module.exports = new search();
-
