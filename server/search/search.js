@@ -55,13 +55,13 @@ search.prototype.searchLandlord = function(req, res) {
 
 search.prototype.searchProperty = function(req, res) {
 
-    console.log(req.body.bedrooms);
-    console.log(req.body.bathrooms);
-    console.log(req.body.housingType);
-    console.log(req.body.price);
-    console.log(req.body.length);
-    console.log(req.body.catsOk);
-    console.log(req.body.dogsOk);
+    // console.log(req.body.bedrooms);
+    // console.log(req.body.bathrooms);
+    // console.log(req.body.housingType);
+    // console.log(req.body.price);
+    // console.log(req.body.length);
+    // console.log(req.body.catsOk);
+    // console.log(req.body.dogsOk);
 
 
     var matchVar = {};
@@ -78,14 +78,16 @@ search.prototype.searchProperty = function(req, res) {
     }
     if (req.body.housingType) {
         matchVar.housingType = {
-            $in:req.body.housingType
+            $in: req.body.housingType
         };
     }
-    if (req.body.price) {
+    if (req.body.priceMin && req.body.priceMax) {
         matchVar.price = {
-            $in: [req.body.price, req.body.price + 100, req.body.price - 100]
+            $gte: req.body.priceMin - 100,
+            $lte: req.body.priceMax + 100
         };
     }
+
     if (req.body.length) {
         matchVar.length = req.body.length;
     }
@@ -95,7 +97,6 @@ search.prototype.searchProperty = function(req, res) {
     if (req.body.dogsOk) {
         matchVar.dogsOk = req.body.dogsOk;
     }
-
 
     var projectvarBed = {};
     if (req.body.bedrooms) {
@@ -164,18 +165,22 @@ search.prototype.searchProperty = function(req, res) {
     }
 
     var projectvarPrice = {};
-    if (req.body.price) {
+    if (req.body.priceMin && req.body.priceMax) {
         projectvarPrice = {
             $cond: [{
-                    $eq: ["$price", req.body.price]
+                    $and: [{
+                        $gte: ["$price", req.body.priceMin]
+                    }, {
+                        $lte: ["$price", req.body.priceMax]
+                    }]
                 },
                 10, {
                     $cond: [{
-                            $eq: ["$price", req.body.price + 100]
+                            $eq: ["$price", req.body.priceMax + 100]
                         },
                         6, {
                             $cond: [{
-                                    $eq: ["$price", req.body.price - 100]
+                                    $eq: ["$price", req.body.priceMin - 100]
                                 },
                                 8,
                                 0
@@ -266,7 +271,7 @@ search.prototype.searchProperty = function(req, res) {
             console.log(err);
             res.status(400).send(err);
         } else {
-            console.log(result);
+            // console.log(result);
             res.status(200).send(result);
         }
     });
