@@ -55,17 +55,13 @@ search.prototype.searchLandlord = function(req, res) {
 
 search.prototype.searchProperty = function(req, res) {
 
-    // console.log(req.body.bedrooms);
-    // console.log(req.body.bathrooms);
-    // console.log(req.body.housingType);
-    // console.log(req.body.price);
-    // console.log(req.body.length);
-    // console.log(req.body.catsOk);
-    // console.log(req.body.dogsOk);
-
-
     var matchVar = {};
 
+    if (req.body.distanceFromCampus) {
+        matchVar.distanceFromCampus = {
+            $lte: req.body.distanceFromCampus
+        };
+    }
     if (req.body.bedrooms) {
         matchVar.bedrooms = {
             $in: [req.body.bedrooms, req.body.bedrooms + 1, req.body.bedrooms - 1]
@@ -87,7 +83,6 @@ search.prototype.searchProperty = function(req, res) {
             $lte: req.body.priceMax + 100
         };
     }
-
     if (req.body.length) {
         matchVar.length = req.body.length;
     }
@@ -96,6 +91,20 @@ search.prototype.searchProperty = function(req, res) {
     }
     if (req.body.dogsOk) {
         matchVar.dogsOk = req.body.dogsOk;
+    }
+
+    var projectvarDistance = {};
+    if (req.body.distanceFromCampus) {
+        projectvarDistance = {
+            $cond: [{
+                $lte: ["$distanceFromCampus", req.body.distanceFromCampus]
+            },
+            10,
+            0
+            ]
+        };
+    } else {
+        projectvarDistance = 0;
     }
 
     var projectvarBed = {};
@@ -243,6 +252,7 @@ search.prototype.searchProperty = function(req, res) {
         }
     }, {
         $project: {
+            distanceFromCampus: 1,
             bedrooms: 1,
             bathrooms: 1,
             housingType: 1,
@@ -252,6 +262,7 @@ search.prototype.searchProperty = function(req, res) {
             dogsOk: 1,
             score: {
                 $add: [
+                    projectvarDistance,
                     projectvarBed,
                     projectvarBath,
                     projectvarType,
