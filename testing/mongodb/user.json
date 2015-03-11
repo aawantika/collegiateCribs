@@ -1,0 +1,251 @@
+{
+    "_id": {
+        "$oid": "54ffc8e691875172158b94d9"
+    },
+    "campus": "gt",
+    "email": "tommie@gmail.com",
+    "lastName": "Ottesen",
+    "firstName": "Tommie",
+    "password": "$2a$10$nFINm8cEMCZMVJ4TTCCebOkmLjGluTU9OvgqCL6ZrsH0rVw9nHDPe",
+    "username": "bob1",
+    "profileType": "student",
+    "favoriteProperties": [],
+    "__v": 0
+} {
+    "_id": {
+        "$oid": "54ffc93591875172158b94da"
+    },
+    "campus": "gt",
+    "email": "rachele@gmail.com",
+    "lastName": "Arter",
+    "firstName": "Rachele",
+    "password": "$2a$10$6eVGgw3AKqaLKNV.AGyXH.yeHsnyAeVPiPmRt/O8M44T7NV4K4vnq",
+    "username": "bob2",
+    "profileType": "student",
+    "favoriteProperties": [],
+    "__v": 0
+} {
+    "_id": {
+        "$oid": "54ffc94f91875172158b94db"
+    },
+    "campus": "gt",
+    "email": "scarlet@gmail.com",
+    "lastName": "Lashbrook",
+    "firstName": "Scarlet",
+    "password": "$2a$10$NGCid2uBeqJrilXBiAnNbOOESvtzVNorcokW/j4TimZYHYqj.SEqi",
+    "username": "bob3",
+    "profileType": "student",
+    "favoriteProperties": [],
+    "__v": 0
+} {
+    "_id": {
+        "$oid": "54ffc96591875172158b94dc"
+    },
+    "campus": "gt",
+    "email": "alfredo@gmail.com",
+    "lastName": "Venters",
+    "firstName": "Alfredo",
+    "password": "$2a$10$VNWVPWeWTUaXI8jjV2e75.3RJVZxYbxqsShfAfilJ0Rk5JuAYWvmS",
+    "username": "bob4",
+    "profileType": "student",
+    "favoriteProperties": [],
+    "__v": 0
+} {
+    "_id": {
+        "$oid": "54ffc97291875172158b94dd"
+    },
+    "campus": "gt",
+    "email": "lisa@gmail.com",
+    "lastName": "Cogdill",
+    "firstName": "Lisa",
+    "password": "$2a$10$KlYT/syHATYMwpJCtrtUeuu/ru0l7o9ungD6ivNztxh1nwvr9.5v2",
+    "username": "bob5",
+    "profileType": "student",
+    "favoriteProperties": [],
+    "__v": 0
+} {
+    "_id": {
+        "$oid": "54ffc98891875172158b94de"
+    },
+    "campus": "gt",
+    "email": "naomi@gmail.com",
+    "lastName": "Flemings",
+    "firstName": "Naomi",
+    "password": "$2a$10$v6HOzQrn7ZHGZdBgS3MDku0vcVmNnZU/UbuBmHMADnY3drkSzKjUq",
+    "username": "bob6",
+    "profileType": "student",
+    "favoriteProperties": [],
+    "__v": 0
+} {
+    "_id": {
+        "$oid": "54ffc99d91875172158b94df"
+    },
+    "campus": "gt",
+    "email": "caren@gmail.com",
+    "lastName": "Crane",
+    "firstName": "Caren",
+    "password": "$2a$10$IoabahfDLW3qu9kqhE.H5.CHHB5NSAFfScJzjGTQ6dJmOv2vpeReS",
+    "username": "bob7",
+    "profileType": "student",
+    "favoriteProperties": [],
+    "__v": 0
+} {
+    "_id": {
+        "$oid": "54ffc9b391875172158b94e0"
+    },
+    "campus": "gt",
+    "email": "monnie@gmail.com",
+    "lastName": "Starnes",
+    "firstName": "Monnie",
+    "password": "$2a$10$5uxpC9QkzcNtl14lEWtxYODtgrF8a31ZCYOpIn8M1rQM0.Y8KdlW2",
+    "username": "bob8",
+    "profileType": "student",
+    "favoriteProperties": [],
+    "__v": 0
+} {
+    "_id": {
+        "$oid": "54ffc9c291875172158b94e1"
+    },
+    "campus": "gt",
+    "email": "danial@gmail.com",
+    "lastName": "Repass",
+    "firstName": "Danial",
+    "password": "$2a$10$Ez9obUGz8/77/Ye3WHPL8.jVKyZSSUFii8XJVxK8l.htzGq1ok9mW",
+    "username": "bob9",
+    "profileType": "student",
+    "favoriteProperties": [],
+    "__v": 0
+} {
+    "_id": {
+        "$oid": "54ffc9d791875172158b94e2"
+    },
+    "campus": "gt",
+    "email": "tenisha@gmail.com",
+    "lastName": "Karmer",
+    "firstName": "Tenisha",
+    "password": "$2a$10$wTR98HtlMNOpsfscPVYkjO1tiebJBRBVe3tfe8bVwpxP5NlzWvb8.",
+    "username": "bob10",
+    "profileType": "student",
+    "favoriteProperties": [],
+    "__v": 0
+} {
+    "_id": {
+        "$oid": "54ffca3c91875172158b94e3"
+    },
+    "email": "emerson@gmail.com",
+    "lastName": "Patricia",
+    "firstName": "Emerson",
+    "password": "$2a$10$BIm6tZjEPsLnBuy24mX5C.ciSrsKqL1W5RtA/9YV8y4xULPB3BsP2",
+    "username": "joe1",
+    "profileType": "landlord",
+    "favoriteProperties": [],
+    "__v": 0
+} {
+    "_id": {
+        "$oid": "54ffca4a91875172158b94e4"
+    },
+    "email": "corie@gmail.com",
+    "lastName": "Toast",
+    "firstName": "Corie",
+    "password": "$2a$10$YAkavK3Y09o.DTGaXIF.Tev06XlEvhJg/Ozj9U9QOiFJcWD1Jld/K",
+    "username": "joe2",
+    "profileType": "landlord",
+    "favoriteProperties": [],
+    "__v": 0
+} {
+    "_id": {
+        "$oid": "54ffca5691875172158b94e5"
+    },
+    "email": "bertie@gmail.com",
+    "lastName": "Hawbaker",
+    "firstName": "Bertie",
+    "password": "$2a$10$irbHdxqHFSDbkJH4Q2UJheYoykrEPRRLti3W.jmDSLYvxP4WWQLH2",
+    "username": "joe3",
+    "profileType": "landlord",
+    "favoriteProperties": [],
+    "__v": 0
+} {
+    "_id": {
+        "$oid": "54ffca6291875172158b94e6"
+    },
+    "email": "elsa@gmail.com",
+    "lastName": "Reynolds",
+    "firstName": "Elsa",
+    "password": "$2a$10$HeX/tWD2HkJ.CUwbmphj1OQn5ta4mHxx7sDqvUcloCVJrtvz6Exgy",
+    "username": "joe4",
+    "profileType": "landlord",
+    "favoriteProperties": [],
+    "__v": 0
+} {
+    "_id": {
+        "$oid": "54ffca7891875172158b94e7"
+    },
+    "email": "gabriela@gmail.com",
+    "lastName": "Lessman",
+    "firstName": "Gabriela",
+    "password": "$2a$10$lwOKD0bfk3nTj1J9zs1jSer2O.a9YhwHH2RxfSSzV6Ju4Ks85QR6u",
+    "username": "joe5",
+    "profileType": "landlord",
+    "favoriteProperties": [],
+    "__v": 0
+} {
+    "_id": {
+        "$oid": "54ffcab291875172158b94e8"
+    },
+    "email": "hawkbaer@gmail.com",
+    "lastName": "Hawbaker",
+    "firstName": "Elsa",
+    "password": "$2a$10$/2VI2Fx2n8wNXu8bl89ibO8YTdp6fQM2CS7D7Ksb4VBP6dSCrlWx6",
+    "username": "joe6",
+    "profileType": "landlord",
+    "favoriteProperties": [],
+    "__v": 0
+} {
+    "_id": {
+        "$oid": "54ffcacf91875172158b94e9"
+    },
+    "email": "gemerson@gmail.com",
+    "lastName": "Emerson",
+    "firstName": "Gabriela",
+    "password": "$2a$10$YVsCiXAyFoN8WGO9ysWuz.EQkmhksnIyxjl2yUgPMGdAfIo8zpx0i",
+    "username": "joe7",
+    "profileType": "landlord",
+    "favoriteProperties": [],
+    "__v": 0
+} {
+    "_id": {
+        "$oid": "54ffcae791875172158b94ea"
+    },
+    "email": "meagan@gmail.com",
+    "lastName": "Scarbrough",
+    "firstName": "Meagan",
+    "password": "$2a$10$GC2hT7jY28XqZotCdq1UN.SltywJHEjdHhSk6eQN4KbSBwIGfNJPm",
+    "username": "joe8",
+    "profileType": "landlord",
+    "favoriteProperties": [],
+    "__v": 0
+} {
+    "_id": {
+        "$oid": "54ffcaf291875172158b94eb"
+    },
+    "email": "crystal@gmail.com",
+    "lastName": "Scarbrough",
+    "firstName": "Crystal",
+    "password": "$2a$10$65s8sHbAjpqpl2IS2YP25.eVq52ip4DdBKJXmTVCDQldoy6o37Q0K",
+    "username": "joe9",
+    "profileType": "landlord",
+    "favoriteProperties": [],
+    "__v": 0
+} {
+    "_id": {
+        "$oid": "54ffcb0991875172158b94ec"
+    },
+    "email": "cbertie@gmail.com",
+    "lastName": "Bertie",
+    "firstName": "Crystal",
+    "password": "$2a$10$x0lsvSGTczXAM5vsORb.CuRytsyEw8HDsNrP85cuyIt1OjEYWccH.",
+    "username": "joe10",
+    "profileType": "landlord",
+    "favoriteProperties": [],
+    "__v": 0
+}

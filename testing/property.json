@@ -1,6 +1,6 @@
 CREATE: POST http://localhost:8080/property/create
 
-    { // ACTUAL VERSION
+    { 
         "username": "bob1",
         "address": "326171 georgia tech station",
         "city": "atlanta",
