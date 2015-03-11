@@ -12,7 +12,7 @@ var userSchema = new Schema({
     email: String,
     phoneNumber: String,
     image: String,
-    campus: String
+    campus: String,
     favoriteProperties: [String]
 }, {
     collection: 'user'
