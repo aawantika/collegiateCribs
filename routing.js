@@ -102,7 +102,7 @@ module.exports = function() {
       });
 
         router.post('/search', function(req, res) {
-          search.showAvailableProperties(req, res);
+          search.getAvailableProperties(req, res);
       });
       
     return router;

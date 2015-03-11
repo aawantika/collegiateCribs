@@ -287,7 +287,7 @@ search.prototype.searchProperty = function(req, res) {
     });
 }
 
-search.prototype.showAvailableProperties = function(req, res) {
+search.prototype.getAvailableProperties = function(req, res) {
 
     propertyModel.find({
         availability: true
