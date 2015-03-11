@@ -29,4 +29,18 @@ search.service('$searchService', ['$http', function($http) {
             callback(status, data);
         });
     };
+
+    this.search = function(json, callback) {
+        var req = {
+            method: "POST",
+            url: "http://localhost:8080/search",
+            data: json
+        }
+
+        $http(req).success(function(data, status) {
+            callback(null, status, data);
+        }).error(function(data, status) {
+            callback(status, data);
+        });
+    };
 }]);

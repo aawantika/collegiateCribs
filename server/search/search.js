@@ -52,7 +52,6 @@ search.prototype.searchLandlord = function(req, res) {
     }
 }
 
-
 search.prototype.searchProperty = function(req, res) {
 
     var matchVar = {};
@@ -97,10 +96,10 @@ search.prototype.searchProperty = function(req, res) {
     if (req.body.distanceFromCampus) {
         projectvarDistance = {
             $cond: [{
-                $lte: ["$distanceFromCampus", req.body.distanceFromCampus]
-            },
-            10,
-            0
+                    $lte: ["$distanceFromCampus", req.body.distanceFromCampus]
+                },
+                10,
+                0
             ]
         };
     } else {
@@ -283,6 +282,20 @@ search.prototype.searchProperty = function(req, res) {
             res.status(400).send(err);
         } else {
             // console.log(result);
+            res.status(200).send(result);
+        }
+    });
+}
+
+search.prototype.showAvailableProperties = function(req, res) {
+
+    propertyModel.find({
+        availability: true
+    }, function(err, result) {
+        if (err) {
+            console.log(err);
+            res.sendStatus(400);
+        } else {
             res.status(200).send(result);
         }
     });

@@ -97,5 +97,9 @@ module.exports = function() {
           search.searchProperty(req, res);
       });
 
+        router.post('/search', function(req, res) {
+          search.showAvailableProperties(req, res);
+      });
+      
     return router;
 }
