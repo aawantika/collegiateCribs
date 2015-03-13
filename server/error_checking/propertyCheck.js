@@ -66,7 +66,8 @@ propertyCheck.prototype.checkState = function(state) {
 
 propertyCheck.prototype.checkZipcode = function(zipcode) {
     return new Promise(function(resolve, reject) {
-        if (!zipcode || zipcode.length !== 5 || parseInt(zipcode, 10) < 1 || parseInt(zipcode, 10) > 99999) {
+        // if (!zipcode || zipcode.length !== 5 || parseInt(zipcode, 10) < 1 || parseInt(zipcode, 10) > 99999) {
+        if (!zipcode || typeof zipcode !== 'number' || zipcode < 1 || zipcode > 99999) {
             reject({
                 status: 406,
                 send: "zipcode"
@@ -76,6 +77,21 @@ propertyCheck.prototype.checkZipcode = function(zipcode) {
         }
     });
 }
+
+propertyCheck.prototype.checkDistanceFromCampus = function(distanceFromCampus) {
+    return new Promise(function(resolve, reject) {
+        if (!distanceFromCampus || typeof distanceFromCampus !== 'number' || distanceFromCampus < 1 || distanceFromCampus > 100) {
+            reject({
+                status: 406,
+                send: "distanceFromCampus"
+            });
+        } else {
+            resolve();
+        }
+    });
+}
+
+
 
 /**
  * in progress
@@ -99,7 +115,9 @@ propertyCheck.prototype.checkFullAddress = function(address, city, state, zipcod
     // });
 }
 
-
+/**
+ * not needed?
+ */
 propertyCheck.prototype.checkLeaseType = function(leaseType) {
     return new Promise(function(resolve, reject) {
         var leaseTypes = ["sublease", "lease"];
@@ -116,7 +134,8 @@ propertyCheck.prototype.checkLeaseType = function(leaseType) {
 
 propertyCheck.prototype.checkBedrooms = function(bedrooms) {
     return new Promise(function(resolve, reject) {
-        if (!bedrooms || bedrooms.length !== 1 || parseInt(bedrooms, 10) < 1 || parseInt(bedrooms, 10) > 8) {
+        // if (!bedrooms || bedrooms.length !== 1 || parseInt(bedrooms, 10) < 1 || parseInt(bedrooms, 10) > 8) {
+        if (!bedrooms || typeof bedrooms !== 'number' || bedrooms < 1 || bedrooms > 8) {
             reject({
                 status: 406,
                 send: "bedrooms"
@@ -129,7 +148,8 @@ propertyCheck.prototype.checkBedrooms = function(bedrooms) {
 
 propertyCheck.prototype.checkBathrooms = function(bathrooms) {
     return new Promise(function(resolve, reject) {
-        if (!bathrooms || bathrooms.length !== 1 || parseInt(bathrooms, 10) < 1 || parseInt(bathrooms, 10) > 8) {
+        // if (!bathrooms || bathrooms.length !== 1 || parseInt(bathrooms, 10) < 1 || parseInt(bathrooms, 10) > 8) {
+        if (!bathrooms || typeof bathrooms !== 'number' || bathrooms < 1 || bathrooms > 8) {
             reject({
                 status: 406,
                 send: "bathrooms"
@@ -156,7 +176,8 @@ propertyCheck.prototype.checkHousingType = function(housingType) {
 
 propertyCheck.prototype.checkPrice = function(price) {
     return new Promise(function(resolve, reject) {
-        if (!price || parseInt(price, 10) < 1 || parseInt(price, 10) > 2000) {
+        // if (!price || parseInt(price, 10) < 1 || parseInt(price, 10) > 2000) {
+        if (!price || typeof bedrooms !== 'number' || price < 1 || price > 2000) {
             reject({
                 status: 406,
                 send: "price"
@@ -182,8 +203,9 @@ propertyCheck.prototype.checkUtilities = function(utilities) {
 
 propertyCheck.prototype.checkAvailability = function(availability) {
     return new Promise(function(resolve, reject) {
-        var availabilityTypes = ["true", "false"];
-        if (!availability || availabilityTypes.indexOf(availability) === -1) {
+        // var availabilityTypes = ["true", "false"];
+        // if (!availability || availabilityTypes.indexOf(availability) === -1) {
+        if (!availability || typeof availability !== 'boolean') {
             reject({
                 status: 406,
                 send: "availability"
@@ -196,7 +218,8 @@ propertyCheck.prototype.checkAvailability = function(availability) {
 
 propertyCheck.prototype.checkLength = function(length) {
     return new Promise(function(resolve, reject) {
-        if (!length || parseInt(length, 10) < 1 || parseInt(length, 10) > 36) {
+        // if (!length || parseInt(length, 10) < 1 || parseInt(length, 10) > 36) {
+        if (!length || typeof length !== 'number' || length < 1 || length > 36) {
             reject({
                 status: 406,
                 send: "length"
@@ -209,8 +232,9 @@ propertyCheck.prototype.checkLength = function(length) {
 
 propertyCheck.prototype.checkCats = function(catsOk) {
     return new Promise(function(resolve, reject) {
-        var catsTypes = ["true", "false"];
-        if (!catsOk || catsTypes.indexOf(catsOk) === -1) {
+        // var catsTypes = ["true", "false"];
+        // if (!catsOk || catsTypes.indexOf(catsOk) === -1) {
+        if (!catsOk || typeof catsOk !== 'boolean') {
             reject({
                 status: 406,
                 send: "catsOk"
@@ -223,8 +247,9 @@ propertyCheck.prototype.checkCats = function(catsOk) {
 
 propertyCheck.prototype.checkDogs = function(dogsOk) {
     return new Promise(function(resolve, reject) {
-        var dogsTypes = ["true", "false"];
-        if (!dogsOk || dogsTypes.indexOf(dogsOk) === -1) {
+        // var dogsTypes = ["true", "false"];
+        // if (!dogsOk || dogsTypes.indexOf(dogsOk) === -1) {
+        if (!dogsOk || typeof dogsOk !== 'boolean') {
             reject({
                 status: 406,
                 send: "dogsOk"
@@ -238,7 +263,8 @@ propertyCheck.prototype.checkDogs = function(dogsOk) {
 propertyCheck.prototype.checkPropertyTours = function(propertyTours) {
     return new Promise(function(resolve, reject) {
         var propertyToursTypes = ["true", "false"];
-        if (!propertyTours || propertyToursTypes.indexOf(propertyTours) === -1) {
+        // if (!propertyTours || propertyToursTypes.indexOf(propertyTours) === -1) {
+        if (!propertyTours || typeof propertyTours !== 'boolean') {
             reject({
                 status: 406,
                 send: "propertyTours"

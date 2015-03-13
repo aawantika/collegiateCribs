@@ -25,7 +25,11 @@ property.prototype.createProperty = function(req, res) {
                 username: body.username
             }).exec();
         })
-        .then(function(result) {
+        .then(function(user) {
+            return userCheck.userExists(user);
+        })
+        .then(function(user) {
+            var profileType = user.profileType;
             return propertyCheck.checkAddress(body.address);
         })
         .then(function(result) {
@@ -38,7 +42,7 @@ property.prototype.createProperty = function(req, res) {
             return propertyCheck.checkZipcode(body.zipcode);
         })
         .then(function(result) {
-            return propertyCheck.checkLeaseType(body.leaseType);
+            return propertyCheck.checkDistanceFromCampus(body.distanceFromCampus);
         })
         .then(function(result) {
             return propertyCheck.checkBedrooms(body.bedrooms);
@@ -91,8 +95,13 @@ property.prototype.createProperty = function(req, res) {
             newProperty.city = body.city;
             newProperty.state = body.state;
             newProperty.zipcode = body.zipcode;
+            newProperty.distanceFromCampus = body.distanceFromCampus;
 
-            newProperty.leaseType = body.leaseType;
+            if (profileType === "student") {
+                newProperty.leaseType = "sublease";
+            } else {
+                newProperty.leaseType = "lease";
+            }
             newProperty.bedrooms = body.bedrooms;
             newProperty.bathrooms = body.bathrooms;
             newProperty.housingType = body.housingType;
