@@ -1,11 +1,11 @@
 <core-header-panel vertical layout flex>
 	<div class="box content">
 	<header>
-		<h2>(Lease Address here) {{lease.address}} </h2>
+		<h2>(Property Address here) {{property.address}} </h2>
 		<core-panel horizontal layout flex class="content">
 			<div vertical layout class="allMargins5">
 				<!--image of the lease-->
-				<paper-button raised>Lease img</paper-button>
+				<paper-button raised>Property img</paper-button>
 				<div horizontal layout style="overflow:auto;" >
 					<!--scrollable picture gallery-->
 					<paper-button raised>Img gallery</paper-button>
@@ -29,7 +29,7 @@
 	<div horizontal layout class="content" style="vertical-align:bottom;">
 		<div vertical layout class="allMargins5">
 			<!--ratings + option to favorite-->
-			Rating: {{lease.rating}} <br>
+			Rating: {{property.rating}} <br>
 			Add a rating: {{rating}}
 			<paper-slider ng-model="rating" max="5"></paper-slider>
 			<paper-button raised>Add to Favorites</paper-button>

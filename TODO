@@ -1,0 +1,6 @@
+Don't input property on landlord signup page
+Have it so if a landlord logs in and has no properties,
+it redirects to a page requiring you to input a property
+
+have signup redirect to login on successful account creation
+

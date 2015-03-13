@@ -3,7 +3,7 @@
 		<core-header-panel drawer>
 			<!--landlord statistics go here-->
 			<core-toolbar main>
-      			<span>Username Here{{user.username}} info</span>
+      			<span>(Username){{user.username}} info</span>
     		</core-toolbar>
     		<core-menu>
     			<div>Profile picture here{{user.image}}</div>
@@ -14,11 +14,11 @@
 		</core-header-panel>
 		<core-header-panel class="content" main>
 			<header>
-				<h3>Owned Leases</h3>
+				<h3>Owned Properties</h3>
 			</header>
 			<div ng-repeat="property in properties" class="box allMargins5 content" horizontal layout>
 				<div class="rightMargin5 content">
-					Lease Image Here:{{property.imgUrl}}
+					Property Image Here:{{property.imgUrl}}
 				</div>
 				<paper-item class="leftmargin5 content" flex>
 					Address: {{property.address}} <br>
