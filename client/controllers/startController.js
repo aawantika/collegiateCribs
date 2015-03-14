@@ -1,5 +1,20 @@
 var app = angular.module("startController", []);
 
+app.controller('StartController', ['$scope', '$location', '$state', function($scope, $location, $state) {
+    $scope.alert = "";
+    $scope.toLogin = function() {
+        console.log("change to Login");
+        $state.go('start.login');
+    };
+
+    $scope.toSignUp = function() {
+        //make a drop down for 1-10 properties
+        console.log("change to sign up");
+        $state.go('start.signup');
+    };
+
+}]);
+
 app.controller('LoginController', ['$scope', '$sessionService', '$location', '$cookies', '$state', function($scope, $sessionService, $location, $cookies, $state) {
     $scope.alert = "";
 
