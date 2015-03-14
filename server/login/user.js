@@ -231,26 +231,26 @@ user.prototype.getFavoriteProperties = function(req, res) {
 
     var body = req.body;
 
-    generalCheck.checkBody(body)
-        .then(function(result) {
-            return userCheck.userExists(body.username);
-        })
-        .then(function(result) {
-            return userModel.findOne({
-                username: body.username
-            }).exec();
-        })
-        .then(function(user) {
-            if (user.profileType === "student") {
-                return user.favoriteProperties;
-                })
-            } else {
-                res.status(200).send("user is not a student");
-            }
-        })
-        .then(function(favorites)) {
+    // generalCheck.checkBody(body)
+    //     .then(function(result) {
+    //         return userCheck.userExists(body.username);
+    //     })
+    //     .then(function(result) {
+    //         return userModel.findOne({
+    //             username: body.username
+    //         }).exec();
+    //     })
+    //     .then(function(user) {
+    //         if (user.profileType === "student") {
+    //             return user.favoriteProperties;
+                
+    //         } else {
+    //             res.status(200).send("user is not a student");
+    //         }
+    //     })
+    //     .then(function(favorites)) {
             
-        }
+    //     }
 
 
 

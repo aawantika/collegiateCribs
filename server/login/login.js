@@ -15,6 +15,9 @@ function session() {}
 session.prototype.login = function(req, res) {
     // http://localhost:8080/login POST
 
+
+    console.log(req.body.username);
+    
     var body = req.body,
         newSession;
 
