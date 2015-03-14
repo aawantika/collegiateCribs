@@ -1,59 +1,71 @@
-CREATE: POST http://localhost:8080/property/create
+CREATE:
+    // POST 
+    // http://localhost:8080/property/create
+    {
 
-    { 
         "username": "bob1",
         "address": "326171 georgia tech station",
         "city": "atlanta",
         "state": "ga",
-        "zipcode": "30332",
-        "leaseType": "sublease",
-        "bedrooms": "3",
-        "bathrooms": "2",
+        "zipcode": 30301,
+        "distanceFromCampus": 2,
+        "bedrooms": 2,
+        "bathrooms": 5,
         "housingType": "condo",
-        "price": "987",
+        "price": 964,
         "utilities": "88-100",
-        "length": "12",
-        "catsOk": "false",
-        "dogsOk": "false",
-        "propertyTours": "false",
+        "length": 6,
+        "catsOk": false,
+        "dogsOk": false,
+        "propertyTours": false,
         "description": "ayooooooooo",
         "lastRenovationDate": "Aug 2, 2014"
     }
 
-RETRIEVE: POST http: //localhost:8080/property/retrieve
+RETRIEVE:
+    // POST 
+    // http: //localhost:8080/property/retrieve
     {
         "propertyId": "bc56db2d-ba6d-4584-9176-d2f939399139",
         "username": "bob1"
     }
 
 
-RETRIEVEALLPROPERTYBYUSERNAME: POST http: //localhost:8080/property/retrieve/username
+RETRIEVEALLPROPERTYBYUSERNAME:
+    // POST 
+    // http: //localhost:8080/property/retrieve/username
     {
         "username": "bob1"
     }
 
 
-UPDATE: POST http: //localhost:8080/property/update
+UPDATE:
+    // POST 
+    // http: //localhost:8080/property/update
     {
         "propertyId": "bc56db2d-ba6d-4584-9176-d2f939399139",
         "username": "bob1",
-        "bedrooms": "6",
-        "bathrooms": "6",
-        "price": "347",
+
+        "distanceFromCampus":5,
+        "bedrooms": 6,
+        "bathrooms": 6,
+        "price": 347,
         "utilities": "90-100",
 
-        "availability": "false",
-        "length": "8",
-        "catsOk": "true",
-        "dogsOk": "true",
+        "availability": false,
+        "length": 8,
+        "catsOk": true,
+        "dogsOk": true,
 
         "propertyTours": "true",
         "description": "check",
         "lastRenovationDate": "Aug 8, 2014"
     }
 
-DELETE: POST http: //localhost:8080/property/delete
-   {
+DELETE:
+    // POST 
+    // http: //localhost:8080/property/delete
+    {
         "propertyId": "bc56db2d-ba6d-4584-9176-d2f939399139",
         "username": "bob1"
     }

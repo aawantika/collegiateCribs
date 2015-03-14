@@ -1,4 +1,6 @@
-CREATE: POST http: //localhost:8080/user/create
+CREATE: 
+    // POST 
+    // http://localhost:8080/user/create
     {
         "campus": "gt",
         "email": "tommie@gmail.com",
@@ -7,156 +9,18 @@ CREATE: POST http: //localhost:8080/user/create
         "password": "pass123",
         "username": "bob1",
         "profileType": "student",
-    } {
-        "campus": "gt",
-        "email": "rachele@gmail.com",
-        "lastName": "Arter",
-        "firstName": "Rachele",
-        "password": "pass123",
-        "username": "bob2",
-        "profileType": "student",
-    } {
-        "campus": "gt",
-        "email": "scarlet@gmail.com",
-        "lastName": "Lashbrook",
-        "firstName": "Scarlet",
-        "password": "pass123",
-        "username": "bob3",
-        "profileType": "student",
-    } {
-        "campus": "gt",
-        "email": "alfredo@gmail.com",
-        "lastName": "Venters",
-        "firstName": "Alfredo",
-        "password": "pass123",
-        "username": "bob4",
-        "profileType": "student",
-    } {
-        "campus": "gt",
-        "email": "lisa@gmail.com",
-        "lastName": "Cogdill",
-        "password": "pass123",
-        "firstName": "Lisa",
-        "username": "bob5",
-        "profileType": "student",
-    } {
-        "campus": "gt",
-        "email": "naomi@gmail.com",
-        "lastName": "Flemings",
-        "firstName": "Naomi",
-        "password": "pass123",
-        "username": "bob6",
-        "profileType": "student",
-    } {
-        "campus": "gt",
-        "email": "caren@gmail.com",
-        "lastName": "Crane",
-        "firstName": "Caren",
-        "password": "pass123",
-        "username": "bob7",
-        "profileType": "student",
-    } {
-        "campus": "gt",
-        "email": "monnie@gmail.com",
-        "lastName": "Starnes",
-        "firstName": "Monnie",
-        "password": "pass123",
-        "username": "bob8",
-        "profileType": "student",
-    } {
-        "campus": "gt",
-        "email": "danial@gmail.com",
-        "lastName": "Repass",
-        "firstName": "Danial",
-        "password": "pass123",
-        "username": "bob9",
-        "profileType": "student",
-    } {
-        "campus": "gt",
-        "email": "tenisha@gmail.com",
-        "lastName": "Karmer",
-        "firstName": "Tenisha",
-        "password": "pass123",
-        "username": "bob10",
-        "profileType": "student",
-    } {
-        "email": "emerson@gmail.com",
-        "lastName": "Patricia",
-        "firstName": "Emerson",
-        "password": "word123",
-        "username": "joe1",
-        "profileType": "landlord",
-    } {
-        "email": "corie@gmail.com",
-        "lastName": "Toast",
-        "firstName": "Corie",
-        "password": "word123",
-        "username": "joe2",
-        "profileType": "landlord",
-    } {
-        "email": "bertie@gmail.com",
-        "lastName": "Hawbaker",
-        "firstName": "Bertie",
-        "password": "word123",
-        "username": "joe3",
-        "profileType": "landlord",
-    } {
-        "email": "elsa@gmail.com",
-        "lastName": "Reynolds",
-        "firstName": "Elsa",
-        "password": "word123",
-        "username": "joe4",
-        "profileType": "landlord",
-    } {
-        "email": "gabriela@gmail.com",
-        "lastName": "Lessman",
-        "firstName": "Gabriela",
-        "password": "word123",
-        "username": "joe5",
-        "profileType": "landlord",
-    } {
-        "email": "hawkbaer@gmail.com",
-        "lastName": "Hawbaker",
-        "firstName": "Elsa",
-        "password": "word123",
-        "username": "joe6",
-        "profileType": "landlord",
-    } {
-        "email": "gemerson@gmail.com",
-        "lastName": "Emerson",
-        "firstName": "Gabriela",
-        "password": "word123",
-        "username": "joe7",
-        "profileType": "landlord",
-    } {
-        "email": "meagan@gmail.com",
-        "lastName": "Scarbrough",
-        "firstName": "Meagan",
-        "password": "word123",
-        "username": "joe8",
-        "profileType": "landlord",
-    } {
-        "email": "crystal@gmail.com",
-        "lastName": "Scarbrough",
-        "firstName": "Crystal",
-        "password": "word123",
-        "username": "joe9",
-        "profileType": "landlord",
-    } {
-        "email": "cbertie@gmail.com",
-        "lastName": "Bertie",
-        "firstName": "Crystal",
-        "password": "word123",
-        "username": "joe10",
-        "profileType": "landlord",
     }
-
-RETRIEVE: POST http: //localhost:8080/user/retrieve
+    
+RETRIEVE: 
+    // POST 
+    // http://localhost:8080/user/retrieve
     {
         "username": "someusername"
     }
 
-UPDATE: POST http: //localhost:8080/user/update
+UPDATE: 
+    // POST 
+    // http://localhost:8080/user/update
     {
         "username": "student123",
         "profileType": "student", // this isn't changed though
@@ -168,7 +32,9 @@ UPDATE: POST http: //localhost:8080/user/update
         "phoneNumber": "8097362451"
     }
 
-DELETE: POST http: //localhost:8080/user/delete
+DELETE: 
+    // POST 
+    // http://localhost:8080/user/delete
     {
         "username": "student123",
         "password": "password123"

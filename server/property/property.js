@@ -15,6 +15,8 @@ function property() {}
 property.prototype.createProperty = function(req, res) {
     // http://localhost:8080/property/create POST
 
+    var profileType = null;
+
     var body = req.body;
     generalCheck.checkBody(body)
         .then(function(result) {
@@ -29,7 +31,7 @@ property.prototype.createProperty = function(req, res) {
             return userCheck.userExists(user);
         })
         .then(function(user) {
-            var profileType = user.profileType;
+            profileType = user.send.profileType;
             return propertyCheck.checkAddress(body.address);
         })
         .then(function(result) {
@@ -214,6 +216,9 @@ property.prototype.updateProperty = function(req, res) {
             }).exec();
         })
         .then(function(result) {
+            return propertyCheck.checkDistanceFromCampus(body.distanceFromCampus);
+        })
+        .then(function(result) {
             return propertyCheck.checkBedrooms(body.bedrooms);
         })
         .then(function(result) {
@@ -257,6 +262,7 @@ property.prototype.updateProperty = function(req, res) {
         .then(function(property) {
             property = property.send;
 
+            property.distanceFromCampus = body.distanceFromCampus;
             property.bedrooms = body.bedrooms;
             property.bathrooms = body.bathrooms;
             property.price = body.price;

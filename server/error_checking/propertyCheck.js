@@ -91,8 +91,6 @@ propertyCheck.prototype.checkDistanceFromCampus = function(distanceFromCampus) {
     });
 }
 
-
-
 /**
  * in progress
  */
@@ -177,7 +175,7 @@ propertyCheck.prototype.checkHousingType = function(housingType) {
 propertyCheck.prototype.checkPrice = function(price) {
     return new Promise(function(resolve, reject) {
         // if (!price || parseInt(price, 10) < 1 || parseInt(price, 10) > 2000) {
-        if (!price || typeof bedrooms !== 'number' || price < 1 || price > 2000) {
+        if (!price || typeof price !== 'number' || price < 1 || price > 2000) {
             reject({
                 status: 406,
                 send: "price"
@@ -234,7 +232,7 @@ propertyCheck.prototype.checkCats = function(catsOk) {
     return new Promise(function(resolve, reject) {
         // var catsTypes = ["true", "false"];
         // if (!catsOk || catsTypes.indexOf(catsOk) === -1) {
-        if (!catsOk || typeof catsOk !== 'boolean') {
+        if (typeof catsOk !== 'boolean') {
             reject({
                 status: 406,
                 send: "catsOk"
@@ -249,7 +247,7 @@ propertyCheck.prototype.checkDogs = function(dogsOk) {
     return new Promise(function(resolve, reject) {
         // var dogsTypes = ["true", "false"];
         // if (!dogsOk || dogsTypes.indexOf(dogsOk) === -1) {
-        if (!dogsOk || typeof dogsOk !== 'boolean') {
+        if (typeof dogsOk !== 'boolean') {
             reject({
                 status: 406,
                 send: "dogsOk"
@@ -264,7 +262,7 @@ propertyCheck.prototype.checkPropertyTours = function(propertyTours) {
     return new Promise(function(resolve, reject) {
         var propertyToursTypes = ["true", "false"];
         // if (!propertyTours || propertyToursTypes.indexOf(propertyTours) === -1) {
-        if (!propertyTours || typeof propertyTours !== 'boolean') {
+        if (typeof propertyTours !== 'boolean') {
             reject({
                 status: 406,
                 send: "propertyTours"
@@ -335,6 +333,5 @@ propertyCheck.prototype.propertyExists = function(property) {
         }
     });
 }
-
 
 module.exports = new propertyCheck();

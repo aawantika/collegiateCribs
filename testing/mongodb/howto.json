@@ -1,3 +1,5 @@
 export: mongoexport --db cc --collection user --out user.json
-
 import: mongoimport --db cc --collection user --file user.json
+
+export: mongoexport --db cc --collection property --out property.json
+import: mongoimport --db cc --collection property --file property.json
