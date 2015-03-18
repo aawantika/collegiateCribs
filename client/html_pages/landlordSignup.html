@@ -1,4 +1,4 @@
-<div>
+<form ng-submit="submitProperty()" method="post" class="box signup content">
 	<fieldset>
 		<h3>Add a property</h3>
         <paper-input-decorator label='Number of Bedrooms' floatingLabel>
@@ -50,4 +50,7 @@
             </core-label>
         </core-toolbar>
     </fieldset>
-</div>
+    <footer>
+        <button type="submit" is="paper-submit">Add property</button>
+    </footer>
+</form>
