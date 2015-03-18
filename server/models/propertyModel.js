@@ -18,9 +18,9 @@ var propertySchema = new Schema({
     bedrooms: Number, //can be modified
     bathrooms: Number, //can be modified
     housingType: String, //can't be modified
+
     price: Number, //can
     utilities: String, //can
-
     availability: Boolean, //can be modified
     length: Number, //can
     catsOk: Boolean, //can
