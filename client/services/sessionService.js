@@ -16,7 +16,7 @@ login.service('$sessionService', ['$http', function($http) {
         });
     };
 
-    this.isLoggedIn = function(json, callback) { //what does this return?
+    this.isLoggedIn = function(json, callback) { 
         var req = {
             method: "POST",
             url: "http://localhost:8080/isLoggedIn",
