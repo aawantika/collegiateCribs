@@ -47,7 +47,7 @@
 
 					<!--Make this a checkbox thing-->
 					<br></br>
-					<p> Housing type:</p>
+					<p> Property type:</p>
 					<table style=
         				"background:transparent;
         				-webkit-box-shadow:none;
@@ -56,13 +56,13 @@
         				<tr>
         					<td>
             					<core-label horizontal layout center>
-            						<paper-checkbox for ng-model="typeHouse" ng-click="updateHousingType()"></paper-checkbox>
+            						<paper-checkbox for ng-model="typeHouse" ng-click="updatePropertyType()"></paper-checkbox>
             						<div>House</div>
             					</core-label>
             				</td>
             				<td>
             					<core-label horizontal layout center>
-            						<paper-checkbox for ng-model="typeCondo" ng-click="updateHousingType()"></paper-checkbox>
+            						<paper-checkbox for ng-model="typeCondo" ng-click="updatePropertyType()"></paper-checkbox>
             						<div>Condo</div>
             					</core-label>
             				</td>
@@ -70,13 +70,13 @@
             			<tr>
         					<td>
             					<core-label horizontal layout center>
-            						<paper-checkbox for ng-model="typeTownhome" ng-click="updateHousingType()"></paper-checkbox>
+            						<paper-checkbox for ng-model="typeTownhome" ng-click="updatePropertyType()"></paper-checkbox>
             						<div>Townhome</div>
             					</core-label>
             				</td>
             				<td>
             					<core-label horizontal layout center>
-            						<paper-checkbox for ng-model="typeApartment" ng-click="updateHousingType()"></paper-checkbox>
+            						<paper-checkbox for ng-model="typeApartment" ng-click="updatePropertyType()"></paper-checkbox>
             						<div>Apartment</div>
             					</core-label>
             				</td>
@@ -109,7 +109,7 @@
 			</core-header-panel>
 			<core-header-panel class = "content" main>
 				<header>
-					<h3>Housing Search Results</h3>
+					<h3>Property Search Results</h3>
 				</header>
 				<div ng-repeat="property in properties" class="box allMargins5 content" horizontal layout>
 					<div class="rightMargin5 content">
