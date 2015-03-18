@@ -227,32 +227,46 @@ user.prototype.deleteUser = function(req, res) {
 user.prototype.getFavoriteProperties = function(req, res) {
     // http://localhost:8080/user/favorites POST
 
-    // if student, then get array of favoriteProperties and go through properties db, pull out each property and return back an array of properties with their address and price
-
     var body = req.body;
 
-    // generalCheck.checkBody(body)
-    //     .then(function(result) {
-    //         return userCheck.userExists(body.username);
-    //     })
-    //     .then(function(result) {
-    //         return userModel.findOne({
-    //             username: body.username
-    //         }).exec();
-    //     })
-    //     .then(function(user) {
-    //         if (user.profileType === "student") {
-    //             return user.favoriteProperties;
-                
-    //         } else {
-    //             res.status(200).send("user is not a student");
-    //         }
-    //     })
-    //     .then(function(favorites)) {
-            
-    //     }
+    generalCheck.checkBody(body)
+        .then(function(result) {
+            return userModel.findOne({
+                username: body.username
+            }).exec();
+        })
+        .then(function(user) {
+            return userCheck.userExists(user);
+        })
+        .then(function(user) {
+            user.send = user.send.toObject();
+            delete user.send._id;
+            delete user.send.__v;
+            return user.send;
+        })
+        .then(function(user) {
+            return propertyModel.find({
+                propertyId: {
+                    $in: user.favoriteProperties
+                }
+            }, {
+                address: 1,
+                price: 1,
+                _id: 0
+            }).exec();
+        })
+        .then(function(result) {
+            res.status(200).send("retrieved favorite properties");
+        })
+        .catch(function(error) {
+            console.log(error);
 
-
+            if (error.status == 406 || error.status == 404) {
+                res.status(error.status).send(error.send);
+            } else {
+                res.status(500).send("internal error");
+            }
+        });
 
 }
 
