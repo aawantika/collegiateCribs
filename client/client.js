@@ -7,6 +7,10 @@ var app = angular.module("app", [
     'ng-polymer-elements',
     'startController',
     'homeController',
+    'addPropertyController',
+    'landlordDashboardController',
+    'searchController',
+    'studentDashboardController'
     'userService',
     'sessionService'
 ]);
@@ -35,14 +39,15 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 templateUrl: '/client/html_pages/studentSignup.html',
                 controller: 'EditAccountController',
             })
-            .state('start.landlordSignup', {
-                url: '/landlordSignup', 
-                templateUrl: '/client/html_pages/landlordSignup.html',
-                controller: 'LandlordSignupController'
-            })
+
             .state('home', {
                 controller: 'HomeController',
                 templateUrl: '/client/html_pages/home.html',
+            })
+            .state('home.addProperty', {
+                url: '/addProperty', 
+                controller: 'AddPropertyController',
+                templateUrl: '/client/html_pages/addProperty.html'
             })
             .state('home.studentDashboard', {
                 url: '/studentDashboard',

@@ -99,28 +99,3 @@ app.controller('EditAccountController', ['$scope', '$userService', '$state', '$s
                     }
                 };
             }]);
-
-
-app.controller('LandlordSignupController', ['$scope', '$sessionService', '$location', '$cookies', '$state', function($scope, $sessionService, $location, $cookies, $state) {
-    $scope.alert = "";
-
-    // $scope.canSubmit = function() {
-    //     var login = {
-    //         "username": $scope.username,
-    //         "password": $scope.password,
-    //     }
-    //     if (!$scope.username || !$scope.password) {
-    //         $scope.alert = "Please fill in all required fields";
-    //         return false;
-    //     } else {
-    //         $scope.alert = "all filled";
-    //         $userService.updateUser(login, function(err, status, data) {
-    //             if (!err) {
-    //                 $cookies.username = data.username;
-    //                 $cookies.sessionKey = data.sessionKey;
-    //                 $state.go("home");
-    //             }
-    //         });
-    //     }
-    };
-}]);
