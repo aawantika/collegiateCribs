@@ -24,7 +24,7 @@ app.controller('LoginController', ['$scope', '$sessionService', '$location', '$c
             "password": $scope.password,
         }
         if (!$scope.username || !$scope.password) {
-            $scope.alert = "Please fill in all required fields";
+            $scope.alert = "Pproperty fill in all required fields";
             return false;
         } else {
             $scope.alert = "all filled";
@@ -75,25 +75,19 @@ app.controller('EditAccountController', ['$scope', '$userService', '$state', '$s
                     "email": $scope.user.email,
                     "campus": $scope.user.campus
                 }
-
-                if (!newUser.firstName || !newUser.lastName || !newUser.username || !newUser.password || !newUser.confirmPassword || !newUser.email) {
-                    $scope.alert = "Please fill in all required fields";
-                    return false;
-                } else if (newUser.password != newUser.confirmPassword) {
-                    $scope.alert = "Password confirm does not match Password";
-                    return false;
-                } else {
-                    $scope.alert = "submittable";
-                    $userService.createUser(newUser, function(err, status, data) {
-                            if (data.profileType == 'landlord') {
-                                console.log("Change to Landlord Signup");
-                                $state.go('start.landlordSignup');
-                            } else {
-                                $scope.alert = data + " " + status;
-                            };
-                        }
-                    };
-                };
+        if (!newUser.firstName || !newUser.lastName || !newUser.username || !newUser.password || !newUser.confirmPassword || !newUser.email) {
+            $scope.alert = "Property fill in all required fields";
+            return false;
+        } else if (newUser.password != newUser.confirmPassword) {
+            $scope.alert = "Password confirm does not match Password";
+            return false;
+        } else {
+            $scope.alert = "submittable";
+            $userService.createUser(newUser, function(err, status, data) {
+                $scope.alert = data + " " + status;
+            });
+        }
+    };
 
                 $scope.passMatch = function() {
                     var pass = $scope.user.password;
