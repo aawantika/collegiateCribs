@@ -31,13 +31,14 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 controller: 'EditAccountController',
                 templateUrl: '/client/html_pages/signup.html',
             })
-            .state('start.signup.landlord', {
-                templateUrl: '/client/html_pages/landlordSignup.html',
-                controller: 'EditAccountController',
-            })
             .state('start.signup.student', {
                 templateUrl: '/client/html_pages/studentSignup.html',
                 controller: 'EditAccountController',
+            })
+            .state('start.landlordSignup', {
+                url: '/landlordSignup', 
+                templateUrl: '/client/html_pages/landlordSignup.html',
+                controller: 'LandlordSignupController'
             })
             .state('home', {
                 controller: 'HomeController',
