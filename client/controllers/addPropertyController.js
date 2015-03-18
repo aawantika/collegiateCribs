@@ -6,9 +6,7 @@ app.controller('LandlordSignupController', ['$scope', '$sessionService', '$locat
         "username": $cookies.username,
         "sessionKey": $cookies.sessionKey
     }
-    var user = {
-    	"username":$cookies.username
-    }
+
     $sessionService.isLoggedIn(cookie, function(err, status, data) {
         if (!err) {
             $scope.showPage = true;
@@ -19,38 +17,30 @@ app.controller('LandlordSignupController', ['$scope', '$sessionService', '$locat
 
     $scope.submitProperty = function () {
     	var newProperty = {
-    		"ownerId" : "", 
+    		"ownerId" : cookies.username, 
     		"address" : $scope.address, 
     		"city": $scope.city,
     		"state": $scope.state, 
     		"zipcode": $scope.zipcode, 
-    		"propertyType": $scope.propertyType
+    		"propertyType": $scope.housingType, 
+    		"availability": $scope.availability, 
+    		"price": $scope.price
     	}
-    	$userService.retrieveUser(user, function(err, status, data) {
-        	if (data.profileType == 'student') {
-            	console.log("Change to Student Dashboard");
-            	$state.go('home.studentDashboard');
-        	} else {
-            	console.log("Change to Landlord Dashboard");
-        	}
-    	});
 
 
-        if (!$scope.bedrooms || !$scope.bathrooms 
-        	||!$scope.propertyType || !$scope.address 
-        	||!$scope.city ||!$scope.state ||!$scope.zipcode
-        	|| !$scope.availability || !$scope.price ) {
+        if (!newProperty.bedrooms || !newProperty.bathrooms 
+        	||!newProperty.housingType || !newProperty.address 
+        	||!newProperty.city ||!newProperty.state ||!newProperty.zipcode
+        	||!newProperty.availability || !newProperty.price ) {
             $scope.alert = "Please fill in all required fields";
             return false;
         } else {
             $scope.alert = "all filled";
-            $userService.updateUser(login, function(err, status, data) {
+            $propertyService.createProperty(newProperty, function(err, status, data) {
                 if (!err) {
-                     $cookies.username = data.username;
-                     $cookies.sessionKey = data.sessionKey;
                      $state.go("home");
                  }
-             });
-         }
+            });
+        }
     };
 }]);
