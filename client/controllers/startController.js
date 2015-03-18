@@ -24,7 +24,7 @@ app.controller('LoginController', ['$scope', '$sessionService', '$location', '$c
             "password": $scope.password,
         }
         if (!$scope.username || !$scope.password) {
-            $scope.alert = "Please fill in all required fields";
+            $scope.alert = "Pproperty fill in all required fields";
             return false;
         } else {
             $scope.alert = "all filled";
@@ -77,7 +77,7 @@ app.controller('EditAccountController', ['$scope', '$userService', '$state', '$s
         }
 
         if (!newUser.firstName || !newUser.lastName || !newUser.username || !newUser.password || !newUser.confirmPassword || !newUser.email) {
-            $scope.alert = "Please fill in all required fields";
+            $scope.alert = "Pproperty fill in all required fields";
             return false;
         } else if (newUser.password != newUser.confirmPassword) {
             $scope.alert = "Password confirm does not match Password";
