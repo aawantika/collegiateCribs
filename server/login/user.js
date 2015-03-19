@@ -226,17 +226,20 @@ user.prototype.deleteUser = function(req, res) {
 }
 
 user.prototype.addFavoriteProperty = function(req, res) {
-    // http://localhost:8080/user/favorites/add POST   
-}
-
-user.prototype.deleteFavoriteProperty = function(req, res) {
-    // http://localhost:8080/user/favorites/delete POST
+    // http://localhost:8080/user/favorites/add POST
 
     var body = req.body;
-
     generalCheck.checkBody(body)
         .then(function(result) {
             return propertyCheck.checkPropertyId(body.propertyId);
+        })
+        .then(function(result) {
+            return propertyModel.findOne({
+                propertyId: body.propertyId
+            }).exec();
+        })
+        .then(function(property) {
+            return propertyCheck.propertyExists(property);
         })
         .then(function(result) {
             return userModel.findOne({
@@ -253,11 +256,81 @@ user.prototype.deleteFavoriteProperty = function(req, res) {
             return user.send;
         })
         .then(function(user) {
+            return userCheck.studentProfile(user);
+        })
+        .then(function(result) {
+            return userModel.findOne({
+                username: body.username
+            }).exec();
+        })
+        .then(function(user) {
+            return propertyCheck.checkFavoritesMax(user.favoriteProperties);
+        })
+        .then(function(result) {
+            return userModel.findOne({
+                username: body.username
+            }).exec();
+        })
+        .then(function(user) {
+            return propertyCheck.duplicateFavorite(user.favoriteProperties, body.propertyId);
+        })
+        .then(function(result) {
             return userModel.update(
-                { username: user.username },
+                { username: body.username },
+                { $push: { favoriteProperties: body.propertyId } }
+                ).exec();
+        })
+        .then(function(result) {
+            res.status(200).send("added favorite");
+        })
+        .catch(function(error) {
+            console.log(error);
+            if (error.status == 406 || error.status == 404) {
+                res.status(error.status).send(error.send);
+            } else {
+                res.status(500).send("internal error");
+            }
+        });
+
+}
+
+user.prototype.deleteFavoriteProperty = function(req, res) {
+    // http://localhost:8080/user/favorites/delete POST
+
+    var body = req.body;
+    generalCheck.checkBody(body)
+        .then(function(result) {
+            return propertyCheck.checkPropertyId(body.propertyId);
+        })
+        .then(function(result) {
+            return propertyModel.findOne({
+                propertyId: body.propertyId
+            }).exec();
+        })
+        .then(function(property) {
+            return propertyCheck.propertyExists(property);
+        })
+        .then(function(result) {
+            return userModel.findOne({
+                username: body.username
+            }).exec();
+        })
+        .then(function(user) {
+            return userCheck.userExists(user);
+        })
+        .then(function(result) {
+            return userModel.findOne({
+                username: body.username
+            }).exec();
+        })
+        .then(function(user) {
+            return userCheck.studentProfile(user);
+        })
+        .then(function(result) {
+            return userModel.update(
+                { username: body.username },
                 { $pull: { favoriteProperties: body.propertyId } }
                 ).exec();
-
         })
         .then(function(result) {
             res.status(200).send("deleted favorite");
@@ -277,7 +350,6 @@ user.prototype.getFavoriteProperties = function(req, res) {
     // http://localhost:8080/user/favorites POST
 
     var body = req.body;
-
     generalCheck.checkBody(body)
         .then(function(result) {
             return userModel.findOne({
@@ -294,6 +366,14 @@ user.prototype.getFavoriteProperties = function(req, res) {
             return user.send;
         })
         .then(function(user) {
+            return userCheck.studentProfile(user);
+        })
+        .then(function(result) {
+            return userModel.findOne({
+                username: body.username
+            }).exec();
+        })
+        .then(function(user) {
             return propertyModel.find({
                 propertyId: {
                     $in: user.favoriteProperties
@@ -306,6 +386,7 @@ user.prototype.getFavoriteProperties = function(req, res) {
             }).exec();
         })
         .then(function(result) {
+            // console.log(result);
             res.status(200).send("retrieved favorite properties");
         })
         .catch(function(error) {

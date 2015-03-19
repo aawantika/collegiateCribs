@@ -300,6 +300,35 @@ propertyCheck.prototype.checkLastRenovationDate = function(lastRenovationDate) {
 }
 
 /**
+ * Error checking for favorite properties
+ */
+propertyCheck.prototype.checkFavoritesMax = function(favoriteProperties) {
+    return new Promise(function(resolve, reject) {
+        if (favoriteProperties.length >= 10) {
+            reject({
+                status: 406,
+                send: "cannot favorite more than 10 properties"
+            });
+        } else {
+            resolve();
+        }
+    });
+}
+
+propertyCheck.prototype.duplicateFavorite = function(favoriteProperties, propertyId) {
+    return new Promise(function(resolve, reject) {
+        if (favoriteProperties.indexOf(propertyId) > -1) {
+            reject({
+                status: 406,
+                send: "property already favorited"
+            });
+        } else {
+            resolve();
+        }
+    });
+}
+
+/**
  * Duplicate Error Checking
  */
 propertyCheck.prototype.duplicateProperty = function(property) {
@@ -320,7 +349,7 @@ propertyCheck.prototype.duplicateProperty = function(property) {
  */
 propertyCheck.prototype.propertyExists = function(property) {
     return new Promise(function(resolve, reject) {
-        if (property && property.length > 0) {
+        if (property) {
             resolve({
                 status: 200,
                 send: property

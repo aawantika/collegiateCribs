@@ -221,5 +221,21 @@ userCheck.prototype.sessionExists = function(session) {
     });
 }
 
+/**
+ * Error checking for favorite properties
+ */
+ userCheck.prototype.studentProfile = function(user) {
+    return new Promise(function(resolve, reject) {
+        if (user.profileType != "student") {
+            reject({
+                status: 406,
+                send: "user is not a student"
+            });
+        } else {
+            resolve();
+        }
+    });
+ }
+
 
 module.exports = new userCheck();
