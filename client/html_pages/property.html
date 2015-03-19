@@ -31,7 +31,7 @@
 			<!--ratings + option to favorite-->
 			Rating: {{property.rating}} <br>
 			Add a rating: {{rating}}
-			<paper-slider ng-model="rating" max="5"></paper-slider>
+			<paper-slider ng-model="rating" min="1" max="5" pin></paper-slider>
 			<paper-button raised>Add to Favorites</paper-button>
 			<paper-button raised>Add a review</paper-button>
 		</div>

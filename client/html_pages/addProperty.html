@@ -1,18 +1,18 @@
 <form ng-submit="submitProperty()" method="post" class="box signup content">
 	<fieldset>
 		<h3>Add a property</h3>
-        <paper-input-decorator label='Number of Bedrooms' floatingLabel>
-        	<input type=\"text" ng-model="bedrooms">
+        <paper-input-decorator label='Address' floatingLabel>
+            <input type="text" ng-model="address">
         </paper-input-decorator>
-        
-        <paper-dropdown-menu label="Number of Bedrooms">
-            <paper-dropdown class="dropdown core-transition core-closed">
-                <core-menu class="menu" ng-model="bedrooms" valueattr="label">
-                    <paper-item class="core-selected" active label="1">1</paper-item>
-                    <paper-item class="core-selected" active label="2">2</paper-item>
-                </core-menu>
-            </paper-dropdown>
-        </paper-dropdown-menu>
+        <paper-input-decorator label='City' floatingLabel>
+            <input type="text" ng-model="city">
+        </paper-input-decorator>
+        <paper-input-decorator label='State' floatingLabel>
+            <input type="text" ng-model="state">
+        </paper-input-decorator>
+        <paper-input-decorator label='Zip Code' floatingLabel>
+            <input type="text" ng-model="zipcode">
+        </paper-input-decorator>
 
         <paper-dropdown-menu label="Property Type">
             <paper-dropdown class="dropdown core-transition core-closed">
@@ -24,16 +24,24 @@
                 </core-menu>
             </paper-dropdown>
         </paper-dropdown-menu>
-
-        <paper-input-decorator label='Address' floatingLabel>
-        	<input type="text" ng-model="address">
-        </paper-input-decorator>
+        
         <paper-input-decorator label='Availability' floatingLabel>
-        	<input type="text" ng-model="availability">
+            <input type="text" ng-model="availability">
         </paper-input-decorator>
         <paper-input-decorator label='Pricing' floatingLabel>
-        	<input type="text" ng-model="price">
+            <input type="text" ng-model="price">
         </paper-input-decorator>
+
+        <div>
+            Number of Bedrooms: {{bedrooms}}
+            <paper-slider ng-model="bedrooms" min="1" max="5" pin></paper-slider>
+        </div>
+        
+        <div>
+            Number of Bathrooms: {{bathrooms}}
+            <paper-slider ng-model="bathrooms" min="1" max="5" pin></paper-slider>
+        </div>
+
         <h4>Pet Policy</h4><br>
         <core-toolbar style=
         	"background:transparent;
@@ -49,6 +57,33 @@
             	<div>Dogs</div>
             </core-label>
         </core-toolbar>
+
+        <div>
+            <h5>Date of last renovation></h5> 
+            Month:
+            <paper-dropdown-menu label="Select a month">
+                <paper-dropdown class="dropdown core-transition core-closed">
+                    <core-menu class="menu" ng-model="lastRenovationDate.month" valueattr="label">
+                        <paper-item class="core-selected" active label="january">January</paper-item>
+                        <paper-item class="core-selected" active label="february">February</paper-item>
+                        <paper-item class="core-selected" active label="march">March</paper-item>
+                        <paper-item class="core-selected" active label="april">April</paper-item>
+                        <paper-item class="core-selected" active label="may">May</paper-item>
+                        <paper-item class="core-selected" active label="june">June</paper-item>
+                        <paper-item class="core-selected" active label="july">July</paper-item>
+                        <paper-item class="core-selected" active label="august">August</paper-item>
+                        <paper-item class="core-selected" active label="september">September</paper-item>
+                        <paper-item class="core-selected" active label="october">October</paper-item>
+                        <paper-item class="core-selected" active label="november">November</paper-item>
+                        <paper-item class="core-selected" active label="december">December</paper-item>
+                    </core-menu>
+                </paper-dropdown>
+            </paper-dropdown-menu>
+            Day: {{lastRenovationDateday}}
+            <paper-slider ng-model="lastRenovationDate.day" min="1" max="getMaxDay()" pin></paper-slider>
+            Year: {{lastRenovationDate.year}}
+            <paper-slider ng-model="lastRenovationDate.year" min="getMinYear()" max="getMaxYear()" pin></paper-slider>
+        </div>
     </fieldset>
     <footer>
         <button type="submit" is="paper-submit">Add property</button>
