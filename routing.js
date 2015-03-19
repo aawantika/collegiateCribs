@@ -61,6 +61,15 @@ module.exports = function() {
         user.getFavoriteProperties(req, res);
     });
 
+    router.post('/user/favorites/add', function(req, res) {
+        user.addFavoriteProperty(req, res);
+    });
+
+    router.post('/user/favorites/delete', function(req, res) {
+        user.deleteFavoriteProperty(req, res);
+    });
+
+
     /**
      * property routing
      */

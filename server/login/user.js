@@ -9,6 +9,7 @@ var generateUuid = require('../error_checking/generateUuid.js');
 var bcrypt = require('../error_checking/bcryptHash.js');
 var generalCheck = require('../error_checking/generalCheck.js');
 var userCheck = require('../error_checking/userCheck.js');
+var propertyCheck = require('../error_checking/propertyCheck.js');
 
 function user() {}
 
@@ -224,6 +225,54 @@ user.prototype.deleteUser = function(req, res) {
         });
 }
 
+user.prototype.addFavoriteProperty = function(req, res) {
+    // http://localhost:8080/user/favorites/add POST   
+}
+
+user.prototype.deleteFavoriteProperty = function(req, res) {
+    // http://localhost:8080/user/favorites/delete POST
+
+    var body = req.body;
+
+    generalCheck.checkBody(body)
+        .then(function(result) {
+            return propertyCheck.checkPropertyId(body.propertyId);
+        })
+        .then(function(result) {
+            return userModel.findOne({
+                username: body.username
+            }).exec();
+        })
+        .then(function(user) {
+            return userCheck.userExists(user);
+        })
+        .then(function(user) {
+            user.send = user.send.toObject();
+            delete user.send._id;
+            delete user.send.__v;
+            return user.send;
+        })
+        .then(function(user) {
+            return userModel.update(
+                { username: user.username },
+                { $pull: { favoriteProperties: body.propertyId } }
+                ).exec();
+
+        })
+        .then(function(result) {
+            res.status(200).send("deleted favorite");
+        })
+        .catch(function(error) {
+            console.log(error);
+            if (error.status == 406 || error.status == 404) {
+                res.status(error.status).send(error.send);
+            } else {
+                res.status(500).send("internal error");
+            }
+        });
+
+}
+
 user.prototype.getFavoriteProperties = function(req, res) {
     // http://localhost:8080/user/favorites POST
 
@@ -252,6 +301,7 @@ user.prototype.getFavoriteProperties = function(req, res) {
             }, {
                 address: 1,
                 price: 1,
+                propertyId: 1,
                 _id: 0
             }).exec();
         })
@@ -260,7 +310,6 @@ user.prototype.getFavoriteProperties = function(req, res) {
         })
         .catch(function(error) {
             console.log(error);
-
             if (error.status == 406 || error.status == 404) {
                 res.status(error.status).send(error.send);
             } else {
