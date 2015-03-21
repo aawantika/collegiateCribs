@@ -13,9 +13,9 @@
     "polymer": "Polymer/polymer#~0.5.4",
     "polymer-core-elements": "Polymer/core-elements#~0.5.4",
     "polymer-paper-elements": "Polymer/paper-elements#~0.5.4",
-    "angular":"",
-    "angular-ui-router":"",
-    "ng-polymer-elements":""
-
+    "angular": "",
+    "angular-ui-router": "",
+    "ng-polymer-elements": "",
+    "angular-messages": "~1.3.15"
   }
 }
