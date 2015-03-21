@@ -3,6 +3,7 @@
 var app = angular.module("app", [
     'ngRoute',
     'ngCookies',
+    'ngMessages',
     'ui.router',
     'ng-polymer-elements',
     'startController',
@@ -10,7 +11,7 @@ var app = angular.module("app", [
     'addPropertyController',
     'landlordDashboardController',
     'searchController',
-    'studentDashboardController'
+    'studentDashboardController',
     'userService',
     'sessionService'
 ]);
@@ -32,12 +33,12 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             })
             .state('start.signup', {
                 url: '/signup',
-                controller: 'EditAccountController',
+                controller: 'SignupController',
                 templateUrl: '/client/html_pages/signup.html',
             })
             .state('start.signup.student', {
                 templateUrl: '/client/html_pages/studentSignup.html',
-                controller: 'EditAccountController',
+                controller: 'SignupController',
             })
 
             .state('home', {

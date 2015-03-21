@@ -1,5 +1,7 @@
 var app = angular.module("startController", []);
 
+var server;
+
 app.controller('StartController', ['$scope', '$location', '$state', function($scope, $location, $state) {
     $scope.alert = "";
     $scope.toLogin = function() {
@@ -16,65 +18,94 @@ app.controller('StartController', ['$scope', '$location', '$state', function($sc
 }]);
 
 app.controller('LoginController', ['$scope', '$sessionService', '$location', '$cookies', '$state', function($scope, $sessionService, $location, $cookies, $state) {
-    $scope.alert = "";
+        $scope.alert = "";
 
-    $scope.canSubmit = function() {
-        var login = {
-            "username": $scope.username,
-            "password": $scope.password,
-        }
-        if (!$scope.username || !$scope.password) {
-            $scope.alert = "Pproperty fill in all required fields";
-            return false;
-        } else {
-            $scope.alert = "all filled";
+        $scope.submitted = false;
+
+        $scope.loginButton = function() {
+            $scope.submitted = true
+
+            server = {};
+            var login = {
+                "username": $scope.username,
+                "password": $scope.password,
+            }
+
             $sessionService.loginUser(login, function(err, status, data) {
                 if (!err) {
                     $cookies.username = data.username;
                     $cookies.sessionKey = data.sessionKey;
                     $state.go("home");
+                } else {
+                    if (err === 404) {
+                        server.statusCode = status;
+                        server.dataVal = data;
+                        $scope.notFound = true;
+                        $scope.alert = "ayy";
+                    }
                 }
             });
+        };
+
+        $scope.interacted = function(field) {
+            return $scope.submitted || field.$dirty;
+        };
+    }])
+    .directive('dbValidator', function() {
+        return {
+            require: 'ngModel',
+            link: function(scope, element, attrs, ngModel) {
+                ngModel.$parsers.push(function(value) {
+                    console.log('hereeeeeee');
+                    var bool = false;
+                    if (server) {
+                        bool = true;
+                    } else {
+                        bool = false;
+                    }
+                    ngModel.$setValidity('notFound', !bool);
+                    return value;
+                });
+            }
         }
+    });
+
+app.controller('SignupController', ['$scope', '$userService', '$state', '$stateParams', function($scope, $userService, $state, $stateParams) {
+    $scope.alert = $scope.alert || "";
+    $scope.passConAlert = $scope.passConAlert || "";
+    $scope.user = $scope.user || {
+        firstName: "",
+        lastName: "",
+        username: "",
+        password: "",
+        passConfirm: "",
+        email: "",
+        phone: "",
+        campus: ""
     };
-}]);
 
-app.controller('EditAccountController', ['$scope', '$userService', '$state', '$stateParams', function($scope, $userService, $state, $stateParams) {
-            $scope.alert = $scope.alert || "";
-            $scope.passConAlert = $scope.passConAlert || "";
-            $scope.user = $scope.user || {
-                firstName: "",
-                lastName: "",
-                username: "",
-                password: "",
-                passConfirm: "",
-                email: "",
-                phone: "",
-                campus: ""
-            };
+    $scope.toStudent = function() {
+        console.log("change to Student");
+        $state.go('start.signup.student');
+    };
 
-            $scope.toStudent = function() {
-                console.log("change to Student");
-                $state.go('start.signup.student');
-            };
+    // $scope.toLandlord = function() {
+    //     //make a drop down for 1-10 properties
+    //     console.log("change to Landlord");
+    //     $state.go('start.signup.landlord');
+    // };
 
-            // $scope.toLandlord = function() {
-            //     //make a drop down for 1-10 properties
-            //     console.log("change to Landlord");
-            //     $state.go('start.signup.landlord');
-            // };
-
-            $scope.canSubmit = function() {
-                var newUser = {
-                    "profileType": $scope.user.profileType,
-                    "firstName": $scope.user.firstName,
-                    "lastName": $scope.user.lastName,
-                    "username": $scope.user.username,
-                    "password": $scope.user.password,
-                    "confirmPassword": $scope.user.passConfirm,
-                    "email": $scope.user.email,
-                    "campus": $scope.user.campus
-                }
+    $scope.canSubmit = function() {
+        var newUser = {
+            "profileType": $scope.user.profileType,
+            "firstName": $scope.user.firstName,
+            "lastName": $scope.user.lastName,
+            "username": $scope.user.username,
+            "password": $scope.user.password,
+            "confirmPassword": $scope.user.passConfirm,
+            "email": $scope.user.email,
+            "campus": $scope.user.campus
+        }
         if (!newUser.firstName || !newUser.lastName || !newUser.username || !newUser.password || !newUser.confirmPassword || !newUser.email) {
             $scope.alert = "Property fill in all required fields";
             return false;
@@ -89,13 +120,13 @@ app.controller('EditAccountController', ['$scope', '$userService', '$state', '$s
         }
     };
 
-                $scope.passMatch = function() {
-                    var pass = $scope.user.password;
-                    var passC = $scope.user.passConfirm;
-                    if ((pass || passC) && pass != passC) {
-                        $scope.passConAlert = "Password confirm doesn't match Password";
-                    } else {
-                        $scope.passConAlert = "";
-                    }
-                };
-            }]);
+    $scope.passMatch = function() {
+        var pass = $scope.user.password;
+        var passC = $scope.user.passConfirm;
+        if ((pass || passC) && pass != passC) {
+            $scope.passConAlert = "Password confirm doesn't match Password";
+        } else {
+            $scope.passConAlert = "";
+        }
+    };
+}]);
