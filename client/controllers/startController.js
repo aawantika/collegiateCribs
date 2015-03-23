@@ -1,99 +1,81 @@
-var app = angular.module("startController", []);
+'use strict'
 
-var server;
+var app = angular.module("startController", []);
 
 app.controller('StartController', ['$scope', '$location', '$state', function($scope, $location, $state) {
     $scope.alert = "";
     $scope.toLogin = function() {
-        console.log("change to Login");
         $state.go('start.login');
     };
 
     $scope.toSignUp = function() {
-        //make a drop down for 1-10 properties
-        console.log("change to sign up");
         $state.go('start.signup');
     };
-
 }]);
 
 app.controller('LoginController', ['$scope', '$sessionService', '$location', '$cookies', '$state', function($scope, $sessionService, $location, $cookies, $state) {
-        $scope.alert = "";
-
-        $scope.submitted = false;
+        $scope.alerts = [];
 
         $scope.loginButton = function() {
-            $scope.submitted = true
-
-            server = {};
             var login = {
                 "username": $scope.username,
                 "password": $scope.password,
             }
 
-            $sessionService.loginUser(login, function(err, status, data) {
-                if (!err) {
-                    $cookies.username = data.username;
-                    $cookies.sessionKey = data.sessionKey;
-                    $state.go("home");
-                } else {
-                    if (err === 404) {
-                        server.statusCode = status;
-                        server.dataVal = data;
-                        $scope.notFound = true;
-                        $scope.alert = "ayy";
+            if ($scope.username && $scope.password) {
+                $sessionService.loginUser(login, function(err, status, data) {
+                    if (!err) {
+                        $cookies.username = data.username;
+                        $cookies.sessionKey = data.sessionKey;
+                        $state.go("home");
+                    } else {
+                        console.log(err == 406);
+                        if (err == 404 || err == 406) {
+                            $scope.alerts.push({
+                                type: 'danger',
+                                msg: 'Invalid credentials.'
+                            });
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                $scope.alerts.push({
+                    msg: 'Username and password cannot be blank.'
+                });
+            }
         };
 
-        $scope.interacted = function(field) {
-            return $scope.submitted || field.$dirty;
+        $scope.closeAlert = function(index) {
+            $scope.alerts.splice(index, 1);
         };
     }])
-    .directive('dbValidator', function() {
+    .directive('showErrors', function() {
         return {
-            require: 'ngModel',
-            link: function(scope, element, attrs, ngModel) {
-                ngModel.$parsers.push(function(value) {
-                    console.log('hereeeeeee');
-                    var bool = false;
-                    if (server) {
-                        bool = true;
-                    } else {
-                        bool = false;
-                    }
-                    ngModel.$setValidity('notFound', !bool);
-                    return value;
-                });
+            restrict: 'A',
+            require: '^form',
+            link: function(scope, el, attrs, formCtrl) {
+                // find the text box element, which has the 'name' attribute
+                var inputEl = el[0].querySelector("[name]");
+                // convert the native text box element to an angular element
+                var inputNgEl = angular.element(inputEl);
+                // get the name on the text box so we know the property to check
+                // on the form controller
+                var inputName = inputNgEl.attr('name');
+
+                // only apply the has-error class after the user leaves the text box
+                inputNgEl.bind('blur', function() {
+                    el.toggleClass('has-error', formCtrl[inputName].$invalid);
+                })
             }
         }
     });
 
 app.controller('SignupController', ['$scope', '$userService', '$state', '$stateParams', function($scope, $userService, $state, $stateParams) {
-    $scope.alert = $scope.alert || "";
-    $scope.passConAlert = $scope.passConAlert || "";
-    $scope.user = $scope.user || {
-        firstName: "",
-        lastName: "",
-        username: "",
-        password: "",
-        passConfirm: "",
-        email: "",
-        phone: "",
-        campus: ""
-    };
+    $scope.alerts = [];
 
     $scope.toStudent = function() {
-        console.log("change to Student");
         $state.go('start.signup.student');
     };
-
-    // $scope.toLandlord = function() {
-    //     //make a drop down for 1-10 properties
-    //     console.log("change to Landlord");
-    //     $state.go('start.signup.landlord');
-    // };
 
     $scope.canSubmit = function() {
         var newUser = {
@@ -106,6 +88,7 @@ app.controller('SignupController', ['$scope', '$userService', '$state', '$stateP
             "email": $scope.user.email,
             "campus": $scope.user.campus
         }
+
         if (!newUser.firstName || !newUser.lastName || !newUser.username || !newUser.password || !newUser.confirmPassword || !newUser.email) {
             $scope.alert = "Property fill in all required fields";
             return false;
@@ -118,6 +101,7 @@ app.controller('SignupController', ['$scope', '$userService', '$state', '$stateP
                 $scope.alert = data + " " + status;
             });
         }
+        
     };
 
     $scope.passMatch = function() {

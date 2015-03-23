@@ -3,8 +3,8 @@
 var app = angular.module("app", [
     'ngRoute',
     'ngCookies',
-    'ngMessages',
     'ui.router',
+    'ui.bootstrap',
     'startController',
     'homeController',
     'addPropertyController',
@@ -14,8 +14,6 @@ var app = angular.module("app", [
     'userService',
     'sessionService'
 ]);
-//^ a JSON of the dependencies for app
-
 
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/login');

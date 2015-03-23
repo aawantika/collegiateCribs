@@ -10,13 +10,13 @@ login.service('$sessionService', ['$http', function($http) {
 
         $http(req).success(function(data, status) {
             callback(null, status, data);
-        }).
-        error(function(data, status) {
+        }).error(function(data, status) {
+            console.log("err");
             callback(status, data);
         });
     };
 
-    this.isLoggedIn = function(json, callback) { 
+    this.isLoggedIn = function(json, callback) {
         var req = {
             method: "POST",
             url: "http://localhost:8080/isLoggedIn",

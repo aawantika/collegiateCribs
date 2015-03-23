@@ -9,10 +9,10 @@
   ],
   "dependencies": {
     "angular": "*",
-    "angular-ui-router": "*",
     "angular-route": "*",
     "angular-cookies": "*",
-    "angular-messages": "*",
-    "bootstrap":"*"
+    "angular-ui-router": "*",
+    "angular-bootstrap": "~0.12.1",
+    "bootstrap": "*"
   }
 }

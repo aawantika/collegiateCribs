@@ -55,7 +55,7 @@ session.prototype.login = function(req, res) {
         .catch(function(error) {
             console.log(error);
 
-            if (error.status == 404 || error.status == 400) {
+            if (error.status == 404 || error.status == 400 || error.status == 406) {
                 res.status(error.status).send(error.send);
             } else {
                 res.status(500).send("internal error");
