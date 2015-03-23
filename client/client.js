@@ -3,7 +3,6 @@
 var app = angular.module("app", [
     'ngRoute',
     'ngCookies',
-    'ngMessages',
     'ui.router',
     'ng-polymer-elements',
     'startController',

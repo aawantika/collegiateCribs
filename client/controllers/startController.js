@@ -18,59 +18,41 @@ app.controller('StartController', ['$scope', '$location', '$state', function($sc
 }]);
 
 app.controller('LoginController', ['$scope', '$sessionService', '$location', '$cookies', '$state', function($scope, $sessionService, $location, $cookies, $state) {
-        $scope.alert = "";
+    $scope.alert = "";
 
-        $scope.submitted = false;
+    $scope.submitted = false;
 
-        $scope.loginButton = function() {
-            $scope.submitted = true
+    $scope.loginButton = function() {
+        $scope.submitted = true
 
-            server = {};
-            var login = {
-                "username": $scope.username,
-                "password": $scope.password,
-            }
-
-            $sessionService.loginUser(login, function(err, status, data) {
-                if (!err) {
-                    $cookies.username = data.username;
-                    $cookies.sessionKey = data.sessionKey;
-                    $state.go("home");
-                } else {
-                    if (err === 404) {
-                        server.statusCode = status;
-                        server.dataVal = data;
-                        $scope.notFound = true;
-                        $scope.alert = "ayy";
-                    }
-                }
-            });
-        };
-
-        $scope.interacted = function(field) {
-            return $scope.submitted || field.$dirty;
-        };
-    }])
-    .directive('dbValidator', function() {
-        return {
-            require: 'ngModel',
-            link: function(scope, element, attrs, ngModel) {
-                ngModel.$parsers.push(function(value) {
-                    console.log('hereeeeeee');
-                    var bool = false;
-                    if (server) {
-                        bool = true;
-                    } else {
-                        bool = false;
-                    }
-                    ngModel.$setValidity('notFound', !bool);
-                    return value;
-                });
-            }
+        server = {};
+        var login = {
+            "username": $scope.username,
+            "password": $scope.password,
         }
-    });
 
-app.controller('SignupController', ['$scope', '$userService', '$state', '$stateParams', function($scope, $userService, $state, $stateParams) {
+        $sessionService.loginUser(login, function(err, status, data) {
+            if (!err) {
+                $cookies.username = data.username;
+                $cookies.sessionKey = data.sessionKey;
+                $state.go("home");
+            } else {
+                if (err === 404) {
+                    server.statusCode = status;
+                    server.dataVal = data;
+                    $scope.notFound = true;
+                    $scope.alert = "ayy";
+                }
+            }
+        });
+    };
+
+    $scope.interacted = function(field) {
+        return $scope.submitted || field.$dirty;
+    };
+}]);
+
+app.controller('SignupController', ['$scope', '$userService', '$state', '$stateParams', function($scope, $userServsice, $state, $stateParams) {
     $scope.alert = $scope.alert || "";
     $scope.passConAlert = $scope.passConAlert || "";
     $scope.user = $scope.user || {
