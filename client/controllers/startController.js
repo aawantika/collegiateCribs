@@ -31,6 +31,8 @@ app.controller('LoginController', ['$scope', '$sessionService', '$location', '$c
             "password": $scope.password,
         }
 
+        console.log($scope.username);
+
         $sessionService.loginUser(login, function(err, status, data) {
             if (!err) {
                 $cookies.username = data.username;
@@ -52,7 +54,7 @@ app.controller('LoginController', ['$scope', '$sessionService', '$location', '$c
     };
 }]);
 
-app.controller('SignupController', ['$scope', '$userService', '$state', '$stateParams', function($scope, $userServsice, $state, $stateParams) {
+app.controller('SignupController', ['$scope', '$userService', '$state', '$stateParams', function($scope, $userService, $state, $stateParams) {
     $scope.alert = $scope.alert || "";
     $scope.passConAlert = $scope.passConAlert || "";
     $scope.user = $scope.user || {
@@ -88,6 +90,10 @@ app.controller('SignupController', ['$scope', '$userService', '$state', '$stateP
             "email": $scope.user.email,
             "campus": $scope.user.campus
         }
+
+        console.log($scope.user);
+
+        console.log(newUser);
         if (!newUser.firstName || !newUser.lastName || !newUser.username || !newUser.password || !newUser.confirmPassword || !newUser.email) {
             $scope.alert = "Property fill in all required fields";
             return false;
@@ -96,6 +102,7 @@ app.controller('SignupController', ['$scope', '$userService', '$state', '$stateP
             return false;
         } else {
             $scope.alert = "submittable";
+            console.log("HERE");
             $userService.createUser(newUser, function(err, status, data) {
                 $scope.alert = data + " " + status;
             });
