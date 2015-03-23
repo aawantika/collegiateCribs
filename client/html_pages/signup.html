@@ -2,71 +2,75 @@
 
     <body>
         <h1 style="text-align: center"> Create your account </h1>
-        <form id="signup" ng-submit="canSubmit()" method="post" class="box signup content">
-            <fieldset class="wrapper">
-                <paper-radio-group selected="student" name="profile" ng-model="user.profileType" valueattr="name">
-                    <paper-radio-button name="student" label="Student" ng-click="toStudent()"></paper-radio-button>
-                    <paper-radio-button name="landlord" label="Landlord" ng-click="toLandlord()"></paper-radio-button>
-                </paper-radio-group>
-			</fieldset>
-			<fieldset>
-				<table>
-					<tr>
-						<td>
-							<paper-input-decorator label="First Name*" floatingLabel>
-								<input type="text" ng-model="user.firstName"></input>
-							</paper-input-decorator>
-						</td>
-						<td>
-							<paper-input-decorator label="Last Name*" floatingLabel>
-								<input type="text" ng-model="user.lastName"></input>
-							</paper-input-decorator>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<paper-input-decorator label="Username*" floatingLabel>
-								<input type="text" ng-model="user.username"></input>
-							</paper-input-decorator>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<paper-input-decorator label="Password*" floatingLabel>
-								<input type="password" ng-model="user.password" ng-keyup="passMatch()"></input>
-							</paper-input-decorator>
-						</td>
-						<td>
-							<paper-input-decorator label="Password confirm*" floatinglabel>
-								<input type="password" ng-model="user.passConfirm" ng-keyup="passMatch()"><br>
-							</paper-input-decorator>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<paper-input-decorator label="Email*" floatingLabel>
-								<input type="text" ng-model="user.email"></input>
-							</paper-input-decorator>
-						</td>
-						<td>
-							<label ng-model="passConAlert" class="alert">{{passConAlert}}</label>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<paper-input-decorator label="Phone Number" floatingLabel>
-								<input type="text" ng-model="user.phone"></input>
-							</paper-input-decorator>
-						</td>
-					</tr>
-				</table>
-				<div ui-view></div><br/>
-				<label>* = required</label><br/>
-				<label class="alert">{{alert}}</label>
-			</fieldset>
-			<footer>
-				<button type="submit" is="paper-submit">Sign Up</button>
-			</footer>
-		</form>
-	</body>
+        <form name="signupForm" id="signup" method="post" class="box signup content" novalidate>
+            <label class="radio-inline" ng-model="profileType" valueattr="id">
+                <input type="radio" name="studentLandlordRadio" id="student" value="Student" ng-click="toStudent()"> Student </label>
+            <label class="radio-inline">
+                <input type="radio" name="studentLandlordRadio" id="landlord" value="Landlord" ng-click="toLandlord()"> Landlord </label>
+            <table>
+                <tr>
+                    <td>
+                        <div class="form-inline" show-errors>
+                            <label for="firstName_input">First Name</label>
+                            <input type="text" class="form-control" name="firstName" id="firstName_input" placeholder="First Name" ng-model="firstName" required>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-inline" show-errors>
+                            <label for="lastName_input">Last Name</label>
+                            <input type="text" class="form-control" name="lastName" id="lastName_input" placeholder="Last Name" ng-model="lastName" required>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group" show-errors>
+                            <label for="username_input">Username</label>
+                            <input type="text" class="form-control" name="username" id="username_input" placeholder="Username" ng-model="username" required>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group" show-errors>
+                            <label for="password_input">Password</label>
+                            <input type="password" class="form-control" name="password" id="password_input" placeholder="Password" ng-model="password" ng-keyup="passMatch()" required>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group" show-errors>
+                            <label for="confirmPassword_input">Confirm Password</label>
+                            <input type="password" class="form-control" name="confirmPassword" id="confirmPassword_input" placeholder="Confirm Password" ng-model="confirmPassword" ng-keyup="passMatch()" required>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <label ng-model="passConAlert" class="alert">{{passConAlert}}</label>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group" show-errors>
+                            <label for="email_input">Email</label>
+                            <input type="email" class="form-control" name="email" id="email_input" placeholder="Email" ng-model="email" required>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label for="phoneNumber_input">Phone Number</label>
+                            <input type="email" class="form-control" id="phoneNumber_input" placeholder="Phone Number" ng-model="phone">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div ui-view></div>
+            <footer>
+                <div ng-controller="SignupController">
+                    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+                     <button type="submit" class="btn btn-default" ng-click="canSubmit()">Sign Up</button>
+                </div>
+            </footer>
+        </form>
+    </body>
 </div>

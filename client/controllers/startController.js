@@ -29,8 +29,8 @@ app.controller('LoginController', ['$scope', '$sessionService', '$location', '$c
                         $cookies.sessionKey = data.sessionKey;
                         $state.go("home");
                     } else {
-                        console.log(err == 406);
                         if (err == 404 || err == 406) {
+                            $scope.alerts.length = 0;
                             $scope.alerts.push({
                                 type: 'danger',
                                 msg: 'Invalid credentials.'
@@ -39,6 +39,7 @@ app.controller('LoginController', ['$scope', '$sessionService', '$location', '$c
                     }
                 });
             } else {
+                $scope.alerts.length = 0;
                 $scope.alerts.push({
                     msg: 'Username and password cannot be blank.'
                 });
@@ -71,46 +72,113 @@ app.controller('LoginController', ['$scope', '$sessionService', '$location', '$c
     });
 
 app.controller('SignupController', ['$scope', '$userService', '$state', '$stateParams', function($scope, $userService, $state, $stateParams) {
-    $scope.alerts = [];
+        $scope.alerts = [];
 
-    $scope.toStudent = function() {
-        $state.go('start.signup.student');
-    };
+        $scope.toStudent = function() {
+            $state.go('start.signup.student');
+        };
 
-    $scope.canSubmit = function() {
-        var newUser = {
-            "profileType": $scope.user.profileType,
-            "firstName": $scope.user.firstName,
-            "lastName": $scope.user.lastName,
-            "username": $scope.user.username,
-            "password": $scope.user.password,
-            "confirmPassword": $scope.user.passConfirm,
-            "email": $scope.user.email,
-            "campus": $scope.user.campus
+        $scope.toLandlord = function() {
+            // TODO:
+            // MAKE SURE THAT THE START.SIGNUP.STUDENT STATE ISN'T BEING SHOWN HERE
+        };
+
+        $scope.canSubmit = function() {
+            var newUser = {
+                "profileType": $scope.profileType,
+                "firstName": $scope.firstName,
+                "lastName": $scope.lastName,
+                "username": $scope.username,
+                "password": $scope.password,
+                "confirmPassword": $scope.confirmPassword,
+                "email": $scope.email,
+                "campus": $scope.campus
+            }
+
+            // TO DO: FIGURE OUT HOW TO CONNECT PROFILETYPE BACK IN
+            // if (!$scope.profileType) {
+            //     $scope.alerts.length = 0;
+            //     $scope.alerts.push({
+            //         msg: 'Are you a student or a landlord?'
+            //     });
+            // } else
+
+           
+             if (!$scope.firstName) {
+                console.log("here1");
+                $scope.alerts.length = 0;
+                $scope.alerts.push({
+                    msg: 'First name cannot be blank.'
+                });
+            } else if (!$scope.lastName) {
+                $scope.alerts.length = 0;
+                $scope.alerts.push({
+                    msg: 'Last name cannot be blank.'
+                });
+            } else if (!$scope.username) {
+                $scope.alerts.length = 0;
+                $scope.alerts.push({
+                    msg: 'Username cannot be blank.'
+                });
+            } else if (!$scope.password || !$scope.confirmPassword) {
+                $scope.alerts.length = 0;
+                $scope.alerts.push({
+                    msg: 'Password cannot be blank.'
+                });
+            } else if (!$scope.email) {
+                $scope.alerts.length = 0;
+                $scope.alerts.push({
+                    msg: 'Email cannot be blank.'
+                });
+            } else if ($scope.password != $scope.confirmPassword) {
+                $scope.alerts.length = 0;
+                $scope.alerts.push({
+                    msg: "Passwords don't match."
+                });
+            } 
+             // ALSO FIGURE OUT HOW TO CONNECT CAMPUS BACK IN.
+            // else if ($scope.profileType == "student" && !$scope.campus) {
+            //     $scope.alerts.length = 0;
+            //     $scope.alerts.push({
+            //         msg: "What university are you from?"
+            //     });
+            // } 
+            else {
+                $userService.createUser(newUser, function(err, status, data) {
+                    if (err) {
+                        console.log("ERR");
+                    } else {
+
+                    }
+                });
+            }
+        };
+
+        $scope.passMatch = function() {
+            var pass = $scope.user.password;
+            var passC = $scope.user.passConfirm;
+            if ((pass || passC) && pass != passC) {
+                $scope.passConAlert = "Password confirm doesn't match Password";
+            } else {
+                $scope.passConAlert = "";
+            }
+        };
+
+        $scope.closeAlert = function(index) {
+            $scope.alerts.splice(index, 1);
+        };
+    }])
+    .directive('showErrors', function() {
+        return {
+            restrict: 'A',
+            require: '^form',
+            link: function(scope, el, attrs, formCtrl) {
+                var inputEl = el[0].querySelector("[name]");
+                var inputNgEl = angular.element(inputEl);
+                var inputName = inputNgEl.attr('name');
+                inputNgEl.bind('blur', function() {
+                    el.toggleClass('has-error', formCtrl[inputName].$invalid);
+                })
+            }
         }
-
-        if (!newUser.firstName || !newUser.lastName || !newUser.username || !newUser.password || !newUser.confirmPassword || !newUser.email) {
-            $scope.alert = "Property fill in all required fields";
-            return false;
-        } else if (newUser.password != newUser.confirmPassword) {
-            $scope.alert = "Password confirm does not match Password";
-            return false;
-        } else {
-            $scope.alert = "submittable";
-            $userService.createUser(newUser, function(err, status, data) {
-                $scope.alert = data + " " + status;
-            });
-        }
-        
-    };
-
-    $scope.passMatch = function() {
-        var pass = $scope.user.password;
-        var passC = $scope.user.passConfirm;
-        if ((pass || passC) && pass != passC) {
-            $scope.passConAlert = "Password confirm doesn't match Password";
-        } else {
-            $scope.passConAlert = "";
-        }
-    };
-}]);
+    });

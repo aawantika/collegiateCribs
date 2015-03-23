@@ -1,0 +1,47 @@
+<div>
+
+    <body>
+        <h1 style="text-align: center"> Sign Up </h1>
+        <div>
+            <label class="radio-inline" ng-model="user.profileType" valueattr="id">
+                <input type="radio" name="studentLandlordRadio" id="student" value="Student" ng-click="toStudent()"> Student</label>
+            <label class="radio-inline">
+                <input type="radio" name="studentLandlordRadio" id="landlord" value="Landlord" ng-click="toLandlord()"> Landlord</label>
+        </div>
+        <br>
+        <div class="form-inline">
+            <label for="firstName_input">First Name</label>
+            <input type="text" class="form-control" id="firstName_input" placeholder="First Name" ng-model="user.firstName" required>
+        </div>
+        <div class="form-inline" has-error has-feedback>
+            <label for="lastName_input">Last Name</label>
+            <input type="text" class="form-control" id="lastName_input" placeholder="Last Name" ng-model="user.lastName" required>
+        </div>
+        <form>
+            <div class="form-group" has-error has-feedback>
+                <label for="username_input">Username</label>
+                <input type="text" class="form-control" id="username_input" placeholder="Username" ng-model="user.username" required>
+            </div>
+            <div class="form-group" has-error has-feedback>
+                <label for="password_input">Password</label>
+                <input type="password" class="form-control" id="password_input" placeholder="Password" ng-model="user.password" ng-keyup="passMatch()" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword_input">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmPassword_input" placeholder="Confirm Password" ng-model="user.confirmPassword" ng-keyup="passMatch()">
+            </div>
+            <div class="form-group">
+                <label for="email_input">Email</label>
+                <input type="email" class="form-control" id="email_input" placeholder="Email" ng-model="user.email">
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber_input">Phone Number</label>
+                <input type="email" class="form-control" id="phoneNumber_input" placeholder="Phone Number" ng-model="user.phone">
+            </div>
+        </form>
+        <div ui-view></div>
+        <footer>
+            <button type="submit" class="btn btn-default" ng-click="canSubmit()">Sign Up</button>
+        </footer>
+    </body>
+</div>
