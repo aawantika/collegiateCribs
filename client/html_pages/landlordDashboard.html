@@ -16,6 +16,8 @@
 			<header>
 				<h3>Owned Properties</h3>
 			</header>
+			<paper-button ng-click="addProperty()" raised>Add a Property</paper-button>
+			<div ui-view></div>
 			<div ng-repeat="property in properties" class="box allMargins5 content" horizontal layout>
 				<div class="rightMargin5 content">
 					Property Image Here:{{property.imgUrl}}
