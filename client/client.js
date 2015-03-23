@@ -5,7 +5,6 @@ var app = angular.module("app", [
     'ngCookies',
     'ngMessages',
     'ui.router',
-    'ng-polymer-elements',
     'startController',
     'homeController',
     'addPropertyController',
