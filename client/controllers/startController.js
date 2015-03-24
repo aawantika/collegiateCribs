@@ -71,18 +71,24 @@ app.controller('LoginController', ['$scope', '$sessionService', '$location', '$c
         }
     });
 
-app.controller('SignupController', ['$scope', '$userService', '$state', '$stateParams', function($scope, $userService, $state, $stateParams) {
+app.controller('SignupController', ['$scope', '$userService', '$sessionService', '$state', '$stateParams', function($scope, $userService, $sessionService, $state, $stateParams) {
         $scope.alerts = [];
+        $scope.user = $scope.user || {
+            firstName: "",
+            lastName: "",
+            username: "",
+            password: "",
+            passConfirm: "",
+            email: "",
+            phone: "",
+            campus: ""
+        };
 
         $scope.toStudent = function() {
             $state.go('start.signup.student');
         };
 
         $scope.toLandlord = function() {
-            // TODO:
-            // MAKE SURE THAT THE START.SIGNUP.STUDENT STATE ISN'T BEING SHOWN HERE
-            //TODO: ALSO MAKE SURE THAT THIS BECOMES START.SIGNUP.LANDLORD WHEN
-            //THAT IS READY
             $state.go('start.signup');
         };
 
@@ -98,22 +104,12 @@ app.controller('SignupController', ['$scope', '$userService', '$state', '$stateP
                 "campus": $scope.campus
             }
 
-            // TO DO: FIGURE OUT HOW TO CONNECT PROFILETYPE BACK IN
-// 
-// 
-// 
-// 
-// 
-//__________________________________________________             
             if (!$scope.profileType) {
                 $scope.alerts.length = 0;
                 $scope.alerts.push({
                     msg: 'Are you a student or a landlord?'
                 });
-            } else
-
-           
-             if (!$scope.firstName) {
+            } else if (!$scope.firstName) {
                 console.log("here1");
                 $scope.alerts.length = 0;
                 $scope.alerts.push({
@@ -144,37 +140,71 @@ app.controller('SignupController', ['$scope', '$userService', '$state', '$stateP
                 $scope.alerts.push({
                     msg: "Passwords don't match."
                 });
-            } 
-             // ALSO FIGURE OUT HOW TO CONNECT CAMPUS BACK IN.
-             // 
-             // 
-             // 
-             // 
-
-            else if ($scope.profileType == "student" && !$scope.campus) {
+            } else if ($scope.profileType == "student" && !$scope.campus) {
                 $scope.alerts.length = 0;
                 $scope.alerts.push({
                     msg: "What university are you from?"
                 });
-            } 
-            else {
+            } else {
+                console.log(newUser);
                 $userService.createUser(newUser, function(err, status, data) {
                     if (err) {
                         console.log("ERR");
+                        console.log(err);
+                        console.log(status);
+                        if (err == 406 && status === "username") {
+                            $scope.alerts.length = 0;
+                            $scope.alerts.push({
+                                type: 'danger',
+                                msg: "Username must be between 4 and 20 characters."
+                            });
+                        } else if (err == 406 && status === "password") {
+                            $scope.alerts.length = 0;
+                            $scope.alerts.push({
+                                type: 'danger',
+                                msg: "Password must be between 6 and 20 characters."
+                            });
+                        } else if (err == 406 && status.indexOf("phoneNumber") > -1) {
+                            $scope.alerts.length = 0;
+                            $scope.alerts.push({
+                                type: 'danger',
+                                msg: "Invalid phone format."
+                            });
+                        } else if (err == 409 && status.indexOf("username") > -1) {
+                            $scope.alerts.length = 0;
+                            $scope.alerts.push({
+                                type: 'danger',
+                                msg: "Username already exists."
+                            });
+                        } else if (err == 409 && status.indexOf("email") > -1) {
+                            $scope.alerts.length = 0;
+                            $scope.alerts.push({
+                                type: 'danger',
+                                msg: "Email already exists."
+                            });
+                        }
                     } else {
-
+                        $scope.alerts.length = 0;
+                            $scope.alerts.push({
+                                type: 'success',
+                                msg: "Created new account!"
+                            });
                     }
                 });
             }
         };
 
         $scope.passMatch = function() {
-            var pass = $scope.user.password;
-            var passC = $scope.user.passConfirm;
-            if ((pass || passC) && pass != passC) {
-                $scope.passConAlert = "Password confirm doesn't match Password";
+            var password = $scope.password;
+            var confirmPassword = $scope.confirmPassword;
+            if ((password || confirmPassword) && password != confirmPassword) {
+                $scope.alerts.length = 0;
+                $scope.alerts.push({
+                    type: 'danger',
+                    msg: "Passwords don't match"
+                });
             } else {
-                $scope.passConAlert = "";
+                $scope.alerts.length = 0;
             }
         };
 

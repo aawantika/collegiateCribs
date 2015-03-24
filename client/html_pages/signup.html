@@ -3,10 +3,13 @@
     <body>
         <h1 style="text-align: center"> Create your account </h1>
         <form name="signupForm" id="signup" method="post" class="box signup content" novalidate>
-            <label class="radio-inline"  valueattr="id">
-                <input type="radio" name="studentLandlordRadio" id="student" value="Student" ng-click="toStudent()" ng-model="profileType"> Student </label>
+            <div>
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+            </div>
+            <label class="radio-inline" valueattr="id">
+                <input type="radio" name="studentLandlordRadio" id="student" value="student" ng-click="toStudent()" ng-model="profileType"> Student </label>
             <label class="radio-inline">
-                <input type="radio" name="studentLandlordRadio" id="landlord" value="Landlord" ng-click="toLandlord()" ng-model="profileType"> Landlord </label>
+                <input type="radio" name="studentLandlordRadio" id="landlord" value="landlord" ng-click="toLandlord()" ng-model="profileType"> Landlord </label>
             <table>
                 <tr>
                     <td>
@@ -45,9 +48,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <label ng-model="passConAlert" class="alert">{{passConAlert}}</label>
-                </tr>
-                <tr>
                     <td>
                         <div class="form-group" show-errors>
                             <label for="email_input">Email</label>
@@ -59,7 +59,7 @@
                     <td>
                         <div class="form-group">
                             <label for="phoneNumber_input">Phone Number</label>
-                            <input type="email" class="form-control" id="phoneNumber_input" placeholder="Phone Number" ng-model="phone">
+                            <input type="email" class="form-control" id="phoneNumber_input" placeholder="xxx-xxx-xxxx" ng-model="phone">
                         </div>
                     </td>
                 </tr>
@@ -67,8 +67,7 @@
             <div ui-view></div>
             <footer>
                 <div>
-                    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-                     <button type="submit" class="btn btn-default" ng-click="canSubmit()">Sign Up</button>
+                    <button type="submit" class="btn btn-default" ng-click="canSubmit()">Sign Up</button>
                 </div>
             </footer>
         </form>
