@@ -81,6 +81,9 @@ app.controller('SignupController', ['$scope', '$userService', '$state', '$stateP
         $scope.toLandlord = function() {
             // TODO:
             // MAKE SURE THAT THE START.SIGNUP.STUDENT STATE ISN'T BEING SHOWN HERE
+            //TODO: ALSO MAKE SURE THAT THIS BECOMES START.SIGNUP.LANDLORD WHEN
+            //THAT IS READY
+            $state.go('start.signup');
         };
 
         $scope.canSubmit = function() {
@@ -96,12 +99,18 @@ app.controller('SignupController', ['$scope', '$userService', '$state', '$stateP
             }
 
             // TO DO: FIGURE OUT HOW TO CONNECT PROFILETYPE BACK IN
-            // if (!$scope.profileType) {
-            //     $scope.alerts.length = 0;
-            //     $scope.alerts.push({
-            //         msg: 'Are you a student or a landlord?'
-            //     });
-            // } else
+// 
+// 
+// 
+// 
+// 
+//__________________________________________________             
+            if (!$scope.profileType) {
+                $scope.alerts.length = 0;
+                $scope.alerts.push({
+                    msg: 'Are you a student or a landlord?'
+                });
+            } else
 
            
              if (!$scope.firstName) {
@@ -137,12 +146,17 @@ app.controller('SignupController', ['$scope', '$userService', '$state', '$stateP
                 });
             } 
              // ALSO FIGURE OUT HOW TO CONNECT CAMPUS BACK IN.
-            // else if ($scope.profileType == "student" && !$scope.campus) {
-            //     $scope.alerts.length = 0;
-            //     $scope.alerts.push({
-            //         msg: "What university are you from?"
-            //     });
-            // } 
+             // 
+             // 
+             // 
+             // 
+
+            else if ($scope.profileType == "student" && !$scope.campus) {
+                $scope.alerts.length = 0;
+                $scope.alerts.push({
+                    msg: "What university are you from?"
+                });
+            } 
             else {
                 $userService.createUser(newUser, function(err, status, data) {
                     if (err) {
