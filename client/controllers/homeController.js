@@ -25,6 +25,7 @@ app.controller('HomeController', ['$scope', '$userService','$sessionService', '$
             $state.go('home.studentDashboard');
         } else {
             console.log("Change to Landlord Dashboard");
+            $state.go('home.landlordDashboard'); 
         }
     });
 

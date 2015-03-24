@@ -17,7 +17,7 @@ app.controller('StartController', ['$scope', '$location', '$state', function($sc
 
 }]);
 
-app.controller('LoginController', ['$scope', '$sessionService', '$location', '$cookies', '$state', function($scope, $sessionService, $location, $cookies, $state) {
+app.controller('LoginController', ['$scope', '$sessionService', '$propertyService', '$location', '$cookies', '$state', function($scope, $sessionService, $location, $cookies, $state) {
     $scope.alert = "";
 
     $scope.submitted = false;
@@ -37,7 +37,23 @@ app.controller('LoginController', ['$scope', '$sessionService', '$location', '$c
             if (!err) {
                 $cookies.username = data.username;
                 $cookies.sessionKey = data.sessionKey;
-                $state.go("home");
+                if (data.profileType == "landlord") {
+                    var landlord = {
+                        username = data.username; 
+                    }
+                    propertyService.retrieveAllPropertyByUsername(landlord, function(err,status,data) {
+                        if (!err) {
+                            if (data == null) 
+                                $state.go("home.addProperty"); 
+                            else 
+                                $state.go("home"); 
+                        } 
+                        else {
+                            $scope.alert("error retrieving properties"); 
+                        }
+                    });
+                } else {
+                    $state.go("home");
             } else {
                 if (err === 404) {
                     server.statusCode = status;
