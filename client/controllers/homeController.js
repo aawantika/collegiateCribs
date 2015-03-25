@@ -123,8 +123,6 @@ app.controller('SearchController', function($scope, $cookies, $location, $state,
     var query = {}
     var housingTypes = [];
 
-
-    console.log(dataService.data);
     if (dataService.queried == true) {
         console.log(query);
 
@@ -135,11 +133,13 @@ app.controller('SearchController', function($scope, $cookies, $location, $state,
             "bedrooms": parseInt($scope.bedrooms),
             "bathrooms": parseInt($scope.bathrooms),
             "housingType": this.housingTypes,
-            "catsOk": $scope.catsOk == 'true',
-            "dogsOk": $scope.dogsOk == 'true',
+            "catsOk": $scope.catsOk=='true',
+            "dogsOk": $scope.dogsOk=='true'
         }
     } else if (dataService.queried == false) {
         query = dataService.getData();
+        $scope.minPrice = query.minPrice; 
+        $scope.maxPrice = query.maxPrice;
     }
 
     $searchService.searchProperty(query, function(err, status, data) {
@@ -152,37 +152,36 @@ app.controller('SearchController', function($scope, $cookies, $location, $state,
     });
 
     $scope.updateHousingType = function() {
-
-        if ($scope.typeHouse == 'true') {
+        housingTypes = []; 
+        if ($scope.typeHouse) {
             console.log("pushing house"); 
             housingTypes[housingTypes.length] = 'house';
         }
-        if ($scope.typeCondo == 'true') {
+        if ($scope.typeCondo) {
             console.log("pushing condo"); 
             housingTypes[housingTypes.length] = 'condo';
         }
-        if ($scope.typeTownhome == 'true') {
+        if ($scope.typeTownhome) {
             console.log("pushingtownHome"); 
             housingTypes[housingTypes.length] = 'townhome';
         }
-        if ($scope.typeApartment == 'true') {
+        if ($scope.typeApartment) {
             console.log("pushingApartment"); 
             housingTypes[housingTypes.length] = 'apartment';
         }
-        $scope.change(); 
+        $scope.change(housingTypes); 
     }
 
-    $scope.change = function() {
-        console.log(housingTypes); 
+    $scope.change = function(list) {
         var query = {
             "distanceFromCampus": parseInt($scope.distanceFromCampus),
             "minPrice": parseInt($scope.minPrice),
             "maxPrice": parseInt($scope.maxPrice),
             "bedrooms": parseInt($scope.bedrooms),
             "bathrooms": parseInt($scope.bathrooms),
-            "housingType": this.housingTypes, 
-            "catsOk": $scope.catsOk == 'true',
-            "dogsOk": $scope.dogsOk == 'true',
+            "housingType": list, 
+            "catsOk": $scope.catsOk=='true',
+            "dogsOk": $scope.dogsOk=='true',
         }
         console.log(query);
         $searchService.searchProperty(query, function(err, status, data) {
