@@ -46,13 +46,15 @@ app.controller('LoginController', ['$scope', '$sessionService', '$propertyServic
                     }
                     $propertyService.retrieveAllPropertyByUsername(landlord, function(err,status,data) {
                         if (!err) {
-                            if (data == null) 
+                            if (data == null){
                                 console.log("going to addProperty"); 
                                 $state.go("home.addProperty"); 
-                            else 
+                            }
+                            else {
                                                     console.log("123"); 
 
                                 $state.go("home"); 
+                            }
                         } 
                         else {
                             $scope.alert("error retrieving properties"); 
