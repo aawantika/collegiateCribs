@@ -1,6 +1,6 @@
 var app = angular.module("homeController", []);
 
-app.controller('HomeController', ['$scope', '$userService','$sessionService', '$location', '$cookies', '$state', function($scope, $userService, $sessionService, $location, $cookies, $state) {
+app.controller('HomeController', ['$scope', '$userService', '$sessionService', '$propertyService', '$location', '$cookies', '$state', function($scope, $userService, $sessionService, $propertyService, $location, $cookies, $state) {
     $scope.alert = "";
     $scope.showPage = false;
     var cookie = {
@@ -23,9 +23,26 @@ app.controller('HomeController', ['$scope', '$userService','$sessionService', '$
         if (data.profileType == 'student') {
             console.log("Change to Student Dashboard");
             $state.go('home.studentDashboard');
-        } else {
-            console.log("Change to Landlord Dashboard");
-            $state.go('home.landlordDashboard'); 
+        } else if (data.profileType == "landlord") {
+                var landlord = {
+                    "username": data.username
+                }
+                $propertyService.retrieveAllPropertyByUsername(landlord, function(err, status, data) {
+                    if (!err) {
+                        console.log(data);
+                        if (data.length == 0) {
+                            console.log("going to addProperty");
+                            $state.go("home.addProperty");
+                        } else {
+                            $state.go("home");
+                        }
+                    } else {
+                        $scope.alert("error retrieving properties");
+                    }
+                });
+        }
+        else {
+            $scope.alert("Error retrieving user");
         }
     });
 
