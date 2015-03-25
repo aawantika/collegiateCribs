@@ -17,7 +17,7 @@ app.controller('StartController', ['$scope', '$location', '$state', function($sc
 
 }]);
 
-app.controller('LoginController', ['$scope', '$sessionService', '$propertyService', '$location', '$cookies', '$state', function($scope, $sessionService, $propertyService, $location, $cookies, $state) {
+app.controller('LoginController', ['$scope', '$sessionService', '$propertyService','$userService', '$location', '$cookies', '$state', function($scope, $sessionService, $propertyService, $userService, $location, $cookies, $state) {
     $scope.alert = "";
 
     $scope.submitted = false;
@@ -35,49 +35,52 @@ app.controller('LoginController', ['$scope', '$sessionService', '$propertyServic
 
         $sessionService.loginUser(login, function(err, status, data) {
             if (!err) {
-                console.log("profile type:" + data.profileType); 
-
+                console.log(data);
                 $cookies.username = data.username;
                 $cookies.sessionKey = data.sessionKey;
-                if (data.profileType == "landlord") {
-                    var landlord = {
-                        "username": data.username
-
-                    }
-                    $propertyService.retrieveAllPropertyByUsername(landlord, function(err,status,data) {
-                        if (!err) {
-                            if (data == null){
-                                console.log("going to addProperty"); 
-                                $state.go("home.addProperty"); 
-                            }
-                            else {
-                                                    console.log("123"); 
-
-                                $state.go("home"); 
-                            }
-                        } 
-                        else {
-                            $scope.alert("error retrieving properties"); 
+                var user = {
+                    "username": data.username
+                };
+                $userService.retrieveUser(user, function(err, status, data) {
+                    if (data.profileType == "landlord") {
+                        var landlord = {
+                            "username": data.username
                         }
-                    });
-                } 
-                else {
-                    console.log("123"); 
-                    $state.go("home");
-                } 
-        } else {
+                        $propertyService.retrieveAllPropertyByUsername(landlord, function(err, status, data) {
+                            if (!err) {
+                                console.log(data); 
+                                if (data.length == 0) {
+                                    console.log("going to addProperty");
+                                    $state.go("home.addProperty");
+                                } else {
+                                    console.log("123");
+
+                                    $state.go("home");
+                                }
+                            } else {
+                                $scope.alert("error retrieving properties");
+                            }
+                        });
+                    } else if (data.profileType == "student") {
+                        $state.go("home");
+                    } else {
+                        console.log("error retrieving user");
+                        $scope.alert("error retrieving properties");
+                    }
+                });
+            } else {
                 if (err === 404) {
                     server.statusCode = status;
                     server.dataVal = data;
                     $scope.notFound = true;
                     $scope.alert = "ayy";
                 }
-        }
-    });
+            }
+        });
 
-    $scope.interacted = function(field) {
-        return $scope.submitted || field.$dirty;
-    };
+        $scope.interacted = function(field) {
+            return $scope.submitted || field.$dirty;
+        };
     };
 }]);
 
