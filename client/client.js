@@ -12,7 +12,8 @@ var app = angular.module("app", [
     'searchController',
     'studentDashboardController',
     'userService',
-    'sessionService'
+    'sessionService',
+    'propertyService'
 ]);
 //^ a JSON of the dependencies for app
 

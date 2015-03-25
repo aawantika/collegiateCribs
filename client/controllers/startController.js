@@ -17,7 +17,7 @@ app.controller('StartController', ['$scope', '$location', '$state', function($sc
 
 }]);
 
-app.controller('LoginController', ['$scope', '$sessionService', '$propertyService', '$location', '$cookies', '$state', function($scope, $sessionService, $location, $cookies, $state) {
+app.controller('LoginController', ['$scope', '$sessionService', '$propertyService', '$location', '$cookies', '$state', function($scope, $sessionService, $propertyService, $location, $cookies, $state) {
     $scope.alert = "";
 
     $scope.submitted = false;
@@ -35,26 +35,35 @@ app.controller('LoginController', ['$scope', '$sessionService', '$propertyServic
 
         $sessionService.loginUser(login, function(err, status, data) {
             if (!err) {
+                console.log("profile type:" + data.profileType); 
+
                 $cookies.username = data.username;
                 $cookies.sessionKey = data.sessionKey;
                 if (data.profileType == "landlord") {
                     var landlord = {
-                        username = data.username; 
+                        "username": data.username
                     }
-                    propertyService.retrieveAllPropertyByUsername(landlord, function(err,status,data) {
+                    $propertyService.retrieveAllPropertyByUsername(landlord, function(err,status,data) {
                         if (!err) {
                             if (data == null) 
+                                console.log("going to addProperty"); 
                                 $state.go("home.addProperty"); 
                             else 
+                                                    console.log("123"); 
+
                                 $state.go("home"); 
                         } 
                         else {
                             $scope.alert("error retrieving properties"); 
                         }
                     });
-                } else {
+                } 
+                else {
+                    console.log("123"); 
                     $state.go("home");
-            } else {
+                }
+            } 
+            else {
                 if (err === 404) {
                     server.statusCode = status;
                     server.dataVal = data;
