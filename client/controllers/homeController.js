@@ -152,10 +152,6 @@ app.controller('SearchController', function($scope, $cookies, $location, $state,
     });
 
     $scope.updateHousingType = function() {
-        console.log($scope.typeHouse);
-        console.log($scope.typeCondo);
-        console.log($scope.typeTownhome); 
-        console.log($scope.typeApartment); 
 
         if ($scope.typeHouse == 'true') {
             console.log("pushing house"); 
@@ -163,12 +159,10 @@ app.controller('SearchController', function($scope, $cookies, $location, $state,
         }
         if ($scope.typeCondo == 'true') {
             console.log("pushing condo"); 
-
             housingTypes[housingTypes.length] = 'condo';
         }
         if ($scope.typeTownhome == 'true') {
             console.log("pushingtownHome"); 
-
             housingTypes[housingTypes.length] = 'townhome';
         }
         if ($scope.typeApartment == 'true') {
@@ -191,7 +185,7 @@ app.controller('SearchController', function($scope, $cookies, $location, $state,
             "dogsOk": $scope.dogsOk == 'true',
         }
         console.log(query);
-        $searchService.search(query, function(err, status, data) {
+        $searchService.searchProperty(query, function(err, status, data) {
             if (!err) {
                 console.log(data);
                 $scope.properties = data;
