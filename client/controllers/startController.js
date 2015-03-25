@@ -42,6 +42,7 @@ app.controller('LoginController', ['$scope', '$sessionService', '$propertyServic
                 if (data.profileType == "landlord") {
                     var landlord = {
                         "username": data.username
+
                     }
                     $propertyService.retrieveAllPropertyByUsername(landlord, function(err,status,data) {
                         if (!err) {
@@ -61,21 +62,20 @@ app.controller('LoginController', ['$scope', '$sessionService', '$propertyServic
                 else {
                     console.log("123"); 
                     $state.go("home");
-                }
-            } 
-            else {
+                } 
+        } else {
                 if (err === 404) {
                     server.statusCode = status;
                     server.dataVal = data;
                     $scope.notFound = true;
                     $scope.alert = "ayy";
                 }
-            }
-        });
-    };
+        }
+    });
 
     $scope.interacted = function(field) {
         return $scope.submitted || field.$dirty;
+    };
     };
 }]);
 
