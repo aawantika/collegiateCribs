@@ -8,13 +8,11 @@ var app = angular.module("app", [
     'startController',
     'homeController',
     'addPropertyController',
-    'landlordDashboardController',
-    'searchController',
-    'studentDashboardController',
     'addPropertyController',
     'userService',
     'sessionService',
-    'propertyService'
+    'propertyService',
+    'searchService'
 ]);
 //^ a JSON of the dependencies for app
 
@@ -62,7 +60,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             })
             .state('home.search', {
                 url: '/search',
-                controller: 'searchController',
+                controller: 'SearchController',
                 templateUrl: '/client/html_pages/search.html',
             })
             .state('test', {

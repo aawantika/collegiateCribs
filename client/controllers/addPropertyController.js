@@ -55,7 +55,7 @@ app.controller('AddPropertyController', ['$scope', '$sessionService', '$property
             $propertyService.createProperty(newProperty, function(err, status, data) {
                 if (!err) {
                     console.log("going home"); 
-                    $state.go("home");
+                    $state.go("home.landlordDashboard");
                 }
             });
         }

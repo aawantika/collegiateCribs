@@ -14,6 +14,10 @@ app.controller('StartController', ['$scope', '$location', '$state', function($sc
         console.log("change to sign up");
         $state.go('start.signup');
     };
+    $scope.menuSearchEnter = function() {
+        console.log('change to search');
+        $state.go('home.search');
+    }
 
 }]);
 

@@ -7,7 +7,7 @@
     			</core-toolbar>
     			<core-menu>
     				<paper-input-decorator label="Distance from campus" floatingLabel>
-						<input type="text" ng-model="distanceFromCampus"></input>
+						<input type="text" ng-model="distanceFromCampus" ng-change="change()"></input>
 					</paper-input-decorator>
     				<table>
     					<tr>
@@ -16,12 +16,12 @@
 						<tr>
 							<td>
 								<paper-input-decorator label="Min Price" floatingLabel>
-									<input type="text" ng-model="minPrice"></input>
+									<input type="text" ng-model="minPrice" ng-change="change()"></input>
 								</paper-input-decorator>
 							</td>
 							<td>
 								<paper-input-decorator label="Max Price" floatingLabel>
-									<input type="text" ng-model="maxPrice"></input>
+									<input type="text" ng-model="maxPrice" ng-change="change()"></input>
 								</paper-input-decorator>
 							</td>
 						</tr>
@@ -29,7 +29,7 @@
 
 					<paper-dropdown-menu label="Number of Bedrooms">
 						<paper-dropdown class="dropdown core-transition core-closed">
-							<core-menu class="menu" ng-model="bedrooms" valueattr="label">
+							<core-menu class="menu" ng-model="bedrooms" ng-change="change()"valueattr="label">
 								<paper-item class="core-selected" active label="1">1</paper-item>
 								<paper-item class="core-selected" active label="2">2</paper-item>
 							</core-menu>
@@ -38,7 +38,7 @@
 
         			<paper-dropdown-menu label="Number of Bathrooms">
 						<paper-dropdown class="dropdown core-transition core-closed">
-							<core-menu class="menu" ng-model="bathrooms" valueattr="label">
+							<core-menu class="menu" ng-model="bathrooms" ng-change="change()" valueattr="label">
 								<paper-item class="core-selected" active label="1">1</paper-item>
 								<paper-item class="core-selected" active label="2">2</paper-item>
 							</core-menu>
@@ -93,13 +93,13 @@
         				<tr>
         					<td>
             					<core-label horizontal layout center>
-            						<paper-checkbox for ng-model="catsOk"></paper-checkbox>
+            						<paper-checkbox for ng-model="catsOk" ng-change="change()"></paper-checkbox>
             						<div>Cats</div>
             					</core-label>
             				</td>
             				<td>
             					<core-label horizontal layout center>
-            						<paper-checkbox for ng-model="dogsOk"></paper-checkbox>
+            						<paper-checkbox for ng-model="dogsOk" ng-change="change()"></paper-checkbox>
             						<div>Dogs</div>
             					</core-label>
             				</td>
