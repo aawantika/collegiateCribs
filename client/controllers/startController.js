@@ -39,7 +39,7 @@ app.controller('LoginController', ['$scope', '$sessionService', '$propertyServic
                 $cookies.sessionKey = data.sessionKey;
                 if (data.profileType == "landlord") {
                     var landlord = {
-                        username = data.username; 
+                        username: data.username 
                     }
                     propertyService.retrieveAllPropertyByUsername(landlord, function(err,status,data) {
                         if (!err) {
@@ -54,7 +54,8 @@ app.controller('LoginController', ['$scope', '$sessionService', '$propertyServic
                     });
                 } else {
                     $state.go("home");
-            } else {
+                } 
+        } else {
                 if (err === 404) {
                     server.statusCode = status;
                     server.dataVal = data;
@@ -62,11 +63,11 @@ app.controller('LoginController', ['$scope', '$sessionService', '$propertyServic
                     $scope.alert = "ayy";
                 }
             }
-        });
-    };
+    });
 
     $scope.interacted = function(field) {
         return $scope.submitted || field.$dirty;
+    };
     };
 }]);
 
