@@ -16,7 +16,7 @@
 
         <paper-dropdown-menu label="Property Type">
             <paper-dropdown class="dropdown core-transition core-closed">
-                <core-menu class="menu" ng-model="propertyType" valueattr="label">
+                <core-menu class="menu" ng-model="housingType" valueattr="label">
                     <paper-item class="core-selected" active label="house">House</paper-item>
                     <paper-item class="core-selected" active label="condo">Condo</paper-item>
                     <paper-item class="core-selected" active label="townhome">Townhome</paper-item>
@@ -25,7 +25,7 @@
             </paper-dropdown>
         </paper-dropdown-menu>
         
-        <paper-input-decorator label='Availability' floatingLabel>
+        <paper-input-decorator label='Available?' floatingLabel>
             <input type="text" ng-model="availability">
         </paper-input-decorator>
         <paper-input-decorator label='Pricing' floatingLabel>
@@ -34,12 +34,12 @@
 
         <div>
             Number of Bedrooms: {{bedrooms}}
-            <paper-slider ng-model="bedrooms" min="1" max="5" pin></paper-slider>
+            <paper-slider ng-model="bedrooms" min="1" max="12" pin></paper-slider>
         </div>
         
         <div>
             Number of Bathrooms: {{bathrooms}}
-            <paper-slider ng-model="bathrooms" min="1" max="5" pin></paper-slider>
+            <paper-slider ng-model="bathrooms" min="1" max="12" pin></paper-slider>
         </div>
 
         <h4>Pet Policy</h4><br>
@@ -59,30 +59,30 @@
         </core-toolbar>
 
         <div>
-            <h5>Date of last renovation></h5> 
+            <h5>Date of last renovation</h5> 
             Month:
             <paper-dropdown-menu label="Select a month">
                 <paper-dropdown class="dropdown core-transition core-closed">
                     <core-menu class="menu" ng-model="lastRenovationDate.month" valueattr="label">
-                        <paper-item class="core-selected" active label="january">January</paper-item>
-                        <paper-item class="core-selected" active label="february">February</paper-item>
-                        <paper-item class="core-selected" active label="march">March</paper-item>
-                        <paper-item class="core-selected" active label="april">April</paper-item>
-                        <paper-item class="core-selected" active label="may">May</paper-item>
-                        <paper-item class="core-selected" active label="june">June</paper-item>
-                        <paper-item class="core-selected" active label="july">July</paper-item>
-                        <paper-item class="core-selected" active label="august">August</paper-item>
-                        <paper-item class="core-selected" active label="september">September</paper-item>
-                        <paper-item class="core-selected" active label="october">October</paper-item>
-                        <paper-item class="core-selected" active label="november">November</paper-item>
-                        <paper-item class="core-selected" active label="december">December</paper-item>
+                        <paper-item class="core-selected" active label="0">January</paper-item>
+                        <paper-item class="core-selected" active label="1">February</paper-item>
+                        <paper-item class="core-selected" active label="2">March</paper-item>
+                        <paper-item class="core-selected" active label="3">April</paper-item>
+                        <paper-item class="core-selected" active label="4">May</paper-item>
+                        <paper-item class="core-selected" active label="5">June</paper-item>
+                        <paper-item class="core-selected" active label="6">July</paper-item>
+                        <paper-item class="core-selected" active label="7">August</paper-item>
+                        <paper-item class="core-selected" active label="8">September</paper-item>
+                        <paper-item class="core-selected" active label="9">October</paper-item>
+                        <paper-item class="core-selected" active label="10">November</paper-item>
+                        <paper-item class="core-selected" active label="11">December</paper-item>
                     </core-menu>
                 </paper-dropdown>
             </paper-dropdown-menu>
-            Day: {{lastRenovationDateday}}
-            <paper-slider ng-model="lastRenovationDate.day" min="1" max="getMaxDay()" pin></paper-slider>
+            Day: {{lastRenovationDate.day}}
+            <paper-slider ng-model="lastRenovationDate.day" min="1" max="31" pin></paper-slider>
             Year: {{lastRenovationDate.year}}
-            <paper-slider ng-model="lastRenovationDate.year" min="getMinYear()" max="getMaxYear()" pin></paper-slider>
+            <paper-slider ng-model="lastRenovationDate.year" min="1950" max="2015" pin></paper-slider>
         </div>
     </fieldset>
     <footer>
