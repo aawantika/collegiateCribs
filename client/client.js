@@ -55,7 +55,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 controller: 'StudentDashboardController',
                 templateUrl: '/client/html_pages/studentDashboard.html'
             })
-            .state('landlord.studentDashboard', {
+            .state('home.landlordDashboard', {
                 url: '/landlordDashboard',
                 controller: 'LandlordDashboardController', 
                 templateUrl:'client/html_pages/landlordDashboard.html'

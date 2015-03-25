@@ -34,7 +34,8 @@ app.controller('HomeController', ['$scope', '$userService', '$sessionService', '
                             console.log("going to addProperty");
                             $state.go("home.addProperty");
                         } else {
-                            $state.go("home");
+                            console.log("it is going home");
+                            $state.go("home.landlordDashboard");
                         }
                     } else {
                         $scope.alert("error retrieving properties");
