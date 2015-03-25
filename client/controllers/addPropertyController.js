@@ -38,26 +38,26 @@ app.controller('AddPropertyController', ['$scope', '$sessionService', '$property
             "lastRenovationDate": new Date(parseInt($scope.lastRenovationDate.year), 
                 parseInt($scope.lastRenovationDate.month), parseInt($scope.lastRenovationDate.day))
         }
-        $propertyService.createProperty(newProperty, function(err, status, data) {
+        // $propertyService.createProperty(newProperty, function(err, status, data) {
+        //         if (!err) {
+        //             $state.go("home");
+        //         }
+        // });
+        console.log(newProperty); 
+        if (!newProperty.bedrooms || !newProperty.bathrooms || !newProperty.housingType 
+            || !newProperty.address || !newProperty.city || !newProperty.state || !newProperty.zipcode 
+            || !newProperty.availability || !newProperty.price) {
+            console.log("hello"); 
+            $scope.alert = "Please fill in all required fields";
+            return false;
+        } else {
+            $scope.alert = "all filled";
+            $propertyService.createProperty(newProperty, function(err, status, data) {
                 if (!err) {
                     console.log("going home"); 
                     $state.go("home");
                 }
-        });
-        console.log(newProperty); 
-        // if (!newProperty.bedrooms || !newProperty.bathrooms || !newProperty.housingType 
-        //     || !newProperty.address || !newProperty.city || !newProperty.state || !newProperty.zipcode 
-        //     || !newProperty.availability || !newProperty.price) {
-        //     console.log(hello); 
-        //     $scope.alert = "Please fill in all required fields";
-        //     return false;
-        // } else {
-        //     // $scope.alert = "all filled";
-        //     // $propertyService.createProperty(newProperty, function(err, status, data) {
-        //     //     if (!err) {
-        //     //         $state.go("home");
-        //     //     }
-        //     // });
-        // }
+            });
+        }
     };
 }]);

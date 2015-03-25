@@ -74,11 +74,10 @@ app.controller('SignupController', ['$scope', '$userService', '$state', '$stateP
         $state.go('start.signup.student');
     };
 
-    // $scope.toLandlord = function() {
-    //     //make a drop down for 1-10 properties
-    //     console.log("change to Landlord");
-    //     $state.go('start.signup.landlord');
-    // };
+    $scope.toLandlord = function() {
+        console.log("change to Landlord");
+        $state.go('start.signup');
+    };
 
     $scope.canSubmit = function() {
         var newUser = {
@@ -96,7 +95,7 @@ app.controller('SignupController', ['$scope', '$userService', '$state', '$stateP
 
         console.log(newUser);
         if (!newUser.firstName || !newUser.lastName || !newUser.username || !newUser.password || !newUser.confirmPassword || !newUser.email) {
-            $scope.alert = "Property fill in all required fields";
+            $scope.alert = "Please fill in all required fields";
             return false;
         } else if (newUser.password != newUser.confirmPassword) {
             $scope.alert = "Password confirm does not match Password";
