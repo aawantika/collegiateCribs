@@ -4,6 +4,7 @@
 var mongoose = require('mongoose');
 var userModel = require('../models/userModel.js');
 var propertyModel = require('../models/propertyModel.js');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 
 function search() {}
@@ -11,7 +12,6 @@ function search() {}
 search.prototype.searchLandlord = function(req, res) {
 
     var name = req.body.name;
-    console.log(req.body.name);
 
     var pattern = /\s/;
     var space = pattern.test(name);
@@ -29,7 +29,6 @@ search.prototype.searchLandlord = function(req, res) {
                 console.log(err);
                 res.status(400).send(err);
             } else {
-                console.log(result);
                 res.status(200).send(result);
             }
         });
@@ -45,7 +44,6 @@ search.prototype.searchLandlord = function(req, res) {
                 console.log(err);
                 res.status(400).send(err);
             } else {
-                console.log(result);
                 res.status(200).send(result);
             }
         });
@@ -53,7 +51,6 @@ search.prototype.searchLandlord = function(req, res) {
 }
 
 search.prototype.searchProperty = function(req, res) {
-
     var matchVar = {};
 
     if (req.body.distanceFromCampus) {
@@ -91,6 +88,7 @@ search.prototype.searchProperty = function(req, res) {
     if (req.body.dogsOk) {
         matchVar.dogsOk = req.body.dogsOk;
     }
+
 
     var projectvarDistance = {};
     if (req.body.distanceFromCampus) {
@@ -242,7 +240,6 @@ search.prototype.searchProperty = function(req, res) {
         projectvarDogs = 0;
     }
 
-
     propertyModel.aggregate([{
         $match: {
             $or: [
@@ -259,6 +256,8 @@ search.prototype.searchProperty = function(req, res) {
             length: 1,
             catsOk: 1,
             dogsOk: 1,
+            address: 1,
+            propertyId: 1,
             score: {
                 $add: [
                     projectvarDistance,
@@ -281,7 +280,6 @@ search.prototype.searchProperty = function(req, res) {
             console.log(err);
             res.status(400).send(err);
         } else {
-            // console.log(result);
             res.status(200).send(result);
         }
     });
