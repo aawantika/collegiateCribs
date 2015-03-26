@@ -35,6 +35,10 @@ var propertySchema = new Schema({
 });
 
 propertySchema.index({
+    propertyId:'text',
+    address: 'text',
+    city: 'text',
+    zipcode: 'text',
     distanceFromCampus: 'text',
     bedrooms: 'text',
     bathrooms: 'text',
@@ -42,7 +46,7 @@ propertySchema.index({
     price: 'text',
     length: 'text',
     catsOk: 'text',
-    dogsOk: 'text',
+    dogsOk: 'text'
 });
 
 module.exports = mongoose.model('propertyModel', propertySchema);

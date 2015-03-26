@@ -27,7 +27,7 @@ session.prototype.login = function(req, res) {
         })
         .then(function(result) {
             return userModel.findOne({
-                username: body.username
+                username: body.username,
             }).exec();
         })
         .then(function(user) {
@@ -55,7 +55,7 @@ session.prototype.login = function(req, res) {
         .catch(function(error) {
             console.log(error);
 
-            if (error.status == 404 || error.status == 400 || error.status == 406) {
+            if (error.status == 404 || error.status == 400) {
                 res.status(error.status).send(error.send);
             } else {
                 res.status(500).send("internal error");

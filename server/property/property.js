@@ -182,8 +182,6 @@ property.prototype.retrieveAllPropertyByUsername = function(req, res) {
             }).exec();
         })
         .then(function(property) {
-            console.log("HERE");
-            console.log(property);
             return propertyCheck.propertyExists(property);
         })
         .then(function(result) {
