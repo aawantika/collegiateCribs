@@ -4,7 +4,6 @@ var app = angular.module("app", [
     'ngRoute',
     'ngCookies',
     'ui.router',
-    'ng-polymer-elements',
     'startController',
     'homeController',
     'addPropertyController',

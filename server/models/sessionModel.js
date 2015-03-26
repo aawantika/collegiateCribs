@@ -5,7 +5,8 @@ var mongoose = require('mongoose'),
 
 var sessionSchema = new Schema({
     sessionKey: String,
-    username: String
+    username: String,
+    password: String
 }, {
     collection: 'session'
 });

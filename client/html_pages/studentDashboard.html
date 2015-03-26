@@ -1,61 +1,61 @@
 <div>
-	<body>
-		<form id="simpleSearch" ng-submit="simpleSearch()" method="post" class="box simpleSearch content">
-			<h3>Simple Search</h3><br>
-			<table>
-				<tr>
-					<td>
-						<paper-dropdown-menu label="Number of Bedrooms">
-							<paper-dropdown class="dropdown core-transition core-closed">
-								<core-menu class="menu" ng-model="bedrooms" valueattr="label">
-									<paper-item class="core-selected" active label="1">1</paper-item>
-									<paper-item class="core-selected" active label="2">2</paper-item>
-								</core-menu>
-							</paper-dropdown>
-						</paper-dropdown-menu>
-					</td>
-					<td>
-						<paper-dropdown-menu label="Number of Bathrooms">
-							<paper-dropdown class="dropdown core-transition core-closed">
-								<core-menu class="menu" ng-model="bathrooms" valueattr="label">
-									<paper-item class="core-selected" active label="1">1</paper-item>
-									<paper-item class="core-selected" active label="2">2</paper-item>
-								</core-menu>
-							</paper-dropdown>
-						</paper-dropdown-menu>
-					</td>
-					<td>
-						<paper-input-decorator label="Minimum Price" floatingLabel>
-							<input type="text" ng-model="minPrice"></input>
-						</paper-input-decorator>
-					</td>
-					<td>
-						<paper-input-decorator label="Maximum Price" floatingLabel>
-							<input type="text" ng-model="maxPrice"></input>
-						</paper-input-decorator>
-					</td>
-				<!--location (city, address, zip code), price range, distance from campus-->
-				</tr>
-			</table>
-			<footer>
-        		<button type="submit" is="paper-submit">Search</button>
-    		</footer>
-		</form>
-		<!--recent activity: pull data from server into scope with the controller.
+    <body>
+        <form class="form-inline" id="simpleSearch" ng-submit="simpleSearch()" method="post">
+            <i><label for="nolabel">Search: </label></i>
+            <div class="form-group">
+                <label for="numBedrooms" ng-model="bedrooms" valueattr="label">Bedrooms</label>
+                <select class="form-control" id="numBedrooms">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="numBathrooms" ng-model="bathrooms" valueattr="label">Bathrooms</label>
+                <select class="form-control" id="numBathrooms">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <div class="input-group-addon">From</div>
+                <input type="text" class="form-control" id="minprice" placeholder="$0" ng-model="minPrice">
+                <div class="input-group-addon">.00</div>
+            </div>
+            <div class="input-group">
+                <div class="input-group-addon">To</div>
+                <input type="text" class="form-control" id="maxPrice" placeholder="$$$$" ng-model="maxPrice">
+                <div class="input-group-addon">.00</div>
+            </div>
+            <button type="submit" class="btn btn-default" ng-click="simpleSearch()">Search</button>
+        </form>
+        <!-- YOU NEED TO BOOTSTRAP THIS PART. MESSAGE ME IF YOU GET STUCK - tika!-->
+        <!--recent activity: pull data from server into scope with the controller.
 			Will probably need to do an ng-repeat to go through a list of stuff.-->
-		<core-menu class = "box content">
-			<header>
-				<h3>Favorite Properties</h3>
-			</header>
-			<div ng-repeat="property in properties" class="box allMargins5 content" horizontal layout>
-				<div class="rightMargin5 content">
-					property Image Here:{{property.imgUrl}}
-				</div>
-				<paper-item class="leftmargin5 content" flex>
-					Address: {{property.address}} <br>
-					Price: {{property.price}}
-				</paper-item>
-			</div>
-		</core-menu>
-	</body>
+        <core-menu class="box content">
+            <header>
+                <h3>Favorite Properties</h3>
+            </header>
+            <div ng-repeat="property in properties" class="box allMargins5 content" horizontal layout>
+                <div class="rightMargin5 content">
+                    property Image Here:{{property.imgUrl}}
+                </div>
+                <paper-item class="leftmargin5 content" flex>
+                    Address: {{property.address}}
+                    <br> Price: {{property.price}}
+                </paper-item>
+            </div>
+        </core-menu>
+    </body>
 </div>

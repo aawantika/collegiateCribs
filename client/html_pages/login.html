@@ -1,27 +1,24 @@
 <div>
 
-    <head>
-        <link rel="import" href="../../bower_components/paper-input/paper-input-decorator.html"></link>
-    </head>
-
     <body>
         <h1 style="text-align: center"> Login </h1>
-        <form name="loginForm" id="login" ng-submit="loginButton()" method="post" class="box login content" novalidate>
-            <fieldset>
-                <paper-input-decorator label="Username">
-                    <input type="text" name="username_input" ng-model="username">
-                    </input>
-                </paper-input-decorator>
-                </br>
-                <paper-input-decorator label="Password">
-                    <input name="password_input" type="password" ng-model="password"></input>
-                </paper-input-decorator>
-            </fieldset>
-            </br>
-            <label class="alert">{{alert}}</label>
-            <footer style="horizontal-align:center">
-                <button type="submit" is="paper-submit" db-validator>Login</button>
-            </footer>
-        </form>
+        <div class="container">
+            <div class="col-sm-6 col-sm-offset-3">
+                <form name="loginForm" id="login" method="post" class="box login content" novalidate>
+                    <div class="form-group" show-errors>
+                        <label for="username_input">Username</label>
+                        <input type="text" class="form-control" name="username" id="username_input" placeholder="Username" ng-model="username" required>
+                    </div>
+                    <div class="form-group" show-errors>
+                        <label for="password_input">Password</label>
+                        <input type="password" class="form-control" name="password" id="password_input" placeholder="Password" ng-model="password" required>
+                    </div>
+                    <div ng-controller="LoginController">
+                        <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+                        <button class="btn btn-default" ng-click="loginButton()">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </body>
 </div>

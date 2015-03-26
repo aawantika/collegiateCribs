@@ -1,12 +1,9 @@
 <div>
-	<fieldset>
-		<paper-dropdown-menu label="Campus*">
-			<paper-dropdown class="dropdown core-transition core-closed">
-				<core-menu class="menu" ng-model="user.campus" valueattr="label">
-					<paper-item class="core-selected" active label="gt">GT</paper-item>
-					<paper-item class="core-selected" active label="gsu">GSU</paper-item>
-				</core-menu>
-			</paper-dropdown>
-		</paper-dropdown-menu>
-	</fieldset>
+    <fieldset>
+        <label for="campus">Campus</label>
+        <select class="form-control" id="campus" ng-model="user.campus">
+            <option value="gt">Georgia Tech</option>
+            <option value="gsu">Georgia State</option>
+        </select>
+    </fieldset>
 </div>

@@ -1,125 +1,109 @@
-<div class= "content">
-		<core-drawer-panel>
-			<core-header-panel drawer>
-				<!-- filters go here -->
-				<core-toolbar main>
-      				<span>Filters</span>
-    			</core-toolbar>
-    			<core-menu>
-    				<paper-input-decorator label="Distance from campus" floatingLabel>
-						<input type="text" ng-model="distanceFromCampus" ng-change="change()"></input>
-					</paper-input-decorator>
-    				<table>
-    					<tr>
-    						Price Range:
-    					</tr>
-						<tr>
-							<td>
-								<paper-input-decorator label="Min Price" floatingLabel>
-									<input type="text" ng-model="minPrice" ng-change="change()"></input>
-								</paper-input-decorator>
-							</td>
-							<td>
-								<paper-input-decorator label="Max Price" floatingLabel>
-									<input type="text" ng-model="maxPrice" ng-change="change()"></input>
-								</paper-input-decorator>
-							</td>
-						</tr>
-					</table>
-
-					<paper-dropdown-menu label="Number of Bedrooms">
-						<paper-dropdown class="dropdown core-transition core-closed">
-							<core-menu class="menu" ng-model="bedrooms" ng-change="change()"valueattr="label">
-								<paper-item class="core-selected" active label="1">1</paper-item>
-								<paper-item class="core-selected" active label="2">2</paper-item>
-							</core-menu>
-						</paper-dropdown>
-					</paper-dropdown-menu>
-
-        			<paper-dropdown-menu label="Number of Bathrooms">
-						<paper-dropdown class="dropdown core-transition core-closed">
-							<core-menu class="menu" ng-model="bathrooms" ng-change="change()" valueattr="label">
-								<paper-item class="core-selected" active label="1">1</paper-item>
-								<paper-item class="core-selected" active label="2">2</paper-item>
-							</core-menu>
-						</paper-dropdown>
-					</paper-dropdown-menu>
-
-					<!--Make this a checkbox thing-->
-					<br></br>
-					<p> Housing type:</p>
-					<table style=
-        				"background:transparent;
-        				-webkit-box-shadow:none;
-        				-moz-box-shadow:none;
-        				box-shadow:none;">
-        				<tr>
-        					<td>
-            					<core-label horizontal layout center>
-            						<paper-checkbox for ng-model="typeHouse" ng-click="updateHousingType()"></paper-checkbox>
-            						<div>House</div>
-            					</core-label>
-            				</td>
-            				<td>
-            					<core-label horizontal layout center>
-            						<paper-checkbox for ng-model="typeCondo"  ng-click="updateHousingType()"></paper-checkbox>
-            						<div>Condo</div>
-            					</core-label>
-            				</td>
-            			</tr>
-            			<tr>
-        					<td>
-            					<core-label horizontal layout center>
-            						<paper-checkbox for ng-model="typeTownhome" ng-click="updateHousingType()"></paper-checkbox>
-            						<div>Townhome</div>
-            					</core-label>
-            				</td>
-            				<td>
-            					<core-label horizontal layout center>
-            						<paper-checkbox for ng-model="typeApartment" ng-click="updateHousingType()"></paper-checkbox>
-            						<div>Apartment</div>
-            					</core-label>
-            				</td>
-            			</tr>
-        			</table>
-
-					<br></br>
-        			<table style=
-        				"background:transparent;
-        				-webkit-box-shadow:none;
-        				-moz-box-shadow:none;
-        				box-shadow:none;">
-        				<p>Pets:</p>
-        				<tr>
-        					<td>
-            					<core-label horizontal layout center>
-            						<paper-checkbox for ng-model="catsOk" ng-click="change()"></paper-checkbox>
-            						<div>Cats</div>
-            					</core-label>
-            				</td>
-            				<td>
-            					<core-label horizontal layout center>
-            						<paper-checkbox for ng-model="dogsOk" ng-click="change()"></paper-checkbox>
-            						<div>Dogs</div>
-            					</core-label>
-            				</td>
-            			</tr>
-        			</table>
-				</core-menu>
-			</core-header-panel>
-			<core-header-panel class = "content" main>
-				<header>
-					<h3>Housing Search Results</h3>
-				</header>
-				<div ng-repeat="property in properties" class="box allMargins5 content" horizontal layout>
-					<div class="rightMargin5 content">
-						property Image Here:{{property.imgUrl}}
-					</div>
-					<paper-item class="leftmargin5 content" flex>
-						Address: {{property.address}} <br>
-						Price: {{property.price}}
-					</paper-item>
-				</div>
-			</core-header-panel>
-		</core-drawer-panel>
+<div>
+    <div class="container-fluid">
+        <div class="row row-offcanvas row-offcanvas-left">
+            <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+                <div class="sidebar-nav">
+                    <ul class="nav">
+                        <li>
+                            <h3>Filters</h3></li>
+                        <br>
+                        <li>
+                            <div class="container">
+                                <div class="row">
+                                    <form class="form-inline">
+                                        <div class="form-group">
+                                            <label for="distance">Distance</label>
+                                            <input type="text" class="form-control" id="distance" placeholder="Distance From Campus" ng-model="distanceFromCampus" ng-change="change()">
+                                        </div>
+                                    </form>
+                                    <label>Price Range</label>
+                                    <br>
+                                    <div class="col-xs-1">
+                                        <label for="minprice">From: </label>
+                                        <input type="text" class="form-control" class="col-md-2" id="minprice" placeholder="$0" ng-model="minPrice" ng-change="change()">
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <label for="maxPrice">To: </label>
+                                        <input type="text" class="form-control" class="col-md-2" id="maxPrice" placeholder="$$$$" ng-model="maxPrice" ng-change="change()">
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <form class="form-inline">
+                                        <div class="form-group">
+                                            <label for="numBedrooms" ng-model="bedrooms" valueattr="label" ng-change="change()">Bedrooms</label>
+                                            <select class="form-control" id="numBedrooms">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                                <option>6</option>
+                                                <option>7</option>
+                                                <option>8</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                    <form class="form-inline">
+                                        <div class="form-group">
+                                            <label for="numBathrooms" ng-model="bathrooms" valueattr="label" ng-change="change()">Bathrooms</label>
+                                            <select class="form-control" id="numBathrooms">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                                <option>6</option>
+                                                <option>7</option>
+                                                <option>8</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                    <label> Housing Type </label>
+                                    <br>
+                                    <div class="checkbox-inline">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" value="" ng-model="typeHouse" ng-click="updateHousingType()"> House</label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" value="" ng-model="typeCondo" ng-click="updateHousingType()"> Condo</label>
+                                    </div>
+                                    <br>
+                                    <div class="checkbox-inline">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" value="townhome" ng-model="typeTownhome" ng-click="updateHousingType()"> Townhome</label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" value="apartment" ng-model="typeApartment" ng-click="updateHousingType()"> Apartment</label>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <label>Pets </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox1" value="catsOk" ng-model="catsOk" ng-click="change()"> Cats
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox2" value="option2"> Dogs
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-9">
+                <header>
+                    <h3>Housing Search Results</h3>
+                </header>
+                <div class="panel panel-default" ng-repeat="property in properties" horizontal layout>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Address: {{property.address}} {{property.city}} {{property.state}} {{property.zipcode}} </h3>
+                    </div>
+                    <div class="panel-body">
+                        property Image Here:{{property.imgUrl}}
+                        <br> Price: {{property.price}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,15 +1,29 @@
 <div>
-    <core-header-panel>
-        <core-toolbar>
-            <paper-icon-button icon="menu" role="button" tabindex="0" aria-label="0">
-            </paper-icon-button>
-            <div>Search for Housing</div>
-            <!--input type="text" placeholder='Search' flex></input-->
-            <input type="text" placeholder='Search' ng-keypress="menuSearchEnter()" flex></input>
-            <paper-button name="login" ng-click="toLogin()">Login</paper-button>
-            <paper-button name="signup" ng-click="toSignUp()">Sign Up</paper-button>
-        </core-toolbar>
-        <br></br>
-        <div ui-view></div>
-    </core-header-panel>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">CollegiateCribs</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search for Housing" ng-keypress="menuSearchEnter()" flex>
+                    </div>
+                    <button type="submit" class="btn btn-default">Search</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" name="login" ng-click="toLogin()">Login</a></li>
+                    <li><a href="#" name="signup" ng-click="toSignUp()">Signup</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div ui-view></div>
 </div>

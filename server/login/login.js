@@ -27,7 +27,7 @@ session.prototype.login = function(req, res) {
         })
         .then(function(result) {
             return userModel.findOne({
-                username: body.username
+                username: body.username,
             }).exec();
         })
         .then(function(user) {

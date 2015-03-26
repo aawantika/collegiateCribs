@@ -35,6 +35,8 @@ var propertySchema = new Schema({
 });
 
 propertySchema.index({
+    address: 'text',
+    propertyId:'text',
     distanceFromCampus: 'text',
     bedrooms: 'text',
     bathrooms: 'text',
