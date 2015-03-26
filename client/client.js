@@ -8,11 +8,10 @@ var app = angular.module("app", [
     'startController',
     'homeController',
     'addPropertyController',
-    'landlordDashboardController',
-    'searchController',
-    'studentDashboardController',
     'userService',
-    'sessionService'
+    'sessionService',
+    'propertyService',
+    'searchService'
 ]);
 
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {

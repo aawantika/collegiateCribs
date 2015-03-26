@@ -1,125 +1,157 @@
-<div class= "content">
-		<core-drawer-panel>
-			<core-header-panel drawer>
-				<!-- filters go here -->
-				<core-toolbar main>
-      				<span>Filters</span>
-    			</core-toolbar>
-    			<core-menu>
-    				<paper-input-decorator label="Distance from campus" floatingLabel>
-						<input type="text" ng-model="distanceFromCampus"></input>
-					</paper-input-decorator>
-    				<table>
-    					<tr>
-    						Price Range:
-    					</tr>
-						<tr>
-							<td>
-								<paper-input-decorator label="Min Price" floatingLabel>
-									<input type="text" ng-model="minPrice"></input>
-								</paper-input-decorator>
-							</td>
-							<td>
-								<paper-input-decorator label="Max Price" floatingLabel>
-									<input type="text" ng-model="maxPrice"></input>
-								</paper-input-decorator>
-							</td>
-						</tr>
-					</table>
+<div>
 
-					<paper-dropdown-menu label="Number of Bedrooms">
-						<paper-dropdown class="dropdown core-transition core-closed">
-							<core-menu class="menu" ng-model="bedrooms" valueattr="label">
-								<paper-item class="core-selected" active label="1">1</paper-item>
-								<paper-item class="core-selected" active label="2">2</paper-item>
-							</core-menu>
-						</paper-dropdown>
-					</paper-dropdown-menu>
-
-        			<paper-dropdown-menu label="Number of Bathrooms">
-						<paper-dropdown class="dropdown core-transition core-closed">
-							<core-menu class="menu" ng-model="bathrooms" valueattr="label">
-								<paper-item class="core-selected" active label="1">1</paper-item>
-								<paper-item class="core-selected" active label="2">2</paper-item>
-							</core-menu>
-						</paper-dropdown>
-					</paper-dropdown-menu>
-
-					<!--Make this a checkbox thing-->
-					<br></br>
-					<p> Housing type:</p>
-					<table style=
-        				"background:transparent;
-        				-webkit-box-shadow:none;
-        				-moz-box-shadow:none;
-        				box-shadow:none;">
-        				<tr>
-        					<td>
-            					<core-label horizontal layout center>
-            						<paper-checkbox for ng-model="typeHouse" ng-click="updateHousingType()"></paper-checkbox>
-            						<div>House</div>
-            					</core-label>
-            				</td>
-            				<td>
-            					<core-label horizontal layout center>
-            						<paper-checkbox for ng-model="typeCondo" ng-click="updateHousingType()"></paper-checkbox>
-            						<div>Condo</div>
-            					</core-label>
-            				</td>
-            			</tr>
-            			<tr>
-        					<td>
-            					<core-label horizontal layout center>
-            						<paper-checkbox for ng-model="typeTownhome" ng-click="updateHousingType()"></paper-checkbox>
-            						<div>Townhome</div>
-            					</core-label>
-            				</td>
-            				<td>
-            					<core-label horizontal layout center>
-            						<paper-checkbox for ng-model="typeApartment" ng-click="updateHousingType()"></paper-checkbox>
-            						<div>Apartment</div>
-            					</core-label>
-            				</td>
-            			</tr>
-        			</table>
-
-					<br></br>
-        			<table style=
-        				"background:transparent;
-        				-webkit-box-shadow:none;
-        				-moz-box-shadow:none;
-        				box-shadow:none;">
-        				<p>Pets:</p>
-        				<tr>
-        					<td>
-            					<core-label horizontal layout center>
-            						<paper-checkbox for ng-model="catsOk"></paper-checkbox>
-            						<div>Cats</div>
-            					</core-label>
-            				</td>
-            				<td>
-            					<core-label horizontal layout center>
-            						<paper-checkbox for ng-model="dogsOk"></paper-checkbox>
-            						<div>Dogs</div>
-            					</core-label>
-            				</td>
-            			</tr>
-        			</table>
-				</core-menu>
-			</core-header-panel>
-			<core-header-panel class = "content" main>
-				<header>
-					<h3>Housing Search Results</h3>
-				</header>
-				<div ng-repeat="property in properties" class="box allMargins5 content" horizontal layout>
-					<div class="rightMargin5 content">
-						property Image Here:{{property.imgUrl}}
-					</div>
-					<paper-item class="leftmargin5 content" flex>
-						Address: {{property.address}} <br>
-						Price: {{property.price}}
-					</paper-item>
-				</div>
-			</core-header-panel>
-		</core-drawer-panel>
+    <body>
+        <div class="navmenu navmenu-default navmenu-fixed-left offcanvas-sm">
+            <a class="navmenu-brand visible-md visible-lg" href="#">Project name</a>
+            <ul class="nav navmenu-nav">
+                <li class="active"><a href="./">Slide in</a></li>
+                <li><a href="../navmenu-push/">Push</a></li>
+                <li><a href="../navmenu-reveal/">Reveal</a></li>
+                <li><a href="../navbar-offcanvas/">Off canvas navbar</a></li>
+            </ul>
+            <ul class="nav navmenu-nav">
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                    <ul class="dropdown-menu navmenu-nav">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Nav header</li>
+                        <li><a href="#">Separated link</a></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="navbar navbar-default navbar-fixed-top hidden-md hidden-lg">
+            <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".navmenu">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Project name</a>
+        </div>
+    </body>
+   
+    <core-drawer-panel>
+        <core-header-panel drawer>
+            <!-- filters go here -->
+            <core-toolbar main>
+                <span>Filters</span>
+            </core-toolbar>
+            <core-menu>
+                <paper-input-decorator label="Distance from campus" floatingLabel>
+                    <input type="text" ng-model="distanceFromCampus" ng-change="change()"></input>
+                </paper-input-decorator>
+                <table>
+                    <tr>
+                        Price Range:
+                    </tr>
+                    <tr>
+                        <td>
+                            <paper-input-decorator label="Min Price" floatingLabel>
+                                <input type="text" ng-model="minPrice" ng-change="change()"></input>
+                            </paper-input-decorator>
+                        </td>
+                        <td>
+                            <paper-input-decorator label="Max Price" floatingLabel>
+                                <input type="text" ng-model="maxPrice" ng-change="change()"></input>
+                            </paper-input-decorator>
+                        </td>
+                    </tr>
+                </table>
+                <paper-dropdown-menu label="Number of Bedrooms">
+                    <paper-dropdown class="dropdown core-transition core-closed">
+                        <core-menu class="menu" ng-model="bedrooms" ng-change="change()" valueattr="label">
+                            <paper-item class="core-selected" active label="1">1</paper-item>
+                            <paper-item class="core-selected" active label="2">2</paper-item>
+                        </core-menu>
+                    </paper-dropdown>
+                </paper-dropdown-menu>
+                <paper-dropdown-menu label="Number of Bathrooms">
+                    <paper-dropdown class="dropdown core-transition core-closed">
+                        <core-menu class="menu" ng-model="bathrooms" ng-change="change()" valueattr="label">
+                            <paper-item class="core-selected" active label="1">1</paper-item>
+                            <paper-item class="core-selected" active label="2">2</paper-item>
+                        </core-menu>
+                    </paper-dropdown>
+                </paper-dropdown-menu>
+                <!--Make this a checkbox thing-->
+                <br></br>
+                <p> Housing type:</p>
+                <table style="background:transparent;
+                        -webkit-box-shadow:none;
+                        -moz-box-shadow:none;
+                        box-shadow:none;">
+                    <tr>
+                        <td>
+                            <core-label horizontal layout center>
+                                <paper-checkbox for ng-model="typeHouse" ng-click="updateHousingType()"></paper-checkbox>
+                                <div>House</div>
+                            </core-label>
+                        </td>
+                        <td>
+                            <core-label horizontal layout center>
+                                <paper-checkbox for ng-model="typeCondo" ng-click="updateHousingType()"></paper-checkbox>
+                                <div>Condo</div>
+                            </core-label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <core-label horizontal layout center>
+                                <paper-checkbox for ng-model="typeTownhome" ng-click="updateHousingType()"></paper-checkbox>
+                                <div>Townhome</div>
+                            </core-label>
+                        </td>
+                        <td>
+                            <core-label horizontal layout center>
+                                <paper-checkbox for ng-model="typeApartment" ng-click="updateHousingType()"></paper-checkbox>
+                                <div>Apartment</div>
+                            </core-label>
+                        </td>
+                    </tr>
+                </table>
+                <br></br>
+                <table style="background:transparent;
+                        -webkit-box-shadow:none;
+                        -moz-box-shadow:none;
+                        box-shadow:none;">
+                    <p>Pets:</p>
+                    <tr>
+                        <td>
+                            <core-label horizontal layout center>
+                                <paper-checkbox for ng-model="catsOk" ng-click="change()"></paper-checkbox>
+                                <div>Cats</div>
+                            </core-label>
+                        </td>
+                        <td>
+                            <core-label horizontal layout center>
+                                <paper-checkbox for ng-model="dogsOk" ng-click="change()"></paper-checkbox>
+                                <div>Dogs</div>
+                            </core-label>
+                        </td>
+                    </tr>
+                </table>
+            </core-menu>
+        </core-header-panel>
+        <core-header-panel class="content" main>
+            <header>
+                <h3>Housing Search Results</h3>
+            </header>
+            <div ng-repeat="property in properties" class="box allMargins5 content" horizontal layout>
+                <div class="rightMargin5 content">
+                    property Image Here:{{property.imgUrl}}
+                </div>
+                <paper-item class="leftmargin5 content" flex>
+                    Address: {{property.address}}
+                    <br> Price: {{property.price}}
+                </paper-item>
+            </div>
+        </core-header-panel>
+    </core-drawer-panel>
 </div>

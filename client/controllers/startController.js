@@ -11,6 +11,10 @@ app.controller('StartController', ['$scope', '$location', '$state', function($sc
     $scope.toSignUp = function() {
         $state.go('start.signup');
     };
+
+    $scope.menuSearchEnter = function() {
+        $state.go('home.search');
+    }
 }]);
 
 app.controller('LoginController', ['$scope', '$sessionService', '$location', '$cookies', '$state', function($scope, $sessionService, $location, $cookies, $state) {
@@ -71,7 +75,7 @@ app.controller('LoginController', ['$scope', '$sessionService', '$location', '$c
         }
     });
 
-app.controller('SignupController', ['$scope', '$userService', '$sessionService', '$state', '$stateParams', function($scope, $userService, $sessionService, $state, $stateParams) {
+app.controller('SignupController', ['$scope', '$userService', '$state', '$stateParams', function($scope, $userService, $state, $stateParams) {
         $scope.alerts = [];
         $scope.user = $scope.user || {
             firstName: "",
@@ -185,10 +189,10 @@ app.controller('SignupController', ['$scope', '$userService', '$sessionService',
                         }
                     } else {
                         $scope.alerts.length = 0;
-                            $scope.alerts.push({
-                                type: 'success',
-                                msg: "Created new account!"
-                            });
+                        $scope.alerts.push({
+                            type: 'success',
+                            msg: "Created new account!"
+                        });
                     }
                 });
             }

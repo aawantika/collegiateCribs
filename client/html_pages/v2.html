@@ -2,6 +2,8 @@
 
     <body>
         <h1 style="text-align: center"> Sign Up </h1>
+         <div class="container">
+            <div class="col-sm-6 col-sm-offset-3">
         <div>
             <label class="radio-inline" ng-model="user.profileType" valueattr="id">
                 <input type="radio" name="studentLandlordRadio" id="student" value="Student" ng-click="toStudent()"> Student</label>
@@ -43,5 +45,7 @@
         <footer>
             <button type="submit" class="btn btn-default" ng-click="canSubmit()">Sign Up</button>
         </footer>
+        </div>
+        </div>
     </body>
 </div>
