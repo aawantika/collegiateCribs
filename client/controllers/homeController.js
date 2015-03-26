@@ -121,9 +121,10 @@ app.controller('StudentDashboardController', function($scope, $state, dataServic
 
 app.controller('SearchController', function($scope, $cookies, $location, $state, $searchService, dataService) {
     var query = {}
-    console.log(dataService.data);
+    var housingTypes = [];
+
     if (dataService.queried == true) {
-                console.log(query); 
+        console.log(query);
 
         query = {
             "distanceFromCampus": parseInt($scope.distanceFromCampus),
@@ -131,14 +132,17 @@ app.controller('SearchController', function($scope, $cookies, $location, $state,
             "maxPrice": parseInt($scope.maxPrice),
             "bedrooms": parseInt($scope.bedrooms),
             "bathrooms": parseInt($scope.bathrooms),
-            "catsOk": $scope.catsOk == 'true',
-            "dogsOk": $scope.dogsOk == 'true',
+            "housingType": this.housingTypes,
+            "catsOk": $scope.catsOk=='true',
+            "dogsOk": $scope.dogsOk=='true'
         }
     } else if (dataService.queried == false) {
         query = dataService.getData();
+        $scope.minPrice = query.minPrice; 
+        $scope.maxPrice = query.maxPrice;
     }
 
-    $searchService.search(query, function(err, status, data) {
+    $searchService.searchProperty(query, function(err, status, data) {
         if (!err) {
             console.log(data);
             $scope.properties = data;
@@ -146,18 +150,41 @@ app.controller('SearchController', function($scope, $cookies, $location, $state,
             $scope.alert("error retrieving properties");
         }
     });
-    $scope.change = function() {
+
+    $scope.updateHousingType = function() {
+        housingTypes = []; 
+        if ($scope.typeHouse) {
+            console.log("pushing house"); 
+            housingTypes[housingTypes.length] = 'house';
+        }
+        if ($scope.typeCondo) {
+            console.log("pushing condo"); 
+            housingTypes[housingTypes.length] = 'condo';
+        }
+        if ($scope.typeTownhome) {
+            console.log("pushingtownHome"); 
+            housingTypes[housingTypes.length] = 'townhome';
+        }
+        if ($scope.typeApartment) {
+            console.log("pushingApartment"); 
+            housingTypes[housingTypes.length] = 'apartment';
+        }
+        $scope.change(housingTypes); 
+    }
+
+    $scope.change = function(list) {
         var query = {
             "distanceFromCampus": parseInt($scope.distanceFromCampus),
             "minPrice": parseInt($scope.minPrice),
             "maxPrice": parseInt($scope.maxPrice),
             "bedrooms": parseInt($scope.bedrooms),
             "bathrooms": parseInt($scope.bathrooms),
-            "catsOk": $scope.catsOk == 'true',
-            "dogsOk": $scope.dogsOk == 'true',
+            "housingType": list, 
+            "catsOk": $scope.catsOk=='true',
+            "dogsOk": $scope.dogsOk=='true',
         }
-        console.log(query); 
-        $searchService.search(query, function(err, status, data) {
+        console.log(query);
+        $searchService.searchProperty(query, function(err, status, data) {
             if (!err) {
                 console.log(data);
                 $scope.properties = data;
