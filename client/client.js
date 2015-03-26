@@ -53,7 +53,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             })
             .state('home.search', {
                 url: '/search',
-                controller: 'searchController',
+                controller: 'SearchController',
                 templateUrl: '/client/html_pages/search.html',
             })
             .state('test', {
