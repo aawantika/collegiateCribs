@@ -1,66 +1,143 @@
+<div class="container col-md-6 col-sm-offset-3">
+    <h3><center>Add a property</center></h3>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="address" class="col-sm-2 control-label">Address</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="address" placeholder="Address" ng-model="address">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputKey" class="col-md-2 control-label">City</label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="inputKey" placeholder="City" ng-model="city">
+            </div>
+            <label for="inputValue" class="col-md-1 control-label">State</label>
+            <div class="col-md-2">
+                <select class="form-control">
+                    <option ng-model="state">GA</option>
+                </select>
+            </div>
+            <label for="inputValue" class="col-md-1 control-label">Zipcode</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" id="inputValue" placeholder="Zipcode" ng-model="zipcode">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputKey" class="col-md-2 control-label">Home Type</label>
+            <div class="col-md-4" ng-model="housingType">
+                <select class="form-control">
+                    <option label="house">House</option>
+                    <option label="condo">Condo</option>
+                    <option label="apartment">Apartment</option>
+                    <option label="townhome">Townhouse</option>
+                </select>
+            </div>
+            <label for="inputValue" class="col-md-1 control-label">Pets</label>
+            <div class="col-md-2 ">
+                <label>
+                    <input type="checkbox" ng-model="catsOk"> Cats
+                </label>
+            </div>
+            <div class="col-md-2 ">
+                <label>
+                    <input type="checkbox" ng-model="dogsOk"> Dogs
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputKey" class="col-md-2 control-label">Price</label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="inputKey" placeholder="Price" ng-model="price">
+            </div>
+            <label for="inputKey" class="col-md-2 control-label">Utilites</label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="inputKey" placeholder="e.g. 80-100" ng-model="utilities">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputKey" class="col-md-2 control-label">Bedrooms</label>
+            <div class="col-md-4">
+                <select class="form-control">
+                    <option ng-model="bedrooms">1</option>
+                    <option ng-model="bedrooms">2</option>
+                    <option ng-model="bedrooms">3</option>
+                    <option ng-model="bedrooms">4</option>
+                    <option ng-model="bedrooms">5</option>
+                    <option ng-model="bedrooms">6</option>
+                    <option ng-model="bedrooms">7</option>
+                    <option ng-model="bedrooms">8</option>
+                </select>
+            </div>
+            <label for="inputKey" class="col-md-2 control-label">Bathrooms</label>
+            <div class="col-md-4">
+                <select class="form-control">
+                    <option ng-model="bedrooms">1</option>
+                    <option ng-model="bedrooms">2</option>
+                    <option ng-model="bedrooms">3</option>
+                    <option ng-model="bedrooms">4</option>
+                    <option ng-model="bedrooms">5</option>
+                    <option ng-model="bedrooms">6</option>
+                    <option ng-model="bedrooms">7</option>
+                    <option ng-model="bedrooms">8</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Date picker</label>
+            <div class="input-group date" id="datepicker">
+                <input class="form-control" type="text">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+        </div>
+        <form ng-submit="submitProperty()" method="post" class="box signup content">
+            <fieldset>
+                <div>
+                    <h5>Date of last renovation</h5> Month:
+                    <paper-dropdown-menu label="Select a month">
+                        <paper-dropdown class="dropdown core-transition core-closed">
+                            <core-menu class="menu" ng-model="lastRenovationDate.month" valueattr="label">
+                                <paper-item class="core-selected" active label="0">January</paper-item>
+                                <paper-item class="core-selected" active label="1">February</paper-item>
+                                <paper-item class="core-selected" active label="2">March</paper-item>
+                                <paper-item class="core-selected" active label="3">April</paper-item>
+                                <paper-item class="core-selected" active label="4">May</paper-item>
+                                <paper-item class="core-selected" active label="5">June</paper-item>
+                                <paper-item class="core-selected" active label="6">July</paper-item>
+                                <paper-item class="core-selected" active label="7">August</paper-item>
+                                <paper-item class="core-selected" active label="8">September</paper-item>
+                                <paper-item class="core-selected" active label="9">October</paper-item>
+                                <paper-item class="core-selected" active label="10">November</paper-item>
+                                <paper-item class="core-selected" active label="11">December</paper-item>
+                            </core-menu>
+                        </paper-dropdown>
+                    </paper-dropdown-menu>
+                    Day: {{lastRenovationDate.day}}
+                    <paper-slider ng-model="lastRenovationDate.day" min="1" max="31" pin></paper-slider>
+                    Year: {{lastRenovationDate.year}}
+                    <paper-slider ng-model="lastRenovationDate.year" min="1950" max="2015" pin></paper-slider>
+                </div>
+            </fieldset>
+            <footer>
+                <button type="submit" is="paper-submit">Add property</button>
+            </footer>
+        </form>
+</div>
 <form ng-submit="submitProperty()" method="post" class="box signup content">
-	<fieldset>
-		<h3>Add a property</h3>
-        <paper-input-decorator label='Address' floatingLabel>
-            <input type="text" ng-model="address">
-        </paper-input-decorator>
-        <paper-input-decorator label='City' floatingLabel>
-            <input type="text" ng-model="city">
-        </paper-input-decorator>
-        <paper-input-decorator label='State' floatingLabel>
-            <input type="text" ng-model="state">
-        </paper-input-decorator>
-        <paper-input-decorator label='Zip Code' floatingLabel>
-            <input type="text" ng-model="zipcode">
-        </paper-input-decorator>
-
-        <paper-dropdown-menu label="Property Type">
-            <paper-dropdown class="dropdown core-transition core-closed">
-                <core-menu class="menu" ng-model="housingType" valueattr="label">
-                    <paper-item class="core-selected" active label="house">House</paper-item>
-                    <paper-item class="core-selected" active label="condo">Condo</paper-item>
-                    <paper-item class="core-selected" active label="townhome">Townhome</paper-item>
-                    <paper-item class="core-selected" active label="apartment">Apartment</paper-item>
-                </core-menu>
-            </paper-dropdown>
-        </paper-dropdown-menu>
-        
-        <paper-input-decorator label='Available?' floatingLabel>
-            <input type="text" ng-model="availability">
-        </paper-input-decorator>
+    <fieldset>
         <paper-input-decorator label='Pricing' floatingLabel>
             <input type="text" ng-model="price">
         </paper-input-decorator>
-
         <div>
             Number of Bedrooms: {{bedrooms}}
             <paper-slider ng-model="bedrooms" min="1" max="12" pin></paper-slider>
         </div>
-        
         <div>
             Number of Bathrooms: {{bathrooms}}
             <paper-slider ng-model="bathrooms" min="1" max="12" pin></paper-slider>
         </div>
-
-        <h4>Pet Policy</h4><br>
-        <core-toolbar style=
-        	"background:transparent;
-        	-webkit-box-shadow:none;
-        	-moz-box-shadow:none;
-        	box-shadow:none;">
-            <core-label horizontal layout center>
-            	<paper-checkbox for ng-model="catsOk"></paper-checkbox>
-            	<div>Cats</div>
-            </core-label>
-            <core-label horizontal layout center>
-            	<paper-checkbox for ng-model="dogsOk"></paper-checkbox>
-            	<div>Dogs</div>
-            </core-label>
-        </core-toolbar>
-
         <div>
-            <h5>Date of last renovation</h5> 
-            Month:
+            <h5>Date of last renovation</h5> Month:
             <paper-dropdown-menu label="Select a month">
                 <paper-dropdown class="dropdown core-transition core-closed">
                     <core-menu class="menu" ng-model="lastRenovationDate.month" valueattr="label">

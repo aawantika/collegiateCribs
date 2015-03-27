@@ -1,0 +1,24 @@
+.my-form .form-group [class*="col-"] .form-group [class*="col-"] {
+    padding-left: .5%;
+    padding-right: .5%;
+}
+
+.my-form .form-group [class*="col-"] .form-group {
+    margin-left: -.5%;
+    margin-right: -.5%;
+}
+
+.my-form .form-group [class*="col-"] .form-group [class*="col-"]:not(:last-child) {
+    margin-bottom: 10px
+}
+
+@media (min-width:768px) { 
+    .my-form .form-group [class*="col-"] .form-group [class*="col-"]:not(:last-child) {
+        margin-bottom: 0
+    }
+}
+
+.my-form .form-group [class*="col-"] .form-group {
+    margin-bottom: 0
+}
+

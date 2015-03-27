@@ -4,6 +4,7 @@ var app = angular.module("app", [
     'ngRoute',
     'ngCookies',
     'ui.router',
+    'ui.bootstrap',
     'startController',
     'homeController',
     'addPropertyController',
@@ -13,7 +14,8 @@ var app = angular.module("app", [
     'propertyService',
     'searchService'
 ]);
-//^ a JSON of the dependencies for app
+
+
 
 
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
@@ -43,7 +45,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 templateUrl: '/client/html_pages/home.html',
             })
             .state('home.addProperty', {
-                url: '/addProperty', 
+                url: '/addProperty',
                 controller: 'AddPropertyController',
                 templateUrl: '/client/html_pages/addProperty.html'
             })
@@ -54,13 +56,17 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             })
             .state('home.landlordDashboard', {
                 url: '/landlordDashboard',
-                controller: 'LandlordDashboardController', 
-                templateUrl:'client/html_pages/landlordDashboard.html'
+                controller: 'LandlordDashboardController',
+                templateUrl: 'client/html_pages/landlordDashboard.html'
             })
             .state('home.search', {
                 url: '/search',
                 controller: 'SearchController',
                 templateUrl: '/client/html_pages/search.html',
+            })
+            .state('tika', {
+                url: '/tika',
+                templateUrl: '/client/html_pages/addProperty.html',
             })
             .state('test', {
                 url: '/test',
