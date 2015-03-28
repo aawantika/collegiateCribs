@@ -1,33 +1,43 @@
 <div class="content">
-	<core-drawer-panel>
-		<core-header-panel drawer>
-			<!--landlord statistics go here-->
-			<core-toolbar main>
-      			<span>{{username}} Info</span>
-    		</core-toolbar>
-    		<core-menu>
-    			<div>Profile picture here{{image}}</div>
-				<paper-item>
-					Rating: {{rating}}
-				</paper-item>
-			</core-menu>
-		</core-header-panel>
-		<core-header-panel class="content" main>
-			<header>
-				<h3>Owned Properties</h3>
-			</header>
-			<paper-button ng-click="addProperty()" raised>Add a Property</paper-button>
-			<div ui-view></div>
-			<div ng-repeat="property in properties" class="box allMargins5 content" horizontal layout>
-				<div class="rightMargin5 content">
-					Property Image Here:{{property.imgUrl}}
-				</div>
-				<paper-item class="leftmargin5 content" flex>
-					Address: {{property.address}}, {{property.city}}, {{property.state}}, {{property.zipcode}}<br>
-					Price: ${{property.price}}
-				</paper-item>
-			</div>
-		</core-header-panel>
-	</core-drawer-panel>
+    <div class="container-fluid">
+        <div class="row row-offcanvas row-offcanvas-left">
+            <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+                <div class="sidebar-nav">
+                    <ul class="nav">
+                        <li>
+                            <span>{{username}} Info</span>
+                            <br>
+                        </li>
+                        <li>
+                            <div>Profile picture here{{image}}</div>
+                        </li>
+                        <li>
+                            <div>
+                                Rating: {{rating}}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-9">
+                <header>
+                    <h3>Owned Properties</h3>
+                </header>
+                <div class="form-group">
+                    <button class="btn btn-default col-md-2" ng-click="submitProperty()">Add New Property</button>
+                </div>
+                <br>
+                <br>
+                <div class="panel panel-default form-group" ng-repeat="property in properties" horizontal layout>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Address: {{property.address}} {{property.city}} {{property.state}} {{property.zipcode}} </h3>
+                    </div>
+                    <div class="panel-body">
+                        property Image Here:{{property.imgUrl}}
+                        <br> Price: {{property.price}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-	

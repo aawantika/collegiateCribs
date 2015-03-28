@@ -60,49 +60,27 @@ app.controller('AddPropertyController', ['$scope', '$sessionService', '$property
     };
 }]);
 
-app.controller('DatepickerDemoCtrl', function($scope) {
-    $scope.today = function() {
-        $scope.dt = new Date();
+
+app.controller('MainCtrl', function($scope) {
+    $scope.var1 = '12-07-2013';
+});
+
+
+app.directive('datetimez', function() {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function(scope, element, attrs, ngModelCtrl) {
+            element.datetimepicker({
+                dateFormat: 'dd-MM-yyyy',
+                language: 'en',
+                pickTime: false,
+                startDate: '01-11-2013', // set a minimum date
+                endDate: '01-11-2030' // set a maximum date
+            }).on('changeDate', function(e) {
+                ngModelCtrl.$setViewValue(e.date);
+                scope.$apply();
+            });
+        }
     };
-    $scope.today();
-
-    $scope.clear = function() {
-        $scope.dt = null;
-    };
-
-    // Disable weekend selection
-    $scope.disabled = function(date, mode) {
-        return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
-    };
-
-    $scope.toggleMin = function() {
-        $scope.minDate = $scope.minDate ? null : new Date();
-    };
-    $scope.toggleMin();
-
-    $scope.open = function($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-
-        $scope.opened = true;
-    };
-
-    $scope.dateOptions = {
-        formatYear: 'yy',
-        startingDay: 1
-    };
-
-    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-    $scope.format = $scope.formats[0];
-})
-
-$(function() {
-
-
-    $('#datepicker').datepicker({
-        autoclose: true,
-    }).on("changeDate", function(e) {
-        console.log(e.date);
-    });
-
 });

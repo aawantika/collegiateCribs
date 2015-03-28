@@ -1,5 +1,7 @@
 <div class="container col-md-6 col-sm-offset-3">
-    <h3><center>Add a property</center></h3>
+    <br>
+    <br>
+    <h3><center>New Property</center></h3>
     <form class="form-horizontal">
         <div class="form-group">
             <label for="address" class="col-sm-2 control-label">Address</label>
@@ -84,85 +86,12 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label">Date picker</label>
-            <div class="input-group date" id="datepicker">
-                <input class="form-control" type="text">
-                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            <label for="inputKey" class="col-md-2 control-label">Last Renovated</label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="inputKey" placeholder="DATEPICKER HERE" ng-model="add ">
             </div>
         </div>
-        <form ng-submit="submitProperty()" method="post" class="box signup content">
-            <fieldset>
-                <div>
-                    <h5>Date of last renovation</h5> Month:
-                    <paper-dropdown-menu label="Select a month">
-                        <paper-dropdown class="dropdown core-transition core-closed">
-                            <core-menu class="menu" ng-model="lastRenovationDate.month" valueattr="label">
-                                <paper-item class="core-selected" active label="0">January</paper-item>
-                                <paper-item class="core-selected" active label="1">February</paper-item>
-                                <paper-item class="core-selected" active label="2">March</paper-item>
-                                <paper-item class="core-selected" active label="3">April</paper-item>
-                                <paper-item class="core-selected" active label="4">May</paper-item>
-                                <paper-item class="core-selected" active label="5">June</paper-item>
-                                <paper-item class="core-selected" active label="6">July</paper-item>
-                                <paper-item class="core-selected" active label="7">August</paper-item>
-                                <paper-item class="core-selected" active label="8">September</paper-item>
-                                <paper-item class="core-selected" active label="9">October</paper-item>
-                                <paper-item class="core-selected" active label="10">November</paper-item>
-                                <paper-item class="core-selected" active label="11">December</paper-item>
-                            </core-menu>
-                        </paper-dropdown>
-                    </paper-dropdown-menu>
-                    Day: {{lastRenovationDate.day}}
-                    <paper-slider ng-model="lastRenovationDate.day" min="1" max="31" pin></paper-slider>
-                    Year: {{lastRenovationDate.year}}
-                    <paper-slider ng-model="lastRenovationDate.year" min="1950" max="2015" pin></paper-slider>
-                </div>
-            </fieldset>
-            <footer>
-                <button type="submit" is="paper-submit">Add property</button>
-            </footer>
-        </form>
+        <div class="form-group">
+                <button class="btn btn-default col-md-4 col-sm-offset-5" ng-click="submitProperty()">Add New Property</button>
+        </div>
 </div>
-<form ng-submit="submitProperty()" method="post" class="box signup content">
-    <fieldset>
-        <paper-input-decorator label='Pricing' floatingLabel>
-            <input type="text" ng-model="price">
-        </paper-input-decorator>
-        <div>
-            Number of Bedrooms: {{bedrooms}}
-            <paper-slider ng-model="bedrooms" min="1" max="12" pin></paper-slider>
-        </div>
-        <div>
-            Number of Bathrooms: {{bathrooms}}
-            <paper-slider ng-model="bathrooms" min="1" max="12" pin></paper-slider>
-        </div>
-        <div>
-            <h5>Date of last renovation</h5> Month:
-            <paper-dropdown-menu label="Select a month">
-                <paper-dropdown class="dropdown core-transition core-closed">
-                    <core-menu class="menu" ng-model="lastRenovationDate.month" valueattr="label">
-                        <paper-item class="core-selected" active label="0">January</paper-item>
-                        <paper-item class="core-selected" active label="1">February</paper-item>
-                        <paper-item class="core-selected" active label="2">March</paper-item>
-                        <paper-item class="core-selected" active label="3">April</paper-item>
-                        <paper-item class="core-selected" active label="4">May</paper-item>
-                        <paper-item class="core-selected" active label="5">June</paper-item>
-                        <paper-item class="core-selected" active label="6">July</paper-item>
-                        <paper-item class="core-selected" active label="7">August</paper-item>
-                        <paper-item class="core-selected" active label="8">September</paper-item>
-                        <paper-item class="core-selected" active label="9">October</paper-item>
-                        <paper-item class="core-selected" active label="10">November</paper-item>
-                        <paper-item class="core-selected" active label="11">December</paper-item>
-                    </core-menu>
-                </paper-dropdown>
-            </paper-dropdown-menu>
-            Day: {{lastRenovationDate.day}}
-            <paper-slider ng-model="lastRenovationDate.day" min="1" max="31" pin></paper-slider>
-            Year: {{lastRenovationDate.year}}
-            <paper-slider ng-model="lastRenovationDate.year" min="1950" max="2015" pin></paper-slider>
-        </div>
-    </fieldset>
-    <footer>
-        <button type="submit" is="paper-submit">Add property</button>
-    </footer>
-</form>

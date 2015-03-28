@@ -13,6 +13,6 @@
     "angular-cookies": "*",
     "angular-ui-router": "*",
     "angular-bootstrap": "~0.12.1",
-    "bootstrap": "*"
+    "bootstrap": "~3.3.4"
   }
 }
