@@ -44,10 +44,52 @@ user.service('$userService', ['$http', function($http) {
         });
     };
 
-     this.deleteUser = function(json, callback) {
+    this.deleteUser = function(json, callback) {
         var req = {
             method: "POST",
             url: "http://localhost:8080/user/delete",
+            data: json
+        }
+
+        $http(req).success(function(data, status) {
+            callback(null, status, data);
+        }).error(function(data, status) {
+            callback(status, data);
+        });
+    };
+
+    this.getFavoriteProperties = function(json, callback) {
+        var req = {
+            method: "POST",
+            url: "http://localhost:8080/user/favorites",
+            data: json
+        }
+
+        $http(req).success(function(data, status) {
+            callback(null, status, data);
+        }).error(function(data, status) {
+            callback(status, data);
+        });
+    };
+
+    this.addFavoriteProperty = function(json, callback) {
+        var req = {
+            method: "POST",
+            url: "http://localhost:8080/user/favorites/add",
+            data: json
+        }
+
+        $http(req).success(function(data, status) {
+            callback(null, status, data);
+        }).error(function(data, status) {
+            callback(status, data);
+        });
+    };
+
+    this.deleteFavoriteProperty = function(json, callback) {
+        var req = {
+            method: "POST",
+            url: "http://localhost:8080/favorites/delete",
             data: json
         }
 
