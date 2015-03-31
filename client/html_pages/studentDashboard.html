@@ -1,49 +1,68 @@
 <div>
     <body>
-        <form class="form-inline" id="simpleSearch" ng-submit="simpleSearch()" method="post">
-            <i><label for="nolabel">Search: </label></i>
-            <div class="form-group">
-                <label for="numBedrooms" ng-model="bedrooms" valueattr="label">Bedrooms</label>
-                <select class="form-control" id="numBedrooms">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="numBathrooms" ng-model="bathrooms" valueattr="label">Bathrooms</label>
-                <select class="form-control" id="numBathrooms">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <div class="input-group-addon">From</div>
-                <input type="text" class="form-control" id="minprice" placeholder="$0" ng-model="minPrice">
-                <div class="input-group-addon">.00</div>
-            </div>
-            <div class="input-group">
-                <div class="input-group-addon">To</div>
-                <input type="text" class="form-control" id="maxPrice" placeholder="$$$$" ng-model="maxPrice">
-                <div class="input-group-addon">.00</div>
-            </div>
-            <button type="submit" class="btn btn-default" ng-click="simpleSearch()">Search</button>
+        <form class="form-inline content table" id="simpleSearch" ng-submit="simpleSearch()" method="post">
+            <h3><label for="nolabel">Search: </label></h3>
+            <table>
+                <colgroup>
+                    <col style="width:25%"/>
+                    <col style="width:25%"/>
+                    <col style="width:25%"/>
+                    <col style="width:25%"/>
+                </colgroup> 
+                <tr>
+                <td>
+                    <div class="form-group">
+                        <label for="numBedrooms" ng-model="bedrooms" valueattr="label">Bedrooms</label>
+                        <select class="form-control" id="numBedrooms">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label for="numBathrooms" ng-model="bathrooms" valueattr="label">Bathrooms</label>
+                        <select class="form-control" id="numBathrooms">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group">
+                        <div class="input-group-addon">From</div>
+                        <input type="text" class="form-control" id="minprice" placeholder="$0" ng-model="minPrice">
+                        <div class="input-group-addon">.00</div>
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group">
+                        <div class="input-group-addon">To</div>
+                            <input type="text" class="form-control" id="maxPrice" placeholder="$$$$" ng-model="maxPrice">
+                        <div class="input-group-addon">.00</div>
+                    </div>
+                </td>
+            </table>
+            <footer>
+                <button type="submit" class="btn btn-default" ng-click="simpleSearch()">Search</button>
+            </footer>
         </form>
         <!-- YOU NEED TO BOOTSTRAP THIS PART. MESSAGE ME IF YOU GET STUCK - tika!-->
         <!--recent activity: pull data from server into scope with the controller.
 			Will probably need to do an ng-repeat to go through a list of stuff.-->
-        <core-menu class="box content">
+        <div class="content">
             <header>
                 <h3>Favorite Properties</h3>
             </header>
@@ -51,11 +70,11 @@
                 <div class="rightMargin5 content">
                     property Image Here:{{property.imgUrl}}
                 </div>
-                <paper-item class="leftmargin5 content" flex>
+                <div class="leftmargin5 content" flex>
                     Address: {{property.address}}
                     <br> Price: {{property.price}}
-                </paper-item>
+                </div>
             </div>
-        </core-menu>
+        </div>
     </body>
 </div>

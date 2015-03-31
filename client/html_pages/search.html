@@ -9,7 +9,7 @@
                         <br>
                         <li>
                             <div class="container">
-                                <div class="row">
+                                <div class="row" style="position:absolute;">
                                     <form class="form-inline">
                                         <div class="form-group">
                                             <label for="distance">Distance</label>
@@ -18,11 +18,11 @@
                                     </form>
                                     <label>Price Range</label>
                                     <br>
-                                    <div class="col-xs-1">
+                                    <div class="col-xs-1" style="position:relative;width:50%;">
                                         <label for="minprice">From: </label>
                                         <input type="text" class="form-control" class="col-md-2" id="minprice" placeholder="$0" ng-model="minPrice" ng-change="change()">
                                     </div>
-                                    <div class="col-xs-1">
+                                    <div class="col-xs-1" style="position:relative;width:50%">
                                         <label for="maxPrice">To: </label>
                                         <input type="text" class="form-control" class="col-md-2" id="maxPrice" placeholder="$$$$" ng-model="maxPrice" ng-change="change()">
                                     </div>
