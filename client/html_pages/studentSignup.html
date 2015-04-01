@@ -1,9 +1,8 @@
 <div>
     <fieldset>
         <label for="campus">Campus</label>
-        <select class="form-control" id="campus">
-            <option ng-model="user.campus" value="gt">Georgia Tech</option>
-            <option ng-model="user.campus" value="gsu">Georgia State</option>
-        </select>
+            <select ng-model="user.campus"
+                ng-options="opt as opt.label for opt in options">
+            </select>
     </fieldset>
 </div>

@@ -77,6 +77,14 @@ app.controller('LoginController', ['$scope', '$sessionService', '$location', '$c
 
 app.controller('SignupController', ['$scope', '$userService', '$state', '$stateParams', function($scope, $userService, $state, $stateParams) {
         $scope.alerts = [];
+        $scope.options = [{
+            label: 'gt',
+            value: 1
+        }, {
+            label: 'gsu',
+            value: 2
+        }];
+
         $scope.user = $scope.user || {
             firstName: "",
             lastName: "",
