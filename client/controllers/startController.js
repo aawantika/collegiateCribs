@@ -77,12 +77,12 @@ app.controller('LoginController', ['$scope', '$sessionService', '$location', '$c
 
 app.controller('SignupController', ['$scope', '$userService', '$state', '$stateParams', function($scope, $userService, $state, $stateParams) {
         $scope.alerts = [];
-        $scope.options = [{
-            label: 'gt',
-            value: 1
+        $scope.myOptions = [{
+            "id": "gt",
+            "label": "Georgia Tech"
         }, {
-            label: 'gsu',
-            value: 2
+            "id": "gsu",
+            "label": "Georgia State"
         }];
 
         $scope.user = $scope.user || {
@@ -122,7 +122,6 @@ app.controller('SignupController', ['$scope', '$userService', '$state', '$stateP
                     msg: 'Are you a student or a landlord?'
                 });
             } else if (!$scope.firstName) {
-                console.log("here1");
                 $scope.alerts.length = 0;
                 $scope.alerts.push({
                     msg: 'First name cannot be blank.'
@@ -152,7 +151,7 @@ app.controller('SignupController', ['$scope', '$userService', '$state', '$stateP
                 $scope.alerts.push({
                     msg: "Passwords don't match."
                 });
-            } else if ($scope.profileType == "student" && !$scope.campus) {
+            } else if ($scope.profileType == "student" && !$scope.user.campus) {
                 $scope.alerts.length = 0;
                 $scope.alerts.push({
                     msg: "What university are you from?"

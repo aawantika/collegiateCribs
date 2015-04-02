@@ -1,8 +1,8 @@
 <div>
     <fieldset>
         <label for="campus">Campus</label>
-            <select ng-model="user.campus"
-                ng-options="opt as opt.label for opt in options">
-            </select>
+        <select ng-model="user.campus" ng-options="value.id as value.label group by value.group for value in myOptions" class="form-control">
+            <option value="">Campus</option>
+        </select>
     </fieldset>
 </div>
