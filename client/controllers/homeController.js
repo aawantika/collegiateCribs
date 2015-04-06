@@ -28,39 +28,39 @@ app.controller('HomeController', ['$scope', '$userService', '$sessionService', '
 
     $sessionService.isLoggedIn(cookie, function(err, status, data) {
         if (!err) {
-            $scope.showPage = true;
-        } else {
-            console.log("user not logged in");
-            $location.path("/");
-        }
-    });
-
-    $userService.retrieveUser(user, function(err, status, data) {
-        if (data.profileType == 'student') {
-            console.log("Change to Student Dashboard");
-            $state.go('home.studentDashboard');
-        } else if (data.profileType == "landlord") {
-            var landlord = {
-                "username": data.username
-            }
-            $propertyService.retrieveAllPropertyByUsername(landlord, function(err, status, data) {
-                if (!err) {
-                    console.log(data);
-                    if (data.length == 0) {
-                        console.log("going to addProperty");
-                        $state.go("home.addProperty");
-                    } else {
-                        console.log("it is going home");
-                        $state.go("home.landlordDashboard");
+            $userService.retrieveUser(user, function(err, status, data) {
+                if (data.profileType == 'student') {
+                    console.log("Change to Student Dashboard");
+                    $state.go('home.studentDashboard');
+                } else if (data.profileType == "landlord") {
+                    var landlord = {
+                        "username": data.username
                     }
+                    $propertyService.retrieveAllPropertyByUsername(landlord, function(err, status, data) {
+                        if (!err) {
+                            console.log(data);
+                            if (data.length == 0) {
+                                console.log("going to addProperty");
+                                $state.go("home.addProperty");
+                            } else {
+                                console.log("it is going home");
+                                $state.go("home.landlordDashboard");
+                            }
+                        } else {
+                            $scope.alert("error retrieving properties");
+                        }
+                    });
                 } else {
-                    $scope.alert("error retrieving properties");
+                    $scope.alert("Error retrieving user");
                 }
             });
         } else {
-            $scope.alert("Error retrieving user");
+            console.log("not logged in");
+            $state.go("start.login");
         }
     });
+
+
 
     $scope.menuSearchEnter = function() {
         console.log('change to search');
@@ -120,25 +120,9 @@ app.controller('StudentDashboardController', function($scope, $state, dataServic
     };
 });
 
-app.controller('SearchController', function($scope, $cookies, $location, $state, $searchService, dataService) {
+app.controller('SearchController', function($scope, $cookies, $location, $state, $sessionService, $searchService, dataService) {
     var query = {}
     var housingTypes = [];
-
-    var cookie = {
-        "username": $cookies.username,
-        "sessionKey": $cookies.sessionKey
-    }
-    var user = {
-        "username": $cookies.username
-    }
-
-    $sessionService.isLoggedIn(cookie, function(err, status, data) {
-        if (!err) {
-            $scope.showPage = true;
-        } else {
-            $state.go("start.login");
-        }
-    });
 
     if (dataService.queried == true) {
         console.log(query);
@@ -150,12 +134,12 @@ app.controller('SearchController', function($scope, $cookies, $location, $state,
             "bedrooms": parseInt($scope.bedrooms),
             "bathrooms": parseInt($scope.bathrooms),
             "housingType": this.housingTypes,
-            "catsOk": $scope.catsOk=='true',
-            "dogsOk": $scope.dogsOk=='true'
+            "catsOk": $scope.catsOk == 'true',
+            "dogsOk": $scope.dogsOk == 'true'
         }
     } else if (dataService.queried == false) {
         query = dataService.getData();
-        $scope.minPrice = query.minPrice; 
+        $scope.minPrice = query.minPrice;
         $scope.maxPrice = query.maxPrice;
     }
 
@@ -169,24 +153,24 @@ app.controller('SearchController', function($scope, $cookies, $location, $state,
     });
 
     $scope.updateHousingType = function() {
-        housingTypes = []; 
+        housingTypes = [];
         if ($scope.typeHouse) {
-            console.log("pushing house"); 
+            console.log("pushing house");
             housingTypes[housingTypes.length] = 'house';
         }
         if ($scope.typeCondo) {
-            console.log("pushing condo"); 
+            console.log("pushing condo");
             housingTypes[housingTypes.length] = 'condo';
         }
         if ($scope.typeTownhome) {
-            console.log("pushingtownHome"); 
+            console.log("pushingtownHome");
             housingTypes[housingTypes.length] = 'townhome';
         }
         if ($scope.typeApartment) {
-            console.log("pushingApartment"); 
+            console.log("pushingApartment");
             housingTypes[housingTypes.length] = 'apartment';
         }
-        $scope.change(housingTypes); 
+        $scope.change(housingTypes);
     }
 
     $scope.change = function(list) {
@@ -196,9 +180,9 @@ app.controller('SearchController', function($scope, $cookies, $location, $state,
             "maxPrice": parseInt($scope.maxPrice),
             "bedrooms": parseInt($scope.bedrooms),
             "bathrooms": parseInt($scope.bathrooms),
-            "housingType": list, 
-            "catsOk": $scope.catsOk=='true',
-            "dogsOk": $scope.dogsOk=='true',
+            "housingType": list,
+            "catsOk": $scope.catsOk == 'true',
+            "dogsOk": $scope.dogsOk == 'true',
         }
         console.log(query);
         $searchService.searchProperty(query, function(err, status, data) {
