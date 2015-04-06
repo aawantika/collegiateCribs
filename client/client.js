@@ -39,6 +39,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 controller: 'SignupController',
             })
             .state('home', {
+                url: '/dashboard',
                 controller: 'HomeController',
                 templateUrl: '/client/html_pages/home.html',
             })
@@ -48,12 +49,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 templateUrl: '/client/html_pages/addProperty.html'
             })
             .state('home.studentDashboard', {
-                url: '/studentDashboard',
                 controller: 'StudentDashboardController',
                 templateUrl: '/client/html_pages/studentDashboard.html'
             })
             .state('home.landlordDashboard', {
-                url: '/landlordDashboard',
                 controller: 'LandlordDashboardController',
                 templateUrl: 'client/html_pages/landlordDashboard.html'
             })
