@@ -30,6 +30,7 @@ app.controller('HomeController', ['$scope', '$userService', '$sessionService', '
         if (!err) {
             $scope.showPage = true;
         } else {
+            console.log("user not logged in");
             $location.path("/");
         }
     });
@@ -122,6 +123,22 @@ app.controller('StudentDashboardController', function($scope, $state, dataServic
 app.controller('SearchController', function($scope, $cookies, $location, $state, $searchService, dataService) {
     var query = {}
     var housingTypes = [];
+
+    var cookie = {
+        "username": $cookies.username,
+        "sessionKey": $cookies.sessionKey
+    }
+    var user = {
+        "username": $cookies.username
+    }
+
+    $sessionService.isLoggedIn(cookie, function(err, status, data) {
+        if (!err) {
+            $scope.showPage = true;
+        } else {
+            $state.go("start.login");
+        }
+    });
 
     if (dataService.queried == true) {
         console.log(query);
