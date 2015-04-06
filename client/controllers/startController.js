@@ -17,7 +17,7 @@ app.controller('StartController', ['$scope', '$location', '$state', function($sc
     }
 }]);
 
-app.controller('LoginController', ['$scope', '$userService', '$sessionService', '$propertyService', '$location', '$cookies', '$state', function($scope, $userService, $sessionService, $propertyService, $location, $cookies, $state) {
+app.controller('LoginController', ['$scope', '$userService', '$sessionService', '$propertyService', '$location', '$state', function($scope, $userService, $sessionService, $propertyService, $location, $state) {
         $scope.alerts = [];
         $scope.showPage = false;
         $scope.showLoginPage = false;
@@ -28,7 +28,7 @@ app.controller('LoginController', ['$scope', '$userService', '$sessionService', 
                 inputUsername = user;
                 $scope.showPage = true;
                 $scope.showLoginPage = false;
-                
+
                 $userService.retrieveUser({
                     username: inputUsername
                 }, function(err, status, data) {
@@ -68,7 +68,6 @@ app.controller('LoginController', ['$scope', '$userService', '$sessionService', 
             if ($scope.username && $scope.password) {
                 $sessionService.loginUser(login, function(err, status, data) {
                     if (!err) {
-                        $cookies.username = data.username;
                         console.log("going home");
                         $state.go("home");
                     } else {
@@ -116,7 +115,7 @@ app.controller('LoginController', ['$scope', '$userService', '$sessionService', 
         }
     });
 
-app.controller('SignupController', ['$scope', '$userService', '$state', '$stateParams', function($scope, $userService, $state, $stateParams) {
+app.controller('SignupController', ['$scope', '$userService', '$sessionService', '$propertyService', '$state', '$stateParams', function($scope, $userService, $sessionService, $propertyService, $state, $stateParams) {
         $scope.alerts = [];
         $scope.myOptions = [{
             "id": "gt",
@@ -154,8 +153,10 @@ app.controller('SignupController', ['$scope', '$userService', '$state', '$stateP
                 "password": $scope.password,
                 "confirmPassword": $scope.confirmPassword,
                 "email": $scope.email,
-                "campus": $scope.campus
+                "campus": $scope.user.campus
             }
+
+            console.log($scope.user.campus);
 
             if (!$scope.profileType) {
                 $scope.alerts.length = 0;
@@ -232,7 +233,29 @@ app.controller('SignupController', ['$scope', '$userService', '$state', '$stateP
                             });
                         }
                     } else {
-                        $state.go('home');
+                        var login = {
+                            "username": $scope.username,
+                            "password": $scope.password,
+                        }
+
+                        if ($scope.username && $scope.password) {
+                            $sessionService.loginUser(login, function(err, status, data) {
+                                if (!err) {
+                                    console.log("going home");
+                                    $state.go("home");
+                                } else {
+                                    console.log("error");
+                                    console.log(err);
+                                    if (err == 404 || err == 406 || err == 401) {
+                                        $scope.alerts.length = 0;
+                                        $scope.alerts.push({
+                                            type: 'danger',
+                                            msg: 'Invalid credentials.'
+                                        });
+                                    }
+                                }
+                            });
+                        }
                     }
                 });
             }
