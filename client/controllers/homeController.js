@@ -55,7 +55,6 @@ app.controller('HomeController', ['$scope', '$userService', '$sessionService', '
                 }
             });
         } else {
-            console.log("not logged in");
             $state.go("start.login");
         }
     });
