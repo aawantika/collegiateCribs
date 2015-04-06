@@ -40,3 +40,15 @@
 	margin-right: 5px;
 	margin-left: 5px;
 }
+
+.allMargins5{
+	margin: 5px 5px 5px;
+}
+
+.leftMargin5{
+	margin-left: 5px;
+}
+
+.rightMargin5{
+	margin-right: 5px;
+}

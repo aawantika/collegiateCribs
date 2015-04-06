@@ -13,6 +13,10 @@
     "angular-cookies": "*",
     "angular-ui-router": "*",
     "angular-bootstrap": "~0.12.1",
-    "bootstrap": "~3.3.4"
+    "bootstrap": "~3.3.4",
+    "angular-file-upload": "*"
+  },
+  "resolutions": {
+    "angular": "1.3.15"
   }
 }
