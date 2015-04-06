@@ -100,7 +100,10 @@ user.prototype.createUser = function(req, res) {
 user.prototype.retrieveUser = function(req, res) {
     // http://localhost:8080/user/retrieve POST
 
+    console.log(req.body);
+    
     var body = req.body;
+
     generalCheck.checkBody(body) 
         .then(function(result) {
             return userModel.findOne({
@@ -108,7 +111,7 @@ user.prototype.retrieveUser = function(req, res) {
             }).exec();
         })
         .then(function(user) {
-            return userCheck.userExists(user);
+            return userCheck.usernameExists(user);
         })
         .then(function(result) {
             res.status(result.status).send(result.send);
@@ -247,7 +250,7 @@ user.prototype.addFavoriteProperty = function(req, res) {
             }).exec();
         })
         .then(function(user) {
-            return userCheck.userExists(user);
+            return userCheck.usernameExists(user);
         })
         .then(function(user) {
             user.send = user.send.toObject();
@@ -316,7 +319,7 @@ user.prototype.deleteFavoriteProperty = function(req, res) {
             }).exec();
         })
         .then(function(user) {
-            return userCheck.userExists(user);
+            return userCheck.usernameExists(user);
         })
         .then(function(result) {
             return userModel.findOne({
@@ -357,7 +360,7 @@ user.prototype.getFavoriteProperties = function(req, res) {
             }).exec();
         })
         .then(function(user) {
-            return userCheck.userExists(user);
+            return userCheck.usernameExists(user);
         })
         .then(function(user) {
             user.send = user.send.toObject();

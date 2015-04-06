@@ -17,8 +17,47 @@ app.controller('StartController', ['$scope', '$location', '$state', function($sc
     }
 }]);
 
-app.controller('LoginController', ['$scope', '$sessionService', '$location', '$cookies', '$state', function($scope, $sessionService, $location, $cookies, $state) {
+app.controller('LoginController', ['$scope', '$userService', '$sessionService', '$propertyService', '$location', '$cookies', '$state', function($scope, $userService, $sessionService, $propertyService, $location, $cookies, $state) {
         $scope.alerts = [];
+        $scope.showPage = false;
+        $scope.showLoginPage = false;
+        var inputUsername;
+
+        $sessionService.isLoggedIn(function(err, user) {
+            if (user !== '0') {
+                inputUsername = user;
+                $scope.showPage = true;
+                $scope.showLoginPage = false;
+                
+                $userService.retrieveUser({
+                    username: inputUsername
+                }, function(err, status, data) {
+                    if (data.profileType == 'student') {
+                        $state.go('home.studentDashboard');
+                    } else if (data.profileType == "landlord") {
+                        var landlord = {
+                            "username": data.username
+                        }
+                        $propertyService.retrieveAllPropertyByUsername(landlord, function(err, status, data) {
+                            if (!err) {
+                                if (data.length == 0) {
+                                    $state.go("home.addProperty");
+                                } else {
+                                    $state.go("home.landlordDashboard");
+                                }
+                            } else {
+                                $scope.alert("error retrieving properties");
+                            }
+                        });
+                    } else {
+                        $scope.alert("Error retrieving user");
+                    }
+                });
+            } else {
+                $scope.showLoginPage = true;
+                $location.url('/login');
+            }
+        });
 
         $scope.loginButton = function() {
             var login = {
@@ -30,10 +69,12 @@ app.controller('LoginController', ['$scope', '$sessionService', '$location', '$c
                 $sessionService.loginUser(login, function(err, status, data) {
                     if (!err) {
                         $cookies.username = data.username;
-                        $cookies.sessionKey = data.sessionKey;
+                        console.log("going home");
                         $state.go("home");
                     } else {
-                        if (err == 404 || err == 406) {
+                        console.log("error");
+                        console.log(err);
+                        if (err == 404 || err == 406 || err == 401) {
                             $scope.alerts.length = 0;
                             $scope.alerts.push({
                                 type: 'danger',
@@ -157,12 +198,8 @@ app.controller('SignupController', ['$scope', '$userService', '$state', '$stateP
                     msg: "What university are you from?"
                 });
             } else {
-                console.log(newUser);
                 $userService.createUser(newUser, function(err, status, data) {
                     if (err) {
-                        console.log("ERR");
-                        console.log(err);
-                        console.log(status);
                         if (err == 406 && status === "username") {
                             $scope.alerts.length = 0;
                             $scope.alerts.push({
@@ -195,11 +232,7 @@ app.controller('SignupController', ['$scope', '$userService', '$state', '$stateP
                             });
                         }
                     } else {
-                        $scope.alerts.length = 0;
-                        $scope.alerts.push({
-                            type: 'success',
-                            msg: "Created new account!"
-                        });
+                        $state.go('home');
                     }
                 });
             }

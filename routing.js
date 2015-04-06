@@ -4,6 +4,8 @@
 var express = require('express');
 var router = express();
 router.use(express.static(__dirname + '/client'));
+var passport = require('passport');
+
 
 /**
  * User Models
@@ -12,7 +14,6 @@ var user = require('./server/login/user.js');
 var session = require('./server/login/login.js');
 var property = require('./server/property/property.js');
 var search = require('./server/search/search.js');
-
 
 module.exports = function() {
 
@@ -26,16 +27,17 @@ module.exports = function() {
     /**
      * login, logout, isLoggedIn
      */
-    router.post('/login', function(req, res) {
-        session.login(req, res);
+    router.post('/loggedin', function(req, res) {
+        res.send(req.isAuthenticated() ? req.user : '0');
+    });
+
+    router.post('/login', passport.authenticate('local'), function(req, res) {
+        res.send(req.user);
     });
 
     router.post('/logout', function(req, res) {
-        session.logout(req, res);
-    });
-
-    router.post('/isLoggedIn', function(req, res) {
-        session.isLoggedIn(req, res);
+        req.logOut();
+        res.sendStatus(200);
     });
 
     /**
@@ -65,7 +67,7 @@ module.exports = function() {
         user.addFavoriteProperty(req, res);
     });
 
-    router.post('/user/favorites/delete', function(req, res) {
+    router.post('/user/favorites/add', function(req, res) {
         user.deleteFavoriteProperty(req, res);
     });
 
@@ -98,21 +100,21 @@ module.exports = function() {
      * rating/review routing
      */
 
-     /**
-      * search routing
-      */
+    /**
+     * search routing
+     */
 
-      router.post('/search/landlord', function(req, res) {
-          search.searchLandlord(req, res);
-      });
+    router.post('/search/landlord', function(req, res) {
+        search.searchLandlord(req, res);
+    });
 
-      router.post('/search/property', function(req, res) {
-          search.searchProperty(req, res);
-      });
+    router.post('/search/property', function(req, res) {
+        search.searchProperty(req, res);
+    });
 
-        router.post('/search', function(req, res) {
-          search.getAvailableProperties(req, res);
-      });
-      
+    router.post('/search', function(req, res) {
+        search.getAvailableProperties(req, res);
+    });
+
     return router;
 }
