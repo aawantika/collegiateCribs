@@ -22,7 +22,9 @@
         "express": "*",
         "express-session": "*",
         "mongoose": "*",
+        "node-geocoder":"*",
         "node-uuid": "*",
-        "node-geocoder":"*"
+        "passport": "*",
+        "passport-local": "*"
     }
 }

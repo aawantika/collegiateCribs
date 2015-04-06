@@ -18,19 +18,17 @@ app.service('dataService', function() {
 app.controller('HomeController', ['$scope', '$userService', '$sessionService', '$propertyService', '$location', '$cookies', '$state', function($scope, $userService, $sessionService, $propertyService, $location, $cookies, $state) {
     $scope.alert = "";
     $scope.showPage = false;
-    var cookie = {
-        "username": $cookies.username,
-        "sessionKey": $cookies.sessionKey
-    }
-    var user = {
-        "username": $cookies.username
-    }
+    var inputUsername;
 
-    $sessionService.isLoggedIn(cookie, function(err, status, data) {
-        if (!err) {
-            $userService.retrieveUser(user, function(err, status, data) {
+$sessionService.isLoggedIn(function(err, user) {
+        if (user !== '0') {
+            inputUsername = user;
+            $scope.showHomePage = true;
+
+            $userService.retrieveUser({
+                username: inputUsername
+            }, function(err, status, data) {
                 if (data.profileType == 'student') {
-                    console.log("Change to Student Dashboard");
                     $state.go('home.studentDashboard');
                 } else if (data.profileType == "landlord") {
                     var landlord = {
@@ -38,12 +36,9 @@ app.controller('HomeController', ['$scope', '$userService', '$sessionService', '
                     }
                     $propertyService.retrieveAllPropertyByUsername(landlord, function(err, status, data) {
                         if (!err) {
-                            console.log(data);
                             if (data.length == 0) {
-                                console.log("going to addProperty");
                                 $state.go("home.addProperty");
                             } else {
-                                console.log("it is going home");
                                 $state.go("home.landlordDashboard");
                             }
                         } else {
@@ -55,11 +50,9 @@ app.controller('HomeController', ['$scope', '$userService', '$sessionService', '
                 }
             });
         } else {
-            $state.go("start.login");
+            $location.url('/login');
         }
     });
-
-
 
     $scope.menuSearchEnter = function() {
         console.log('change to search');
@@ -67,7 +60,7 @@ app.controller('HomeController', ['$scope', '$userService', '$sessionService', '
     }
 
     $scope.logoutButton = function() {
-        $sessionService.logout(cookie, function(err, status, data) {
+        $sessionService.logout(function(err, status, data) {
             if (!err) {
                 $scope.showPage = false;
                 $state.go("start.login");

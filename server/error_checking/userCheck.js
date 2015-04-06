@@ -167,12 +167,11 @@ userCheck.prototype.duplicateEmail = function(email) {
 }
 
 /**
- * Check if user/session exists
+ * Check if user exists
  */
-userCheck.prototype.userExists = function(user) {
+userCheck.prototype.userExists = function(user, passwordInput) {
     return new Promise(function(resolve, reject) {
-        if (user){
-            //&& bcrypt.comparePasswords(passwordInput, user.password)) {
+        if (user && bcrypt.comparePasswords(passwordInput, user.password)) {
             resolve({
                 status: 200,
                 send: user
@@ -186,36 +185,17 @@ userCheck.prototype.userExists = function(user) {
     });
 }
 
-userCheck.prototype.sessionExistsLogin = function(session) {
+userCheck.prototype.usernameExists = function(username) {
     return new Promise(function(resolve, reject) {
-        if (session) {
+        if (username) {
             resolve({
                 status: 200,
-                send: "session exists"
-            });
-
-            // reject({
-            //     status: 400,
-            //     send: "session exists"
-            // });
-        } else {
-            resolve();
-        }
-    });
-}
-
-
-userCheck.prototype.sessionExists = function(session) {
-    return new Promise(function(resolve, reject) {
-        if (session) {
-            resolve({
-                status: 200,
-                send: session
+                send: username
             });
         } else {
             reject({
                 status: 404,
-                send: "session not found"
+                send: "user not found"
             });
         }
     });
