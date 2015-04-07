@@ -1,124 +1,120 @@
 <div class="container">
-    <br>
-    <br>
     <h3><center>New Property</center></h3>
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label for="address" class="col-sm-2 control-label">Address</label>
-            <div class="col-sm-10">
-                <input type="email" class="form-control" id="address" placeholder="Address" ng-model="address">
-            </div>
+    <form name="addPropertyForm" id="property" method="post" novalidate ng-controller="AddPropertyController">
+        <div>
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
         </div>
         <div class="form-group">
-            <label for="inputKey" class="col-md-2 control-label">City</label>
-            <div class="col-md-4">
-                <input type="text" class="form-control" id="inputKey" placeholder="City" ng-model="city">
+            <label for="address_input" class="col-sm-2 control-label">Address</label>
+            <div class="col-sm-10" ng-class="{ 'has-error' : addPropertyForm.address.$invalid && (addPropertyForm.address.$dirty || submitted)}">
+                <input type="text" class="form-control" name="address" id="address_input" placeholder="Address" ng-model="address" required>
             </div>
-            <label for="inputValue" class="col-md-1 control-label">State</label>
-            <div class="col-md-2">
-                <select class="form-control">
-                    <option ng-model="state">GA</option>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="form-group">
+            <label for="city_input" class="col-md-2 control-label">City</label>
+            <div class="col-md-4" ng-class="{ 'has-error' : addPropertyForm.city.$invalid && (addPropertyForm.city.$dirty || submitted)}">
+                <input type="text" class="form-control" name="city" id="city_input" placeholder="City" ng-model="city" required>
+            </div>
+            <label for="state_input" class="col-md-1 control-label">State</label>
+            <div class="col-md-2" ng-class="{ 'has-error' : addPropertyForm.state.$invalid && (addPropertyForm.state.$dirty || submitted)}">
+                <select name="state" ng-model="state" id="state_input" ng-options="value.id as value.label group by value.group for value in stateOptions" class="form-control" required>
+                    <option value="">Select State</option>
                 </select>
             </div>
-            <label for="inputValue" class="col-md-1 control-label">Zipcode</label>
-            <div class="col-md-2">
-                <input type="text" class="form-control" id="inputValue" placeholder="Zipcode" ng-model="zipcode">
+            <label for="zipcode_input" class="col-md-1 control-label">Zipcode</label>
+            <div class="col-md-2" ng-class="{ 'has-error' : addPropertyForm.zipcode.$invalid && (addPropertyForm.zipcode.$dirty || submitted)}">
+                <input type="text" class="form-control" name="zipcode" id="zipcode_input" placeholder="Zipcode" ng-model="zipcode" required>
             </div>
         </div>
+        <br>
+        <br>
         <div class="form-group">
-            <label for="inputKey" class="col-md-2 control-label">Home Type</label>
-            <div class="col-md-4" ng-model="housingType">
-                <select class="form-control">
-                    <option label="house">House</option>
-                    <option label="condo">Condo</option>
-                    <option label="apartment">Apartment</option>
-                    <option label="townhome">Townhouse</option>
+            <label for="inputValue" class="col-md-2 control-label">Home Type</label>
+            <div class="col-md-4" ng-class="{ 'has-error' : addPropertyForm.housingType.$invalid && (addPropertyForm.housingType.$dirty || submitted)}">
+                <select name="housingType" ng-model="housingType" ng-options="value.id as value.label group by value.group for value in housingOptions" class="form-control" required>
+                    <option value="">Select State</option>
                 </select>
             </div>
             <label for="inputValue" class="col-md-1 control-label">Pets</label>
             <div class="col-md-2 ">
                 <label>
-                    <input type="checkbox" ng-model="catsOk"> Cats
+                    <input type="checkbox" ng-model="pets.catsOk"> Cats
                 </label>
             </div>
             <div class="col-md-2 ">
                 <label>
-                    <input type="checkbox" ng-model="dogsOk"> Dogs
+                    <input type="checkbox" ng-model="pets.dogsOk"> Dogs
                 </label>
             </div>
         </div>
+        <br>
+        <br>
         <div class="form-group">
-            <label for="inputKey" class="col-md-2 control-label">Price</label>
-            <div class="col-md-4">
-                <input type="text" class="form-control" id="inputKey" placeholder="Price" ng-model="price">
+            <label for="price_input" class="col-md-2 control-label">Price</label>
+            <div class="col-md-4" ng-class="{ 'has-error' : addPropertyForm.price.$invalid && (addPropertyForm.price.$dirty || submitted)}">
+                <input type="text" class="form-control" name="price" id="price_input" placeholder="Price" ng-model="price" required>
             </div>
             <label for="inputKey" class="col-md-2 control-label">Utilites</label>
             <div class="col-md-4">
                 <input type="text" class="form-control" id="inputKey" placeholder="e.g. 80-100" ng-model="utilities">
             </div>
         </div>
+        <br>
+        <br>
         <div class="form-group">
-            <label for="inputKey" class="col-md-2 control-label">Bedrooms</label>
-            <div class="col-md-4">
-                <select class="form-control">
-                    <option ng-model="bedrooms">1</option>
-                    <option ng-model="bedrooms">2</option>
-                    <option ng-model="bedrooms">3</option>
-                    <option ng-model="bedrooms">4</option>
-                    <option ng-model="bedrooms">5</option>
-                    <option ng-model="bedrooms">6</option>
-                    <option ng-model="bedrooms">7</option>
-                    <option ng-model="bedrooms">8</option>
+            <label for="bedroom_input" class="col-md-2 control-label">Bedrooms</label>
+            <div class="col-md-4" ng-class="{ 'has-error' : addPropertyForm.bedrooms.$invalid && (addPropertyForm.bedrooms.$dirty || submitted)}">
+                <select name="bedrooms" id="bedroom_input" ng-model="bedrooms" ng-options="value.id as value.label group by value.group for value in bedroomOptions" class="form-control" required>
+                    <option value="">Num of Bedrooms</option>
                 </select>
             </div>
-            <label for="inputKey" class="col-md-2 control-label">Bathrooms</label>
-            <div class="col-md-4">
-                <select class="form-control">
-                    <option ng-model="bedrooms">1</option>
-                    <option ng-model="bedrooms">2</option>
-                    <option ng-model="bedrooms">3</option>
-                    <option ng-model="bedrooms">4</option>
-                    <option ng-model="bedrooms">5</option>
-                    <option ng-model="bedrooms">6</option>
-                    <option ng-model="bedrooms">7</option>
-                    <option ng-model="bedrooms">8</option>
+            <label for="bathroom_input" class="col-md-2 control-label">Bathrooms</label>
+            <div class="col-md-4" ng-class="{ 'has-error' : addPropertyForm.bathrooms.$invalid && (addPropertyForm.bathrooms.$dirty || submitted)}">
+                <select name="bathrooms" id="bathroom_input" ng-model="bathrooms" ng-options="value.id as value.label group by value.group for value in bathroomOptions" class="form-control" required>
+                    <option value="">Num of Bathrooms</option>
                 </select>
             </div>
         </div>
-        <div class="form-group">
+        <br>
+        <br>
+        <div class="form-group" id="wrapper">
             <label for="inputKey" class="col-md-2 control-label">Last Renovated</label>
             <div class="col-md-4">
-                <input type="text" class="form-control" id="inputKey" placeholder="DATEPICKER HERE" ng-model="ADDHERE">
+                <p class="input-group">
+                    <input class="form-control date" type="text" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" ng-change="getDate()" />
+                    <span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button></span>
+                </p>
             </div>
-            <label for="leaseLength" class="col-md-2 control-label">Lease Length</label>
-            <div class="col-md-4">
-                <input type="text" class="form-control" id="leaseLength" placeholder="eg. 9" ng-model="length">
+            <label for="lease_input" class="col-md-2 control-label">Lease Length</label>
+            <div class="col-md-4" ng-class="{ 'has-error' : addPropertyForm.leaseLength.$invalid && (addPropertyForm.leaseLength.$dirty || submitted)}">
+                <input type="text" class="form-control" name="leaseLength" id="lease_input" placeholder="eg. 9" ng-model="leaseLength" required>
             </div>
         </div>
         <div class="form-group">
             <label for="propertyTours" class="col-md-2 control-label">Property Tours</label>
             <div class="col-md-4">
                 <label class="radio-inline">
-                    <input type="radio" name="propertyTours" id="propertyTours" value="option1"> Yes.
+                    <input type="radio" name="propertyTours" id="propertyToursYes" value="yes" ng-model="propertyTours"> Yes.
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" name="propertyTours" id="propertyTours" value="option2"> No.
+                    <input type="radio" name="propertyTours" id="propertyToursNo" value="no" ng-model="propertyTours"> No.
                 </label>
             </div>
         </div>
         <div class="form-group">
             <label for="description" class="col-md-2 control-label">Description</label>
             <div class="col-sm-10">
-                <textarea class="form-control" rows="3" id="description" placeholder="Enter additional information here."></textarea>
+                <textarea class="form-control" rows="3" id="description" placeholder="Enter additional information here." ng-model="description"></textarea>
             </div>
         </div>
-         <div class="form-group">
-             <input type="file" nv-file-select="" uploader="uploader">
-            <div class="col-md-9" style="margin-bottom: 40px">
-
+        <div class="form-group">
+            <input type="file" nv-file-select="" uploader="uploader">
+            <!-- <div class="col-md-9" style="margin-bottom: 40px">
                 <h3>Upload queue</h3>
                 <p class="ng-binding">Queue length: 0</p>
-
                 <table class="table">
                     <thead>
                         <tr>
@@ -130,10 +126,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                            <!-- ngRepeat: item in uploader.queue -->
                     </tbody>
                 </table>
-
                 <div>
                     <div>
                         Queue progress:
@@ -150,11 +144,10 @@
                     <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length" disabled="disabled">
                         <span class="glyphicon glyphicon-trash"></span> Remove all
                     </button>
-                </div>
-
-            </div>
+                </div> -->
         </div>
         <div class="form-group">
             <button class="btn btn-default col-md-4 col-sm-offset-5" ng-click="submitProperty()">Add New Property</button>
         </div>
+    </form>
 </div>

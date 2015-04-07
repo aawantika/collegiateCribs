@@ -20,7 +20,7 @@ app.controller('HomeController', ['$scope', '$userService', '$sessionService', '
     $scope.showPage = false;
     var inputUsername;
 
-$sessionService.isLoggedIn(function(err, user) {
+    $sessionService.isLoggedIn(function(err, user) {
         if (user !== '0') {
             inputUsername = user;
             $scope.showHomePage = true;

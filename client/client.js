@@ -43,11 +43,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 controller: 'HomeController',
                 templateUrl: '/client/html_pages/home.html',
             })
-            .state('home.addProperty', {
-                url: '/addProperty',
-                controller: 'AddPropertyController',
-                templateUrl: '/client/html_pages/addProperty.html'
-            })
+            // .state('home.addProperty', {
+            //     url: '/addProperty',
+            //     controller: 'AddPropertyController',
+            //     templateUrl: '/client/html_pages/addProperty.html'
+            // })
             .state('home.studentDashboard', {
                 controller: 'StudentDashboardController',
                 templateUrl: '/client/html_pages/studentDashboard.html'

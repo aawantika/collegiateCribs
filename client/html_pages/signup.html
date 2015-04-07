@@ -13,27 +13,27 @@
                     <label class="radio-inline">
                         <input type="radio" name="studentLandlordRadio" id="landlord" value="landlord" ng-click="toLandlord()" ng-model="profileType"> Landlord </label>
                     <br>
-                    <div class="form-inline" show-errors>
+                    <div class="form-inline" ng-class="{ 'has-error' : signupForm.firstName.$invalid && (signupForm.firstName.$dirty || submitted)}">
                         <label for="firstName_input">First Name</label>
                         <input type="text" class="form-control" name="firstName" id="firstName_input" placeholder="First Name" ng-model="firstName" required>
                     </div>
-                    <div class="form-inline" show-errors>
+                    <div class="form-inline" ng-class="{ 'has-error' : signupForm.lastName.$invalid && (signupForm.lastName.$dirty || submitted)}">
                         <label for="lastName_input">Last Name</label>
                         <input type="text" class="form-control" name="lastName" id="lastName_input" placeholder="Last Name" ng-model="lastName" required>
                     </div>
-                    <div class="form-group" show-errors>
+                    <div class="form-group" ng-class="{ 'has-error' : signupForm.username.$invalid && (signupForm.username.$dirty || submitted)}">
                         <label for="username_input">Username</label>
                         <input type="text" class="form-control" name="username" id="username_input" placeholder="Username" ng-model="username" required>
                     </div>
-                    <div class="form-group" show-errors>
+                    <div class="form-group" ng-class="{ 'has-error' : signupForm.password.$invalid && (signupForm.password.$dirty || submitted)}">
                         <label for="password_input">Password</label>
                         <input type="password" class="form-control" name="password" id="password_input" placeholder="Password" ng-model="password" ng-keyup="passMatch()" required>
                     </div>
-                    <div class="form-group" show-errors>
+                    <div class="form-group" ng-class="{ 'has-error' : signupForm.confirmPassword.$invalid && (signupForm.confirmPassword.$dirty || submitted)}">
                         <label for="confirmPassword_input">Confirm Password</label>
                         <input type="password" class="form-control" name="confirmPassword" id="confirmPassword_input" placeholder="Confirm Password" ng-model="confirmPassword" ng-keyup="passMatch()" required>
                     </div>
-                    <div class="form-group" show-errors>
+                    <div class="form-group" ng-class="{ 'has-error' : signupForm.email.$invalid && (signupForm.email.$dirty || submitted)}"s>
                         <label for="email_input">Email</label>
                         <input type="email" class="form-control" name="email" id="email_input" placeholder="Email" ng-model="email" required>
                     </div>

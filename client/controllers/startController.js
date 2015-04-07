@@ -145,6 +145,7 @@ app.controller('SignupController', ['$scope', '$userService', '$sessionService',
         };
 
         $scope.canSubmit = function() {
+            $scope.submitted = true;
             var newUser = {
                 "profileType": $scope.profileType,
                 "firstName": $scope.firstName,
@@ -156,46 +157,52 @@ app.controller('SignupController', ['$scope', '$userService', '$sessionService',
                 "campus": $scope.user.campus
             }
 
-            console.log($scope.user.campus);
-
             if (!$scope.profileType) {
                 $scope.alerts.length = 0;
                 $scope.alerts.push({
+                    type: 'danger',
                     msg: 'Are you a student or a landlord?'
                 });
             } else if (!$scope.firstName) {
                 $scope.alerts.length = 0;
                 $scope.alerts.push({
+                    type: 'danger',
                     msg: 'First name cannot be blank.'
                 });
             } else if (!$scope.lastName) {
                 $scope.alerts.length = 0;
                 $scope.alerts.push({
+                    type: 'danger',
                     msg: 'Last name cannot be blank.'
                 });
             } else if (!$scope.username) {
                 $scope.alerts.length = 0;
                 $scope.alerts.push({
+                    type: 'danger',
                     msg: 'Username cannot be blank.'
                 });
             } else if (!$scope.password || !$scope.confirmPassword) {
                 $scope.alerts.length = 0;
                 $scope.alerts.push({
+                    type: 'danger',
                     msg: 'Password cannot be blank.'
                 });
             } else if (!$scope.email) {
                 $scope.alerts.length = 0;
                 $scope.alerts.push({
+                    type: 'danger',
                     msg: 'Email cannot be blank.'
                 });
             } else if ($scope.password != $scope.confirmPassword) {
                 $scope.alerts.length = 0;
                 $scope.alerts.push({
+                    type: 'danger',
                     msg: "Passwords don't match."
                 });
             } else if ($scope.profileType == "student" && !$scope.user.campus) {
                 $scope.alerts.length = 0;
                 $scope.alerts.push({
+                    type: 'danger',
                     msg: "What university are you from?"
                 });
             } else {
