@@ -10,12 +10,14 @@ var generalCheck = require('../error_checking/generalCheck.js');
 var propertyCheck = require('../error_checking/propertyCheck.js');
 var userCheck = require('../error_checking/userCheck.js');
 
+
 function property() {}
 
 property.prototype.createProperty = function(req, res) {
     // http://localhost:8080/property/create POST
 
     var profileType = null;
+    var address;
 
     var body = req.body;
     generalCheck.checkBody(body)
@@ -28,25 +30,14 @@ property.prototype.createProperty = function(req, res) {
             }).exec();
         })
         .then(function(user) {
-            return userCheck.userExists(user);
+            return userCheck.usernameExists(user);
         })
         .then(function(user) {
             profileType = user.send.profileType;
-            return propertyCheck.checkAddress(body.address);
+            return propertyCheck.checkAddress(body.street, body.city, body.state, body.zipcode);
         })
-        .then(function(result) {
-            return propertyCheck.checkCity(body.city);
-        })
-        .then(function(result) {
-            return propertyCheck.checkState(body.state);
-        })
-        .then(function(result) {
-            return propertyCheck.checkZipcode(body.zipcode);
-        })
-        .then(function(result) {
-            return propertyCheck.checkDistanceFromCampus(body.distanceFromCampus);
-        })
-        .then(function(result) {
+        .then(function(address_returned) {
+            address = address_returned;
             return propertyCheck.checkBedrooms(body.bedrooms);
         })
         .then(function(result) {
@@ -57,9 +48,6 @@ property.prototype.createProperty = function(req, res) {
         })
         .then(function(result) {
             return propertyCheck.checkPrice(body.price);
-        })
-        .then(function(result) {
-            return propertyCheck.checkUtilities(body.utilities);
         })
         .then(function(result) {
             return propertyCheck.checkLength(body.length);
@@ -77,27 +65,30 @@ property.prototype.createProperty = function(req, res) {
             return propertyCheck.checkDescription(body.description);
         })
         .then(function(result) {
-            return propertyCheck.checkLastRenovationDate(body.lastRenovationDate);
-        })
-        .then(function(result) {
             return propertyModel.findOne({
-                address: body.address
+                street: body.street
             }).exec();
         })
         .then(function(propertyReturn) {
             return propertyCheck.duplicateProperty(propertyReturn);
         })
         .then(function(result) {
+            return propertyCheck.distanceFromCampus(address[0] + ', ' + address[1] + ', ' + address[2] + ', ' + body.zipcode);
+        })
+        .then(function(result) {
+            var originalAddress = address[0].replace("'", "");
+            address = address[0].replace("'", "").split(", ");
+
             var newProperty = new propertyModel();
             newProperty.propertyId = generateUuid.newUuid();;
             newProperty.ownerId = body.username;
             newProperty.verified = false;
 
-            newProperty.address = body.address;
-            newProperty.city = body.city;
-            newProperty.state = body.state;
+            newProperty.street = address[0];
+            newProperty.city = address[1];
+            newProperty.state = address[2];
             newProperty.zipcode = body.zipcode;
-            newProperty.distanceFromCampus = body.distanceFromCampus;
+            newProperty.distanceFromCampus = result.send;
 
             if (profileType === "student") {
                 newProperty.leaseType = "sublease";

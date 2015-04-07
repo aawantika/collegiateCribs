@@ -5,7 +5,12 @@
  */
 var Promise = require('bluebird');
 var bcrypt = require('../error_checking/bcryptHash.js');
-var geocoder = require('node-geocoder').getGeocoder('google', 'http');
+var addressValidator = require('address-validator');
+var Address = addressValidator.Address;
+var _ = require('underscore');
+var distance = require('google-distance');
+var gt;
+var gsu;
 
 function propertyCheck() {}
 
@@ -25,55 +30,51 @@ propertyCheck.prototype.checkPropertyId = function(propertyId) {
     });
 }
 
-propertyCheck.prototype.checkAddress = function(address) {
+propertyCheck.prototype.checkAddress = function(street_input, city_input, state_input, zipcode_input) {
     return new Promise(function(resolve, reject) {
-        if (!address) {
+        if (!street_input) {
             reject({
                 status: 406,
-                send: "address"
+                send: "street"
             });
-        } else {
-            resolve();
-        }
-    });
-}
-
-propertyCheck.prototype.checkCity = function(city) {
-    return new Promise(function(resolve, reject) {
-        if (!city) {
+        } else if (!city_input) {
             reject({
                 status: 406,
                 send: "city"
             });
-        } else {
-            resolve();
-        }
-    });
-}
-
-propertyCheck.prototype.checkState = function(state) {
-    return new Promise(function(resolve, reject) {
-        if (!state) {
+        } else if (!state_input) {
             reject({
                 status: 406,
                 send: "state"
             });
-        } else {
-            resolve();
-        }
-    });
-}
-
-propertyCheck.prototype.checkZipcode = function(zipcode) {
-    return new Promise(function(resolve, reject) {
-        // if (!zipcode || zipcode.length !== 5 || parseInt(zipcode, 10) < 1 || parseInt(zipcode, 10) > 99999) {
-        if (!zipcode || typeof zipcode !== 'number' || zipcode < 1 || zipcode > 99999) {
+        } else if (!zipcode_input || typeof zipcode_input !== 'number' || zipcode_input < 1 || zipcode_input > 99999) {
             reject({
                 status: 406,
                 send: "zipcode"
             });
         } else {
-            resolve();
+            var address = new Address({
+                street: street_input,
+                city: city_input,
+                state: state_input,
+                zipcode: zipcode_input
+            });
+
+            var validatedAddress;
+            addressValidator.validate(address, addressValidator.match.streetAddress, function(err, exact, inexact) {
+                validatedAddress = _.map(exact, function(a) {
+                    return a.toString();
+                });
+
+                if (validatedAddress && validatedAddress.length == 1) {
+                    resolve(validatedAddress);
+                } else {
+                    reject({
+                        status: 404,
+                        send: "address"
+                    });
+                }
+            });
         }
     });
 }
@@ -89,28 +90,6 @@ propertyCheck.prototype.checkDistanceFromCampus = function(distanceFromCampus) {
             resolve();
         }
     });
-}
-
-/**
- * in progress
- */
-propertyCheck.prototype.checkFullAddress = function(address, city, state, zipcode) {
-    var yes = address + " " + city + ", " + state + " " + zipcode;
-    console.log(yes);
-    geocoder.geocode(yes, function(err, res) {
-        console.log(res);
-    });
-    // return new Promise(function(resolve, reject) {
-
-    //     // if (!zipcode || zipcode.length !== 5 || parseInt(zipcode, 10).length != 5) {
-    //     //     reject({
-    //     //         status: 406,
-    //     //         send: "zipcode"
-    //     //     });
-    //     // } else {
-    //     //     resolve();
-    //     // }
-    // });
 }
 
 /**
@@ -175,7 +154,7 @@ propertyCheck.prototype.checkHousingType = function(housingType) {
 propertyCheck.prototype.checkPrice = function(price) {
     return new Promise(function(resolve, reject) {
         // if (!price || parseInt(price, 10) < 1 || parseInt(price, 10) > 2000) {
-        if (!price || typeof price !== 'number' || price < 1 || price > 2000) {
+        if (!price || typeof price !== 'number' || price < 1) {
             reject({
                 status: 406,
                 send: "price"
@@ -188,7 +167,7 @@ propertyCheck.prototype.checkPrice = function(price) {
 
 propertyCheck.prototype.checkUtilities = function(utilities) {
     return new Promise(function(resolve, reject) {
-        if (!utilities) {
+        if (utilities) {
             reject({
                 status: 406,
                 send: "utilities"
@@ -216,7 +195,6 @@ propertyCheck.prototype.checkAvailability = function(availability) {
 
 propertyCheck.prototype.checkLength = function(length) {
     return new Promise(function(resolve, reject) {
-        // if (!length || parseInt(length, 10) < 1 || parseInt(length, 10) > 36) {
         if (!length || typeof length !== 'number' || length < 1 || length > 36) {
             reject({
                 status: 406,
@@ -230,9 +208,7 @@ propertyCheck.prototype.checkLength = function(length) {
 
 propertyCheck.prototype.checkCats = function(catsOk) {
     return new Promise(function(resolve, reject) {
-        // var catsTypes = ["true", "false"];
-        // if (!catsOk || catsTypes.indexOf(catsOk) === -1) {
-        if (typeof catsOk !== 'boolean') {
+        if (catsOk && typeof catsOk !== 'boolean') {
             reject({
                 status: 406,
                 send: "catsOk"
@@ -245,9 +221,7 @@ propertyCheck.prototype.checkCats = function(catsOk) {
 
 propertyCheck.prototype.checkDogs = function(dogsOk) {
     return new Promise(function(resolve, reject) {
-        // var dogsTypes = ["true", "false"];
-        // if (!dogsOk || dogsTypes.indexOf(dogsOk) === -1) {
-        if (typeof dogsOk !== 'boolean') {
+        if (dogsOk && typeof dogsOk !== 'boolean') {
             reject({
                 status: 406,
                 send: "dogsOk"
@@ -260,9 +234,7 @@ propertyCheck.prototype.checkDogs = function(dogsOk) {
 
 propertyCheck.prototype.checkPropertyTours = function(propertyTours) {
     return new Promise(function(resolve, reject) {
-        var propertyToursTypes = ["true", "false"];
-        // if (!propertyTours || propertyToursTypes.indexOf(propertyTours) === -1) {
-        if (typeof propertyTours !== 'boolean') {
+        if (propertyTours && typeof propertyTours !== 'boolean') {
             reject({
                 status: 406,
                 send: "propertyTours"
@@ -275,7 +247,7 @@ propertyCheck.prototype.checkPropertyTours = function(propertyTours) {
 
 propertyCheck.prototype.checkDescription = function(description) {
     return new Promise(function(resolve, reject) {
-        if (!description || description.length < 1 || description.length > 500) {
+        if (description && (description.length < 1 || description.length > 500)) {
             reject({
                 status: 406,
                 send: "description"
@@ -361,6 +333,109 @@ propertyCheck.prototype.propertyExists = function(property) {
             });
         }
     });
+}
+
+propertyCheck.prototype.calculateDistances = function(address) {
+    distance.get({
+        origin: address,
+        destination: 'North Ave NW, Atlanta, GA 30332',
+        units: 'imperial'
+    }, function(err, data) {
+        if (err) {
+            return console.log(err);
+        } else {
+            console.log(data);
+            gt = data.distance.replace(" mi", "");
+            distance.get({
+                origin: address,
+                destination: '33 Gilmer Street SE Atlanta, GA',
+                units: 'imperial'
+            }, function(err, data) {
+                if (err) {
+                    return console.log(err);
+                } else {
+                    gsu = data.distance.replace(" mi", "");
+
+                    console.log(gt);
+                    console.log(gsu);
+                    console.log({
+                        gt: gt,
+                        gsu: gsu
+                    });
+                    return {
+                        gt: gt,
+                        gsu: gsu
+                    };
+                }
+            });
+        }
+    });
+}
+
+propertyCheck.prototype.distanceFromCampus = function(address) {
+    return new Promise(function(resolve, reject) {
+        if (address) {
+            calculateDistances(address, function(distances) {
+                resolve({
+                    status: 200,
+                    send: distances
+                });
+            });
+        }
+    });
+}
+
+function calculateDistances(address, callback) {
+    distance.get({
+        origin: address,
+        destination: 'North Ave NW, Atlanta, GA 30332',
+        units: 'imperial'
+    }, function(err, data) {
+        if (err) {
+            return console.log(err);
+        } else {
+            gt = data.distance.replace(" mi", "");
+            distance.get({
+                origin: address,
+                destination: '33 Gilmer Street SE Atlanta, GA',
+                units: 'imperial'
+            }, function(err, data) {
+                if (err) {
+                    return console.log(err);
+                } else {
+                    gsu = data.distance.replace(" mi", "");
+
+                    // console.log(gt);
+                    // console.log(gsu);
+                    // console.log({
+                    //     gt: gt,
+                    //     gsu: gsu
+                    // });
+
+                    console.log("HERE");
+                    console.log({
+                        gt: gt,
+                        gsu: gsu
+                    });
+                    callback({
+                        gt: gt,
+                        gsu: gsu
+                    })
+                    return;
+                }
+            });
+        }
+    });
+    // propertyModel.findOne({
+    //     uuid: uuidInput
+    // }, function(err, uuid) {
+    //     if (uuid || err) {
+    //         getNewUuid(uuid.v4(), callback);
+    //     } else {
+    //         callback(uuidInput);
+    //         return;
+    //     }
+    // });
 }
 
 module.exports = new propertyCheck();

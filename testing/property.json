@@ -4,11 +4,10 @@ CREATE:
     {
 
         "username": "bob1",
-        "address": "326171 georgia tech station",
+        "street": "326171 georgia tech station",
         "city": "atlanta",
         "state": "ga",
         "zipcode": 30301,
-        "distanceFromCampus": 2,
         "bedrooms": 2,
         "bathrooms": 5,
         "housingType": "condo",

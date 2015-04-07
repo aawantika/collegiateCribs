@@ -75,19 +75,20 @@ app.controller('AddPropertyController', ['$scope', '$sessionService', '$property
             "label": "8"
         }];
 
-        // $sessionService.isLoggedIn(cookie, function(err, status, data) {
-        //     if (!err) {
-        //         $scope.showPage = true;
-        //     } else {
-        //         $location.path("/");
-        //     }
-        // });
+        $sessionService.isLoggedIn(cookie, function(err, status, data) {
+            if (!err) {
+                $scope.showPage = true;
+            } else {
+                $location.path("/");
+            }
+        });
 
         $scope.submitProperty = function() {
             $scope.submitted = true;
 
             var newProperty = {
-                "address": $scope.address,
+                "username":"bob1",
+                "street": $scope.street,
                 "city": $scope.city,
                 "state": $scope.state,
                 "zipcode": parseInt($scope.zipcode),
@@ -95,7 +96,7 @@ app.controller('AddPropertyController', ['$scope', '$sessionService', '$property
                 "price": parseInt($scope.price),
                 "bedrooms": parseInt($scope.bedrooms),
                 "bathrooms": parseInt($scope.bathrooms),
-                "length": $scope.leaseLength,
+                "length": parseInt($scope.leaseLength),
                 "utilities": $scope.utilities,
                 "description": $scope.description
             }
@@ -121,17 +122,70 @@ app.controller('AddPropertyController', ['$scope', '$sessionService', '$property
                 newProperty.lastRenovationDate = data;
             }
 
-            if (!newProperty.bedrooms || !newProperty.bathrooms || !newProperty.housingType || !newProperty.address || !newProperty.city || !newProperty.state || !newProperty.zipcode || !newProperty.availability || !newProperty.price) {
-                $scope.alert = "Please fill in all required fields";
-                return false;
+            var utilitiesRegex = /^([0-9][0-9]*-[0-9][0-9]*)+$/i;
+
+            if (!$scope.street || !$scope.city || !$scope.state || !$scope.zipcode || isNaN(parseInt($scope.zipcode)) || $scope.zipcode.length != 5) {
+                $scope.alerts.length = 0;
+                $scope.alerts.push({
+                    type: 'danger',
+                    msg: 'Please fill in a valid address.'
+                });
+            } else if (!$scope.housingType) {
+                $scope.alerts.length = 0;
+                $scope.alerts.push({
+                    type: 'danger',
+                    msg: 'What is the housing type?'
+                });
+            } else if (!$scope.price || isNaN(parseInt($scope.price))) {
+                $scope.alerts.length = 0;
+                $scope.alerts.push({
+                    type: 'danger',
+                    msg: "What's the price of rent per month?"
+                });
+            } else if (!$scope.price || isNaN(parseInt($scope.price))) {
+                $scope.alerts.length = 0;
+                $scope.alerts.push({
+                    type: 'danger',
+                    msg: "What's the price of rent per month?"
+                });
+            } else if ($scope.utilities && !utilitiesRegex.test($scope.utilities)) {
+                $scope.alerts.length = 0;
+                $scope.alerts.push({
+                    type: 'danger',
+                    msg: "Invalid utilities format. eg. 80-100"
+                });
+            } else if (!$scope.bedrooms || !$scope.bathrooms) {
+                $scope.alerts.length = 0;
+                $scope.alerts.push({
+                    type: 'danger',
+                    msg: "How many bedrooms and bathrooms are there?"
+                });
+            } else if (!$scope.leaseLength || isNaN(parseInt($scope.price))) {
+                $scope.alerts.length = 0;
+                $scope.alerts.push({
+                    type: 'danger',
+                    msg: "How long is the lease or sublease?"
+                });
             } else {
-                $scope.alert = "all filled";
+                console.log(newProperty);
                 $propertyService.createProperty(newProperty, function(err, status, data) {
                     if (!err) {
                         $state.go("home.landlordDashboard");
+                    } else {
+                        if ((err === 404 && status === "address") || (err === 406)) {
+                            $scope.alerts.length = 0;
+                            $scope.alerts.push({
+                                type: 'warning',
+                                msg: "Make sure the address is correct."
+                            });
+                        }
                     }
                 });
             }
+
+            $scope.closeAlert = function(index) {
+                $scope.alerts.splice(index, 1);
+            };
         };
 
         $scope.today = function() {
@@ -141,7 +195,6 @@ app.controller('AddPropertyController', ['$scope', '$sessionService', '$property
         $scope.clear = function() {
             $scope.dt = null;
         };
-        $scope.clear();
 
         $scope.toggleMin = function() {
             $scope.minDate = $scope.minDate ? null : new Date();
@@ -179,8 +232,4 @@ app.controller('AddPropertyController', ['$scope', '$sessionService', '$property
                 })
             }
         }
-    });;
-
-app.controller('DatepickerDemoCtrl', function($scope) {
-
-});
+    });

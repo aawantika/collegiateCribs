@@ -256,7 +256,10 @@ search.prototype.searchProperty = function(req, res) {
             length: 1,
             catsOk: 1,
             dogsOk: 1,
-            address: 1,
+            street: 1,
+            city: 1,
+            state: 1,
+            zipcode: 1,
             propertyId: 1,
             score: {
                 $add: [

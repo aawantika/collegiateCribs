@@ -11,7 +11,6 @@ var passport = require('passport');
  * User Models
  */
 var user = require('./server/login/user.js');
-var session = require('./server/login/login.js');
 var property = require('./server/property/property.js');
 var search = require('./server/search/search.js');
 

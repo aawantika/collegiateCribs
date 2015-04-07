@@ -8,11 +8,11 @@ var propertySchema = new Schema({
     ownerId: String, //can't be modified
     verified: Boolean, //can't 
 
-    address: String, //can't be modified
+    street: String, //can't be modified
     city: String, //can't be modified
     state: String, //can't be modified
     zipcode: Number, //can't be modified
-    distanceFromCampus: Number, //can't
+    distanceFromCampus: {},
 
     leaseType: String, //can't be modified
     bedrooms: Number, //can be modified
@@ -35,7 +35,10 @@ var propertySchema = new Schema({
 });
 
 propertySchema.index({
-    address: 'text',
+    street: 'text',
+    city: 'text',
+    state: 'text',
+    zipcode: 'text',
     propertyId:'text',
     distanceFromCampus: 'text',
     bedrooms: 'text',

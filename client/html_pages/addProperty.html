@@ -5,9 +5,9 @@
             <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
         </div>
         <div class="form-group">
-            <label for="address_input" class="col-sm-2 control-label">Address</label>
-            <div class="col-sm-10" ng-class="{ 'has-error' : addPropertyForm.address.$invalid && (addPropertyForm.address.$dirty || submitted)}">
-                <input type="text" class="form-control" name="address" id="address_input" placeholder="Address" ng-model="address" required>
+            <label for="street_input" class="col-sm-2 control-label">Street</label>
+            <div class="col-sm-10" ng-class="{ 'has-error' : addPropertyForm.street.$invalid && (addPropertyForm.street.$dirty || submitted)}">
+                <input type="text" class="form-control" name="street" id="street_input" placeholder="Street" ng-model="street" required>
             </div>
         </div>
         <br>

@@ -60,6 +60,7 @@ app.controller('LoginController', ['$scope', '$userService', '$sessionService', 
         });
 
         $scope.loginButton = function() {
+             $scope.submitted = true;
             var login = {
                 "username": $scope.username,
                 "password": $scope.password,
