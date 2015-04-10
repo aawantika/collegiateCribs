@@ -1,4 +1,4 @@
-/**
+ /**
  * Dependencies
  */
 var mongoose = require('mongoose');
@@ -54,9 +54,16 @@ search.prototype.searchProperty = function(req, res) {
     var matchVar = {};
 
     if (req.body.distanceFromCampus) {
-        matchVar.distanceFromCampus = {
-            $lte: req.body.distanceFromCampus
-        };
+        if (req.body.campus == "gt") {
+            matchVar.distanceFromCampus = {
+                $lte: req.body.distanceFromCampus.gt
+            };
+        } else {
+            matchVar.distanceFromCampus = {
+                $lte: req.body.distanceFromCampus.gsu
+            };
+        }
+       
     }
     if (req.body.bedrooms) {
         matchVar.bedrooms = {
@@ -92,14 +99,26 @@ search.prototype.searchProperty = function(req, res) {
 
     var projectvarDistance = {};
     if (req.body.distanceFromCampus) {
-        projectvarDistance = {
-            $cond: [{
-                    $lte: ["$distanceFromCampus", req.body.distanceFromCampus]
-                },
-                10,
-                0
-            ]
-        };
+        if (req.body.campus == "gt") {
+            projectvarDistance = {
+                $cond: [{
+                        $lte: ["$distanceFromCampus.gt", req.body.distanceFromCampus.gt]
+                    },
+                    10,
+                    0
+                ]
+            };
+        } else {
+            projectvarDistance = {
+                $cond: [{
+                        $lte: ["$distanceFromCampus.gsu", req.body.distanceFromCampus.gsu]
+                    },
+                    10,
+                    0
+                ]
+            };
+        }
+
     } else {
         projectvarDistance = 0;
     }
