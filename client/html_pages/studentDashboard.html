@@ -12,31 +12,17 @@
                 <tr>
                 <td>
                     <div class="form-group">
-                        <label for="numBedrooms" ng-model="bedrooms" valueattr="label">Bedrooms</label>
+                        <label for="numBedrooms" ng-model="bedrooms" valueattr="label" ng-options="value.id as value.label group by value.group for value in bedroomOptions">Bedrooms</label>
                         <select class="form-control" id="numBedrooms">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
+                            <option value="">Select</option>
                         </select>
                     </div>
                 </td>
                 <td>
                     <div class="form-group">
-                        <label for="numBathrooms" ng-model="bathrooms" valueattr="label">Bathrooms</label>
+                        <label for="numBathrooms" ng-model="bathrooms" valueattr="label" ng-options="value.id as value.label group by value.group for value in bathroomOptions">Bathrooms</label>
                         <select class="form-control" id="numBathrooms">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
+                            <option value="">Select</option>
                         </select>
                     </div>
                 </td>
