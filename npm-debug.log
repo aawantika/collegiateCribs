@@ -1,0 +1,92 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.35
+4 verbose readDependencies using package.json deps
+5 verbose install where, deps [ '/Users/vxu/collegiateCribs',
+5 verbose install   [ 'address-validator',
+5 verbose install     'bcrypt-nodejs',
+5 verbose install     'bluebird',
+5 verbose install     'body-parser',
+5 verbose install     'bower',
+5 verbose install     'cookie-parser',
+5 verbose install     'express',
+5 verbose install     'express-session',
+5 verbose install     'mongoose',
+5 verbose install     'node-uuid',
+5 verbose install     'passport',
+5 verbose install     'passport-local',
+5 verbose install     'underscore',
+5 verbose install     'google-distance',
+5 verbose install     'jasmine-spec-reporter' ] ]
+6 info preinstall collegiateCribs@0.0.1
+7 verbose readDependencies using package.json deps
+8 verbose already installed skipping address-validator@~0.1.4 /Users/vxu/collegiateCribs
+9 verbose already installed skipping bcrypt-nodejs@* /Users/vxu/collegiateCribs
+10 verbose already installed skipping bluebird@* /Users/vxu/collegiateCribs
+11 verbose already installed skipping body-parser@* /Users/vxu/collegiateCribs
+12 verbose already installed skipping bower@* /Users/vxu/collegiateCribs
+13 verbose already installed skipping cookie-parser@* /Users/vxu/collegiateCribs
+14 verbose already installed skipping express@* /Users/vxu/collegiateCribs
+15 verbose already installed skipping express-session@* /Users/vxu/collegiateCribs
+16 verbose already installed skipping mongoose@* /Users/vxu/collegiateCribs
+17 verbose already installed skipping node-uuid@* /Users/vxu/collegiateCribs
+18 verbose already installed skipping passport@* /Users/vxu/collegiateCribs
+19 verbose already installed skipping passport-local@* /Users/vxu/collegiateCribs
+20 verbose already installed skipping underscore@~1.8.3 /Users/vxu/collegiateCribs
+21 verbose already installed skipping google-distance@~1.0.1 /Users/vxu/collegiateCribs
+22 verbose already installed skipping jasmine-spec-reporter@^2.1.0 /Users/vxu/collegiateCribs
+23 silly resolved []
+24 info build /Users/vxu/collegiateCribs
+25 verbose linkStuff [ false, false, false, '/Users/vxu' ]
+26 info linkStuff collegiateCribs@0.0.1
+27 verbose linkBins collegiateCribs@0.0.1
+28 verbose linkMans collegiateCribs@0.0.1
+29 verbose rebuildBundles collegiateCribs@0.0.1
+30 verbose rebuildBundles [ '.bin',
+30 verbose rebuildBundles   'address-validator',
+30 verbose rebuildBundles   'bcrypt',
+30 verbose rebuildBundles   'bcrypt-nodejs',
+30 verbose rebuildBundles   'bluebird',
+30 verbose rebuildBundles   'body-parser',
+30 verbose rebuildBundles   'bower',
+30 verbose rebuildBundles   'cookie-parser',
+30 verbose rebuildBundles   'express',
+30 verbose rebuildBundles   'express-session',
+30 verbose rebuildBundles   'google-distance',
+30 verbose rebuildBundles   'jasmine-spec-reporter',
+30 verbose rebuildBundles   'mongoose',
+30 verbose rebuildBundles   'node-geocoder',
+30 verbose rebuildBundles   'node-uuid',
+30 verbose rebuildBundles   'passport',
+30 verbose rebuildBundles   'passport-local',
+30 verbose rebuildBundles   'underscore' ]
+31 verbose rebuild bundle /Users/vxu/collegiateCribs/node_modules/bcrypt
+32 info build /Users/vxu/collegiateCribs/node_modules/bcrypt
+33 info preinstall bcrypt@0.8.1
+34 verbose linkStuff [ false, false, false, '/Users/vxu/collegiateCribs/node_modules' ]
+35 info linkStuff bcrypt@0.8.1
+36 verbose linkBins bcrypt@0.8.1
+37 verbose linkMans bcrypt@0.8.1
+38 verbose rebuildBundles bcrypt@0.8.1
+39 verbose rebuildBundles [ 'bindings', 'nan' ]
+40 info install bcrypt@0.8.1
+41 verbose unsafe-perm in lifecycle false
+42 info bcrypt@0.8.1 Failed to exec install script
+43 error bcrypt@0.8.1 install: `node-gyp rebuild`
+43 error Exit status 1
+44 error Failed at the bcrypt@0.8.1 install script.
+44 error This is most likely a problem with the bcrypt package,
+44 error not with npm itself.
+44 error Tell the author that this fails on your system:
+44 error     node-gyp rebuild
+44 error You can get their info via:
+44 error     npm owner ls bcrypt
+44 error There is likely additional logging output above.
+45 error System Darwin 14.0.0
+46 error command "node" "/usr/local/bin/npm" "install"
+47 error cwd /Users/vxu/collegiateCribs
+48 error node -v v0.10.35
+49 error npm -v 1.4.28
+50 error code ELIFECYCLE
+51 verbose exit [ 1, true ]

@@ -58,7 +58,10 @@ app.controller('HomeController', ['$scope', '$userService', '$sessionService', '
         console.log('change to search');
         $state.go('home.search');
     }
-
+    $scope.toSearch = function() {
+        console.log('off to search');
+        $state.go('home.search');
+    }
     $scope.logoutButton = function() {
         $sessionService.logout(function(err, status, data) {
             if (!err) {
@@ -97,15 +100,59 @@ app.controller('LandlordDashboardController', ['$scope', '$cookies', '$location'
 
 app.controller('StudentDashboardController', function($scope, $state, dataService) {
     $scope.alert = "";
-
+    $scope.bedroomOptions = [{
+        "id": "1",
+        "label": "1"
+    }, {
+        "id": "2",
+        "label": "2"
+    }, {
+        "id": "3",
+        "label": "3"
+    }, {
+        "id": "4",
+        "label": "4"
+    }, {
+        "id": "5",
+        "label": "5"
+    }, {
+        "id": "6",
+        "label": "6+"
+    }];
+    $scope.bathroomOptions = [{
+        "id": "1",
+        "label": "1"
+    }, {
+        "id": "2",
+        "label": "2"
+    }, {
+        "id": "3",
+        "label": "3"
+    }, {
+        "id": "4",
+        "label": "4"
+    }, {
+        "id": "5",
+        "label": "5"
+    }, {
+        "id": "6",
+        "label": "6+"
+    }];
     $scope.simpleSearch = function() {
-        var query = {
-            "bedrooms": parseInt($scope.bedrooms),
-            "bathrooms": parseInt($scope.bathrooms),
-            "minPrice": parseInt($scope.minPrice),
-            "maxPrice": parseInt($scope.maxPrice)
+        var query = {}
+
+        if ($scope.minPrice) {
+            query['minPrice'] = parseInt($scope.minPrice); 
+        } 
+        if ($scope.maxPrice) {
+            query.maxPrice = parseInt($scope.maxPrice);
         }
-        console.log("hello");
+        if ($scope.bedrooms) {
+            query.bedrooms = parseInt($scope.bedrooms);
+        }
+        if ($scope.bathrooms) {
+            query.bathrooms = parseInt($scope.bathrooms);
+        }
         dataService.setData(query);
         console.log("off to Search");
         $state.go("home.search");
@@ -157,17 +204,11 @@ app.controller('SearchController', function($scope, $cookies, $location, $state,
         console.log(query);
 
         query = {
-            "distanceFromCampus": parseInt($scope.distanceFromCampus),
-            "minPrice": parseInt($scope.minPrice),
-            "maxPrice": parseInt($scope.maxPrice),
-            "bedrooms": parseInt($scope.bedrooms),
-            "bathrooms": parseInt($scope.bathrooms),
-            "housingType": this.housingTypes,
-            "catsOk": $scope.catsOk == 'true',
-            "dogsOk": $scope.dogsOk == 'true'
         }
     } else if (dataService.queried == false) {
         query = dataService.getData();
+        $scope.bathrooms = $scope.bathroomOptions;
+        $scope.bedrooms = query.bedrooms;
         $scope.minPrice = query.minPrice;
         $scope.maxPrice = query.maxPrice;
     }
@@ -204,16 +245,34 @@ app.controller('SearchController', function($scope, $cookies, $location, $state,
 
     $scope.change = function(list) {
         var query = {
-            "distanceFromCampus": parseInt($scope.distanceFromCampus),
-            "minPrice": parseInt($scope.minPrice),
-            "maxPrice": parseInt($scope.maxPrice),
-            "bedrooms": parseInt($scope.bedrooms),
-            "bathrooms": parseInt($scope.bathrooms),
-            "housingType": list,
-            "catsOk": $scope.catsOk == 'true',
-            "dogsOk": $scope.dogsOk == 'true',
+
         }
+        if (list.length > 0) {
+            query.housingType = list;
+        }
+        if ($scope.distanceFromCampus) {
+            query.distanceFromCampus = parseInt($scope.distanceFromCampus);
+        }
+        if ($scope.minPrice) {
+            query['minPrice'] = parseInt($scope.minPrice); 
+        } 
+        if ($scope.maxPrice) {
+            query.maxPrice = parseInt($scope.maxPrice);
+        }
+        if ($scope.bedrooms) {
+            query.bedrooms = parseInt($scope.bedrooms);
+        }
+        if ($scope.bathrooms) {
+            query.bathrooms = parseInt($scope.bathrooms);
+        }
+        if ($scope.catsOk) {
+            query.catsOk = $scope.catsOk;
+        }
+        if ($scope.dogsOk) {
+            query.dogsOk = $scope.dogsOk;
+        }   
         console.log(query);
+        //console.log(typeof $scope.pets.catsOk);
         $searchService.searchProperty(query, function(err, status, data) {
             if (!err) {
                 console.log(data);
@@ -222,5 +281,9 @@ app.controller('SearchController', function($scope, $cookies, $location, $state,
                 $scope.alert("error retrieving properties");
             }
         });
+    }
+
+    $scope.goToProperty() = function() {
+        
     }
 });

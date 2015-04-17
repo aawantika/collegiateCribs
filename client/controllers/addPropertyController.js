@@ -82,12 +82,18 @@ app.controller('AddPropertyController', ['$scope', '$sessionService', '$property
                 $location.path("/");
             }
         });
-
+        $sessionService.isLoggedIn(function(err, user) {
+            if (user !== '0') {
+                $scope.showPage = true;
+            } else {
+                $location.url('/login');
+            }
+        });
         $scope.submitProperty = function() {
             $scope.submitted = true;
 
             var newProperty = {
-                "username":"bob1",
+                "username": "bob1",
                 "street": $scope.street,
                 "city": $scope.city,
                 "state": $scope.state,

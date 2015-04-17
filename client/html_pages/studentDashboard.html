@@ -1,45 +1,46 @@
 <div>
+
     <body>
         <form class="form-inline box content table" id="simpleSearch" ng-submit="simpleSearch()" method="post">
             <h3><label for="nolabel">Search: </label></h3>
             <table>
                 <colgroup>
-                    <col style="width:25%"/>
-                    <col style="width:25%"/>
-                    <col style="width:25%"/>
-                    <col style="width:25%"/>
-                </colgroup> 
+                    <col style="width:25%" />
+                    <col style="width:25%" />
+                    <col style="width:25%" />
+                    <col style="width:25%" />
+                </colgroup>
                 <tr>
-                <td>
-                    <div class="form-group">
-                        <label for="numBedrooms" ng-model="bedrooms" valueattr="label" ng-options="value.id as value.label group by value.group for value in bedroomOptions">Bedrooms</label>
-                        <select class="form-control" id="numBedrooms">
-                            <option value="">Select</option>
-                        </select>
-                    </div>
-                </td>
-                <td>
-                    <div class="form-group">
-                        <label for="numBathrooms" ng-model="bathrooms" valueattr="label" ng-options="value.id as value.label group by value.group for value in bathroomOptions">Bathrooms</label>
-                        <select class="form-control" id="numBathrooms">
-                            <option value="">Select</option>
-                        </select>
-                    </div>
-                </td>
-                <td>
-                    <div class="input-group">
-                        <div class="input-group-addon">From</div>
-                        <input type="text" class="form-control" id="minprice" placeholder="$0" ng-model="minPrice">
-                        <div class="input-group-addon">.00</div>
-                    </div>
-                </td>
-                <td>
-                    <div class="input-group">
-                        <div class="input-group-addon">To</div>
+                    <td>
+                        <div class="form-group">
+                            <label for="numBedrooms">Bedrooms</label>
+                            <select ng-model="bedrooms" ng-options="value.id as value.label group by value.group for value in bedroomOptions" class="form-control">
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <label for="numBathrooms">Bathrooms</label>
+                            <select ng-model="bathrooms" ng-options="value.id as value.label group by value.group for value in bathroomOptions" class="form-control">
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-addon">From</div>
+                            <input type="text" class="form-control" id="minprice" placeholder="$0" ng-model="minPrice">
+                            <div class="input-group-addon">.00</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-addon">To</div>
                             <input type="text" class="form-control" id="maxPrice" placeholder="$$$$" ng-model="maxPrice">
-                        <div class="input-group-addon">.00</div>
-                    </div>
-                </td>
+                            <div class="input-group-addon">.00</div>
+                        </div>
+                    </td>
             </table>
             <footer>
                 <button type="submit" class="btn btn-default" ng-click="simpleSearch()">Search</button>
@@ -47,7 +48,7 @@
         </form>
         <!-- YOU NEED TO BOOTSTRAP THIS PART. MESSAGE ME IF YOU GET STUCK - tika!-->
         <!--recent activity: pull data from server into scope with the controller.
-			Will probably need to do an ng-repeat to go through a list of stuff.-->
+            Will probably need to do an ng-repeat to go through a list of stuff.-->
         <div class="box container">
             <header>
                 <h3>Favorite Properties</h3>
@@ -55,12 +56,12 @@
             <div class="box">
                 <div class="row">
                     <div class="col-xs-12">
-                       No favorite leases? Try searching for some today!
+                        No favorite leases? Try searching for some today!
                     </div>
                 </div>
                 <div ng-repeat="property in favorites" class="row">
                     <div class="col-xs-3">
-                       property Image Here:{{property.imgUrl}}
+                        property Image Here:{{property.imgUrl}}
                     </div>
                     <div class="col-xs-9">
                         Address: {{property.address}}
@@ -69,7 +70,6 @@
                 </div>
             </div>
         </div>
-
         <div class="box container">
             <header>
                 <h3>Owned subleases</h3>
@@ -77,7 +77,7 @@
             <div class="box">
                 <div ng-repeat="property in subLeases" class="row">
                     <div class="col-xs-3">
-                       property Image Here:{{property.imgUrl}}
+                        property Image Here:{{property.imgUrl}}
                     </div>
                     <div class="col-xs-9">
                         Address: {{property.address}}
@@ -90,6 +90,5 @@
             </div>
             <button type="submit" class="btn btn-default" ng-click="addSublease()" ng-Hide="addingSublease">Add a sublease</button>
         </div>
-        
     </body>
 </div>
