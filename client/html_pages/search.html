@@ -16,6 +16,15 @@
                                             <input type="text" class="form-control" id="distance" placeholder="Distance From Campus" ng-model="distanceFromCampus" ng-change="change()">
                                         </div>
                                     </form>
+                                    <!--Change thhis-->
+                                    <form class="form-inline">
+                                        <div class="form-group">
+                                            <label for="campus">From Campus:</label>
+                                            <select ng-model="campus" ng-options="value.id as value.label group by value.group for value in campuses" class="form-control" ng-change="change()" ng-init="campus = $scope.user.campus">
+                                                <option value="">Select</option>
+                                            </select>
+                                        </div>
+                                    </form>
                                     <label>Price Range</label>
                                     <br>
                                     <div class="col-xs-1" style="position:relative;width:50%;">
