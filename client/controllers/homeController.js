@@ -115,7 +115,44 @@ app.controller('StudentDashboardController', function($scope, $state, dataServic
 app.controller('SearchController', function($scope, $cookies, $location, $state, $sessionService, $searchService, dataService) {
     var query = {}
     var housingTypes = [];
-
+    $scope.bedroomOptions = [{
+        "id": "1",
+        "label": "1"
+    }, {
+        "id": "2",
+        "label": "2"
+    }, {
+        "id": "3",
+        "label": "3"
+    }, {
+        "id": "4",
+        "label": "4"
+    }, {
+        "id": "5",
+        "label": "5"
+    }, {
+        "id": "6",
+        "label": "6+"
+    }];
+    $scope.bathroomOptions = [{
+        "id": "1",
+        "label": "1"
+    }, {
+        "id": "2",
+        "label": "2"
+    }, {
+        "id": "3",
+        "label": "3"
+    }, {
+        "id": "4",
+        "label": "4"
+    }, {
+        "id": "5",
+        "label": "5"
+    }, {
+        "id": "6",
+        "label": "6+"
+    }];
     if (dataService.queried == true) {
         console.log(query);
 

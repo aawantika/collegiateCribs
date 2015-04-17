@@ -32,16 +32,16 @@
                                     <br>
                                     <form class="form-inline">
                                          <div class="form-group">
-                                            <label for="numBedrooms" ng-model="bedrooms" valueattr="label" ng-options="value.id as value.label group by value.group for value in bedroomOptions">Bedrooms</label>
-                                            <select class="form-control" id="numBedrooms">
+                                            <label for="numBedrooms">Bedrooms</label>
+                                            <select ng-model="bedrooms" ng-options="value.id as value.label group by value.group for value in bedroomOptions" class="form-control" ng-change="change()">
                                                 <option value="">Select</option>
                                             </select>
                                         </div>
                                     </form>
-                                    <form class="form-inline">
-                                        <div class="form-group">
-                                            <label for="numBathrooms" ng-model="bathrooms" valueattr="label" ng-options="value.id as value.label group by value.group for value in bathroomOptions">Bathrooms</label>
-                                            <select class="form-control" id="numBathrooms">
+                                  <form class="form-inline">
+                                         <div class="form-group">
+                                            <label for="numBathrooms">Bedrooms</label>
+                                            <select ng-model="bathrooms" ng-options="value.id as value.label group by value.group for value in bathroomOptions" class="form-control" ng-change="change()">
                                                 <option value="">Select</option>
                                             </select>
                                         </div>
