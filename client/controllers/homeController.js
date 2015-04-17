@@ -15,7 +15,7 @@ app.service('dataService', function() {
 });
 
 
-app.controller('HomeController', ['$scope', '$userService', '$sessionService', '$propertyService', '$location', '$cookies', '$state', function($scope, $userService, $sessionService, $propertyService, $location, $cookies, $state) {
+app.controller('HomeController', ['$scope', '$userService', '$sessionService', '$propertyService', '$location', '$state', function($scope, $userService, $sessionService, $propertyService, $location, $state) {
     $scope.alert = "";
     $scope.showPage = false;
     var inputUsername;
@@ -73,9 +73,8 @@ app.controller('HomeController', ['$scope', '$userService', '$sessionService', '
 }]);
 
 
-app.controller('LandlordDashboardController', ['$scope', '$cookies', '$location', '$state', '$propertyService', function($scope, $cookies, $location, $state, $propertyService) {
+app.controller('LandlordDashboardController', ['$scope', '$location', '$state', '$propertyService', function($scope, $location, $state, $propertyService) {
     $scope.alert = "";
-    $scope.username = $cookies.username + "'s";
     $scope.rating = "N/A";
 
     $scope.addProperty = function() {
@@ -83,9 +82,6 @@ app.controller('LandlordDashboardController', ['$scope', '$cookies', '$location'
         $state.go('home.addProperty');
     };
 
-    var landlord = {
-        'username': $cookies.username
-    }
     $propertyService.retrieveAllPropertyByUsername(landlord, function(err, status, data) {
         if (!err) {
             console.log(data);
@@ -159,9 +155,10 @@ app.controller('StudentDashboardController', function($scope, $state, dataServic
     };
 });
 
-app.controller('SearchController', function($scope, $cookies, $location, $state, $sessionService, $searchService, dataService) {
+app.controller('SearchController', function($scope, $location, $state, $sessionService, $searchService, dataService) {
     var query = {}
     var housingTypes = [];
+
     $scope.bedroomOptions = [{
         "id": "1",
         "label": "1"
@@ -181,6 +178,7 @@ app.controller('SearchController', function($scope, $cookies, $location, $state,
         "id": "6",
         "label": "6+"
     }];
+
     $scope.bathroomOptions = [{
         "id": "1",
         "label": "1"
@@ -200,6 +198,7 @@ app.controller('SearchController', function($scope, $cookies, $location, $state,
         "id": "6",
         "label": "6+"
     }];
+    
     if (dataService.queried == true) {
         console.log(query);
 
@@ -244,25 +243,24 @@ app.controller('SearchController', function($scope, $cookies, $location, $state,
     }
 
     $scope.change = function(list) {
-        var query = {
+        var query = {};
 
-        }
-        if (list.length > 0) {
+        if (list && list.length > 0) {
             query.housingType = list;
         }
         if ($scope.distanceFromCampus) {
             query.distanceFromCampus = parseInt($scope.distanceFromCampus);
         }
         if ($scope.minPrice) {
-            query['minPrice'] = parseInt($scope.minPrice); 
+            query.minPrice = parseInt($scope.minPrice); 
         } 
         if ($scope.maxPrice) {
             query.maxPrice = parseInt($scope.maxPrice);
         }
-        if ($scope.bedrooms) {
+        if ($scope.bedrooms && !isNaN($scope.bedrooms)) {
             query.bedrooms = parseInt($scope.bedrooms);
         }
-        if ($scope.bathrooms) {
+        if ($scope.bathrooms && !isNaN($scope.bathrooms)) {
             query.bathrooms = parseInt($scope.bathrooms);
         }
         if ($scope.catsOk) {
@@ -271,19 +269,17 @@ app.controller('SearchController', function($scope, $cookies, $location, $state,
         if ($scope.dogsOk) {
             query.dogsOk = $scope.dogsOk;
         }   
-        console.log(query);
-        //console.log(typeof $scope.pets.catsOk);
         $searchService.searchProperty(query, function(err, status, data) {
             if (!err) {
-                console.log(data);
                 $scope.properties = data;
+                console.log($scope.properties);
             } else {
-                $scope.alert("error retrieving properties");
+                // $scope.alert("error retrieving properties");
             }
         });
     }
 
-    $scope.goToProperty() = function() {
+    // $scope.goToProperty() = function() {
         
-    }
+    // }
 });

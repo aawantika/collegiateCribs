@@ -53,28 +53,32 @@ propertyCheck.prototype.checkAddress = function(street_input, city_input, state_
                 send: "zipcode"
             });
         } else {
-            var address = new Address({
-                street: street_input,
-                city: city_input,
-                state: state_input,
-                zipcode: zipcode_input
-            });
+            console.log(street_input + ", " + city_input + ", " + state_input + ", " + zipcode_input);
+            resolve(street_input + ", " + city_input + ", " + state_input + ", " + zipcode_input);
+            // var address = new Address({
+            //     street: street_input,
+            //     city: city_input,
+            //     state: state_input,
+            //     zipcode: zipcode_input
+            // });
 
-            var validatedAddress;
-            addressValidator.validate(address, addressValidator.match.streetAddress, function(err, exact, inexact) {
-                validatedAddress = _.map(exact, function(a) {
-                    return a.toString();
-                });
+            // var validatedAddress;
+            // addressValidator.validate(address, addressValidator.match.streetAddress, function(err, exact, inexact) {
+            //     validatedAddress = _.map(exact, function(a) {
+            //         return a.toString();
+            //     });
 
-                if (validatedAddress && validatedAddress.length == 1) {
-                    resolve(validatedAddress);
-                } else {
-                    reject({
-                        status: 404,
-                        send: "address"
-                    });
-                }
-            });
+            //     console.log(validatedAddress);
+
+            //     if (validatedAddress && validatedAddress.length == 1) {
+            //         resolve(validatedAddress);
+            //     } else {
+            //         reject({
+            //             status: 404,
+            //             send: "address"
+            //         });
+            //     }
+            // });
         }
     });
 }
@@ -335,107 +339,51 @@ propertyCheck.prototype.propertyExists = function(property) {
     });
 }
 
-propertyCheck.prototype.calculateDistances = function(address) {
-    distance.get({
-        origin: address,
-        destination: 'North Ave NW, Atlanta, GA 30332',
-        units: 'imperial'
-    }, function(err, data) {
-        if (err) {
-            return console.log(err);
-        } else {
-            console.log(data);
-            gt = data.distance.replace(" mi", "");
-            distance.get({
-                origin: address,
-                destination: '33 Gilmer Street SE Atlanta, GA',
-                units: 'imperial'
-            }, function(err, data) {
-                if (err) {
-                    return console.log(err);
-                } else {
-                    gsu = data.distance.replace(" mi", "");
-
-                    console.log(gt);
-                    console.log(gsu);
-                    console.log({
-                        gt: gt,
-                        gsu: gsu
-                    });
-                    return {
-                        gt: gt,
-                        gsu: gsu
-                    };
-                }
-            });
-        }
-    });
-}
-
-propertyCheck.prototype.distanceFromCampus = function(address) {
+propertyCheck.prototype.distanceFromCampusGT = function(address) {
     return new Promise(function(resolve, reject) {
-        if (address) {
-            calculateDistances(address, function(distances) {
+        distance.get({
+            origin: address,
+            destination: 'North Ave NW, Atlanta, GA 30332',
+            units: 'imperial'
+        }, function(err, data) {
+            if (err) {
+                reject({
+                    status: 500,
+                    send: "internal address error"
+                });
+            } else {
+                data = data.distance.replace(" mi", "");
                 resolve({
                     status: 200,
-                    send: distances
+                    send: data
                 });
-            });
-        }
+            }
+        });
     });
 }
 
-function calculateDistances(address, callback) {
-    distance.get({
-        origin: address,
-        destination: 'North Ave NW, Atlanta, GA 30332',
-        units: 'imperial'
-    }, function(err, data) {
-        if (err) {
-            return console.log(err);
-        } else {
-            gt = data.distance.replace(" mi", "");
-            distance.get({
-                origin: address,
-                destination: '33 Gilmer Street SE Atlanta, GA',
-                units: 'imperial'
-            }, function(err, data) {
-                if (err) {
-                    return console.log(err);
-                } else {
-                    gsu = data.distance.replace(" mi", "");
-
-                    // console.log(gt);
-                    // console.log(gsu);
-                    // console.log({
-                    //     gt: gt,
-                    //     gsu: gsu
-                    // });
-
-                    console.log("HERE");
-                    console.log({
-                        gt: gt,
-                        gsu: gsu
-                    });
-                    callback({
-                        gt: gt,
-                        gsu: gsu
-                    })
-                    return;
-                }
-            });
-        }
+propertyCheck.prototype.distanceFromCampusGSU = function(address) {
+    return new Promise(function(resolve, reject) {
+        distance.get({
+            origin: address,
+            destination: '33 Gilmer Street SE Atlanta, GA',
+            units: 'imperial'
+        }, function(err, data) {
+            if (err) {
+                reject({
+                    status: 500,
+                    send: "internal address error"
+                });
+            } else {
+                data = data.distance.replace(" mi", "");
+                console.log("gsu: " + data);
+                resolve({
+                    status: 200,
+                    send: data
+                });
+            }
+        });
     });
-    // propertyModel.findOne({
-    //     uuid: uuidInput
-    // }, function(err, uuid) {
-    //     if (uuid || err) {
-    //         getNewUuid(uuid.v4(), callback);
-    //     } else {
-    //         callback(uuidInput);
-    //         return;
-    //     }
-    // });
 }
 
 module.exports = new propertyCheck();

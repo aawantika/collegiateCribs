@@ -23,6 +23,8 @@ search.service('$searchService', ['$http', function($http) {
             data: json
         }
 
+        console.log(json);
+        
         $http(req).success(function(data, status) {
             callback(null, status, data);
         }).error(function(data, status) {

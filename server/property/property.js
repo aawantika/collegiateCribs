@@ -17,7 +17,7 @@ property.prototype.createProperty = function(req, res) {
     // http://localhost:8080/property/create POST
 
     var profileType = null;
-    var address;
+    var address, distanceGT, distanceGSU;
 
     var body = req.body;
     generalCheck.checkBody(body)
@@ -38,6 +38,8 @@ property.prototype.createProperty = function(req, res) {
         })
         .then(function(address_returned) {
             address = address_returned;
+
+
             return propertyCheck.checkBedrooms(body.bedrooms);
         })
         .then(function(result) {
@@ -50,6 +52,7 @@ property.prototype.createProperty = function(req, res) {
             return propertyCheck.checkPrice(body.price);
         })
         .then(function(result) {
+
             return propertyCheck.checkLength(body.length);
         })
         .then(function(result) {
@@ -62,6 +65,7 @@ property.prototype.createProperty = function(req, res) {
             return propertyCheck.checkPropertyTours(body.propertyTours);
         })
         .then(function(result) {
+
             return propertyCheck.checkDescription(body.description);
         })
         .then(function(result) {
@@ -73,11 +77,15 @@ property.prototype.createProperty = function(req, res) {
             return propertyCheck.duplicateProperty(propertyReturn);
         })
         .then(function(result) {
-            return propertyCheck.distanceFromCampus(address[0] + ', ' + address[1] + ', ' + address[2] + ', ' + body.zipcode);
+            return propertyCheck.distanceFromCampusGT(address);
         })
-        .then(function(result) {
-            var originalAddress = address[0].replace("'", "");
-            address = address[0].replace("'", "").split(", ");
+        .then(function(gtdistance) {
+            distanceGT = gtdistance;
+            return propertyCheck.distanceFromCampusGSU(address);
+        })
+        .then(function(gsudistance) {
+            distanceGSU = gsudistance;
+            address = address.split(", ");
 
             var newProperty = new propertyModel();
             newProperty.propertyId = generateUuid.newUuid();;
@@ -87,8 +95,11 @@ property.prototype.createProperty = function(req, res) {
             newProperty.street = address[0];
             newProperty.city = address[1];
             newProperty.state = address[2];
-            newProperty.zipcode = body.zipcode;
-            newProperty.distanceFromCampus = result.send;
+            newProperty.zipcode = address[3];
+            newProperty.distanceFromCampus = {
+                gt: distanceGT.send,
+                gsu: distanceGSU.send
+            };
 
             if (profileType === "student") {
                 newProperty.leaseType = "sublease";

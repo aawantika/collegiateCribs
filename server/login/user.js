@@ -99,9 +99,6 @@ user.prototype.createUser = function(req, res) {
 
 user.prototype.retrieveUser = function(req, res) {
     // http://localhost:8080/user/retrieve POST
-
-    console.log(req.body);
-    
     var body = req.body;
 
     generalCheck.checkBody(body) 

@@ -96,7 +96,6 @@
          matchVar.dogsOk = req.body.dogsOk;
      }
 
-
      var projectvarDistance = {};
      if (req.body.distanceFromCampus) {
          if (req.body.campus == "gt") {
@@ -236,8 +235,9 @@
      var projectvarCats = {};
      if (req.body.catsOk) {
          projectvarCats = {
-             $cond: [
-                 catsOk,
+             $cond: [{
+                     $eq: ["$catsOk", req.body.catsOk]
+                 },
                  10,
                  0
              ]
@@ -249,8 +249,9 @@
      var projectvarDogs = {};
      if (req.body.dogsOk) {
          projectvarDogs = {
-             $cond: [
-                 dogsOk,
+             $cond: [{
+                     $eq: ["$dogsOk", req.body.dogsOk]
+                 },
                  10,
                  0
              ]
@@ -299,7 +300,6 @@
          }
      }], function(err, result) {
          if (err) {
-             console.log(err);
              res.status(400).send(err);
          } else {
              res.status(200).send(result);
