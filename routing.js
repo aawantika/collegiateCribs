@@ -13,6 +13,7 @@ var passport = require('passport');
 var user = require('./server/login/user.js');
 var property = require('./server/property/property.js');
 var search = require('./server/search/search.js');
+var propertyRating = require('./server/rating/propertyRating.js');
 
 module.exports = function() {
 
@@ -98,6 +99,17 @@ module.exports = function() {
     /**
      * rating/review routing
      */
+     router.post('/property/rating/add', function(req, res) {
+         propertyRating.addRating(req, res);
+     });
+
+     router.post('/property/retrieve/rating', function(req, res) {
+         propertyRating.getRating(req, res);
+     });
+
+     router.post('/property/retrieve/reviews', function(req, res) {
+         propertyRating.getReviews(req, res);
+     });
 
     /**
      * search routing

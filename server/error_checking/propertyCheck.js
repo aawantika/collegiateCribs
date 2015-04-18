@@ -276,7 +276,7 @@ propertyCheck.prototype.checkLastRenovationDate = function(lastRenovationDate) {
 }
 
 /**
- * Error checking for favorite properties
+ * Favorite properties error checking
  */
 propertyCheck.prototype.checkFavoritesMax = function(favoriteProperties) {
     return new Promise(function(resolve, reject) {
@@ -385,5 +385,48 @@ propertyCheck.prototype.distanceFromCampusGSU = function(address) {
         });
     });
 }
+
+/**
+ * Rating/review error checking
+ */
+ propertyCheck.prototype.checkRating = function(rating) {
+    return new Promise(function(resolve, reject) {
+        if (rating && (rating < 1 || rating > 10 || typeof rating !== 'number')) {
+            reject({
+                status: 406,
+                send: "rating must be number between 1-10"
+            });
+        } else {
+            resolve();
+        }
+    });
+ }
+
+ propertyCheck.prototype.checkReview = function(review) {
+    return new Promise(function(resolve, reject) {
+        if (review && (review.length < 1 || review.length > 1000)) {
+            reject({
+                status: 406,
+                send: "review has 1000 character max"
+            });
+        } else {
+            resolve();
+        }
+    });
+ }
+
+ // checks if at least one is submitted: either a rating or review
+ propertyCheck.prototype.checkRatingBody = function(body) {
+    return new Promise(function(resolve, reject) {
+        if (!body.rating && !body.review) {
+            reject({
+                status: 406,
+                send: "must add at least one: rating or review"
+            });
+        } else {
+            resolve();
+        }
+    });
+ }
 
 module.exports = new propertyCheck();
