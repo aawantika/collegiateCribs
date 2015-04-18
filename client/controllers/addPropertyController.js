@@ -16,8 +16,8 @@ app.controller('AddPropertyController', ['$scope', '$sessionService', '$property
             "id": "condo",
             "label": "Condominium"
         }, {
-            "id": "house",
-            "label": "House"
+            "id": "townhome",
+            "label": "Townhome"
         }, {
             "id": "apartment",
             "label": "Apartment"

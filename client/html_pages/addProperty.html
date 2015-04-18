@@ -32,10 +32,10 @@
         <br>
         <br>
         <div class="form-group">
-            <label for="inputValue" class="col-md-2 control-label">Home Type</label>
+            <label for="inputValue" class="col-md-2 control-label">Housing Type</label>
             <div class="col-md-4" ng-class="{ 'has-error' : addPropertyForm.housingType.$invalid && (addPropertyForm.housingType.$dirty || submitted)}">
                 <select name="housingType" ng-model="housingType" ng-options="value.id as value.label group by value.group for value in housingOptions" class="form-control" required>
-                    <option value="">Select State</option>
+                    <option value="">Select Housing Type</option>
                 </select>
             </div>
             <label for="inputValue" class="col-md-1 control-label">Pets</label>
