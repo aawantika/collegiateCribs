@@ -14,6 +14,7 @@ app.service('dataService', function() {
     };
 });
 
+app.service('')
 
 app.controller('HomeController', ['$scope', '$userService', '$sessionService', '$propertyService', '$location', '$state', function($scope, $userService, $sessionService, $propertyService, $location, $state) {
     $scope.alert = "";
@@ -138,8 +139,8 @@ app.controller('StudentDashboardController', function($scope, $state, dataServic
         var query = {}
 
         if ($scope.minPrice) {
-            query['minPrice'] = parseInt($scope.minPrice); 
-        } 
+            query['minPrice'] = parseInt($scope.minPrice);
+        }
         if ($scope.maxPrice) {
             query.maxPrice = parseInt($scope.maxPrice);
         }
@@ -159,6 +160,14 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
     var query = {}
     var housingTypes = [];
 
+    $scope.campuses = [{
+        "id": "gt",
+        "label": "Georgia Tech"
+    }, {
+        "id": "gsu",
+        "label": "Georgia State"
+    }];
+    
     $scope.bedroomOptions = [{
         "id": "1",
         "label": "1"
@@ -198,12 +207,11 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
         "id": "6",
         "label": "6+"
     }];
-    
+
     if (dataService.queried == true) {
         console.log(query);
 
-        query = {
-        }
+        query = {}
     } else if (dataService.queried == false) {
         query = dataService.getData();
         $scope.bathrooms = $scope.bathroomOptions;
@@ -252,8 +260,8 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
             query.distanceFromCampus = parseInt($scope.distanceFromCampus);
         }
         if ($scope.minPrice) {
-            query.minPrice = parseInt($scope.minPrice); 
-        } 
+            query.minPrice = parseInt($scope.minPrice);
+        }
         if ($scope.maxPrice) {
             query.maxPrice = parseInt($scope.maxPrice);
         }
@@ -268,7 +276,7 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
         }
         if ($scope.dogsOk) {
             query.dogsOk = $scope.dogsOk;
-        }   
+        }
         $searchService.searchProperty(query, function(err, status, data) {
             if (!err) {
                 $scope.properties = data;
@@ -278,8 +286,7 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
             }
         });
     }
-
     // $scope.goToProperty() = function() {
-        
+
     // }
 });
