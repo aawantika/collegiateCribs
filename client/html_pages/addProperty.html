@@ -34,7 +34,7 @@
         <div class="form-group">
             <label for="inputValue" class="col-md-2 control-label">Housing Type</label>
             <div class="col-md-4" ng-class="{ 'has-error' : addPropertyForm.housingType.$invalid && (addPropertyForm.housingType.$dirty || submitted)}">
-                <select name="housingType" ng-model="housingType" ng-options="value.id as value.label group by value.group for value in housingOptions" class="form-control" required>
+                <select ng-model="housingType" ng-options="value.id as value.label group by value.group for value in housingOptions" class="form-control">
                     <option value="">Select Housing Type</option>
                 </select>
             </div>
@@ -67,14 +67,14 @@
         <div class="form-group">
             <label for="bedroom_input" class="col-md-2 control-label">Bedrooms</label>
             <div class="col-md-4" ng-class="{ 'has-error' : addPropertyForm.bedrooms.$invalid && (addPropertyForm.bedrooms.$dirty || submitted)}">
-                <select name="bedrooms" id="bedroom_input" ng-model="bedrooms" ng-options="value.id as value.label group by value.group for value in bedroomOptions" class="form-control" required>
-                    <option value="">Num of Bedrooms</option>
+                <select ng-model="bedrooms" ng-options="value.id as value.label group by value.group for value in bedroomOptions" class="form-control">
+                    <option value="">Select Number of Bedrooms</option>
                 </select>
             </div>
             <label for="bathroom_input" class="col-md-2 control-label">Bathrooms</label>
             <div class="col-md-4" ng-class="{ 'has-error' : addPropertyForm.bathrooms.$invalid && (addPropertyForm.bathrooms.$dirty || submitted)}">
                 <select name="bathrooms" id="bathroom_input" ng-model="bathrooms" ng-options="value.id as value.label group by value.group for value in bathroomOptions" class="form-control" required>
-                    <option value="">Num of Bathrooms</option>
+                    <option value="">Select Number of Bathrooms</option>
                 </select>
             </div>
         </div>
