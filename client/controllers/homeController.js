@@ -137,5 +137,9 @@ app.controller('StudentDashboardController', function($scope, $state, dataServic
         dataService.setData(query);
         $state.go("search");
     };
+
+    $scope.addSublease = function() {
+        $state.go("home.addProperty"); 
+    }
 });
 

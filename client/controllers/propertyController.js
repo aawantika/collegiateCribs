@@ -30,4 +30,6 @@ app.controller('PropertyController', function($scope, $location, $state, $sessio
             $scope.alert("error retrieving properties");
         }
     });
+
+    
 });

@@ -180,4 +180,8 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
         sendPropertyService.setData(query); 
         $state.go('property');
     }
+
+    $scope.addToFavorites = function(propertyId) {
+        
+    }
 });
