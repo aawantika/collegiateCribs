@@ -75,13 +75,7 @@ app.controller('AddPropertyController', ['$scope', '$sessionService', '$property
             "label": "8"
         }];
 
-        $sessionService.isLoggedIn(cookie, function(err, status, data) {
-            if (!err) {
-                $scope.showPage = true;
-            } else {
-                $location.path("/");
-            }
-        });
+
         $sessionService.isLoggedIn(function(err, user) {
             if (user !== '0') {
                 $scope.showPage = true;

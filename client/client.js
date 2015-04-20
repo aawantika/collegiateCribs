@@ -39,7 +39,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 controller: 'SignupController',
             })
             .state('home', {
-                url: '/',
+                url: '/g',
                 controller: 'HomeController',
                 templateUrl: '/client/html_pages/home.html',
             })
@@ -56,7 +56,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 controller: 'LandlordDashboardController',
                 templateUrl: 'client/html_pages/landlordDashboard.html'
             })
-            .state('home.search', {
+            .state('search', {
                 url: '/search',
                 controller: 'SearchController',
                 templateUrl: '/client/html_pages/search.html',
