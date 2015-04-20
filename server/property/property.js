@@ -10,7 +10,6 @@ var generalCheck = require('../error_checking/generalCheck.js');
 var propertyCheck = require('../error_checking/propertyCheck.js');
 var userCheck = require('../error_checking/userCheck.js');
 
-
 function property() {}
 
 property.prototype.createProperty = function(req, res) {
