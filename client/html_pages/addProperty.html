@@ -32,9 +32,9 @@
         <br>
         <br>
         <div class="form-group">
-            <label for="inputValue" class="col-md-2 control-label">Housing Type</label>
+            <label for="housingType_input" class="col-md-2 control-label">Housing Type</label>
             <div class="col-md-4" ng-class="{ 'has-error' : addPropertyForm.housingType.$invalid && (addPropertyForm.housingType.$dirty || submitted)}">
-                <select ng-model="housingType" ng-options="value.id as value.label group by value.group for value in housingOptions" class="form-control">
+                <select name="housingType" id="housingType_input" ng-model="housingType" ng-options="value.id as value.label group by value.group for value in housingOptions" class="form-control" required>
                     <option value="">Select Housing Type</option>
                 </select>
             </div>
@@ -67,7 +67,7 @@
         <div class="form-group">
             <label for="bedroom_input" class="col-md-2 control-label">Bedrooms</label>
             <div class="col-md-4" ng-class="{ 'has-error' : addPropertyForm.bedrooms.$invalid && (addPropertyForm.bedrooms.$dirty || submitted)}">
-                <select ng-model="bedrooms" ng-options="value.id as value.label group by value.group for value in bedroomOptions" class="form-control">
+                <select name="bedrooms" id="bedroom_input" ng-model="bedrooms" ng-options="value.id as value.label group by value.group for value in bedroomOptions" class="form-control" required>
                     <option value="">Select Number of Bedrooms</option>
                 </select>
             </div>
