@@ -57,11 +57,11 @@ app.controller('HomeController', ['$scope', '$userService', '$sessionService', '
 
     $scope.menuSearchEnter = function() {
         console.log('change to search');
-        $state.go('home.search');
+        $state.go('search');
     }
     $scope.toSearch = function() {
         console.log('off to search');
-        $state.go('home.search');
+        $state.go('search');
     }
     $scope.logoutButton = function() {
         $sessionService.logout(function(err, status, data) {
@@ -152,7 +152,7 @@ app.controller('StudentDashboardController', function($scope, $state, dataServic
         }
         dataService.setData(query);
         console.log("off to Search");
-        $state.go("home.search");
+        $state.go("search");
     };
 });
 
@@ -167,7 +167,7 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
         "id": "gsu",
         "label": "Georgia State"
     }];
-    
+
     $scope.bedroomOptions = [{
         "id": "1",
         "label": "1"
