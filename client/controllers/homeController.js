@@ -279,12 +279,12 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
         if ($scope.distanceFromCampus) {
             if ($scope.campus) {
                 query.campus = $scope.campus.id;
+                query.distanceFromCampus = parseInt($scope.distanceFromCampus);
             }
             else {
                 console.log("There needs to be a campus"); 
                 // $scope.alert("Please choose a campus."); 
             }
-            query.distanceFromCampus = parseInt($scope.distanceFromCampus);
         }
         if ($scope.minPrice) {
             query.minPrice = parseInt($scope.minPrice);
