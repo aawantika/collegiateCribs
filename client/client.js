@@ -39,7 +39,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 controller: 'SignupController',
             })
             .state('home', {
-                url: '/g',
+                url: '/',
                 controller: 'HomeController',
                 templateUrl: '/client/html_pages/home.html',
             })

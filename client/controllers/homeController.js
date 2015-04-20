@@ -151,12 +151,12 @@ app.controller('StudentDashboardController', function($scope, $state, dataServic
             query.bathrooms = parseInt($scope.bathrooms);
         }
         dataService.setData(query);
-        console.log("off to Search");
         $state.go("search");
     };
 });
 
-app.controller('SearchController', function($scope, $location, $state, $sessionService, $searchService, dataService) {
+app.controller('SearchController', function($scope, $location, $state, $sessionService, $searchService, $userService, dataService) {
+    $scope.alert = "";
     var query = {}
     var housingTypes = [];
 
@@ -208,17 +208,37 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
         "label": "6+"
     }];
 
-    if (dataService.queried == true) {
-        console.log(query);
+    $sessionService.isLoggedIn(function(err, user) {
+        if (user !== '0') {
+            inputUsername = user;
+            $userService.retrieveUser({
+                username: inputUsername
+            }, function(err, status, data) {
+                if (data.profileType == 'student') {
+                    if (data.campus == 'gt') {
+                        $scope.campus = $scope.campuses[0];
+                        if (dataService.queried == true) {
+                            query = {}
+                        } else if (dataService.queried == false) {
+                            query = dataService.getData();
+                            $scope.bathrooms = $scope.bathroomOptions[query.bathrooms-1];
+                            $scope.bedrooms = $scope.bedroomOptions[query.bedrooms-1];
+                            $scope.minPrice = query.minPrice;
+                            $scope.maxPrice = query.maxPrice;
+                        }
 
-        query = {}
-    } else if (dataService.queried == false) {
-        query = dataService.getData();
-        $scope.bathrooms = $scope.bathroomOptions;
-        $scope.bedrooms = query.bedrooms;
-        $scope.minPrice = query.minPrice;
-        $scope.maxPrice = query.maxPrice;
-    }
+                    } else {
+                        $scope.campus = $scope.campuses[1];
+                    }
+                } else if (err) {
+                    $scope.alert("Error retrieving user");
+                }
+            });
+        } else {
+            $location.url('/login');
+        }
+    });
+
 
     $searchService.searchProperty(query, function(err, status, data) {
         if (!err) {
@@ -257,6 +277,13 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
             query.housingType = list;
         }
         if ($scope.distanceFromCampus) {
+            if ($scope.campus) {
+                query.campus = $scope.campus.id;
+            }
+            else {
+                console.log("There needs to be a campus"); 
+                // $scope.alert("Please choose a campus."); 
+            }
             query.distanceFromCampus = parseInt($scope.distanceFromCampus);
         }
         if ($scope.minPrice) {
@@ -265,11 +292,11 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
         if ($scope.maxPrice) {
             query.maxPrice = parseInt($scope.maxPrice);
         }
-        if ($scope.bedrooms && !isNaN($scope.bedrooms)) {
-            query.bedrooms = parseInt($scope.bedrooms);
+        if ($scope.bedrooms && !isNaN($scope.bedrooms.id)) {
+            query.bedrooms = parseInt($scope.bedrooms.id);
         }
-        if ($scope.bathrooms && !isNaN($scope.bathrooms)) {
-            query.bathrooms = parseInt($scope.bathrooms);
+        if ($scope.bathrooms && !isNaN($scope.bathrooms.id)) {
+            query.bathrooms = parseInt($scope.bathrooms.id);
         }
         if ($scope.catsOk) {
             query.catsOk = $scope.catsOk;
@@ -286,6 +313,22 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
             }
         });
     }
+    $scope.menuSearchEnter = function() {
+        console.log('change to search');
+        $state.go('search');
+    }
+    $scope.toSearch = function() {
+        console.log('off to search');
+        $state.go('search');
+    }
+    $scope.logoutButton = function() {
+        $sessionService.logout(function(err, status, data) {
+            if (!err) {
+                $scope.showPage = false;
+                $state.go("start.login");
+            }
+        });
+    };
     // $scope.goToProperty() = function() {
 
     // }

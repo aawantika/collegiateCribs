@@ -45,8 +45,8 @@
                                     <form class="form-inline">
                                         <div class="form-group">
                                             <label for="campus">From Campus:</label>
-                                            <select ng-model="campus" ng-options="value.id as value.label group by value.group for value in campuses" class="form-control" ng-change="change()" ng-init="campus = $scope.user.campus">
-                                                <option value="">Select</option>
+                                            <select ng-model="campus" ng-init="campus" ng-options="value.label for value in campuses" class="form-control" ng-change="change()">
+                                                <option value=""></option>
                                             </select>
                                         </div>
                                     </form>
@@ -66,16 +66,16 @@
                                     <br>
                                     <form class="form-inline">
                                         <div class="form-group">
-                                            <label for="numBedrooms">Bedrooms</label>
-                                            <select ng-model="bedrooms" ng-options="value.id as value.label group by value.group for value in bedroomOptions" class="form-control" ng-change="change()">
+                                            <label for="bedrooms">Bedrooms</label>
+                                            <select ng-model="bedrooms" ng-init = "bedrooms" ng-options="value.label for value in bedroomOptions" class="form-control" ng-change="change()">
                                                 <option value="">Select</option>
                                             </select>
                                         </div>
                                     </form>
                                     <form class="form-inline">
                                         <div class="form-group">
-                                            <label for="numBathrooms">Bedrooms</label>
-                                            <select ng-model="bathrooms" ng-options="value.id as value.label group by value.group for value in bathroomOptions" class="form-control" ng-change="change()">
+                                            <label for="bathrooms">Bathrooms</label>
+                                            <select ng-model="bathrooms" ng-init= "bathrooms = {id:bathroomsId}" ng-options="value.label for value in bathroomOptions track by value.id" class="form-control" ng-change="change()">
                                                 <option value="">Select</option>
                                             </select>
                                         </div>
