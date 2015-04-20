@@ -15,7 +15,7 @@ function propertyRating() {}
 
 
 propertyRating.prototype.createRating = function(req, res) {
-	// http://localhost:8080//property/rating/create POST
+	// http://localhost:8080/property/rating/create POST
 
 	var body = req.body;
 	generalCheck.checkBody(body)
@@ -75,8 +75,8 @@ propertyRating.prototype.createRating = function(req, res) {
                 username: body.username
             }).exec();
         })
-		.then(function(ratingReturn) {
-			return ratingCheck.checkDuplicateRating(ratingReturn);
+		.then(function(propertyRating) {
+			return ratingCheck.checkDuplicateRating(propertyRating);
 		})
 		.then(function(result) {
 			var newPropertyRating = new propertyRatingModel();
@@ -106,7 +106,7 @@ propertyRating.prototype.createRating = function(req, res) {
 }
 
 propertyRating.prototype.retrieveRating = function(req, res) {
-	// http://localhost:8080//property/retrieve/rating POST
+	// http://localhost:8080/property/retrieve/rating POST
 	// returns average rating and number of votes
 	
 	var body = req.body;
@@ -136,7 +136,7 @@ propertyRating.prototype.retrieveRating = function(req, res) {
 			return rating;
 		})
 		.then(function(result) {
-		    console.log(result);
+		    // console.log(result);
 		    res.status(200).send("retrieved property rating");
 		})
 		.catch(function(error) {
@@ -151,7 +151,7 @@ propertyRating.prototype.retrieveRating = function(req, res) {
 }
 
 propertyRating.prototype.retrieveReviews = function(req, res) {
-	// http://localhost:8080//property/retrieve/reviews POST
+	// http://localhost:8080/property/retrieve/reviews POST
 
 	var body = req.body;
 	generalCheck.checkBody(body)
@@ -176,7 +176,7 @@ propertyRating.prototype.retrieveReviews = function(req, res) {
 			}).exec();
 		})
 		.then(function(result) {
-		    console.log(result);
+		    // console.log(result);
 		    res.status(200).send("retrieved property reviews");
 		})
 		.catch(function(error) {
@@ -190,58 +190,186 @@ propertyRating.prototype.retrieveReviews = function(req, res) {
 
 }
 
-// propertyRating.prototype.updateReview = function(req, res) {
-// 	// given username, propertyId, review
+propertyRating.prototype.updateRating = function(req, res) {
+	// http://localhost:8080/property/rating/update POST
 
-// 	var body = req.body;
-// 	generalCheck.checkBody(body)
-// 		.then(function(result) {
-// 			return propertyCheck.checkPropertyId(body.propertyId);
-// 		})
-// 		.then(function(result) {
-// 			return propertyModel.findOne({
-// 				propertyId: body.propertyId
-// 			}).exec();
-// 		})
-// 		.then(function(property) {
-// 			return propertyCheck.propertyExists(property);
-// 		})
-// 		.then(function(result) {
-// 			return propertyCheck.checkReview(body.review);
-// 		})
-// 		.then(function(result) {
-// 			return propertyRatingModel.findOne({
-// 				username: body.username,
-// 				propertyId: body.propertyId
-// 			}).exec();
-// 		})
-// 		.then(function(propertyRating) {
-// 			// idk what .send does, but there was an error when i used it; works without it
-// 			// propertyRating = propertyRating.send;
+	var body = req.body;
+	generalCheck.checkBody(body)
+		.then(function(result) {
+			return ratingCheck.checkUsername(body.username);
+		})
+		.then(function(result) {
+			return ratingCheck.checkPropertyId(body.propertyId);
+		})
+		.then(function(result) {
+			return ratingCheck.checkNewRating(body.rating);
+		})
+		.then(function(result) {
+			return ratingCheck.checkRating(body.rating);
+		})
+		.then(function(result) {
+			return propertyRatingModel.findOne({
+				username: body.username,
+				propertyId: body.propertyId
+			}).exec();
+		})
+		.then(function(propertyRating) {
+		    return ratingCheck.ratingExists(propertyRating);
+		})
+		.then(function(propertyRating) {
+			propertyRating = propertyRating.send;
 
-// 			propertyRating.review = body.review;
-// 			return propertyRating.save();
-// 		})
-// 		.then(function(result) {
-// 		    res.sendStatus(200);
-// 		})
-// 		.catch(function(error) {
-// 		    console.log(error);
+			propertyRating.rating = body.rating;
+			return propertyRating.save();
+		})
+		.then(function(result) {
+		    res.sendStatus(200);
+		})
+		.catch(function(error) {
+		    console.log(error);
 
-// 		    if (error.status == 404 || error.status == 406) {
-// 		        res.status(error.status).send(error.send);
-// 		    } else {
-// 		        res.status(500).send("internal error");
-// 		    }
-// 		});
+		    if (error.status == 404 || error.status == 406) {
+		        res.status(error.status).send(error.send);
+		    } else {
+		        res.status(500).send("internal error");
+		    }
+		});
 
-// }
+}
 
-// propertyRating.prototype.deleteReview = function(req, res) {
-// 	// given username, propertyId
+propertyRating.prototype.updateReview = function(req, res) {
+	// http://localhost:8080/property/review/update POST
 
+	var body = req.body;
+	generalCheck.checkBody(body)
+		.then(function(result) {
+			return ratingCheck.checkUsername(body.username);
+		})
+		.then(function(result) {
+			return ratingCheck.checkPropertyId(body.propertyId);
+		})
+		.then(function(result) {
+			return ratingCheck.checkNewReview(body.review);
+		})
+		.then(function(result) {
+			return ratingCheck.checkReview(body.review);
+		})
+		.then(function(result) {
+			return propertyRatingModel.findOne({
+				username: body.username,
+				propertyId: body.propertyId
+			}).exec();
+		})
+		.then(function(propertyRating) {
+		    return ratingCheck.ratingExists(propertyRating);
+		})
+		.then(function(propertyRating) {
+			propertyRating = propertyRating.send;
 
+			propertyRating.review = body.review;
+			return propertyRating.save();
+		})
+		.then(function(result) {
+		    res.sendStatus(200);
+		})
+		.catch(function(error) {
+		    console.log(error);
 
-// }
+		    if (error.status == 404 || error.status == 406) {
+		        res.status(error.status).send(error.send);
+		    } else {
+		        res.status(500).send("internal error");
+		    }
+		});
+
+}
+
+propertyRating.prototype.deleteRating = function(req, res) {
+	// http://localhost:8080/property/rating/delete POST
+
+	var body = req.body;
+	generalCheck.checkBody(body)
+		.then(function(result) {
+			return ratingCheck.checkUsername(body.username);
+		})
+		.then(function(result) {
+			return ratingCheck.checkPropertyId(body.propertyId);
+		})
+		.then(function(result) {
+			return propertyRatingModel.findOne({
+				username: body.username,
+				propertyId: body.propertyId
+			}).exec();
+		})
+		.then(function(propertyRating) {
+		    return ratingCheck.ratingExists(propertyRating);
+		})
+		.then(function(propertyRating) {
+		    propertyRating = propertyRating.send;
+
+		    if (!propertyRating.review) {
+		    	return propertyRating.remove();
+		    } else {
+		    	propertyRating.rating = undefined;
+		    	return propertyRating.save();
+		    }
+		})
+		.then(function(result) {
+		    res.status(200).send("deleted rating successfully");
+		})
+		.catch(function(error) {
+		    console.log(error);
+		    if (error.status == 406 || error.status == 404) {
+		        res.status(error.status).send(error.send);
+		    } else {
+		        res.status(500).send("internal error");
+		    }
+		});
+
+}
+
+propertyRating.prototype.deleteReview = function(req, res) {
+	// http://localhost:8080/property/review/delete POST
+
+	var body = req.body;
+	generalCheck.checkBody(body)
+		.then(function(result) {
+			return ratingCheck.checkUsername(body.username);
+		})
+		.then(function(result) {
+			return ratingCheck.checkPropertyId(body.propertyId);
+		})
+		.then(function(result) {
+			return propertyRatingModel.findOne({
+				username: body.username,
+				propertyId: body.propertyId
+			}).exec();
+		})
+		.then(function(propertyRating) {
+		    return ratingCheck.ratingExists(propertyRating);
+		})
+		.then(function(propertyRating) {
+		    propertyRating = propertyRating.send;
+
+		    if (!propertyRating.rating) {
+		    	return propertyRating.remove();
+		    } else {
+		    	propertyRating.review = undefined;
+		    	return propertyRating.save();
+		    }
+		})
+		.then(function(result) {
+		    res.status(200).send("deleted review successfully");
+		})
+		.catch(function(error) {
+		    console.log(error);
+		    if (error.status == 406 || error.status == 404) {
+		        res.status(error.status).send(error.send);
+		    } else {
+		        res.status(500).send("internal error");
+		    }
+		});
+
+}
 
 module.exports = new propertyRating();

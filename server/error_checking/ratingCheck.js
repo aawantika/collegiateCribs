@@ -75,29 +75,41 @@ ratingCheck.prototype.checkReview = function(review) {
    });
 }
 
+ratingCheck.prototype.checkNewRating = function(rating) {
+    return new Promise(function(resolve, reject) {
+        if (!rating) {
+            reject({
+                status: 406,
+                send: "rating"
+            });
+        } else {
+            resolve();
+        }
+    });
+}
+
+ratingCheck.prototype.checkNewReview = function(review) {
+    return new Promise(function(resolve, reject) {
+        if (!review) {
+            reject({
+                status: 406,
+                send: "review"
+            });
+        } else {
+            resolve();
+        }
+    });
+}
+
 /**
 * Duplicate/Permissions Error Checking
 */
-ratingCheck.prototype.checkDuplicateRating = function(username, ratingUsernames) {
-   return new Promise(function(resolve, reject) {
-       ratingUsernames.forEach(function(u) {
-           if (u.username === username) {
-               reject({
-                   status: 406,
-                   send: "user has already rated this property"
-               });
-           }
-       })
-       resolve();
-   });
-}
-
 ratingCheck.prototype.checkDuplicateRating = function(rating) {
     return new Promise(function(resolve, reject) {
         if (rating) {
             reject({
                 status: 409,
-                send: "user has already rated/reviewed"
+                send: "user has already rated/reviewed this property"
             });
         } else {
             resolve();
@@ -116,6 +128,25 @@ ratingCheck.prototype.checkIfOwner = function(username, property) {
            resolve();
        }
    })
+}
+
+/**
+* Check if rating/review exists
+*/
+ratingCheck.prototype.ratingExists = function(rating) {
+    return new Promise(function(resolve, reject) {
+        if (rating) {
+            resolve({
+                status: 200,
+                send: rating
+            });
+        } else {
+            reject({
+                status: 404,
+                send: "rating/review not found"
+            });
+        }
+    });
 }
 
 
