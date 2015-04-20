@@ -202,9 +202,9 @@ userCheck.prototype.usernameExists = function(username) {
 }
 
 /**
- * Favorite properties error checking
+ * For favorites and ratings
  */
- userCheck.prototype.studentProfile = function(user) {
+ userCheck.prototype.checkIfStudent = function(user) {
     return new Promise(function(resolve, reject) {
         if (user.profileType != "student") {
             reject({
@@ -215,36 +215,6 @@ userCheck.prototype.usernameExists = function(username) {
             resolve();
         }
     });
- }
-
- /**
- * Rating/review error checking
- */
- userCheck.prototype.checkDuplicateRating = function(username, ratingUsernames) {
-    return new Promise(function(resolve, reject) {
-        ratingUsernames.forEach(function(u) {
-            if (u.username === username) {
-                reject({
-                    status: 406,
-                    send: "user has already rated this property"
-                });
-            }
-        })
-        resolve();
-    });
- }
-
- userCheck.prototype.checkIfOwner = function(username, property) {
-    return new Promise(function(resolve, reject) {
-        if (property.ownerId === username) {
-            reject({
-                status: 406,
-                send: "user cannot review own property"
-            });
-        } else {
-            resolve();
-        }
-    })
  }
 
 

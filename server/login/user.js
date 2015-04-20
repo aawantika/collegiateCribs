@@ -256,7 +256,7 @@ user.prototype.addFavoriteProperty = function(req, res) {
             return user.send;
         })
         .then(function(user) {
-            return userCheck.studentProfile(user);
+            return userCheck.checkIfStudent(user);
         })
         .then(function(result) {
             return userModel.findOne({
@@ -324,7 +324,7 @@ user.prototype.deleteFavoriteProperty = function(req, res) {
             }).exec();
         })
         .then(function(user) {
-            return userCheck.studentProfile(user);
+            return userCheck.checkIfStudent(user);
         })
         .then(function(result) {
             return userModel.update(
@@ -366,7 +366,7 @@ user.prototype.getFavoriteProperties = function(req, res) {
             return user.send;
         })
         .then(function(user) {
-            return userCheck.studentProfile(user);
+            return userCheck.checkIfStudent(user);
         })
         .then(function(result) {
             return userModel.findOne({

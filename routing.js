@@ -99,17 +99,18 @@ module.exports = function() {
     /**
      * rating/review routing
      */
-     router.post('/property/rating/add', function(req, res) {
-         propertyRating.addRating(req, res);
+     router.post('/property/rating/create', function(req, res) {
+         propertyRating.createRating(req, res);
      });
 
      router.post('/property/retrieve/rating', function(req, res) {
-         propertyRating.getRating(req, res);
+         propertyRating.retrieveRating(req, res);
      });
 
      router.post('/property/retrieve/reviews', function(req, res) {
-         propertyRating.getReviews(req, res);
+         propertyRating.retrieveReviews(req, res);
      });
+
 
     /**
      * search routing
