@@ -9,10 +9,12 @@ var app = angular.module("app", [
     'homeController',
     'addPropertyController',
     'addPropertyController',
+    'searchController',
     'userService',
     'sessionService',
     'propertyService',
-    'searchService'
+    'searchService',
+    'miscServices'
 ]);
 
 
