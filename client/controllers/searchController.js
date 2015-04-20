@@ -1,6 +1,6 @@
-var app = angular.module("searchController", ['miscServices']);
+var app = angular.module("searchController", []);
 
-app.controller('SearchController', function($scope, $location, $state, $sessionService, $searchService, $userService, dataService) {
+app.controller('SearchController', function($scope, $location, $state, $sessionService, $searchService, $userService, dataService, sendPropertyService) {
     $scope.alert = "";
     var query = {}
     var housingTypes = [];
@@ -174,7 +174,10 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
             }
         });
     };
-    $scope.goToProperty = function() {
-        $state.go('home'); 
+    $scope.goToProperty = function(propertyId) {
+        var query = {}
+        query.propertyId = propertyId; 
+        sendPropertyService.setData(query); 
+        $state.go('property');
     }
 });

@@ -118,7 +118,7 @@
                 <header>
                     <h3>Housing Search Results</h3>
                 </header>
-                <div class="panel panel-default" ng-repeat="property in properties" ng-click="goToProperty()">
+                <div class="panel panel-default" ng-repeat="property in properties" ng-click="goToProperty(property.propertyId)">
                     <div class="panel-heading">
                         <h3 class="panel-title">Address: {{property.address}} {{property.city}} {{property.state}} {{property.zipcode}} </h3>
                     </div>

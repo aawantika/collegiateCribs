@@ -10,6 +10,7 @@ var app = angular.module("app", [
     'addPropertyController',
     'addPropertyController',
     'searchController',
+    'propertyController',
     'userService',
     'sessionService',
     'propertyService',
@@ -62,6 +63,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
                 url: '/search',
                 controller: 'SearchController',
                 templateUrl: '/client/html_pages/search.html',
+            })
+            .state('property', {
+                url:'/property', 
+                controller:'PropertyController',
+                templateUrl:'/client/html_pages/property.html',
             })
             .state('tika', {
                 url: '/tika',

@@ -13,3 +13,15 @@ app.service('dataService', function() {
         }
     };
 });
+
+app.service('sendPropertyService', function() {
+    var data;
+    return {
+        setData: function(queryData) {
+            this.data = queryData;
+        },
+        getData: function() {
+            return this.data;
+        }
+    };
+});
