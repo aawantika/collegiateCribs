@@ -1,67 +1,81 @@
-<core-header-panel vertical layout flex>
-	<nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">CollegiateCribs</a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <form class="navbar-form navbar-left" style="width: 60%" role="search">
-                    <div class="form-group"  style="width: 100%">
-                        <input type="text" style="width: 100%"class="form-control" placeholder="Search for Housing" ng-keypress="menuSearchEnter()">
-                    </div>
-                </form>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" name="user">{{user.username}}</a></li>
-                    <li><a href="#" name="signup" ng-click="logoutButton()">Logout</a></li>
-                </ul>
-            </div>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">CollegiateCribs</a>
         </div>
-    </nav>
-	<div class="box content">
-		<header>
-			<h2>(Property Address here) {{property.address}} </h2>
-			<core-panel horizontal layout flex class="content">
-				<div vertical layout class="allMargins5">
-					<!--image of the property-->
-					<paper-button raised>Property img</paper-button>
-					<div horizontal layout style="overflow:auto;" >
-						<!--scrollable picture gallery-->
-						<paper-button raised>Img gallery</paper-button>
-						{{img}}
-					</div>
-				</div>
-				<!--description of the property-->
-				<div flex class="allMargins5">
-					<h4>Description</h4>
-					<br></br>
-					Address: {{property.address}}, {{property.city}},
-						{{property.state}}, {{property.zipcode}}  <br/>
-					Distance from Campus: {{property.distance}} <br/>
-					Price: {{property.price}} <br></br>
-					{{property.housingType}} with {{property.bedrooms}} bedrooms, {{property.bathrooms}} bathrooms. <br></br>
-					More info: {{property.description}}
-				</div>
-			</core-panel>
-		</header>
-
-		<div horizontal layout class="content" style="vertical-align:bottom;">
-			<div vertical layout class="allMargins5">
-				<!--ratings + option to favorite-->
-				Rating: {{property.rating}} <br>
-				Add a rating: {{rating}}
-				<paper-slider ng-model="rating" min="1" max="5" pin></paper-slider>
-				<paper-button raised ng-click="addToFavorites()">Add to Favorites</paper-button>
-				<paper-button raised>Add a review</paper-button>
-			</div>
-			<!--reviews-->
-			<div ui-view></div>
-		</div>
-	</div>
-</core-header-panel>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <form class="navbar-form navbar-left" style="width: 60%" role="search">
+                <div class="form-group"  style="width: 100%">
+                    <input type="text" style="width: 100%"class="form-control" placeholder="Search for Housing" ng-keypress="menuSearchEnter()">
+                </div>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" name="user">{{user.username}}</a></li>
+                <li><a href="#" name="signup" ng-click="logoutButton()">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">Images here</div>
+        <div class="col-md-6">
+            <table class="table">
+                <tr>
+                    <td>Address {{property.address}}</td>
+                </tr>
+                <tr>
+                    <td>City/State/Zip {{property.city}}, State{{property.state}}, Zipcode{{property.zipcode}}</td>
+                </tr>
+                <tr>
+                    <td class=".col-md-6">Bed: {{property.bedrooms}} • Bath: 5/4{{property.bathrooms}}</td>
+                    <td class=".col-md-6">Price: ${{property.price}} • Utilities: ${{property.utilities}}</td>
+                </tr>
+                <tr>
+                    <td>Housing Type: {{property.housingType}}</td>
+                    <td>Length: {{property.length}} months </td>
+                </tr>
+                <tr>
+                    <td>Contact Information: {{user.firstName}} {{user.lastName}}</td>
+                    <td>Lease Type: {{property.leaseType}} months</td>
+                </tr>
+                <tr>
+                    <td>Pets: {{property.dogsOk}} {{property.catsOk}}</td>
+                    <td>Availability: {{property.availablity}}</td>
+                </tr>
+                <tr>
+                    <td>Property Tours: {{property.propertyTours}}</td>
+                    <td>Last Renovation Date: {{property.renovationDate}}</td>
+                </tr>
+            </table>
+        </div>
+        <br>
+        <br>
+        <div>
+            <label>Description</label>
+            <p>{{property.description}}</p>
+        </div>
+    </div>
+    <div>
+    
+    </div>
+    <div horizontal layout class="content" style="vertical-align:bottom;">
+        <div vertical layout class="allMargins5">
+            <!--ratings + option to favorite-->
+            Rating: {{property.rating}}
+            <br> Add a rating: {{rating}}
+            <paper-slider ng-model="rating" min="1" max="5" pin></paper-slider>
+            <paper-button raised ng-click="addToFavorites()">Add to Favorites</paper-button>
+            <paper-button raised>Add a review</paper-button>
+        </div>
+        <!--reviews-->
+        <div ui-view></div>
+    </div>
+</div>
