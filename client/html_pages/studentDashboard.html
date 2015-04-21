@@ -3,12 +3,13 @@
     <body>
         <form class="form-inline box content table" id="simpleSearch" ng-submit="simpleSearch()" method="post">
             <h3><label for="nolabel">Search: </label></h3>
-            <table>
+            <table style="margin-bottom:10px">
                 <colgroup>
-                    <col style="width:25%" />
-                    <col style="width:25%" />
-                    <col style="width:25%" />
-                    <col style="width:25%" />
+                    <col style="width:20%" />
+                    <col style="width:20%" />
+                    <col style="width:16%" />
+                    <col style="width:16%" />
+                    <col style="width:8%" />
                 </colgroup>
                 <tr>
                     <td>
@@ -41,10 +42,11 @@
                             <div class="input-group-addon">.00</div>
                         </div>
                     </td>
+                    <td>
+                        <button type="submit" class="btn btn-default" ng-click="simpleSearch()">Search</button>
+                    </td>
+                </tr>
             </table>
-            <footer>
-                <button type="submit" class="btn btn-default" ng-click="simpleSearch()">Search</button>
-            </footer>
         </form>
         <!-- YOU NEED TO BOOTSTRAP THIS PART. MESSAGE ME IF YOU GET STUCK - tika!-->
         <!--recent activity: pull data from server into scope with the controller.
@@ -90,7 +92,7 @@
                     </div>
                 </div>
             </div>
-            <div class="box" ng-show="isAddingSublease()">
+            <div class="box" ng-show="addingSublease">
                 <ui-view></ui-view>
             </div>
             <button type="submit" class="btn btn-default" ng-click="addSublease()" ng-Hide="addingSublease">Add a sublease</button>
