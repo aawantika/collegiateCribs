@@ -13,8 +13,8 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <form class="navbar-form navbar-left" style="width: 60%" role="search">
-                    <div class="form-group"  style="width: 100%">
-                        <input type="text" style="width: 100%"class="form-control" placeholder="Search for Housing" ng-keypress="menuSearchEnter()">
+                    <div class="form-group" style="width: 100%">
+                        <input type="text" style="width: 100%" class="form-control" placeholder="Search for Housing" ng-keypress="menuSearchEnter()">
                     </div>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
@@ -30,23 +30,22 @@
                 <div class="sidebar-nav">
                     <ul class="nav">
                         <li>
-                            <h3>Filters</h3></li>
+                            <h3>Advanced Search</h3></li>
                         <br>
                         <li>
                             <div class="container">
                                 <div class="row" style="position:absolute;">
                                     <form class="form-inline">
                                         <div class="form-group">
-                                            <label for="distance">Distance</label>
-                                            <input type="text" class="form-control" id="distance" placeholder="Distance From Campus" ng-model="distanceFromCampus" ng-change="change()">
+                                            <label for="distance">Distance </label>
+                                            <input type="text" class="form-control" id="distance" placeholder="from campus e.g. 9" ng-model="distanceFromCampus" ng-change="change()">
                                         </div>
                                     </form>
                                     <!--Change this so that for students, the default campus is their home campus, but landlords have to choose it.-->
                                     <form class="form-inline">
                                         <div class="form-group">
-                                            <label for="campus">From Campus:</label>
+                                            <label for="campus">Campus </label>
                                             <select ng-model="campus" ng-init="campus" ng-options="value.label for value in campuses" class="form-control" ng-change="change()">
-                                                <option value=""></option>
                                             </select>
                                         </div>
                                     </form>
@@ -64,22 +63,27 @@
                                     <br>
                                     <br>
                                     <br>
-                                    <form class="form-inline">
-                                        <div class="form-group">
-                                            <label for="bedrooms">Bedrooms</label>
-                                            <select ng-model="bedrooms" ng-init = "bedrooms" ng-options="value.label for value in bedroomOptions" class="form-control" ng-change="change()">
-                                                <option value="">Select</option>
-                                            </select>
-                                        </div>
-                                    </form>
-                                    <form class="form-inline">
-                                        <div class="form-group">
-                                            <label for="bathrooms">Bathrooms</label>
-                                            <select ng-model="bathrooms" ng-init= "bathrooms = {id:bathroomsId}" ng-options="value.label for value in bathroomOptions track by value.id" class="form-control" ng-change="change()">
-                                                <option value="">Select</option>
-                                            </select>
-                                        </div>
-                                    </form>
+                                    <table width="100%">
+                                        <tr>
+                                            <td>
+                                                <div class="form-group">
+                                                    <label for="bedrooms">Bedrooms</label>
+                                                    <select ng-model="bedrooms" ng-init="bedrooms" ng-options="value.label for value in bedroomOptions" class="form-control" ng-change="change()">
+                                                        <option value="">Bed</option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td> &nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <label for="bathrooms">Bathrooms</label>
+                                                    <select ng-model="bathrooms" ng-init="bathrooms = {id:bathroomsId}" ng-options="value.label for value in bathroomOptions track by value.id" class="form-control" ng-change="change()">
+                                                        <option value="">Bath</option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
                                     <label> Housing Type </label>
                                     <br>
                                     <div class="checkbox-inline">
@@ -97,17 +101,15 @@
                                     </div>
                                     <br>
                                     <br>
-                                    <label for="inputValue" class="col-md-1 control-label">Pets</label>
-                                    <div class="col-md-2 ">
-                                        <label>
-                                            <input type="checkbox" ng-model="catsOk" ng-change="change()"> Cats Ok
-                                        </label>
+                                    <label>Pets</label>
+                                    <br>
+                                    <div class="checkbox-inline">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" value="catsOk" ng-model="catsOk" ng-click="change()"> Cats</label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" value="dogsOk" ng-model="dogsOk" ng-click="change()"> Dogs</label>
                                     </div>
-                                    <div class="col-md-2 ">
-                                        <label>
-                                            <input type="checkbox" ng-model="dogsOk" ng-change="change()"> Dogs Ok
-                                        </label>
-                                    </div>
+                                   
                                 </div>
                             </div>
                         </li>
@@ -124,7 +126,7 @@
                     </div>
                     <div class="panel-body">
                         property Image Here:{{property.imgUrl}}
-                         <button class="btn btn-primary pull-right" ng-click="addToFavorites(property.propertyId)">{{favoriteButtonLabel}}</button>
+                        <button class="btn btn-primary pull-right" ng-click="addToFavorites(property.propertyId)">{{favoriteButtonLabel}}</button>
                         <br> Price: {{property.price}}
                     </div>
                 </div>
