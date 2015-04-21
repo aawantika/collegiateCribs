@@ -32,10 +32,10 @@
                     <td>Address {{property.address}}</td>
                 </tr>
                 <tr>
-                    <td>City/State/Zip {{property.city}}, State{{property.state}}, Zipcode{{property.zipcode}}</td>
+                    <td>{{property.city}}, {{property.state}}, {{property.zipcode}}</td>
                 </tr>
                 <tr>
-                    <td class=".col-md-6">Bed: {{property.bedrooms}} • Bath: 5/4{{property.bathrooms}}</td>
+                    <td class=".col-md-6">Bedrooms: {{property.bedrooms}} • Bathrooms: {{property.bathrooms}}</td>
                     <td class=".col-md-6">Price: ${{property.price}} • Utilities: ${{property.utilities}}</td>
                 </tr>
                 <tr>
@@ -44,7 +44,7 @@
                 </tr>
                 <tr>
                     <td>Contact Information: {{user.firstName}} {{user.lastName}}</td>
-                    <td>Lease Type: {{property.leaseType}} months</td>
+                    <td>Lease Type: {{property.leaseType}}</td>
                 </tr>
                 <tr>
                     <td>Pets: {{property.dogsOk}} {{property.catsOk}}</td>
@@ -70,10 +70,16 @@
         <div vertical layout class="allMargins5">
             <!--ratings + option to favorite-->
             Rating: {{property.rating}}
-            <br> Add a rating: {{rating}}
-            <paper-slider ng-model="rating" min="1" max="5" pin></paper-slider>
-            <paper-button raised ng-click="addToFavorites()">Add to Favorites</paper-button>
-            <paper-button raised>Add a review</paper-button>
+            <br> Add a rating: {{rating}}<br>
+            <input type="number" data-max="5" data-min="1" data-clearable="remove" name="rate" id="rate" ng-model="rating" class="rating" />
+            <br>
+            <div class="form-group">
+                <button class="btn btn-default col-md-4 col-sm-offset-5" ng-click="addToFavorites()">Add to Favorites</button>
+            </div>
+            <br>
+            <div class="form-group">
+                <button class="btn btn-default col-md-4 col-sm-offset-5" ng-click="addReview()">Login</button>
+            </div>
         </div>
         <!--reviews-->
         <div ui-view></div>
