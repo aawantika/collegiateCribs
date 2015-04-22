@@ -91,14 +91,6 @@ app.controller('LandlordDashboardController', ['$scope', '$location', '$state', 
             $location.url('/login');
         }
     });
-    $propertyService.retrieveAllPropertyByUsername(landlord, function(err, status, data) {
-        if (!err) {
-            console.log(data);
-            $scope.properties = data;
-        } else {
-            $scope.alert("error retrieving properties");
-        }
-    });
 }]);
 
 
