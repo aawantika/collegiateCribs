@@ -190,7 +190,6 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
     }
     $scope.favoriteButtonLabel = "Add to Favorites";
     $scope.addToFavorites = function(propertyId) {
-<<<<<<< HEAD
         $sessionService.isLoggedIn(function(err, user) {
             if (user !== '0') {
                 inputUsername = user;
@@ -211,9 +210,6 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
                 $location.url('/login');
             }
         });
-=======
-
->>>>>>> 81fd4ea608781965239881ab33fd70f44eda2f8f
     }
 
     $scope.closeAlert = function(index) {
