@@ -62,20 +62,6 @@
         </div>
         <br>
         <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
         <div class="col-md-10">
             <label>Description</label>
             <p>{{property.description}}</p>
@@ -86,17 +72,24 @@
     <div horizontal layout class="content" style="vertical-align:bottom;">
         <div vertical layout class="allMargins5">
             <!--ratings + option to favorite-->
-            Rating: {{property.rating}}
-            <br> Add a rating: {{rating}}
-            <br>
-            <input type="number" data-max="5" data-min="1" data-clearable="remove" name="rate" id="rate" ng-model="rating" class="rating" />
-            <br>
-            <div class="form-group">
-                <button class="btn btn-default col-md-4 col-sm-offset-5" ng-click="addToFavorites()">Add to Favorites</button>
+            <div class="row">
+                <div class = "col-xs-6">
+                    Rating: {{property.rating}}
+                    <br> Add a rating: {{rating}}
+                    <br>
+                    <input type="number" data-max="5" data-min="1" data-clearable="remove" name="rate" id="rate" ng-model="rating" class="rating" />
+                    <br>
+                </div>
+                <div class="form-group col-xs-6">
+                    <button class="btn btn-default col-md-4 col-sm-offset-5" ng-click="addToFavorites()">Add to Favorites</button>
+                </div>
             </div>
             <br>
-            <div class="form-group">
-                <button class="btn btn-default col-md-4 col-sm-offset-5" ng-click="addReview()">Login</button>
+           <div class="form-group">
+                <label for="description" class="col-md-2 control-label">Add a Review</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="3" id="description" placeholder="Press Enter to add your review" ng-model="review"  ng-keypress="enterReview()"></textarea>
+                </div>
             </div>
         </div>
         <!--reviews-->
