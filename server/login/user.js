@@ -393,7 +393,7 @@ user.prototype.getFavoriteProperties = function(req, res) {
         })
         .then(function(result) {
             // console.log(result);
-            res.status(200).send("retrieved favorite properties");
+            res.status(200).send(result);
         })
         .catch(function(error) {
             console.log(error);
