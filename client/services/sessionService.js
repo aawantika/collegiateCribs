@@ -16,19 +16,17 @@ login.service('$sessionService', ['$http', function($http) {
         });
     };
 
-    this.isLoggedIn = function(callback) { 
+    this.isLoggedIn = function(callback) {
         var req = {
             method: "POST",
             url: "http://localhost:8080/loggedin",
         }
 
         $http(req).success(function(user) {
-            console.log("SUCCESSFUL");
-            console.log("dkfjla: ");
             console.log(user);
             callback(null, user);
-        }).error(function(user) {
-            console.log("unSUCCESSFUL");
+        }).
+        error(function(user) {
             callback(user);
         });
     };
@@ -41,7 +39,8 @@ login.service('$sessionService', ['$http', function($http) {
 
         $http(req).success(function(data, status) {
             callback(null, status, data);
-        }).error(function(data, status) {
+        }).
+        error(function(data, status) {
             callback(status, data);
         });
     };

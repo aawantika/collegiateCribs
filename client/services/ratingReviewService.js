@@ -1,6 +1,6 @@
-var property = angular.module("ratingReviewService", []);
+var ratingReview = angular.module("ratingReviewService", []);
 
-property.service('$ratingReviewService', ['$http', function($http) {
+ratingReview.service('$ratingReviewService', ['$http', function($http) {
     this.createRatingReview = function(json, callback) {
         var req = {
             method: "POST",
