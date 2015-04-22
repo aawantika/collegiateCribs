@@ -1,40 +1,34 @@
-<div class="content">
-    <div class="container-fluid">
-        <div class="row row-offcanvas row-offcanvas-left">
-            <div class="col-xs-6 col-sm-3 sidebar-offcanvas box" id="sidebar" role="navigation">
-                <div class="sidebar-nav">
-                    <ul class="nav">
-                        <li>
-                            <span>{{username}} Info</span>
-                            <br>
-                        </li>
-                        <li>
-                            <div>Profile picture here{{image}}</div>
-                        </li>
-                        <li>
-                            <div>
-                                Rating: {{rating}}
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+<div class="container">
+    <div class="row-fluid">
+        <div class=" col-xs-6 col-sm-3" >
+            <ul class="nav">
+                <li>
+                    <span>{{username}}</span>
+                    <br>
+                </li>
+                <li>
+                    <div>
+                        <img src="landlord.png" class="img-thumbnail" alt="Generic House Image">
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-9">
+            <div class="thin_vertical_line" style="position:absolute;left:-15px;height:70%;top:0px;"></div>
+            <header>
+                <h3>Owned Properties</h3>
+            </header>
+            <div class=" form-group pull-right ">
+                <button class="btn btn-default " ng-click="submitProperty() ">Add New Property</button>
             </div>
-            <div class="col-xs-12 col-sm-9 box">
-                <header>
-                    <h3>Owned Properties</h3>
-                </header>
-                <div class="form-group pull-right">
-                    <button class="btn btn-default col-md-2" ng-click="submitProperty()">Add New Property</button>
+            <br>
+            <div class="panel panel-default form-group " ng-repeat="property in properties " horizontal layout>
+                <div class="panel-heading ">
+                    <h3 class="panel-title ">Address: {{property.address}} {{property.city}} {{property.state}} {{property.zipcode}} </h3>
                 </div>
-                <br>
-                <div class="panel panel-default form-group" ng-repeat="property in properties" horizontal layout>
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Address: {{property.address}} {{property.city}} {{property.state}} {{property.zipcode}} </h3>
-                    </div>
-                    <div class="panel-body">
-                        property Image Here:{{property.imgUrl}}
-                        <br> Price: {{property.price}}
-                    </div>
+                <div class="panel-body ">
+                    property Image Here:{{property.imgUrl}}
+                    <br> Price: {{property.price}}
                 </div>
             </div>
         </div>
