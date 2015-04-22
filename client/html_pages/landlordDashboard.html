@@ -1,25 +1,28 @@
 <div class="container">
+    <br>
     <div class="row-fluid">
-        <div class=" col-xs-6 col-sm-3" >
+        <div class=" col-xs-6 col-sm-3">
             <ul class="nav">
-                <li>
-                    <span>{{username}}</span>
-                    <br>
-                </li>
                 <li>
                     <div>
                         <img src="landlord.png" class="img-thumbnail" alt="Generic House Image">
                     </div>
                 </li>
+                <li>
+                    <span>{{username}}</span>
+                    <br>
+                </li>
+                <li>
+                    <span>{{user.firstName}} {{user.lastName}}</span>
+                    <br>
+                </li>
             </ul>
         </div>
         <div class="col-xs-12 col-sm-9" style="border-left: 1px solid #cdd0d4;">
-            <header>
-                <h3>Owned Properties</h3>
-            </header>
-            <div class=" form-group pull-right ">
-                <button class="btn btn-default " ng-click="submitProperty() ">Add New Property</button>
+            <div class=" inline-group  ">
+                <button class="btn btn-default pull-right" ng-click="submitProperty() ">Add New Property</button>
             </div>
+            <br>
             <br>
             <br>
             <div class="panel panel-default form-group " ng-repeat="property in properties " horizontal layout>
