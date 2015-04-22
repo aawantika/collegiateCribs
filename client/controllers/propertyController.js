@@ -24,6 +24,16 @@ app.controller('PropertyController', function($scope, $location, $state, $sessio
     $propertyService.retrieveProperty(propertyData, function(err, status, data) {
         if (!err) {
             $scope.property = data;
+            if (data.dogsOk == true) {
+                $scope.property.dogsOk = "Dogs";
+            } else {
+                $scope.property.dogsOk = "";
+            }
+            if (data.catsOk == true) {
+                $scope.property.catsOk = "Cats";
+            } else {
+                $scope.property.catsOk = "";
+            }
         } else {
             $scope.alert("error retrieving properties");
         }
