@@ -79,25 +79,22 @@
                 <h3>Owned subleases</h3>
             </header>
             <div class="box">
-                <div class="row">
-                    <div class="col-xs-12">
+                <div class="row" ng-hide="propertiesOwned">
+                    <div class="col-xs-9">
                         None currently; press the button below to add one
                     </div>
+                    <button type="submit" class="btn btn-default" ng-click="addSublease()" ng-Hide="addingSublease">Add a sublease</button>
                 </div>
                 <div ng-repeat="property in subLeases" class="row">
-                    <div class="col-xs-3">
+                    <div class="col-xs-2">
                         property Image Here:{{property.imgUrl}}
                     </div>
-                    <div class="col-xs-9">
+                    <div class="col-xs-8">
                         Address: {{property.address}}
                         <br> Price: {{property.price}}
                     </div>
                 </div>
             </div>
-            <div class="box" ng-show="addingSublease">
-                <ui-view></ui-view>
-            </div>
-            <button type="submit" class="btn btn-default" ng-click="addSublease()" ng-Hide="addingSublease">Add a sublease</button>
         </div>
     </body>
 </div>

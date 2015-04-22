@@ -13,13 +13,15 @@
                     <label class="radio-inline">
                         <input type="radio" name="studentLandlordRadio" id="landlord" value="landlord" ng-click="toLandlord()" ng-model="profileType"> Landlord </label>
                     <br>
-                    <div class="form-inline" ng-class="{ 'has-error' : signupForm.firstName.$invalid && (signupForm.firstName.$dirty || submitted)}">
-                        <label for="firstName_input">First Name</label>
-                        <input type="text" class="form-control" name="firstName" id="firstName_input" placeholder="First Name" ng-model="firstName" required>
-                    </div>
-                    <div class="form-inline" ng-class="{ 'has-error' : signupForm.lastName.$invalid && (signupForm.lastName.$dirty || submitted)}">
-                        <label for="lastName_input">Last Name</label>
-                        <input type="text" class="form-control" name="lastName" id="lastName_input" placeholder="Last Name" ng-model="lastName" required>
+                    <div class="row">
+                        <div class="form-inline col-xs-6" ng-class="{ 'has-error' : signupForm.firstName.$invalid && (signupForm.firstName.$dirty || submitted)}">
+                            <label for="firstName_input">First Name</label>
+                            <input type="text" class="form-control" name="firstName" id="firstName_input" placeholder="First Name" ng-model="firstName" required>
+                        </div>
+                        <div class="form-inline col-xs-6" ng-class="{ 'has-error' : signupForm.lastName.$invalid && (signupForm.lastName.$dirty || submitted)}">
+                            <label for="lastName_input">Last Name</label>
+                            <input type="text" class="form-control" name="lastName" id="lastName_input" placeholder="Last Name" ng-model="lastName" required>
+                        </div>
                     </div>
                     <div class="form-group" ng-class="{ 'has-error' : signupForm.username.$invalid && (signupForm.username.$dirty || submitted)}">
                         <label for="username_input">Username</label>
@@ -42,6 +44,7 @@
                         <input type="email" class="form-control" id="phoneNumber_input" placeholder="xxx-xxx-xxxx" ng-model="phone">
                     </div>
                     <div ui-view></div>
+                    <br>
                     <footer>
                         <div>
                             <button type="submit" class="btn btn-default" ng-click="canSubmit()">Sign Up</button>
