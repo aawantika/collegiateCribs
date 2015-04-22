@@ -1,9 +1,10 @@
 var app = angular.module("searchController", []);
 
 app.controller('SearchController', function($scope, $location, $state, $sessionService, $searchService, $userService, dataService, sendPropertyService) {
-    $scope.alert = "";
+    $scope.alerts = [];
     var query = {}
     var housingTypes = [];
+    var user;
 
     $scope.campuses = [{
         "id": "gt",
@@ -59,9 +60,12 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
             $userService.retrieveUser({
                 username: inputUsername
             }, function(err, status, data) {
+                user = data;
+
                 if (data.profileType == 'student') {
                     if (data.campus == 'gt') {
                         $scope.campus = $scope.campuses[0];
+
                         if (dataService.queried == true) {
                             query = {};
                         } else if (dataService.queried == false) {
@@ -76,7 +80,7 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
                         $scope.campus = $scope.campuses[1];
                     }
                 } else if (err) {
-                    $scope.alert("Error retrieving user");
+                    console.log("Error retrieving user");
                 }
             });
         } else {
@@ -90,7 +94,7 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
             console.log(data);
             $scope.properties = data;
         } else {
-            $scope.alert("error retrieving properties");
+            console.log("error retrieving properties");
         }
     });
 
@@ -126,8 +130,11 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
                 query.campus = $scope.campus.id;
                 query.distanceFromCampus = parseInt($scope.distanceFromCampus);
             } else {
-                console.log("There needs to be a campus");
-                // $scope.alert("Please choose a campus."); 
+                $scope.alerts.length = 0;
+                $scope.alerts.push({
+                    msg: 'Please select a campus'
+                });
+
             }
         }
         if ($scope.minPrice) {
@@ -148,6 +155,8 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
         if ($scope.dogsOk) {
             query.dogsOk = $scope.dogsOk;
         }
+
+
         $searchService.searchProperty(query, function(err, status, data) {
             if (!err) {
                 $scope.properties = data;
@@ -181,6 +190,7 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
     }
     $scope.favoriteButtonLabel = "Add to Favorites";
     $scope.addToFavorites = function(propertyId) {
+<<<<<<< HEAD
         $sessionService.isLoggedIn(function(err, user) {
             if (user !== '0') {
                 inputUsername = user;
@@ -201,5 +211,12 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
                 $location.url('/login');
             }
         });
+=======
+
+>>>>>>> 81fd4ea608781965239881ab33fd70f44eda2f8f
     }
+
+    $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+    };
 });
