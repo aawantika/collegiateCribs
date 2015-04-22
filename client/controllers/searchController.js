@@ -66,8 +66,8 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
                             query = {};
                         } else if (dataService.queried == false) {
                             query = dataService.getData();
-                            $scope.bathrooms = $scope.bathroomOptions[query.bathrooms-1];
-                            $scope.bedrooms = $scope.bedroomOptions[query.bedrooms-1];
+                            $scope.bathrooms = $scope.bathroomOptions[query.bathrooms - 1];
+                            $scope.bedrooms = $scope.bedroomOptions[query.bedrooms - 1];
                             $scope.minPrice = query.minPrice;
                             $scope.maxPrice = query.maxPrice;
                         }
@@ -125,9 +125,8 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
             if ($scope.campus) {
                 query.campus = $scope.campus.id;
                 query.distanceFromCampus = parseInt($scope.distanceFromCampus);
-            }
-            else {
-                console.log("There needs to be a campus"); 
+            } else {
+                console.log("There needs to be a campus");
                 // $scope.alert("Please choose a campus."); 
             }
         }
@@ -176,12 +175,31 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
     };
     $scope.goToProperty = function(propertyId) {
         var query = {}
-        query.propertyId = propertyId; 
-        sendPropertyService.setData(query); 
+        query.propertyId = propertyId;
+        sendPropertyService.setData(query);
         $state.go('property');
     }
-
+    $scope.favoriteButtonLabel = "Add to Favorites";
     $scope.addToFavorites = function(propertyId) {
-        
+        $sessionService.isLoggedIn(function(err, user) {
+            if (user !== '0') {
+                inputUsername = user;
+                propId = propertyId;
+                console.log(inputUsername);
+                console.log(propId); 
+                $userService.addFavoriteProperty({
+                    username: inputUsername,
+                    propertyId: propId
+                }, function(err, status, data) {
+                    if (!err) {
+                        $scope.favoriteButtonLabel = "Favorited";
+                    } else if (err) {
+                        $scope.alert("Error retrieving user");
+                    }
+                });
+            } else {
+                $location.url('/login');
+            }
+        });
     }
 });
