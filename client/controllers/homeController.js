@@ -172,7 +172,7 @@ app.controller('StudentDashboardController', function($scope, $state, $sessionSe
             $userService.getFavoriteProperties({
                 username: inputUsername,
             }, function(err, status, data) {
-                if (!err) {
+                if (!err && data.length> 0) {
                     console.log(data);
                     $scope.favorites = data;
                 } else if (err) {
