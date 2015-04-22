@@ -33,7 +33,10 @@
         <div class="col-md-6">
             <table class="table">
                 <tr>
-                    <td>Address {{property.address}}</td>
+                    <td>{{property.address}}</td>
+                    <td align="right">
+                        <button class="btn btn-default col-sm-offset-3" ng-click="addToFavorites()">Add to Favorites</button>
+                    </td>
                 </tr>
                 <tr>
                     <td>{{property.city}}, {{property.state}}, {{property.zipcode}}</td>
@@ -62,6 +65,7 @@
         </div>
         <br>
         <br>
+        <br>
         <div class="col-md-10">
             <label>Description</label>
             <p>{{property.description}}</p>
@@ -69,27 +73,41 @@
     </div>
     <div>
     </div>
+    <hr>
+    <div>
+        <div class="form-inline">
+            <label>Current Rating:</label>
+            <rating ng-model="currentRating" ng-disabled="isReadonly" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+        </div>
+        <br>
+        <br>
+        <div class="group-inline">
+            <label>Rate This Property:</label>
+            <rating ng-model="currentRating" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+        </div>
+        <br>
+        <div class="group-inline">
+            <label for="description">Add a Review</label>
+            <div class="col-sm-8">
+                <textarea class="form-control" rows="3" id="description" placeholder="Press Enter to add your review" ng-model="review" ng-keypress="enterReview()"></textarea>
+            </div>
+        </div>
+    </div>
     <div horizontal layout class="content" style="vertical-align:bottom;">
         <div vertical layout class="allMargins5">
+            <rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
             <!--ratings + option to favorite-->
             <div class="row">
-                <div class = "col-xs-6">
+                <div class="col-xs-6">
                     Rating: {{property.rating}}
                     <br> Add a rating: {{rating}}
                     <br>
                     <input type="number" data-max="5" data-min="1" data-clearable="remove" name="rate" id="rate" ng-model="rating" class="rating" />
                     <br>
                 </div>
-                <div class="form-group col-xs-6">
-                    <button class="btn btn-default col-md-4 col-sm-offset-5" ng-click="addToFavorites()">Add to Favorites</button>
-                </div>
             </div>
             <br>
-           <div class="form-group">
-                <label for="description" class="col-md-2 control-label">Add a Review</label>
-                <div class="col-sm-10">
-                    <textarea class="form-control" rows="3" id="description" placeholder="Press Enter to add your review" ng-model="review"  ng-keypress="enterReview()"></textarea>
-                </div>
+            <div class="form-group">
             </div>
         </div>
         <!--reviews-->

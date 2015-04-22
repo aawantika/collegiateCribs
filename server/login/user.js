@@ -416,7 +416,7 @@ user.prototype.isFavorited = function(req, res) {
     userModel.findOne({
         username: body.username
     }, function(err, user) {
-        if (err) {
+        if (!user || err) {
             res.status(400).send("Error");
         } else {
             if (user.favoriteProperties.indexOf(propertyId) > -1) {
