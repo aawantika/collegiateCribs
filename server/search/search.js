@@ -283,6 +283,7 @@
              state: 1,
              zipcode: 1,
              propertyId: 1,
+             ownerId:1,
              score: {
                  $add: [
                      projectvarDistance,

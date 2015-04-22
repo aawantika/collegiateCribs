@@ -34,8 +34,29 @@ app.controller('PropertyController', function($scope, $location, $state, $sessio
 
     $scope.hoveringOver = function(value) {
         $scope.overStar = value;
-        $scope.percent = 100 * (value / $scope.max);
+        $scope.percent = 100 * (value / 5);
     };
+
+    $scope.submitReviewRating = function() {
+        console.log($scope);
+        
+    }
+
+    $scope.menuSearchEnter = function() {
+        console.log('change to search');
+        console.log("ayyy");
+        if (!$scope.menuSearch) {
+            $state.go('search');
+        } else {
+            $searchService.retrieveAllPropertyByUsername(landlord, function(err, status, data) {
+                if (!err) {
+                    $state.go('search');
+                } else {
+                    // $scope.alert("error retrieving properties");
+                }
+            });
+        }
+    }
 
     $scope.ratingStates = [{
         stateOn: 'glyphicon-ok-sign',

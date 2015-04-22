@@ -8,12 +8,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">CollegiateCribs</a>
+            <a class="navbar-brand" href="#/">CollegiateCribs</a>
+        </div>
+        <div>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <form class="navbar-form navbar-left" style="width: 60%" role="search">
                 <div class="form-group" style="width: 100%">
-                    <input type="text" style="width: 100%" class="form-control" placeholder="Search for Housing" ng-keypress="menuSearchEnter()">
+                    <input type="text" style="width: 100%" class="form-control" placeholder="e.g. &quot;3 bedrooms&quot; or &quot;condo&quot;" ng-model="menuSearch" ng-keypress="menuSearchEnter()">
                 </div>
             </form>
             <ul class="nav navbar-nav navbar-right">
@@ -33,13 +35,15 @@
         <div class="col-md-6">
             <table class="table">
                 <tr>
-                    <td>{{property.address}}</td>
+                    <td>{{property.street}}</td>
                     <td align="right">
                         <button class="btn btn-default col-sm-offset-3" ng-click="addToFavorites()">Add to Favorites</button>
                     </td>
                 </tr>
                 <tr>
-                    <td>{{property.city}}, {{property.state}}, {{property.zipcode}}</td>
+                    <td>
+                        <font style="text-transform: capitalize;">{{property.city}}</font>,
+                        <font style="text-transform: uppercase"> {{property.state}}</font>, {{property.zipcode}}</td>
                 </tr>
                 <tr>
                     <td class=".col-md-6">Bed: {{property.bedrooms}} • Bath: {{property.bathrooms}}</td>
@@ -92,13 +96,13 @@
         <!-- END !-->
         <div class="group-inline">
             <label>Rate This Property:</label>
-            <rating ng-model="newRating" rateReadOnly ="rateReadOnly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+            <rating ng-model="newRating" rateReadOnly="rateReadOnly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
         </div>
         <div class="form-group">
             <label for="description" class="control-label">Add a Review</label>
             <br>
             <div class="col-sm-10">
-                <textarea class="form-control" rows="3" id="description" placeholder="Press Enter to add your review" ng-model="review" ng-keypress="enterReview()"></textarea>
+                <textarea class="form-control" rows="3" id="description" placeholder="Press Enter to add your review" ng-model="review"></textarea>
             </div>
         </div>
         <br>

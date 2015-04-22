@@ -1,5 +1,7 @@
 var app = angular.module("searchController", []);
 
+
+var user = {};
 app.controller('SearchController', function($scope, $location, $state, $sessionService, $searchService, $userService, dataService, sendPropertyService) {
     $scope.alerts = [];
     var query = {}
@@ -88,12 +90,11 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
         }
     });
 
-
-
     $searchService.searchProperty(query, function(err, status, data) {
-        var properties
+        var properties;
         if (!err) {
             properties = data;
+            console.log("yes");
             for (var i = 0; i < properties.length; i++) {
                 properties[i].favoriteButtonLabel = "Add to Favorites";
                 // $userService.isFavorited({
@@ -110,6 +111,27 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
                 // });
             }
             $scope.properties = properties;
+            console.log(properties);
+            for (var j = 0; j < properties.length; j++) {
+                var retrieveUserQuery = {
+                    username: properties[j].ownerId
+                };
+
+                $userService.retrieveUser(retrieveUserQuery, function(err, status, data) {
+                    if (!err) {
+                        $scope.user = data;
+                    }
+                });
+
+                console.log($scope.user);
+                // console.log($scope.firstName);
+                // console.log($scope.lastName);
+
+                // $scope.properties[j].firstName = firstName;
+                // $scope.properties[j].lastName = lastName;
+            }
+
+            console.log($scope.properties);
         } else {
             // $scope.alert("error retrieving properties");
         }
@@ -198,14 +220,28 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
             }
         });
     }
+
     $scope.menuSearchEnter = function() {
         console.log('change to search');
-        $state.go('search');
+        console.log("ayyy");
+        if (!$scope.menuSearch) {
+            $state.go('search');
+        } else {
+            $searchService.retrieveAllPropertyByUsername(landlord, function(err, status, data) {
+                if (!err) {
+                    $state.go('search');
+                } else {
+                    // $scope.alert("error retrieving properties");
+                }
+            });
+        }
     }
+
     $scope.toSearch = function() {
         console.log('off to search');
         $state.go('search');
     }
+
     $scope.logoutButton = function() {
         $sessionService.logout(function(err, status, data) {
             if (!err) {
@@ -214,13 +250,15 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
             }
         });
     };
+
     $scope.goToProperty = function(propertyId) {
-            var query = {}
-            query.propertyId = propertyId;
-            sendPropertyService.setData(query);
-            $state.go('property');
-        }
-        //$scope.property.favoriteButtonLabel = "Add to Favorites";
+        var query = {}
+        query.propertyId = propertyId;
+        sendPropertyService.setData(query);
+        $state.go('property');
+    }
+
+    //$scope.property.favoriteButtonLabel = "Add to Favorites";
     $scope.addToFavorites = function(propertyId) {
         $sessionService.isLoggedIn(function(err, user) {
             if (user !== '0') {
@@ -233,13 +271,12 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
                     propertyId: propId
                 }, function(err, status, data) {
                     if (!err) {
-                        for(var i=0; i<$scope.properties.length; i++){
-                           if($scope.properties[i].propertyId===propId){
-                                $scope.properties[i].favoriteButtonLabel="Favorited";
+                        for (var i = 0; i < $scope.properties.length; i++) {
+                            if ($scope.properties[i].propertyId === propId) {
+                                $scope.properties[i].favoriteButtonLabel = "Favorited";
                                 break;
-                           }
+                            }
                         }
-                        //$scope.property.favoriteButtonLabel = "Favorited";
                     } else if (err) {
                         $scope.alert("Error retrieving user");
                     }

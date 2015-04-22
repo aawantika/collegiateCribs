@@ -66,11 +66,12 @@ app.controller('HomeController', ['$scope', '$userService', '$sessionService', '
 }]);
 
 
-app.controller('LandlordDashboardController', ['$scope', '$location', '$state', '$sessionService', '$propertyService', '$userService', function($scope, $location, $state, $sessionService, $propertyService, $userService) {
+app.controller('LandlordDashboardController', ['$scope', '$location', '$state', '$sessionService', '$propertyService', '$userService', 
+    function($scope, $location, $state, $sessionService, $propertyService, $userService, dataService, sendPropertyService) {
     $scope.alert = "";
     $scope.rating = "N/A";
 
-    $scope.addProperty = function() {
+    $scope.submitProperty = function() {
         console.log("change to Add Property");
         $state.go('home.addProperty');
     };
@@ -83,7 +84,7 @@ app.controller('LandlordDashboardController', ['$scope', '$location', '$state', 
                 username: inputUsername
             }, function(err, status, data) {
                 if (!err) {
-                    $scope.user = data; 
+                    $scope.user = data;
                 } else {
                     $scope.alert("Error retrieving user");
                 }
@@ -102,11 +103,18 @@ app.controller('LandlordDashboardController', ['$scope', '$location', '$state', 
             $location.url('/login');
         }
     });
+
+    $scope.goToProperty = function(propertyId) {
+        var query = {}
+        query.propertyId = propertyId;
+        sendPropertyService.setData(query);
+        $state.go('property');
+    }
 }]);
 
 
 
-app.controller('StudentDashboardController', function($scope, $state, $sessionService, $userService, $propertyService, dataService) {
+app.controller('StudentDashboardController', function($scope, $state, $sessionService, $userService, $propertyService, dataService, sendPropertyService) {
     $scope.alert = "";
     $scope.bedroomOptions = [{
         "id": "1",
@@ -174,6 +182,7 @@ app.controller('StudentDashboardController', function($scope, $state, $sessionSe
                 if (!err && data.length > 0) {
                     console.log(data);
                     $scope.subleases = data;
+                    console.log($scope.subleases[0]);
                 } else if (err) {
                     $scope.alert("error retrieving properties");
                 }
@@ -181,8 +190,7 @@ app.controller('StudentDashboardController', function($scope, $state, $sessionSe
             $userService.getFavoriteProperties({
                 username: inputUsername,
             }, function(err, status, data) {
-                if (!err && data.length> 0) {
-                    console.log(data);
+                if (!err && data.length > 0) {
                     $scope.favorites = data;
                 } else if (err) {
                     $scope.alert("Error retrieving user");
@@ -213,5 +221,12 @@ app.controller('StudentDashboardController', function($scope, $state, $sessionSe
 
     $scope.addSublease = function() {
         $state.go("home.addProperty");
+    }
+
+    $scope.goToProperty = function(propertyId) {
+        var query = {}
+        query.propertyId = propertyId;
+        sendPropertyService.setData(query);
+        $state.go('property');
     }
 });

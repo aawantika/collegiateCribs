@@ -8,11 +8,12 @@
                         <img src="landlord.png" class="img-thumbnail" alt="Generic House Image">
                     </div>
                 </li>
-                <li>
-                    <span>{{user.username}}</span>
+                <br>
+                <li align="center">
+                    <span>Username: {{user.username}}</span>
                     <br>
                 </li>
-                <li>
+                <li align="center">
                     <span>{{user.firstName}} {{user.lastName}}</span>
                     <br>
                 </li>
@@ -25,15 +26,32 @@
             <br>
             <br>
             <br>
-            <div class="panel panel-default form-group " ng-repeat="property in properties " horizontal layout>
-                <div class="panel-heading ">
-                    <h3 class="panel-title ">Address: {{property.address}} {{property.city}} {{property.state}} {{property.zipcode}} </h3>
-                </div>
-                <div class="panel-body ">
-                    property Image Here:{{property.imgUrl}}
-                    <br> Price: {{property.price}}
-                </div>
-            </div>
+            <div class="panel panel-default" ng-repeat="property in properties">
+                    <div class="panel-heading" ng-click="goToProperty(property.propertyId)">
+                        <h3 class="panel-title">{{property.street}} <font style="text-transform: capitalize;">{{property.city}}</font>,
+                        <font style="text-transform: uppercase"> {{property.state}}</font>, {{property.zipcode}} </h3>
+                    </div>
+                    <div class="panel-body">
+                        <table width="100%">
+                            <tr>
+                                <td>
+                                    <p>Price: ${{property.price}}</p>
+                                </td>
+                                <td>
+                                    <p>Housing Type: {{property.housingType}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Distance From Campus: GT {{property.distanceFromCampus.gt}} miles • GSU {{property.distanceFromCampus.gsu}} miles</p>
+                                    <!-- <p>Owner Name: {{property.firstName property.lastName}}</p> -->
+                                </td>
+                                <td>
+                                    <p>Bed/Bath: {{property.bedrooms}}/{{property.bathrooms}}</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
         </div>
     </div>
 </div>

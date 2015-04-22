@@ -48,6 +48,7 @@ propertySchema.index({
     length: 'text',
     catsOk: 'text',
     dogsOk: 'text',
+    ownerId: 'text',
 });
 
 module.exports = mongoose.model('propertyModel', propertySchema);
