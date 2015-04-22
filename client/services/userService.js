@@ -89,7 +89,7 @@ user.service('$userService', ['$http', function($http) {
     this.deleteFavoriteProperty = function(json, callback) {
         var req = {
             method: "POST",
-            url: "http://localhost:8080/favorites/delete",
+            url: "http://localhost:8080/user/favorites/delete",
             data: json
         }
 

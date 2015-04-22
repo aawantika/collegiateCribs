@@ -101,7 +101,7 @@ user.prototype.retrieveUser = function(req, res) {
     // http://localhost:8080/user/retrieve POST
     var body = req.body;
 
-    generalCheck.checkBody(body) 
+    generalCheck.checkBody(body)
         .then(function(result) {
             return userModel.findOne({
                 username: body.username
@@ -113,7 +113,7 @@ user.prototype.retrieveUser = function(req, res) {
         .then(function(result) {
             res.status(result.status).send(result.send);
         })
-        .catch(function(error) { 
+        .catch(function(error) {
             console.log(error);
             if (error.status == 406 || error.status == 404) {
                 res.status(error.status).send(error.send);
@@ -275,10 +275,13 @@ user.prototype.addFavoriteProperty = function(req, res) {
             return propertyCheck.duplicateFavorite(user.favoriteProperties, body.propertyId);
         })
         .then(function(result) {
-            return userModel.update(
-                { username: body.username },
-                { $push: { favoriteProperties: body.propertyId } }
-                ).exec();
+            return userModel.update({
+                username: body.username
+            }, {
+                $push: {
+                    favoriteProperties: body.propertyId
+                }
+            }).exec();
         })
         .then(function(result) {
             res.status(200).send("added favorite");
@@ -327,10 +330,13 @@ user.prototype.deleteFavoriteProperty = function(req, res) {
             return userCheck.checkIfStudent(user);
         })
         .then(function(result) {
-            return userModel.update(
-                { username: body.username },
-                { $pull: { favoriteProperties: body.propertyId } }
-                ).exec();
+            return userModel.update({
+                username: body.username
+            }, {
+                $pull: {
+                    favoriteProperties: body.propertyId
+                }
+            }).exec();
         })
         .then(function(result) {
             res.status(200).send("deleted favorite");

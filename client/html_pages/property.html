@@ -12,8 +12,8 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <form class="navbar-form navbar-left" style="width: 60%" role="search">
-                <div class="form-group"  style="width: 100%">
-                    <input type="text" style="width: 100%"class="form-control" placeholder="Search for Housing" ng-keypress="menuSearchEnter()">
+                <div class="form-group" style="width: 100%">
+                    <input type="text" style="width: 100%" class="form-control" placeholder="Search for Housing" ng-keypress="menuSearchEnter()">
                 </div>
             </form>
             <ul class="nav navbar-nav navbar-right">
@@ -25,7 +25,11 @@
 </nav>
 <div class="container">
     <div class="row">
-        <div class="col-md-6">Images here</div>
+        <div class="col-md-6">
+            <img src="house.jpg" class="img-thumbnail" alt="Generic House Image">
+        </div>
+        <br>
+        <br>
         <div class="col-md-6">
             <table class="table">
                 <tr>
@@ -35,7 +39,7 @@
                     <td>{{property.city}}, {{property.state}}, {{property.zipcode}}</td>
                 </tr>
                 <tr>
-                    <td class=".col-md-6">Bedrooms: {{property.bedrooms}} • Bathrooms: {{property.bathrooms}}</td>
+                    <td class=".col-md-6">Bed: {{property.bedrooms}} • Bath: {{property.bathrooms}}</td>
                     <td class=".col-md-6">Price: ${{property.price}} • Utilities: ${{property.utilities}}</td>
                 </tr>
                 <tr>
@@ -58,19 +62,33 @@
         </div>
         <br>
         <br>
-        <div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="col-md-10">
             <label>Description</label>
             <p>{{property.description}}</p>
         </div>
     </div>
     <div>
-    
     </div>
     <div horizontal layout class="content" style="vertical-align:bottom;">
         <div vertical layout class="allMargins5">
             <!--ratings + option to favorite-->
             Rating: {{property.rating}}
-            <br> Add a rating: {{rating}}<br>
+            <br> Add a rating: {{rating}}
+            <br>
             <input type="number" data-max="5" data-min="1" data-clearable="remove" name="rate" id="rate" ng-model="rating" class="rating" />
             <br>
             <div class="form-group">

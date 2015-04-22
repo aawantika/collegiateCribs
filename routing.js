@@ -67,7 +67,7 @@ module.exports = function() {
         user.addFavoriteProperty(req, res);
     });
 
-    router.post('/user/favorites/add', function(req, res) {
+    router.post('/user/favorites/delete', function(req, res) {
         user.deleteFavoriteProperty(req, res);
     });
 

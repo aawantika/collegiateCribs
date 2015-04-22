@@ -104,15 +104,19 @@
                 </label>
             </div>
         </div>
+        <br>
+        <br>
+        <br>
+        <br>
         <div class="form-group">
             <label for="description" class="col-md-2 control-label">Description</label>
             <div class="col-sm-10">
                 <textarea class="form-control" rows="3" id="description" placeholder="Enter additional information here." ng-model="description"></textarea>
             </div>
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
             <input type="file" nv-file-select="" uploader="uploader">
-            <!-- <div class="col-md-9" style="margin-bottom: 40px">
+            <div class="col-md-9" style="margin-bottom: 40px">
                 <h3>Upload queue</h3>
                 <p class="ng-binding">Queue length: 0</p>
                 <table class="table">
@@ -144,13 +148,10 @@
                     <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length" disabled="disabled">
                         <span class="glyphicon glyphicon-trash"></span> Remove all
                     </button>
-                </div> -->
-        </div>
+                </div>
+        </div> -->
         <div class="form-group">
             <button class="btn btn-default col-md-4 col-sm-offset-5" ng-click="submitProperty()">Add New Property</button>
-        </div>
-        <div class="form-group">
-            <button class="btn btn-default col-md-4 col-sm-offset-5" ng-click="addAnotherProperty()">Submit and Add Another Property</button>
         </div>
     </form>
 </div>
