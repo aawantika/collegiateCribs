@@ -2,12 +2,9 @@
 
     <body>
         <form class="form-inline" id="simpleSearch" ng-submit="simpleSearch()" method="post">
+            <h3 class="text-center">Simple Search</h3>
             <table style="margin:5px auto 10px">
                 <tr>
-                    <td>
-                        <label style="margin-right:5px">
-                            <h4>Simple Search: </h4></label>
-                    </td>
                     <td>
                         <div class="form-group">
                             <label for="numBedrooms">Bedrooms</label>
@@ -67,13 +64,7 @@
             <header>
                 <h3>My Subleases</h3>
             </header>
-            <div class="box">
-                <div class="row" ng-hide="propertiesOwned">
-                    <div class="col-xs-9">
-                        None currently; press the button below to add one
-                    </div>
-                    <button type="submit" class="btn btn-default" ng-click="addSublease()" ng-Hide="addingSublease">Add a sublease</button>
-                </div>
+            <div class="content row">
                 <div ng-repeat="property in subLeases" class="row">
                     <div class="col-xs-2">
                         property Image Here:{{property.imgUrl}}
@@ -83,6 +74,7 @@
                         <br> Price: {{property.price}}
                     </div>
                 </div>
+                <button type="submit" class="btn btn-default pull-right" ng-click="addSublease()" ng-Hide="addingSublease">Add a sublease</button>
             </div>
         </div>
     </body>
