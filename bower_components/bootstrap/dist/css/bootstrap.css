@@ -3943,6 +3943,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border: 1px solid #ddd;
   border-bottom-color: transparent;
 }
+.navbar-nav > li{
+  padding-left:30px;
+  padding-right:30px;
+}
 .nav-tabs.nav-justified {
   width: 100%;
   border-bottom: 0;

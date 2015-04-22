@@ -111,6 +111,22 @@ module.exports = function() {
          propertyRating.retrieveReviews(req, res);
      });
 
+     router.post('/property/rating/update', function(req, res) {
+         propertyRating.updateRating(req, res);
+     });
+
+     router.post('/property/review/update', function(req, res) {
+         propertyRating.updateReview(req, res);
+     });
+
+     router.post('/property/rating/delete', function(req, res) {
+         propertyRating.deleteRating(req, res);
+     });
+
+     router.post('/property/review/delete', function(req, res) {
+         propertyRating.deleteReview(req, res);
+     });
+
 
     /**
      * search routing
@@ -126,6 +142,10 @@ module.exports = function() {
 
     router.post('/search', function(req, res) {
         search.getAvailableProperties(req, res);
+    });
+
+    router.post('/search/keyword', function(req, res) {
+        search.searchByKeyword(req, res);
     });
 
     return router;
