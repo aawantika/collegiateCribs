@@ -1,6 +1,6 @@
 var app = angular.module("addPropertyController", []);
 
-app.controller('AddPropertyController', ['$scope', '$sessionService', '$propertyService', '$location', '$state', function($scope, $sessionService, $propertyService, $location, $state) {
+app.controller('AddPropertyController', ['$scope', '$sessionService', '$propertyService', '$location', '$state', 'dataService',function($scope, $sessionService, $propertyService, $location, $state, dataService, sendPropertyService) {
         $scope.alerts = [];
         var data = undefined;
 
@@ -83,11 +83,13 @@ app.controller('AddPropertyController', ['$scope', '$sessionService', '$property
                 $location.url('/login');
             }
         });
+
         $scope.submitProperty = function() {
             $scope.submitted = true;
+            var username = dataService.getData().username;
 
             var newProperty = {
-                "username": "bob1",
+                "username": username,
                 "street": $scope.street,
                 "city": $scope.city,
                 "state": $scope.state,
@@ -100,6 +102,8 @@ app.controller('AddPropertyController', ['$scope', '$sessionService', '$property
                 "utilities": $scope.utilities,
                 "description": $scope.description
             }
+
+            console.log(newProperty);
 
             if ($scope.pets) {
                 if ($scope.pets.catsOk) {

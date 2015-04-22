@@ -136,8 +136,7 @@ propertyRating.prototype.retrieveRating = function(req, res) {
 			return rating;
 		})
 		.then(function(result) {
-		    // console.log(result);
-		    res.status(200).send("retrieved property rating");
+		    res.status(200).send(result);
 		})
 		.catch(function(error) {
 		    console.log(error);
@@ -177,7 +176,7 @@ propertyRating.prototype.retrieveReviews = function(req, res) {
 		})
 		.then(function(result) {
 		    // console.log(result);
-		    res.status(200).send("retrieved property reviews");
+		    res.status(200).send(result);
 		})
 		.catch(function(error) {
 		    console.log(error);

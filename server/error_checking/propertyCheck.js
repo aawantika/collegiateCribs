@@ -53,7 +53,6 @@ propertyCheck.prototype.checkAddress = function(street_input, city_input, state_
                 send: "zipcode"
             });
         } else {
-            console.log(street_input + ", " + city_input + ", " + state_input + ", " + zipcode_input);
             resolve(street_input + ", " + city_input + ", " + state_input + ", " + zipcode_input);
             // var address = new Address({
             //     street: street_input,
@@ -376,7 +375,6 @@ propertyCheck.prototype.distanceFromCampusGSU = function(address) {
                 });
             } else {
                 data = data.distance.replace(" mi", "");
-                console.log("gsu: " + data);
                 resolve({
                     status: 200,
                     send: data

@@ -1,6 +1,6 @@
 var app = angular.module("homeController", ['miscServices']);
 
-app.controller('HomeController', ['$scope', '$userService', '$sessionService', '$searchService', '$propertyService', '$location', '$state', function($scope, $userService, $sessionService, $searchService, $propertyService, $location, $state) {
+app.controller('HomeController', ['$scope', '$userService', '$sessionService', '$searchService', '$propertyService', '$location', '$state', 'dataService', function($scope, $userService, $sessionService, $searchService, $propertyService, $location, $state, dataService, sendPropertyService) {
     $scope.alert = "";
     $scope.showPage = false;
     var inputUsername;
@@ -22,6 +22,9 @@ app.controller('HomeController', ['$scope', '$userService', '$sessionService', '
                     $propertyService.retrieveAllPropertyByUsername(landlord, function(err, status, data) {
                         if (!err) {
                             if (data.length == 0) {
+                                var query = {}
+                                query.username = inputUsername;
+                                dataService.setData(query);
                                 $state.go("home.addProperty");
                             } else {
                                 $state.go("home.landlordDashboard");
@@ -66,51 +69,52 @@ app.controller('HomeController', ['$scope', '$userService', '$sessionService', '
 }]);
 
 
-app.controller('LandlordDashboardController', ['$scope', '$location', '$state', '$sessionService', '$propertyService', '$userService', 
+app.controller('LandlordDashboardController', ['$scope', '$location', '$state', '$sessionService', '$propertyService', '$userService',
     function($scope, $location, $state, $sessionService, $propertyService, $userService, dataService, sendPropertyService) {
-    $scope.alert = "";
-    $scope.rating = "N/A";
+        $scope.alert = "";
+        $scope.rating = "N/A";
 
-    $scope.submitProperty = function() {
-        console.log("change to Add Property");
-        $state.go('home.addProperty');
-    };
-    $sessionService.isLoggedIn(function(err, user) {
-        if (user !== '0') {
-            inputUsername = user;
-            $scope.showHomePage = true;
+        $scope.submitProperty = function() {
+            console.log("change to Add Property");
+            $state.go('home.addProperty');
+        };
+        $sessionService.isLoggedIn(function(err, user) {
+            if (user !== '0') {
+                inputUsername = user;
+                $scope.showHomePage = true;
 
-            $userService.retrieveUser({
-                username: inputUsername
-            }, function(err, status, data) {
-                if (!err) {
-                    $scope.user = data;
-                } else {
-                    $scope.alert("Error retrieving user");
-                }
-            });
-            $propertyService.retrieveAllPropertyByUsername({
-                username: inputUsername
-            }, function(err, status, data) {
-                if (!err) {
-                    console.log(data);
-                    $scope.properties = data;
-                } else {
-                    $scope.alert("error retrieving properties");
-                }
-            });
-        } else {
-            $location.url('/login');
+                $userService.retrieveUser({
+                    username: inputUsername
+                }, function(err, status, data) {
+                    if (!err) {
+                        $scope.user = data;
+                    } else {
+                        $scope.alert("Error retrieving user");
+                    }
+                });
+                $propertyService.retrieveAllPropertyByUsername({
+                    username: inputUsername
+                }, function(err, status, data) {
+                    if (!err) {
+                        console.log(data);
+                        $scope.properties = data;
+                    } else {
+                        $scope.alert("error retrieving properties");
+                    }
+                });
+            } else {
+                $location.url('/login');
+            }
+        });
+
+        $scope.goToProperty = function(propertyId) {
+            var query = {}
+            query.propertyId = propertyId;
+            sendPropertyService.setData(query);
+            $state.go('property');
         }
-    });
-
-    $scope.goToProperty = function(propertyId) {
-        var query = {}
-        query.propertyId = propertyId;
-        sendPropertyService.setData(query);
-        $state.go('property');
     }
-}]);
+]);
 
 
 

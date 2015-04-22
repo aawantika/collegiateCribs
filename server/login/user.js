@@ -384,23 +384,9 @@ user.prototype.getFavoriteProperties = function(req, res) {
                 propertyId: {
                     $in: user.favoriteProperties
                 }
-            }, function(err, result) {
-                console.log(result);
             }).exec();
-
-            // return propertyModel.find({
-            //     propertyId: {
-            //         $in: user.favoriteProperties
-            //     }
-            // }, {
-            //     address: 1,
-            //     price: 1,
-            //     propertyId: 1,
-            //     _id: 0
-            // }).exec();
         })
         .then(function(result) {
-            // console.log(result);
             res.status(200).send(result);
         })
         .catch(function(error) {

@@ -87,7 +87,7 @@ property.prototype.createProperty = function(req, res) {
             address = address.split(", ");
 
             var newProperty = new propertyModel();
-            newProperty.propertyId = generateUuid.newUuid();;
+            newProperty.propertyId = generateUuid.newUuid();
             newProperty.ownerId = body.username;
             newProperty.verified = false;
 
