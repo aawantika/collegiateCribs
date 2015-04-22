@@ -99,4 +99,20 @@ user.service('$userService', ['$http', function($http) {
             callback(status, data);
         });
     };
+
+    this.isFavorited = function(json, callback) {
+        var req = {
+            method: "POST",
+            url: "http://localhost:8080/user/favorites/check",
+            data: json
+        }
+
+        $http(req).success(function(data, status) {
+            callback(null, status, data);
+        }).error(function(data, status) {
+            callback(status, data);
+        });
+    };
+
+    
 }]);

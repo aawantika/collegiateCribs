@@ -406,4 +406,26 @@ user.prototype.getFavoriteProperties = function(req, res) {
 
 }
 
+user.prototype.isFavorited = function(req, res) {
+    // http://localhost:8080/user/favorites POST
+
+    var body = req.body;
+    var username = body.username;
+    var propertyId = body.propertyId;
+
+    userModel.findOne({
+        username: body.username
+    }, function(err, user) {
+        if (err) {
+            res.status(400).send("Error");
+        } else {
+            if (user.favoriteProperties.indexOf(propertyId) > -1) {
+                res.status(200).send("true");
+            } else {
+                res.status(404).send("false");
+            }
+        }
+    });
+}
+
 module.exports = new user();
