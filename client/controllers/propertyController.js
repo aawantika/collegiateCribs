@@ -4,7 +4,6 @@ app.controller('PropertyController', function($scope, $location, $state, $sessio
     $scope.alert = "";
     var propertyData = sendPropertyService.getData();
 
-
     $sessionService.isLoggedIn(function(err, user) {
         if (user !== '0') {
             inputUsername = user;
@@ -22,14 +21,35 @@ app.controller('PropertyController', function($scope, $location, $state, $sessio
         }
     });
 
-
     $propertyService.retrieveProperty(propertyData, function(err, status, data) {
         if (!err) {
-            $scope.property = data; 
+            $scope.property = data;
         } else {
             $scope.alert("error retrieving properties");
         }
     });
 
-    
+    $scope.currReadOnly = true;
+    $scope.rateReadOnly = false;
+
+    $scope.hoveringOver = function(value) {
+        $scope.overStar = value;
+        $scope.percent = 100 * (value / $scope.max);
+    };
+
+    $scope.ratingStates = [{
+        stateOn: 'glyphicon-ok-sign',
+        stateOff: 'glyphicon-ok-circle'
+    }, {
+        stateOn: 'glyphicon-star',
+        stateOff: 'glyphicon-star-empty'
+    }, {
+        stateOn: 'glyphicon-heart',
+        stateOff: 'glyphicon-ban-circle'
+    }, {
+        stateOn: 'glyphicon-heart'
+    }, {
+        stateOff: 'glyphicon-off'
+    }];
+
 });
