@@ -1,9 +1,10 @@
 var app = angular.module("searchController", []);
 
 app.controller('SearchController', function($scope, $location, $state, $sessionService, $searchService, $userService, dataService, sendPropertyService) {
-    $scope.alert = "";
+    $scope.alerts = [];
     var query = {}
     var housingTypes = [];
+    var user;
 
     $scope.campuses = [{
         "id": "gt",
@@ -59,15 +60,18 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
             $userService.retrieveUser({
                 username: inputUsername
             }, function(err, status, data) {
+                user = data;
+
                 if (data.profileType == 'student') {
                     if (data.campus == 'gt') {
                         $scope.campus = $scope.campuses[0];
+
                         if (dataService.queried == true) {
                             query = {};
                         } else if (dataService.queried == false) {
                             query = dataService.getData();
-                            $scope.bathrooms = $scope.bathroomOptions[query.bathrooms-1];
-                            $scope.bedrooms = $scope.bedroomOptions[query.bedrooms-1];
+                            $scope.bathrooms = $scope.bathroomOptions[query.bathrooms - 1];
+                            $scope.bedrooms = $scope.bedroomOptions[query.bedrooms - 1];
                             $scope.minPrice = query.minPrice;
                             $scope.maxPrice = query.maxPrice;
                         }
@@ -76,7 +80,7 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
                         $scope.campus = $scope.campuses[1];
                     }
                 } else if (err) {
-                    $scope.alert("Error retrieving user");
+                    console.log("Error retrieving user");
                 }
             });
         } else {
@@ -90,7 +94,7 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
             console.log(data);
             $scope.properties = data;
         } else {
-            $scope.alert("error retrieving properties");
+            console.log("error retrieving properties");
         }
     });
 
@@ -125,9 +129,11 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
             if ($scope.campus) {
                 query.campus = $scope.campus.id;
                 query.distanceFromCampus = parseInt($scope.distanceFromCampus);
-            }
-            else {
-                console.log("There needs to be a campus"); 
+            } else {
+                $scope.alerts.length = 0;
+                $scope.alerts.push({
+                    msg: 'Please select a campus'
+                });
                 // $scope.alert("Please choose a campus."); 
             }
         }
@@ -149,6 +155,8 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
         if ($scope.dogsOk) {
             query.dogsOk = $scope.dogsOk;
         }
+
+
         $searchService.searchProperty(query, function(err, status, data) {
             if (!err) {
                 $scope.properties = data;
@@ -176,12 +184,16 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
     };
     $scope.goToProperty = function(propertyId) {
         var query = {}
-        query.propertyId = propertyId; 
-        sendPropertyService.setData(query); 
+        query.propertyId = propertyId;
+        sendPropertyService.setData(query);
         $state.go('property');
     }
 
     $scope.addToFavorites = function(propertyId) {
-        
+
     }
+
+    $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+    };
 });

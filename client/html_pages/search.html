@@ -32,6 +32,9 @@
                         <li>
                             <h3>Advanced Search</h3></li>
                         <br>
+                        <div>
+                            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+                        </div>
                         <li>
                             <div class="container">
                                 <div class="row" style="position:absolute;">
@@ -109,7 +112,6 @@
                                         <label class="checkbox-inline">
                                             <input type="checkbox" value="dogsOk" ng-model="dogsOk" ng-click="change()"> Dogs</label>
                                     </div>
-                                   
                                 </div>
                             </div>
                         </li>
