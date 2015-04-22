@@ -66,7 +66,7 @@ app.controller('HomeController', ['$scope', '$userService', '$sessionService', '
 }]);
 
 
-app.controller('LandlordDashboardController', ['$scope', '$location', '$state', '$sessionService', '$propertyService', function($scope, $location, $state, $sessionService, $propertyService) {
+app.controller('LandlordDashboardController', ['$scope', '$location', '$state', '$sessionService', '$propertyService', '$userService', function($scope, $location, $state, $sessionService, $propertyService, $userService) {
     $scope.alert = "";
     $scope.rating = "N/A";
 
@@ -79,6 +79,15 @@ app.controller('LandlordDashboardController', ['$scope', '$location', '$state', 
             inputUsername = user;
             $scope.showHomePage = true;
 
+            $userService.retrieveUser({
+                username: inputUsername
+            }, function(err, status, data) {
+                if (!err) {
+                    $scope.user = data; 
+                } else {
+                    $scope.alert("Error retrieving user");
+                }
+            });
             $propertyService.retrieveAllPropertyByUsername({
                 username: inputUsername
             }, function(err, status, data) {
