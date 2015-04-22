@@ -321,11 +321,11 @@
      });
  }
 
- search.prototype.searchByKeywords = function(req, res) {
+ search.prototype.searchByKeyword = function(req, res) {
     // simple search bar
     // http://localhost:8080/search/keyword
 
-    var query = req.body.keywords;
+    var query = req.body.keyword;
     var bedroomSearch = (new RegExp('bed')).test(query);
     var bathroomSearch = (new RegExp('bath')).test(query);
     var apartmentSearch  =(new RegExp('apartment')).test(query);

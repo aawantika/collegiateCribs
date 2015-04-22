@@ -145,7 +145,7 @@ module.exports = function() {
     });
 
     router.post('/search/keyword', function(req, res) {
-        search.searchByKeywords(req, res);
+        search.searchByKeyword(req, res);
     });
 
     return router;
