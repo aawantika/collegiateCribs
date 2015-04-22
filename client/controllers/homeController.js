@@ -79,7 +79,9 @@ app.controller('LandlordDashboardController', ['$scope', '$location', '$state', 
             inputUsername = user;
             $scope.showHomePage = true;
 
-            $propertyService.retrieveAllPropertyByUsername({username: inputUsername}, function(err, status, data) {
+            $propertyService.retrieveAllPropertyByUsername({
+                username: inputUsername
+            }, function(err, status, data) {
                 if (!err) {
                     console.log(data);
                     $scope.properties = data;
@@ -138,16 +140,16 @@ app.controller('StudentDashboardController', function($scope, $state, $sessionSe
     // $sessionService.isLoggedIn(function(err, user) {
     //     if (user !== '0') {
     //         inputUsername = user;
-    //         $userService.getFavoriteProperties({
-    //             username: inputUsername,
-    //         }, function(err, status, data) {
-    //             if (!err) {
-    //                 console.log(data);
-    //                 $scope.favorites = data;
-    //             } else if (err) {
-    //                 $scope.alert("Error retrieving user");
-    //             }
-    //         });
+    // $userService.getFavoriteProperties({
+    //     username: inputUsername,
+    // }, function(err, status, data) {
+    //     if (!err) {
+    //         console.log(data);
+    //         $scope.favorites = data;
+    //     } else if (err) {
+    //         $scope.alert("Error retrieving user");
+    //     }
+    // });
     //     } else {
     //         $location.url('/login');
     //     }
@@ -157,12 +159,24 @@ app.controller('StudentDashboardController', function($scope, $state, $sessionSe
             inputUsername = user;
             $scope.showHomePage = true;
 
-            $propertyService.retrieveAllPropertyByUsername({username: inputUsername}, function(err, status, data) {
-                if (!err) {
+            $propertyService.retrieveAllPropertyByUsername({
+                username: inputUsername
+            }, function(err, status, data) {
+                if (!err && data.length > 0) {
                     console.log(data);
                     $scope.subleases = data;
-                } else {
+                } else if (err) {
                     $scope.alert("error retrieving properties");
+                }
+            });
+            $userService.getFavoriteProperties({
+                username: inputUsername,
+            }, function(err, status, data) {
+                if (!err) {
+                    console.log(data);
+                    $scope.favorites = data;
+                } else if (err) {
+                    $scope.alert("Error retrieving user");
                 }
             });
         } else {
