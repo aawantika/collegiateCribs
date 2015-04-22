@@ -63,7 +63,7 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
                     if (data.campus == 'gt') {
                         $scope.campus = $scope.campuses[0];
                         if (dataService.queried == true) {
-                            query = {}
+                            query = {};
                         } else if (dataService.queried == false) {
                             query = dataService.getData();
                             $scope.bathrooms = $scope.bathroomOptions[query.bathrooms-1];

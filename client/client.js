@@ -15,7 +15,8 @@ var app = angular.module("app", [
     'sessionService',
     'propertyService',
     'searchService',
-    'miscServices'
+    'miscServices',
+    'ratingReviewService'
 ]);
 
 

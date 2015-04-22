@@ -12,9 +12,6 @@ app.controller('StartController', ['$scope', '$location', '$state', function($sc
         $state.go('start.signup');
     };
 
-    $scope.menuSearchEnter = function() {
-        $state.go('home.search');
-    }
 }]);
 
 app.controller('LoginController', ['$scope', '$userService', '$sessionService', '$propertyService', '$location', '$state', function($scope, $userService, $sessionService, $propertyService, $location, $state) {
@@ -60,7 +57,7 @@ app.controller('LoginController', ['$scope', '$userService', '$sessionService', 
         });
 
         $scope.loginButton = function() {
-             $scope.submitted = true;
+            $scope.submitted = true;
             var login = {
                 "username": $scope.username,
                 "password": $scope.password,

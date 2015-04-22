@@ -1,6 +1,6 @@
 var app = angular.module("homeController", ['miscServices']);
 
-app.controller('HomeController', ['$scope', '$userService', '$sessionService', '$propertyService', '$location', '$state', function($scope, $userService, $sessionService, $propertyService, $location, $state) {
+app.controller('HomeController', ['$scope', '$userService', '$sessionService', '$propertyService', '$searchService','$location', '$state', function($scope, $searchService, $userService, $sessionService, $propertyService, $location, $state) {
     $scope.alert = "";
     $scope.showPage = false;
     var inputUsername;
@@ -41,12 +41,16 @@ app.controller('HomeController', ['$scope', '$userService', '$sessionService', '
 
     $scope.menuSearchEnter = function() {
         console.log('change to search');
-        $state.go('search');
+
+        $searchService.retrieveAllPropertyByUsername(landlord, function(err, status, data) {
+            if (!err) {
+                $state.go('search');
+            } else {
+                $scope.alert("error retrieving properties");
+            }
+        });
     }
-    $scope.toSearch = function() {
-        console.log('off to search');
-        $state.go('search');
-    }
+
     $scope.logoutButton = function() {
         $sessionService.logout(function(err, status, data) {
             if (!err) {
@@ -139,7 +143,6 @@ app.controller('StudentDashboardController', function($scope, $state, dataServic
     };
 
     $scope.addSublease = function() {
-        $state.go("home.addProperty"); 
+        $state.go("home.addProperty");
     }
 });
-
