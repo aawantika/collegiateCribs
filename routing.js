@@ -71,6 +71,9 @@ module.exports = function() {
         user.deleteFavoriteProperty(req, res);
     });
 
+    router.post('/user/favorites/check', function(req, res) {
+        user.isFavorited(req, res);
+    });
 
     /**
      * property routing
@@ -99,33 +102,33 @@ module.exports = function() {
     /**
      * rating/review routing
      */
-     router.post('/property/rating/create', function(req, res) {
-         propertyRating.createRating(req, res);
-     });
+    router.post('/property/rating/create', function(req, res) {
+        propertyRating.createRating(req, res);
+    });
 
-     router.post('/property/rating/retrieve', function(req, res) {
-         propertyRating.retrieveRating(req, res);
-     });
+    router.post('/property/rating/retrieve', function(req, res) {
+        propertyRating.retrieveRating(req, res);
+    });
 
-     router.post('/property/review/retrieve', function(req, res) {
-         propertyRating.retrieveReviews(req, res);
-     });
+    router.post('/property/review/retrieve', function(req, res) {
+        propertyRating.retrieveReviews(req, res);
+    });
 
-     router.post('/property/rating/update', function(req, res) {
-         propertyRating.updateRating(req, res);
-     });
+    router.post('/property/rating/update', function(req, res) {
+        propertyRating.updateRating(req, res);
+    });
 
-     router.post('/property/review/update', function(req, res) {
-         propertyRating.updateReview(req, res);
-     });
+    router.post('/property/review/update', function(req, res) {
+        propertyRating.updateReview(req, res);
+    });
 
-     router.post('/property/rating/delete', function(req, res) {
-         propertyRating.deleteRating(req, res);
-     });
+    router.post('/property/rating/delete', function(req, res) {
+        propertyRating.deleteRating(req, res);
+    });
 
-     router.post('/property/review/delete', function(req, res) {
-         propertyRating.deleteReview(req, res);
-     });
+    router.post('/property/review/delete', function(req, res) {
+        propertyRating.deleteReview(req, res);
+    });
 
 
     /**

@@ -5,7 +5,7 @@
             <h3 class="text-center">Simple Search</h3>
             <table style="margin:5px auto 10px">
                 <tr>
-                    <td>
+                    <td style="padding-right:10px">
                         <div class="form-group">
                             <label for="numBedrooms">Bedrooms</label>
                             <select ng-model="bedrooms" ng-options="value.id as value.label group by value.group for value in bedroomOptions" class="form-control">
@@ -13,7 +13,7 @@
                             </select>
                         </div>
                     </td>
-                    <td>
+                    <td style="padding-right:10px">
                         <div class="form-group">
                             <label for="numBathrooms">Bathrooms</label>
                             <select ng-model="bathrooms" ng-options="value.id as value.label group by value.group for value in bathroomOptions" class="form-control">
@@ -21,18 +21,16 @@
                             </select>
                         </div>
                     </td>
-                    <td>
+                    <td style="padding-right:10px">
                         <div class="input-group">
                             <div class="input-group-addon">From</div>
                             <input type="text" class="form-control" id="minprice" placeholder="$0" ng-model="minPrice">
-                            <div class="input-group-addon">.00</div>
                         </div>
                     </td>
-                    <td>
+                    <td style="padding-right:10px">
                         <div class="input-group">
                             <div class="input-group-addon">To</div>
                             <input type="text" class="form-control" id="maxPrice" placeholder="$$$$" ng-model="maxPrice">
-                            <div class="input-group-addon">.00</div>
                         </div>
                     </td>
                     <td>
@@ -42,8 +40,6 @@
             </table>
         </form>
         <hr>
-        <!--recent activity: pull data from server into scope with the controller.
-            Will probably need to do an ng-repeat to go through a list of stuff.-->
         <div class="col-md-4">
             <header>
                 <h3>Favorite Properties</h3>
@@ -60,7 +56,7 @@
                 </div>
             </div>
         </div>\
-        <div class="col-md-7">
+        <div class="col-md-7" style="border-left: 1px solid #cdd0d4;">
             <header>
                 <h3>My Subleases</h3>
             </header>
