@@ -134,7 +134,7 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
                 $scope.alerts.push({
                     msg: 'Please select a campus'
                 });
-                // $scope.alert("Please choose a campus."); 
+
             }
         }
         if ($scope.minPrice) {
@@ -188,9 +188,32 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
         sendPropertyService.setData(query);
         $state.go('property');
     }
-
+    $scope.favoriteButtonLabel = "Add to Favorites";
     $scope.addToFavorites = function(propertyId) {
+<<<<<<< HEAD
+        $sessionService.isLoggedIn(function(err, user) {
+            if (user !== '0') {
+                inputUsername = user;
+                propId = propertyId;
+                console.log(inputUsername);
+                console.log(propId); 
+                $userService.addFavoriteProperty({
+                    username: inputUsername,
+                    propertyId: propId
+                }, function(err, status, data) {
+                    if (!err) {
+                        $scope.favoriteButtonLabel = "Favorited";
+                    } else if (err) {
+                        $scope.alert("Error retrieving user");
+                    }
+                });
+            } else {
+                $location.url('/login');
+            }
+        });
+=======
 
+>>>>>>> 81fd4ea608781965239881ab33fd70f44eda2f8f
     }
 
     $scope.closeAlert = function(index) {
