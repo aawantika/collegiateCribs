@@ -1,12 +1,12 @@
 <div>
 
     <body>
-        <form class="form-inline table" id="simpleSearch" ng-submit="simpleSearch()" method="post">
-            <table style="margin-bottom:10px">
+        <form class="form-inline" id="simpleSearch" ng-submit="simpleSearch()" method="post">
+            <table style="margin:5px auto 10px">
                 <tr>
                     <td>
-                        <label>
-                            <h4>Simple Search:</h4></label>
+                        <label style="margin-right:5px">
+                            <h4>Simple Search: </h4></label>
                     </td>
                     <td>
                         <div class="form-group">
@@ -51,12 +51,7 @@
             <header>
                 <h3>Favorite Properties</h3>
             </header>
-            <div class="box">
-                <div class="row">
-                    <div class="col-xs-12">
-                        No favorite leases? Try searching for some today!
-                    </div>
-                </div>
+            <div class="content">
                 <div ng-repeat="property in favorites" class="row">
                     <div class="col-xs-3">
                         property Image Here:{{property.imgUrl}}
