@@ -66,7 +66,7 @@ app.controller('HomeController', ['$scope', '$userService', '$sessionService', '
 }]);
 
 
-app.controller('LandlordDashboardController', ['$scope', '$location', '$state', '$propertyService', function($scope, $location, $state, $propertyService) {
+app.controller('LandlordDashboardController', ['$scope', '$location', '$state', '$sessionService', '$propertyService', function($scope, $location, $state, $sessionService, $propertyService) {
     $scope.alert = "";
     $scope.rating = "N/A";
 
@@ -74,7 +74,23 @@ app.controller('LandlordDashboardController', ['$scope', '$location', '$state', 
         console.log("change to Add Property");
         $state.go('home.addProperty');
     };
+    $sessionService.isLoggedIn(function(err, user) {
+        if (user !== '0') {
+            inputUsername = user;
+            $scope.showHomePage = true;
 
+            $propertyService.retrieveAllPropertyByUsername({username: inputUsername}, function(err, status, data) {
+                if (!err) {
+                    console.log(data);
+                    $scope.properties = data;
+                } else {
+                    $scope.alert("error retrieving properties");
+                }
+            });
+        } else {
+            $location.url('/login');
+        }
+    });
     $propertyService.retrieveAllPropertyByUsername(landlord, function(err, status, data) {
         if (!err) {
             console.log(data);
@@ -87,7 +103,7 @@ app.controller('LandlordDashboardController', ['$scope', '$location', '$state', 
 
 
 
-app.controller('StudentDashboardController', function($scope, $state, dataService) {
+app.controller('StudentDashboardController', function($scope, $state, $sessionService, $userService, $propertyService, dataService) {
     $scope.alert = "";
     $scope.bedroomOptions = [{
         "id": "1",
@@ -127,6 +143,40 @@ app.controller('StudentDashboardController', function($scope, $state, dataServic
         "id": "6",
         "label": "6+"
     }];
+    // $sessionService.isLoggedIn(function(err, user) {
+    //     if (user !== '0') {
+    //         inputUsername = user;
+    //         $userService.getFavoriteProperties({
+    //             username: inputUsername,
+    //         }, function(err, status, data) {
+    //             if (!err) {
+    //                 console.log(data);
+    //                 $scope.favorites = data;
+    //             } else if (err) {
+    //                 $scope.alert("Error retrieving user");
+    //             }
+    //         });
+    //     } else {
+    //         $location.url('/login');
+    //     }
+    // });
+    $sessionService.isLoggedIn(function(err, user) {
+        if (user !== '0') {
+            inputUsername = user;
+            $scope.showHomePage = true;
+
+            $propertyService.retrieveAllPropertyByUsername({username: inputUsername}, function(err, status, data) {
+                if (!err) {
+                    console.log(data);
+                    $scope.subleases = data;
+                } else {
+                    $scope.alert("error retrieving properties");
+                }
+            });
+        } else {
+            $location.url('/login');
+        }
+    });
     $scope.simpleSearch = function() {
         var query = {}
 
