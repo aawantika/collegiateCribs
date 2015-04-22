@@ -1,3 +1,5 @@
+ 'use strict'
+
  /**
   * Dependencies
   */
@@ -308,7 +310,6 @@
  }
 
  search.prototype.getAvailableProperties = function(req, res) {
-
      propertyModel.find({
          availability: true
      }, function(err, result) {
@@ -322,86 +323,86 @@
  }
 
  search.prototype.searchByKeyword = function(req, res) {
-    // simple search bar
-    // http://localhost:8080/search/keyword
+     // simple search bar
+     // http://localhost:8080/search/keyword
 
-    var query = req.body.keyword;
-    var bedroomSearch = (new RegExp('bed')).test(query);
-    var bathroomSearch = (new RegExp('bath')).test(query);
-    var apartmentSearch  =(new RegExp('apartment')).test(query);
-    var condoSearch = (new RegExp('condo')).test(query);
-    var townhomeSearch = (new RegExp('town')).test(query);
-    var houseSearch = (new RegExp('house')).test(query);
+     var query = req.body.keyword;
+     var bedroomSearch = (new RegExp('bed')).test(query);
+     var bathroomSearch = (new RegExp('bath')).test(query);
+     var apartmentSearch = (new RegExp('apartment')).test(query);
+     var condoSearch = (new RegExp('condo')).test(query);
+     var townhomeSearch = (new RegExp('town')).test(query);
+     var houseSearch = (new RegExp('house')).test(query);
 
-    if (bedroomSearch) {
-        number = query.match(/\d+/)[0];
-        propertyModel.find({
-            bedrooms: number
-        }, function(err, result) {
-            if (err) {
-                console.log(err);
-                res.status(400).send(err);
-            } else {
-                res.status(200).send(result);
-            }
-        });
-    } else if (bathroomSearch) {
-        number = query.match(/\d+/)[0];
-        propertyModel.find({
-            bathrooms: number
-        }, function(err, result) {
-            if (err) {
-                console.log(err);
-                res.status(400).send(err);
-            } else {
-                res.status(200).send(result);
-            }
-        });
-    } else if (apartmentSearch) {
-        propertyModel.find({
-            housingType: "apartment"
-        }, function(err, result) {
-            if (err) {
-                console.log(err);
-                res.status(400).send(err);
-            } else {
-                res.status(200).send(result);
-            }
-        });
-    } else if (condoSearch) {
-        propertyModel.find({
-            housingType: "condo"
-        }, function(err, result) {
-            if (err) {
-                console.log(err);
-                res.status(400).send(err);
-            } else {
-                res.status(200).send(result);
-            }
-        });
-    } else if (townhomeSearch) {
-        propertyModel.find({
-            housingType: "townhome"
-        }, function(err, result) {
-            if (err) {
-                console.log(err);
-                res.status(400).send(err);
-            } else {
-                res.status(200).send(result);
-            }
-        });
-    } else if (houseSearch) {
-        propertyModel.find({
-            housingType: "house"
-        }, function(err, result) {
-            if (err) {
-                console.log(err);
-                res.status(400).send(err);
-            } else {
-                res.status(200).send(result);
-            }
-        });
-    }
+     if (bedroomSearch) {
+         number = query.match(/\d+/)[0];
+         propertyModel.find({
+             bedrooms: number
+         }, function(err, result) {
+             if (err) {
+                 console.log(err);
+                 res.status(400).send(err);
+             } else {
+                 res.status(200).send(result);
+             }
+         });
+     } else if (bathroomSearch) {
+         number = query.match(/\d+/)[0];
+         propertyModel.find({
+             bathrooms: number
+         }, function(err, result) {
+             if (err) {
+                 console.log(err);
+                 res.status(400).send(err);
+             } else {
+                 res.status(200).send(result);
+             }
+         });
+     } else if (apartmentSearch) {
+         propertyModel.find({
+             housingType: "apartment"
+         }, function(err, result) {
+             if (err) {
+                 console.log(err);
+                 res.status(400).send(err);
+             } else {
+                 res.status(200).send(result);
+             }
+         });
+     } else if (condoSearch) {
+         propertyModel.find({
+             housingType: "condo"
+         }, function(err, result) {
+             if (err) {
+                 console.log(err);
+                 res.status(400).send(err);
+             } else {
+                 res.status(200).send(result);
+             }
+         });
+     } else if (townhomeSearch) {
+         propertyModel.find({
+             housingType: "townhome"
+         }, function(err, result) {
+             if (err) {
+                 console.log(err);
+                 res.status(400).send(err);
+             } else {
+                 res.status(200).send(result);
+             }
+         });
+     } else if (houseSearch) {
+         propertyModel.find({
+             housingType: "house"
+         }, function(err, result) {
+             if (err) {
+                 console.log(err);
+                 res.status(400).send(err);
+             } else {
+                 res.status(200).send(result);
+             }
+         });
+     }
 
  }
 

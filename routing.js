@@ -103,11 +103,11 @@ module.exports = function() {
          propertyRating.createRating(req, res);
      });
 
-     router.post('/property/retrieve/rating', function(req, res) {
+     router.post('/property/rating/retrieve', function(req, res) {
          propertyRating.retrieveRating(req, res);
      });
 
-     router.post('/property/retrieve/reviews', function(req, res) {
+     router.post('/property/review/retrieve', function(req, res) {
          propertyRating.retrieveReviews(req, res);
      });
 
