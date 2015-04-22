@@ -233,7 +233,13 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
                     propertyId: propId
                 }, function(err, status, data) {
                     if (!err) {
-                        $scope.property.favoriteButtonLabel = "Favorited";
+                        for(var i=0; i<$scope.properties.length; i++){
+                           if($scope.properties[i].propertyId===propId){
+                                $scope.properties[i].favoriteButtonLabel="Favorited";
+                                break;
+                           }
+                        }
+                        //$scope.property.favoriteButtonLabel = "Favorited";
                     } else if (err) {
                         $scope.alert("Error retrieving user");
                     }
