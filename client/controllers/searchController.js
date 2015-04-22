@@ -89,12 +89,29 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
     });
 
 
+
     $searchService.searchProperty(query, function(err, status, data) {
+        var properties
         if (!err) {
-            console.log(data);
-            $scope.properties = data;
+            properties = data;
+            for (var i = 0; i < properties.length; i++) {
+                console.log(i);
+                $userService.isFavorited({
+                    username: user,
+                    propertyId: properties[i].propertyId
+                }, function(err, status, data) {
+                    if (data == true) {
+                        properties[i].favoriteButtonLabel = "Favorited";
+                    } else if (data == false) {
+                        properties[i].favoriteButtonLabel = "Add to Favorites";
+                    } else if (err) {
+                        console.log("error");
+                    }
+                });
+            }
+            $scope.properties = properties;
         } else {
-            console.log("error retrieving properties");
+            // $scope.alert("error retrieving properties");
         }
     });
 
@@ -158,9 +175,25 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
 
 
         $searchService.searchProperty(query, function(err, status, data) {
+            var properties
             if (!err) {
-                $scope.properties = data;
-                console.log($scope.properties);
+                properties = data;
+                for (var i = 0; i < properties.length; i++) {
+                    console.log(i);
+                    $userService.isFavorited({
+                        username: user,
+                        propertyId: properties[i].propertyId
+                    }, function(err, status, data) {
+                        if (data == true) {
+                            properties[i].favoriteButtonLabel = "Favorited";
+                        } else if (data == false) {
+                            properties[i].favoriteButtonLabel = "Add to Favorites";
+                        } else if (err) {
+                            console.log("error");
+                        }
+                    });
+                }
+                $scope.properties = properties;
             } else {
                 // $scope.alert("error retrieving properties");
             }
@@ -183,25 +216,25 @@ app.controller('SearchController', function($scope, $location, $state, $sessionS
         });
     };
     $scope.goToProperty = function(propertyId) {
-        var query = {}
-        query.propertyId = propertyId;
-        sendPropertyService.setData(query);
-        $state.go('property');
-    }
-    $scope.favoriteButtonLabel = "Add to Favorites";
+            var query = {}
+            query.propertyId = propertyId;
+            sendPropertyService.setData(query);
+            $state.go('property');
+        }
+        //$scope.property.favoriteButtonLabel = "Add to Favorites";
     $scope.addToFavorites = function(propertyId) {
         $sessionService.isLoggedIn(function(err, user) {
             if (user !== '0') {
                 inputUsername = user;
                 propId = propertyId;
                 console.log(inputUsername);
-                console.log(propId); 
+                console.log(propId);
                 $userService.addFavoriteProperty({
                     username: inputUsername,
                     propertyId: propId
                 }, function(err, status, data) {
                     if (!err) {
-                        $scope.favoriteButtonLabel = "Favorited";
+                        $scope.property.favoriteButtonLabel = "Favorited";
                     } else if (err) {
                         $scope.alert("Error retrieving user");
                     }
