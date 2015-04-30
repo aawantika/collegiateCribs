@@ -1,8 +1,9 @@
 var app = angular.module("propertyController", []);
 
-app.controller('PropertyController', function($scope, $location, $state, $sessionService, $searchService, $propertyService, $userService, dataService, sendPropertyService) {
+app.controller('PropertyController', function($scope, $location, $state, $sessionService, $searchService, $propertyService, $userService, $ratingReviewService, dataService, sendPropertyService) {
     $scope.alert = "";
     var propertyData = sendPropertyService.getData();
+    var inputUsername;
 
     $sessionService.isLoggedIn(function(err, user) {
         if (user !== '0') {
@@ -39,6 +40,27 @@ app.controller('PropertyController', function($scope, $location, $state, $sessio
         }
     });
 
+    var getReviews = {
+        username: inputUsername,
+        propertyId: propertyData.propertyId
+    };
+
+    $ratingReviewService.retrieveReviews(getReviews, function(err, status, data) {
+        if (!err) {
+            $scope.reviews = data;
+        } else {
+            console.log("error with adding new rating review");
+        }
+    });
+
+    $ratingReviewService.retrieveRating(getReviews, function(err, status, data) {
+        if (!err) {
+            $scope.currentRating = data.averageRating;
+        } else {
+            console.log("error with adding new rating review");
+        }
+    });
+
     $scope.currReadOnly = true;
     $scope.rateReadOnly = false;
 
@@ -48,8 +70,120 @@ app.controller('PropertyController', function($scope, $location, $state, $sessio
     };
 
     $scope.submitReviewRating = function() {
+        if ($scope.newRating && $scope.review) {
+            var review = {
+                username: inputUsername,
+                propertyId: propertyData.propertyId,
+                rating: $scope.newRating,
+                review: $scope.review
+            };
+
+            $ratingReviewService.createRatingReview(review, function(err, status, data) {
+                if (!err) {
+                    console.log("added");
+                    var getReviews = {
+                        username: inputUsername,
+                        propertyId: propertyData.propertyId
+                    };
+
+                    $ratingReviewService.retrieveReviews(getReviews, function(err, status, data) {
+                        if (!err) {
+                            $scope.reviews = data;
+                            $ratingReviewService.retrieveRating(getReviews, function(err, status, data) {
+                                if (!err) {
+                                    $scope.currentRating = data.averageRating;
+                                } else {
+                                    console.log("error with adding new rating review");
+                                }
+                            });
+                        } else {
+                            console.log("error with adding new rating review");
+                        }
+                    });
+
+                } else {
+                    console.log("error with adding new rating review");
+                }
+            });
+        } else if ($scope.review) {
+            var review = {
+                username: inputUsername,
+                propertyId: propertyData.propertyId,
+                review: $scope.review
+            };
+
+            $ratingReviewService.createRatingReview(review, function(err, status, data) {
+                if (!err) {
+                    console.log("added");
+                    var getReviews = {
+                        username: inputUsername,
+                        propertyId: propertyData.propertyId
+                    };
+
+                    $ratingReviewService.retrieveReviews(getReviews, function(err, status, data) {
+                        if (!err) {
+                            $scope.reviews = data;
+                            $ratingReviewService.retrieveRating(getReviews, function(err, status, data) {
+                                if (!err) {
+                                    $scope.currentRating = data.averageRating;
+                                } else {
+                                    console.log("error with adding new rating review");
+                                }
+                            });
+                        } else {
+                            console.log("error with adding new rating review");
+                        }
+                    });
+
+                } else {
+                    console.log("error with adding new rating review");
+                }
+            });
+        } else if ($scope.newRating) {
+            var rating = {
+                username: inputUsername,
+                propertyId: propertyData.propertyId,
+                rating: $scope.newRating
+            };
+
+            console.log(rating)
+
+            $ratingReviewService.createRatingReview(rating, function(err, status, data) {
+                if (!err) {
+                    console.log("added");
+                    var getReviews = {
+                        username: inputUsername,
+                        propertyId: propertyData.propertyId
+                    };
+
+                    $ratingReviewService.retrieveRating(getReviews, function(err, status, data) {
+                        if (!err) {
+                            $scope.currentRating = data.averageRating;
+
+                            $ratingReviewService.retrieveReviews(getReviews, function(err, status, data) {
+                                if (!err) {
+                                    $scope.reviews = data;
+                                    console.log($scope.reviews[0].review);
+                                    console.log($scope.reviews[0].username);
+                                    console.log("added");
+                                } else {
+                                    console.log("error with adding new rating review");
+                                }
+                            });
+                        } else {
+                            console.log("error with adding new rating review");
+                        }
+                    });
+
+                } else {
+                    console.log("error with adding new rating review");
+                }
+            });
+        }
+        console.log($scope.newRating);
+        console.log($scope.review);
         console.log($scope);
-        
+
     }
 
     $scope.menuSearchEnter = function() {

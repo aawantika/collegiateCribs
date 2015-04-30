@@ -87,11 +87,21 @@
         <br>
         <br>
         <!-- FIX THIS AREA ANDREW !-->
-        <div class="panel panel-default" ng-repeat="property in properties track by $index">
-            <div class="panel-heading" ng-click="goToProperty(property.propertyId)">
-                <h3 class="panel-title">Current Reviews: </h3>
-            </div>
+        <div class="panel panel-default" ng-repeat="review in reviews track by $index">
             <div class="panel-body">
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <p>Username: {{review.username}}</p>
+                        </td>
+                        <td>
+                            <p>Review: {{review.review}}</p>
+                        </td>
+                       <!--  <td>
+                            <p>Rating: {{review.rating}}</p>
+                        </td> -->
+                    </tr>
+                </table>
             </div>
         </div>
         <!-- END !-->

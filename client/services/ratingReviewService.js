@@ -33,7 +33,7 @@ ratingReview.service('$ratingReviewService', ['$http', function($http) {
     this.retrieveReviews = function(json, callback) {
         var req = {
             method: "POST",
-            url: "http://localhost:8080/property/retrieve/reviews",
+            url: "http://localhost:8080/property/review/retrieve",
             data: json
         }
 
